@@ -1,6 +1,7 @@
-;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; Coding:utf-8 -*-
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
+;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
 
-(cl:defpackage #:cl-data-frame-tests
+(cl:defpackage #:data-frame-tests
   (:use
    #:cl
    #:alexandria
@@ -8,11 +9,11 @@
    #:clunit
    #:let-plus
    #:cl-slice
-   #:cl-data-frame)
+   #:data-frame)
   (:import-from #:clnu #:as-alist #:as-plist)
   (:export #:run))
 
-(cl:in-package #:cl-data-frame-tests)
+(cl:in-package #:data-frame-tests)
 
 (defsuite data-frame ())
 
