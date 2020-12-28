@@ -291,7 +291,7 @@ TABLE maps keys to indexes, starting from zero."
 
 (defmethod aops:as-array ((data-frame data-frame))
   ;; Return contents of DATA-FRAME as a matrix.
-  (clnu:transpose (aops:combine (columns data-frame))))
+  (nu:transpose (aops:combine (columns data-frame))))
 
 (defmethod check-column-compatibility ((data data-frame) column)
   (assert (= (column-length column) (aops:nrow data))))
@@ -313,7 +313,7 @@ TABLE maps keys to indexes, starting from zero."
 
 (defun matrix-df (keys matrix)
   "Convert a matrix to a data-frame with the given keys."
-  (let+ ((columns (aops:split (clnu:transpose matrix) 1)))
+  (let+ ((columns (aops:split (nu:transpose matrix) 1)))
     (assert (length= columns keys))
     (alist-df (map 'list #'cons keys columns))))
 

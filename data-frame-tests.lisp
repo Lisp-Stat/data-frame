@@ -10,7 +10,7 @@
    #:let-plus
    #:cl-slice
    #:data-frame)
-  (:import-from #:clnu #:as-alist #:as-plist)
+  (:import-from #:nu #:as-alist #:as-plist)
   (:export #:run))
 
 (cl:in-package #:data-frame-tests)

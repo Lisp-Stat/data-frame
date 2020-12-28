@@ -9,7 +9,7 @@
   (:export
    #:column-length
    #:column-summary)
-  (:import-from #:clnu
+  (:import-from #:nu
                 #:as-alist))
 
 (uiop:define-package #:data-frame
@@ -22,7 +22,7 @@
    #:data-frame.column
    #:cl-slice
    #:cl-slice-dev)
-  (:import-from #:clnu #:as-alist)
+  (:import-from #:nu #:as-alist)
   (:export
    ;; error messages for ordered keys
    #:duplicate-key

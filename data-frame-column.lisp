@@ -53,15 +53,15 @@
     (make-bit-vector-summary :length (length column) :count (count 1 column)))
   (:method ((column vector))
     (let+ ((length (length column))
-           (table (aprog1 (clnu:make-sparse-counter :test #'equal)
-                    (map nil (curry #'clnu:add it) column)))
+           (table (aprog1 (nu:make-sparse-counter :test #'equal)
+                    (map nil (curry #'nu:add it) column)))
            (alist (as-alist table))
            ((&flet real? (item) (realp (car item))))
            (reals-alist (remove-if (complement #'real?) alist))
            (quantiles (when (< *column-summary-quantiles-threshold*
                                (length reals-alist))
                         (let+ ((#(min q25 q50 q75 max)
-                                 (clnu:weighted-quantiles
+                                 (nu:weighted-quantiles
                                   (mapcar #'car reals-alist)
                                   (mapcar #'cdr reals-alist)
                                   #(0 1/4 1/2 3/4 1))))
