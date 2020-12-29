@@ -1,10 +1,7 @@
-#+CAPTION: Project Status: Abandoned – Initial development has started, but there has not yet been a stable, usable release; the project has been abandoned and the author(s) do not intend on continuing development.
-[[http://www.repostatus.org/badges/latest/abandoned.svg]]
-
 * Data frames for Common Lisp
 
 /I need to write this, for now just look at the unit tests which have plenty of examples./
 
 * Reporting bugs
 
-Please report bugs using the [[https://github.com/tpapp/cl-data-frame/issues][issue tracker]].
+Please report bugs using the issue tracker.

@@ -8,7 +8,7 @@
    #:anaphora
    #:clunit
    #:let-plus
-   #:cl-slice
+   #:select
    #:data-frame)
   (:import-from #:nu #:as-alist #:as-plist)
   (:export #:run))
@@ -28,8 +28,8 @@
     (assert-equalp #(1 2 3) (columns dv))
     (assert-equalp #(:a :b :c) (keys dv))
     (assert-equalp '((:a . 1) (:b . 2) (:c . 3)) (as-alist dv))
-    (assert-equalp '(:a 1 :b 2) (as-plist (slice dv #(:a :b))))
-    (assert-equalp 3 (slice dv :c))
+    (assert-equalp '(:a 1 :b 2) (as-plist (select dv #(:a :b))))
+    (assert-equalp 3 (select dv :c))
     (let ((dv2 (map-columns dv #'1+)))
       (assert-equalp '(:a 2 :b 3 :c 4) (as-plist dv2))
       (assert-true (typep dv2 'data-vector)))))
@@ -58,17 +58,17 @@
     (assert-equalp (as-alist df) (as-alist df-plist))
     (assert-equalp (as-alist df) (as-alist df-alist))))
 
-(deftest data-frame-slice (data-frame-basics)
+(deftest data-frame-select (data-frame-basics)
   (let ((df (df :vector v :symbols s)))
-    (assert-equalp `(:vector ,v) (as-plist (slice df t #(:vector))))
-    (assert-equalp `(:vector ,(slice v b)) (as-plist (slice df b #(0))))
-    (assert-equalp (slice v b) (slice df b :vector))
-    (assert-equalp '(:vector 3 :symbols c) (as-plist (slice df 2 t)))
+    (assert-equalp `(:vector ,v) (as-plist (select df t #(:vector))))
+    (assert-equalp `(:vector ,(select v b)) (as-plist (select df b #(0))))
+    (assert-equalp (select v b) (select df b :vector))
+    (assert-equalp '(:vector 3 :symbols c) (as-plist (select df 2 t)))
     (assert-equalp `(:vector #(2 4)) (as-plist
-                                      (slice df
+                                      (select df
                                              (mask-rows df :vector #'evenp)
                                              #(:vector))))
-    (assert-equalp #(2 4) (slice df (mask-rows df :vector #'evenp) :vector))))
+    (assert-equalp #(2 4) (select df (mask-rows df :vector #'evenp) :vector))))
 
 (deftest data-frame-map (data-frame-basics)
   (let+ ((df (df :a #(2 3 5)

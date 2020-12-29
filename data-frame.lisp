@@ -73,20 +73,20 @@ TABLE maps keys to indexes, starting from zero."
   (aprog1 (copy-ordered-keys ordered-keys)
     (mapc (curry #'add-key! it) keys)))
 
-;;; implementation of SLICE for ORDERED-KEYS
+;;; implementation of SELECT for ORDERED-KEYS
 
 (defmethod axis-dimension ((axis ordered-keys))
   (hash-table-count (ordered-keys-table axis)))
 
 (defmethod canonical-representation ((axis ordered-keys) (slice symbol))
-  (if (slice-reserved-symbol? slice)
+  (if (select-reserved-symbol? slice)
       (call-next-method)
       (key-index axis slice)))
 
-(defmethod slice ((ordered-keys ordered-keys) &rest slices)
-  (let+ (((slice) slices))
+(defmethod select ((ordered-keys ordered-keys) &rest selections)
+  (let+ (((slice) selections))
     (ordered-keys
-     (slice (keys-vector ordered-keys)
+     (select (keys-vector ordered-keys)
             (canonical-representation ordered-keys slice)))))
 
 
@@ -191,10 +191,10 @@ TABLE maps keys to indexes, starting from zero."
     (setf (aref columns (key-index ordered-keys key)) column)))
 
 (defun columns (data &optional (slice t))
-  "Return the columns as a vector, or a slice if given (keys are resolved)."
+  "Return the columns as a vector, or a selection if given (keys are resolved)."
   (check-type data data)
   (let+ (((&slots-r/o ordered-keys columns) data))
-    (slice columns (canonical-representation ordered-keys slice))))
+    (select columns (canonical-representation ordered-keys slice))))
 
 (defun map-columns (data function &optional (result-class (class-of data)))
   "Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys."
@@ -260,14 +260,14 @@ TABLE maps keys to indexes, starting from zero."
               (pprint-exit-if-list-exhausted)
               (princ "," stream))))))
 
-(defmethod slice ((data-vector data-vector) &rest slices)
+(defmethod select ((data-vector data-vector) &rest slices)
   (let+ (((column-slice) slices)
          ((&slots-r/o ordered-keys columns) data-vector)
          (column-slice (canonical-representation ordered-keys column-slice)))
     (if (singleton-representation? column-slice)
         (aref columns column-slice)
-        (make-dv (slice ordered-keys column-slice)
-                 (slice columns column-slice)))))
+        (make-dv (select ordered-keys column-slice)
+                 (select columns column-slice)))))
 
 (define-data-subclass data-frame df)
 
@@ -317,25 +317,25 @@ TABLE maps keys to indexes, starting from zero."
     (assert (length= columns keys))
     (alist-df (map 'list #'cons keys columns))))
 
-;;; implementation of SLICE for DATA-FRAME
+;;; implementation of SELECT for DATA-FRAME
 
-(defmethod slice ((data-frame data-frame) &rest slices)
+(defmethod select ((data-frame data-frame) &rest slices)
   (let+ (((row-slice &optional (column-slice t)) slices)
          ((&slots-r/o ordered-keys columns) data-frame)
          (row-slice (canonical-representation (aops:nrow data-frame) row-slice))
          (column-slice (canonical-representation ordered-keys column-slice))
-         (columns (slice columns column-slice))
+         (columns (select columns column-slice))
          ((&flet slice-column (column)
-            (slice column row-slice))))
+            (select column row-slice))))
     (if (singleton-representation? column-slice)
         (slice-column columns)
-        (let ((keys (slice ordered-keys column-slice))
+        (let ((keys (select ordered-keys column-slice))
               (columns (map 'vector #'slice-column columns)))
           (if (singleton-representation? row-slice)
               (make-dv keys columns)
               (make-df keys columns))))))
 
-;;; TODO: (setf slice)
+;;; TODO: (setf selection)
 
 ;;; mapping rows and adding columns
 

@@ -12,7 +12,7 @@
                #:anaphora
                #:array-operations
                #:num-utils
-               #:cl-slice
+               #:select
                #:let-plus)
   :serial t
   :components ((:file "pkgdcl")

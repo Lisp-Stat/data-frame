@@ -20,8 +20,8 @@
    #:anaphora
    #:let-plus
    #:data-frame.column
-   #:cl-slice
-   #:cl-slice-dev)
+   #:select
+   #:select-dev)
   (:import-from #:nu #:as-alist)
   (:export
    ;; error messages for ordered keys
