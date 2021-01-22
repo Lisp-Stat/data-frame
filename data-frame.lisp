@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
 (cl:in-package #:data-frame)
 
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
@@ -73,8 +73,19 @@ TABLE maps keys to indexes, starting from zero."
   (aprog1 (copy-ordered-keys ordered-keys)
     (mapc (curry #'add-key! it) keys)))
 
-;;; implementation of SELECT for ORDERED-KEYS
+(defun substitute-key! (new old df) ; Keeping the current naming convention
+  "Substitute NEW key, a SYMBOL, for OLD in a data-frame.
 
+Useful when reading data files that have an empty first column name,
+where the CSV reader encodes the name as :||.
+
+Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name"
+  (setf (slot-value df 'df::ordered-keys) (df::ordered-keys (substitute new old (df::keys-vector (df::ordered-keys (df:keys df)))))))
+
+
+;;;
+;;; Implementation of SELECT for ORDERED-KEYS
+;;;
 (defmethod axis-dimension ((axis ordered-keys))
   (hash-table-count (ordered-keys-table axis)))
 
@@ -99,7 +110,7 @@ TABLE maps keys to indexes, starting from zero."
    (columns
     :initarg :columns
     :type vector))
-  (:documentation "This class is used for implementing both data-vector and data-matrix, and represents and ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
+  (:documentation "This class is used for implementing both data-vector and data-matrix, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
 
 (defmethod aops:element-type ((data data))
   t)

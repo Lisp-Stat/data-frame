@@ -1,7 +1,22 @@
-* Data frames for Common Lisp
+#+TITLE: Data Frame
 
-/I need to write this, for now just look at the unit tests which have plenty of examples./
+  This library implements a data structure conceptually similar to a [[https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/data.frame][R
+  data frame]].  The library is experimental; comments and feedback are
+  welcome whilst we sort out the best usage patterns.
+
+# Raisons d'être
+
+* User Manual
+
+  The user manual needs writing. If you are a newcomer to
+  data-frames, this project is not quite ready yet. For now, look at
+  the unit tests, where there are plenty of examples of how to use a
+  data frame.
+
+* Reference manual
+
+  The [[https://Common-Lisp-Statistics.github.io/data-frame/][reference manual]] documents the API.
 
 * Reporting bugs
 
-Please report bugs using the issue tracker.
+  Please report bugs using the [[https://github.com/Common-Lisp-Statistics/data-frame/issues][issue tracker]].

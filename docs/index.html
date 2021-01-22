@@ -1,0 +1,2753 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>The Data Frame Reference Manual</title>
+
+<meta name="description" content="The Data Frame Reference Manual, version 1.1.">
+<meta name="keywords" content="The Data Frame Reference Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#Top" rel="start" title="Top">
+<link href="#Indexes" rel="index" title="Indexes">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">The Data Frame Reference Manual</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a id="toc-Systems-1" href="#Systems">1 Systems</a>
+  <ul class="no-bullet">
+    <li><a id="toc-data_002dframe" href="#The-data_002dframe-system">1.1 <tt>data-frame</tt></a></li>
+  </ul></li>
+  <li><a id="toc-Files-1" href="#Files">2 Files</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Lisp" href="#Lisp-files">2.1 Lisp</a>
+    <ul class="no-bullet">
+      <li><a id="toc-data_002dframe_002easd" href="#The-data_002dframe_2024asd-file">2.1.1 <tt>data-frame.asd</tt></a></li>
+      <li><a id="toc-data_002dframe_002fpkgdcl_002elisp" href="#The-data_002dframe_002fpkgdcl_2024lisp-file">2.1.2 <tt>data-frame/pkgdcl.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fdata_002dframe_002dcolumn_002elisp" href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file">2.1.3 <tt>data-frame/data-frame-column.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fdata_002dframe_002elisp" href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">2.1.4 <tt>data-frame/data-frame.lisp</tt></a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Packages-1" href="#Packages">3 Packages</a>
+  <ul class="no-bullet">
+    <li><a id="toc-data_002dframe_002ecolumn" href="#The-data_002dframe_2024column-package">3.1 <tt>data-frame.column</tt></a></li>
+    <li><a id="toc-data_002dframe-1" href="#The-data_002dframe-package">3.2 <tt>data-frame</tt></a></li>
+  </ul></li>
+  <li><a id="toc-Definitions-1" href="#Definitions">4 Definitions</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Exported-definitions-1" href="#Exported-definitions">4.1 Exported definitions</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Special-variables" href="#Exported-special-variables">4.1.1 Special variables</a></li>
+      <li><a id="toc-Functions" href="#Exported-functions">4.1.2 Functions</a></li>
+      <li><a id="toc-Generic-functions" href="#Exported-generic-functions">4.1.3 Generic functions</a></li>
+      <li><a id="toc-Conditions" href="#Exported-conditions">4.1.4 Conditions</a></li>
+      <li><a id="toc-Classes" href="#Exported-classes">4.1.5 Classes</a></li>
+    </ul></li>
+    <li><a id="toc-Internal-definitions-1" href="#Internal-definitions">4.2 Internal definitions</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Special-variables-1" href="#Internal-special-variables">4.2.1 Special variables</a></li>
+      <li><a id="toc-Macros" href="#Internal-macros">4.2.2 Macros</a></li>
+      <li><a id="toc-Functions-1" href="#Internal-functions">4.2.3 Functions</a></li>
+      <li><a id="toc-Generic-functions-1" href="#Internal-generic-functions">4.2.4 Generic functions</a></li>
+      <li><a id="toc-Structures" href="#Internal-structures">4.2.5 Structures</a></li>
+      <li><a id="toc-Classes-1" href="#Internal-classes">4.2.6 Classes</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Indexes-1" href="#Indexes">Appendix A Indexes</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Concepts" href="#Concept-index" rel="index">A.1 Concepts</a></li>
+    <li><a id="toc-Functions-2" href="#Function-index" rel="index">A.2 Functions</a></li>
+    <li><a id="toc-Variables" href="#Variable-index" rel="index">A.3 Variables</a></li>
+    <li><a id="toc-Data-types" href="#Data-type-index" rel="index">A.4 Data types</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+<span id="Top"></span><div class="header">
+<p>
+Next: <a href="#Systems" accesskey="n" rel="next">Systems</a>, Previous: <a href="dir.html#Top" accesskey="p" rel="prev">(dir)</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="The-Data-Frame-Reference-Manual"></span><h1 class="top">The Data Frame Reference Manual</h1>
+<p>This is the Data Frame Reference Manual, version 1.1.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Systems" accesskey="1">Systems</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The systems documentation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Files" accesskey="2">Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The files documentation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Packages" accesskey="3">Packages</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The packages documentation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Definitions" accesskey="4">Definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The symbols documentation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Indexes" accesskey="5">Indexes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Concepts, functions, variables and data types
+</td></tr>
+</table>
+
+
+
+<hr>
+<span id="Systems"></span><div class="header">
+<p>
+Next: <a href="#Files" accesskey="n" rel="next">Files</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Systems-1"></span><h2 class="chapter">1 Systems</h2>
+<p>The main system appears first, followed by any subsystem dependency.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe-system" accesskey="1">The data-frame system</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+<hr>
+<span id="The-data_002dframe-system"></span><div class="header">
+<p>
+Previous: <a href="#Systems" accesskey="p" rel="prev">Systems</a>, Up: <a href="#Systems" accesskey="u" rel="up">Systems</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe"></span><h3 class="section">1.1 <tt>data-frame</tt></h3>
+<span id="go-to-the-data_002dframe-system"></span><span id="index-data_002dframe"></span>
+<span id="index-System_002c-data_002dframe"></span>
+<dl compact="compact">
+<dt><strong>Maintainer</strong></dt>
+<dd><p>Steve Nunez &lt;<a href="mailto:steve@symbolics.tech">steve@symbolics.tech</a>&gt;
+</p></dd>
+<dt><strong>Author</strong></dt>
+<dd><p>Tamas Papp &lt;<a href="mailto:tkpapp@gmail.com">tkpapp@gmail.com</a>&gt;
+</p></dd>
+<dt><strong>Source Control</strong></dt>
+<dd><p><tt>(:git &quot;https://github.com/common-lisp-statistics/data-frame.git&quot;)</tt>
+</p></dd>
+<dt><strong>Bug Tracker</strong></dt>
+<dd><p><a href="https://github.com/Common-Lisp-Statistics/data-frame/issues">https://github.com/Common-Lisp-Statistics/data-frame/issues</a>
+</p></dd>
+<dt><strong>License</strong></dt>
+<dd><p>MS-PL
+</p></dd>
+<dt><strong>Description</strong></dt>
+<dd><p>Data frames for Common Lisp
+</p></dd>
+<dt><strong>Long Description</strong></dt>
+<dd><p>A data manipulation package, conceptually similar to R&rsquo;s data.frame, but with a lisp-oriented API.
+</p></dd>
+<dt><strong>Version</strong></dt>
+<dd><p>1.1
+</p></dd>
+<dt><strong>Dependencies</strong></dt>
+<dd><ul>
+<li> <tt>alexandria</tt>
+</li><li> <tt>anaphora</tt>
+</li><li> <tt>array-operations</tt>
+</li><li> <tt>num-utils</tt>
+</li><li> <tt>select</tt>
+</li><li> <tt>let-plus</tt>
+</li></ul>
+</dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_2024asd-file"><tt>data-frame.asd</tt></a> (file)
+</p></dd>
+<dt><strong>Directory</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/"><tt>s:/src/data-frame/</tt></a>
+</p></dd>
+<dt><strong>Components</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"><tt>pkgdcl.lisp</tt></a> (file)
+</li><li> <a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</li><li> <a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+<span id="Files"></span><div class="header">
+<p>
+Next: <a href="#Packages" accesskey="n" rel="next">Packages</a>, Previous: <a href="#Systems" accesskey="p" rel="prev">Systems</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Files-1"></span><h2 class="chapter">2 Files</h2>
+<p>Files are sorted by type and then listed depth-first from the systems
+components trees.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Lisp-files" accesskey="1">Lisp files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+<hr>
+<span id="Lisp-files"></span><div class="header">
+<p>
+Previous: <a href="#Files" accesskey="p" rel="prev">Files</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Lisp"></span><h3 class="section">2.1 Lisp</h3>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_2024asd-file" accesskey="1">The data-frame.asd file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fpkgdcl_2024lisp-file" accesskey="2">The data-frame/pkgdcl.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file" accesskey="3">The data-frame/data-frame-column.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file" accesskey="4">The data-frame/data-frame.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="The-data_002dframe_2024asd-file"></span><div class="header">
+<p>
+Next: <a href="#The-data_002dframe_002fpkgdcl_2024lisp-file" accesskey="n" rel="next">The data-frame/pkgdcl․lisp file</a>, Previous: <a href="#Lisp-files" accesskey="p" rel="prev">Lisp files</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002easd"></span><h4 class="subsection">2.1.1 <tt>data-frame.asd</tt></h4>
+<span id="go-to-the-data_002dframe_2024asd-file"></span><span id="index-data_002dframe_002easd"></span>
+<span id="index-Lisp-File_002c-data_002dframe_002easd"></span>
+<span id="index-File_002c-Lisp_002c-data_002dframe_002easd"></span>
+<dl compact="compact">
+<dt><strong>Location</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/data-frame.asd"><tt>data-frame.asd</tt></a>
+</p></dd>
+<dt><strong>Systems</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
+</p></dd>
+</dl>
+
+<hr>
+<span id="The-data_002dframe_002fpkgdcl_2024lisp-file"></span><div class="header">
+<p>
+Next: <a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file" accesskey="n" rel="next">The data-frame/data-frame-column․lisp file</a>, Previous: <a href="#The-data_002dframe_2024asd-file" accesskey="p" rel="prev">The data-frame․asd file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002fpkgdcl_002elisp"></span><h4 class="subsection">2.1.2 <tt>data-frame/pkgdcl.lisp</tt></h4>
+<span id="go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"></span><span id="index-data_002dframe_002fpkgdcl_002elisp"></span>
+<span id="index-Lisp-File_002c-data_002dframe_002fpkgdcl_002elisp"></span>
+<span id="index-File_002c-Lisp_002c-data_002dframe_002fpkgdcl_002elisp"></span>
+<dl compact="compact">
+<dt><strong>Parent</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
+</p></dd>
+<dt><strong>Location</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/pkgdcl.lisp"><tt>pkgdcl.lisp</tt></a>
+</p></dd>
+<dt><strong>Packages</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</li><li> <a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</li></ul>
+</dd>
+</dl>
+
+<hr>
+<span id="The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"></span><div class="header">
+<p>
+Next: <a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file" accesskey="n" rel="next">The data-frame/data-frame․lisp file</a>, Previous: <a href="#The-data_002dframe_002fpkgdcl_2024lisp-file" accesskey="p" rel="prev">The data-frame/pkgdcl․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002fdata_002dframe_002dcolumn_002elisp"></span><h4 class="subsection">2.1.3 <tt>data-frame/data-frame-column.lisp</tt></h4>
+<span id="go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"></span><span id="index-data_002dframe_002fdata_002dframe_002dcolumn_002elisp"></span>
+<span id="index-Lisp-File_002c-data_002dframe_002fdata_002dframe_002dcolumn_002elisp"></span>
+<span id="index-File_002c-Lisp_002c-data_002dframe_002fdata_002dframe_002dcolumn_002elisp"></span>
+<dl compact="compact">
+<dt><strong>Dependency</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"><tt>pkgdcl.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Parent</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
+</p></dd>
+<dt><strong>Location</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/data-frame-column.lisp"><tt>data-frame-column.lisp</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-generic-function"><tt>column-length</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-length</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-generic-function"><tt>column-summary</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236BIT_002dVECTOR-method"><tt>column-summary</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-summary</tt></a> (method)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236_002aCOLUMN_002dSUMMARY_002dQUANTILES_002dTHRESHOLD_002a-special-variable"><tt>*column-summary-quantiles-threshold*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY-structure"><tt>bit-vector-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dCOUNT-function"><tt>bit-vector-summary-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dLENGTH-function"><tt>bit-vector-summary-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dP-function"><tt>bit-vector-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dBIT_002dVECTOR_002dSUMMARY-function"><tt>copy-bit-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dGENERIC_002dVECTOR_002dSUMMARY-function"><tt>copy-generic-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dQUANTILES_002dSUMMARY-function"><tt>copy-quantiles-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dVECTOR_002dSUMMARY_0025-function"><tt>copy-vector-summary%</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236ENSURE_002dNOT_002dRATIO-function"><tt>ensure-not-ratio</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY-structure"><tt>generic-vector-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dELEMENT_002dCOUNT_002dALIST-function"><tt>generic-vector-summary-element-count-alist</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dLENGTH-function"><tt>generic-vector-summary-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dP-function"><tt>generic-vector-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dQUANTILES-function"><tt>generic-vector-summary-quantiles</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dBIT_002dVECTOR_002dSUMMARY-function"><tt>make-bit-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dGENERIC_002dVECTOR_002dSUMMARY-function"><tt>make-generic-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dQUANTILES_002dSUMMARY-function"><tt>make-quantiles-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dVECTOR_002dSUMMARY_0025-function"><tt>make-vector-summary%</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236PRINT_002dCOUNT_002dAND_002dPERCENTAGE-function"><tt>print-count-and-percentage</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY-structure"><tt>quantiles-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dCOUNT-function"><tt>quantiles-summary-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMAX-function"><tt>quantiles-summary-max</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMIN-function"><tt>quantiles-summary-min</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dP-function"><tt>quantiles-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ25-function"><tt>quantiles-summary-q25</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ50-function"><tt>quantiles-summary-q50</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ75-function"><tt>quantiles-summary-q75</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dLENGTH-function"><tt>vector-summary%-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dP-function"><tt>vector-summary%-p</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+<hr>
+<span id="The-data_002dframe_002fdata_002dframe_2024lisp-file"></span><div class="header">
+<p>
+Previous: <a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file" accesskey="p" rel="prev">The data-frame/data-frame-column․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002fdata_002dframe_002elisp"></span><h4 class="subsection">2.1.4 <tt>data-frame/data-frame.lisp</tt></h4>
+<span id="go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"></span><span id="index-data_002dframe_002fdata_002dframe_002elisp"></span>
+<span id="index-Lisp-File_002c-data_002dframe_002fdata_002dframe_002elisp"></span>
+<span id="index-File_002c-Lisp_002c-data_002dframe_002fdata_002dframe_002elisp"></span>
+<dl compact="compact">
+<dt><strong>Dependency</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Parent</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
+</p></dd>
+<dt><strong>Location</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/data-frame.lisp"><tt>data-frame.lisp</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"><tt>*column-summary-minimum-length*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMN_0021-function"><tt>add-column!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS-function"><tt>add-columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS_0021-function"><tt>add-columns!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDF-function"><tt>alist-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDV-function"><tt>alist-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"><tt>column</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"><tt>(setf column)</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMNS-function"><tt>columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY-function"><tt>copy</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COUNT_002dROWS-function"><tt>count-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dFRAME-class"><tt>data-frame</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dVECTOR-class"><tt>data-vector</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF-function"><tt>df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DO_002dROWS-function"><tt>do-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DUPLICATE_002dKEY-condition"><tt>duplicate-key</tt></a> (condition)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DV-function"><tt>dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dNOT_002dFOUND-condition"><tt>key-not-found</tt></a> (condition)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS-function"><tt>keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDF-function"><tt>make-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDV-function"><tt>make-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dCOLUMNS-function"><tt>map-columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dDF-function"><tt>map-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dROWS-function"><tt>map-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MASK_002dROWS-function"><tt>mask-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MATRIX_002dDF-function"><tt>matrix-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDF-function"><tt>plist-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDV-function"><tt>plist-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN-function"><tt>replace-column</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN_0021-function"><tt>replace-column!</tt></a> (function)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"><tt>add-key!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEYS-function"><tt>add-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDATA-function"><tt>alist-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-generic-function"><tt>check-column-compatibility</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA_002dFRAME-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY_002dORDERED_002dKEYS-function"><tt>copy-ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA-class"><tt>data</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dSUBCLASS-macro"><tt>define-data-subclass</tt></a> (macro)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ENSURE_002dARGUMENTS_002dALIST-function"><tt>ensure-arguments-alist</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236GUESS_002dALIST_003f-function"><tt>guess-alist?</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dINDEX-function"><tt>key-index</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS_002dCOUNT-function"><tt>keys-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS_002dVECTOR-function"><tt>keys-vector</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA-function"><tt>make-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dORDERED_002dKEYS-function"><tt>make-ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-function"><tt>ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-structure"><tt>ordered-keys</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dP-function"><tt>ordered-keys-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dTABLE-function"><tt>ordered-keys-table</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDATA-function"><tt>plist-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236SUBSTITUTE_002dKEY_0021-function"><tt>substitute-key!</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+<span id="Packages"></span><div class="header">
+<p>
+Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous: <a href="#Files" accesskey="p" rel="prev">Files</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Packages-1"></span><h2 class="chapter">3 Packages</h2>
+<p>Packages are listed by definition order.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_2024column-package" accesskey="1">The data-frame.column package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe-package" accesskey="2">The data-frame package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+<hr>
+<span id="The-data_002dframe_2024column-package"></span><div class="header">
+<p>
+Next: <a href="#The-data_002dframe-package" accesskey="n" rel="next">The data-frame package</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002ecolumn"></span><h3 class="section">3.1 <tt>data-frame.column</tt></h3>
+<span id="go-to-the-DATA_002dFRAME_2024COLUMN-package"></span><span id="index-data_002dframe_002ecolumn"></span>
+<span id="index-Package_002c-data_002dframe_002ecolumn"></span>
+<dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"><tt>pkgdcl.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Use List</strong></dt>
+<dd><ul>
+<li> <tt>let-plus</tt>
+</li><li> <tt>anaphora</tt>
+</li><li> <tt>alexandria.1.0.0</tt>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-generic-function"><tt>column-length</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-length</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-generic-function"><tt>column-summary</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236BIT_002dVECTOR-method"><tt>column-summary</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-summary</tt></a> (method)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236_002aCOLUMN_002dSUMMARY_002dQUANTILES_002dTHRESHOLD_002a-special-variable"><tt>*column-summary-quantiles-threshold*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY-structure"><tt>bit-vector-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dCOUNT-function"><tt>bit-vector-summary-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dLENGTH-function"><tt>bit-vector-summary-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dP-function"><tt>bit-vector-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dBIT_002dVECTOR_002dSUMMARY-function"><tt>copy-bit-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dGENERIC_002dVECTOR_002dSUMMARY-function"><tt>copy-generic-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dQUANTILES_002dSUMMARY-function"><tt>copy-quantiles-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dVECTOR_002dSUMMARY_0025-function"><tt>copy-vector-summary%</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236ENSURE_002dNOT_002dRATIO-function"><tt>ensure-not-ratio</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY-structure"><tt>generic-vector-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dELEMENT_002dCOUNT_002dALIST-function"><tt>generic-vector-summary-element-count-alist</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dLENGTH-function"><tt>generic-vector-summary-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dP-function"><tt>generic-vector-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dQUANTILES-function"><tt>generic-vector-summary-quantiles</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dBIT_002dVECTOR_002dSUMMARY-function"><tt>make-bit-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dGENERIC_002dVECTOR_002dSUMMARY-function"><tt>make-generic-vector-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dQUANTILES_002dSUMMARY-function"><tt>make-quantiles-summary</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dVECTOR_002dSUMMARY_0025-function"><tt>make-vector-summary%</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236PRINT_002dCOUNT_002dAND_002dPERCENTAGE-function"><tt>print-count-and-percentage</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY-structure"><tt>quantiles-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dCOUNT-function"><tt>quantiles-summary-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMAX-function"><tt>quantiles-summary-max</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMIN-function"><tt>quantiles-summary-min</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dP-function"><tt>quantiles-summary-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ25-function"><tt>quantiles-summary-q25</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ50-function"><tt>quantiles-summary-q50</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ75-function"><tt>quantiles-summary-q75</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dLENGTH-function"><tt>vector-summary%-length</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dP-function"><tt>vector-summary%-p</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+
+<hr>
+<span id="The-data_002dframe-package"></span><div class="header">
+<p>
+Previous: <a href="#The-data_002dframe_2024column-package" accesskey="p" rel="prev">The data-frame․column package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe-1"></span><h3 class="section">3.2 <tt>data-frame</tt></h3>
+<span id="go-to-the-DATA_002dFRAME-package"></span><span id="index-data_002dframe-1"></span>
+<span id="index-Package_002c-data_002dframe"></span>
+<dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"><tt>pkgdcl.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Nicknames</strong></dt>
+<dd><ul>
+<li> <tt>dframe</tt>
+</li><li> <tt>df</tt>
+</li></ul>
+</dd>
+<dt><strong>Use List</strong></dt>
+<dd><ul>
+<li> <tt>select-dev</tt>
+</li><li> <tt>select</tt>
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</li><li> <tt>let-plus</tt>
+</li><li> <tt>anaphora</tt>
+</li><li> <tt>alexandria.1.0.0</tt>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><tt>data-frame-tests</tt>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"><tt>*column-summary-minimum-length*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMN_0021-function"><tt>add-column!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS-function"><tt>add-columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS_0021-function"><tt>add-columns!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDF-function"><tt>alist-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDV-function"><tt>alist-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"><tt>column</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"><tt>(setf column)</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMNS-function"><tt>columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY-function"><tt>copy</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COUNT_002dROWS-function"><tt>count-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dFRAME-class"><tt>data-frame</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dVECTOR-class"><tt>data-vector</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF-function"><tt>df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DO_002dROWS-function"><tt>do-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DUPLICATE_002dKEY-condition"><tt>duplicate-key</tt></a> (condition)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DV-function"><tt>dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dNOT_002dFOUND-condition"><tt>key-not-found</tt></a> (condition)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS-function"><tt>keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDF-function"><tt>make-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDV-function"><tt>make-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dCOLUMNS-function"><tt>map-columns</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dDF-function"><tt>map-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dROWS-function"><tt>map-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MASK_002dROWS-function"><tt>mask-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MATRIX_002dDF-function"><tt>matrix-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDF-function"><tt>plist-df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDV-function"><tt>plist-dv</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN-function"><tt>replace-column</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN_0021-function"><tt>replace-column!</tt></a> (function)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"><tt>add-key!</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEYS-function"><tt>add-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDATA-function"><tt>alist-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-generic-function"><tt>check-column-compatibility</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA_002dFRAME-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY_002dORDERED_002dKEYS-function"><tt>copy-ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA-class"><tt>data</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dSUBCLASS-macro"><tt>define-data-subclass</tt></a> (macro)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ENSURE_002dARGUMENTS_002dALIST-function"><tt>ensure-arguments-alist</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236GUESS_002dALIST_003f-function"><tt>guess-alist?</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dINDEX-function"><tt>key-index</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS_002dCOUNT-function"><tt>keys-count</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS_002dVECTOR-function"><tt>keys-vector</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA-function"><tt>make-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dORDERED_002dKEYS-function"><tt>make-ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-function"><tt>ordered-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-structure"><tt>ordered-keys</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dP-function"><tt>ordered-keys-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dTABLE-function"><tt>ordered-keys-table</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDATA-function"><tt>plist-data</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236SUBSTITUTE_002dKEY_0021-function"><tt>substitute-key!</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+<span id="Definitions"></span><div class="header">
+<p>
+Next: <a href="#Indexes" accesskey="n" rel="next">Indexes</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Definitions-1"></span><h2 class="chapter">4 Definitions</h2>
+<p>Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Exported-definitions" accesskey="1">Exported definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-definitions" accesskey="2">Internal definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+<hr>
+<span id="Exported-definitions"></span><div class="header">
+<p>
+Next: <a href="#Internal-definitions" accesskey="n" rel="next">Internal definitions</a>, Previous: <a href="#Definitions" accesskey="p" rel="prev">Definitions</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Exported-definitions-1"></span><h3 class="section">4.1 Exported definitions</h3>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Exported-special-variables" accesskey="1">Exported special variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Exported-functions" accesskey="2">Exported functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Exported-generic-functions" accesskey="3">Exported generic functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Exported-conditions" accesskey="4">Exported conditions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Exported-classes" accesskey="5">Exported classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Exported-special-variables"></span><div class="header">
+<p>
+Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions</a>, Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported definitions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Special-variables"></span><h4 class="subsection">4.1.1 Special variables</h4>
+<dl>
+<dt id="index-_002acolumn_002dsummary_002dminimum_002dlength_002a">Special Variable: <strong>*column-summary-minimum-length*</strong></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"></span><span id="index-Special-Variable_002c-_002acolumn_002dsummary_002dminimum_002dlength_002a"></span>
+<p>Columns are only summarized when longer than this, otherwise they are returned as is.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Exported-functions"></span><div class="header">
+<p>
+Next: <a href="#Exported-generic-functions" accesskey="n" rel="next">Exported generic functions</a>, Previous: <a href="#Exported-special-variables" accesskey="p" rel="prev">Exported special variables</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Functions"></span><h4 class="subsection">4.1.2 Functions</h4>
+<dl>
+<dt id="index-add_002dcolumn_0021">Function: <strong>add-column!</strong> <em>DATA KEY COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMN_0021-function"></span><span id="index-Function_002c-add_002dcolumn_0021"></span>
+<p>Modify DATA (a data-frame or data-vector) by adding COLUMN with KEY.  Return DATA.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-add_002dcolumns">Function: <strong>add-columns</strong> <em>DATA &amp;rest KEYS-AND-COLUMNS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS-function"></span><span id="index-Function_002c-add_002dcolumns"></span>
+<p>Return a new data-frame or data-vector with keys and columns added.  Does not modify DATA (see README about accepted argument formats).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-add_002dcolumns_0021">Function: <strong>add-columns!</strong> <em>DATA &amp;rest KEYS-AND-COLUMNS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ADD_002dCOLUMNS_0021-function"></span><span id="index-Function_002c-add_002dcolumns_0021"></span>
+<p>Modify DATA (a data-frame or data-vector) by adding columns with keys (see README about accepted argument formats).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-alist_002ddf">Function: <strong>alist-df</strong> <em>ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDF-function"></span><span id="index-Function_002c-alist_002ddf"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-alist_002ddv">Function: <strong>alist-dv</strong> <em>ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDV-function"></span><span id="index-Function_002c-alist_002ddv"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-column">Function: <strong>column</strong> <em>DATA KEY</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"></span><span id="index-Function_002c-column"></span>
+<p>Return column corresponding to key.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Writer</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"><tt>(setf column)</tt></a> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-_0028setf-column_0029">Function: <strong>(setf column)</strong> <em>COLUMN DATA KEY</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"></span><span id="index-Function_002c-_0028setf-column_0029"></span>
+<p>Set column corresponding to key.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Reader</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"><tt>column</tt></a> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-columns">Function: <strong>columns</strong> <em>DATA &amp;optional SLICE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMNS-function"></span><span id="index-Function_002c-columns"></span>
+<p>Return the columns as a vector, or a selection if given (keys are resolved).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy">Function: <strong>copy</strong> <em>DATA &amp;key KEY</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COPY-function"></span><span id="index-Function_002c-copy"></span>
+<p>Copy data frame or vector.  Keys are copied (and thus can be modified), columns or elements are copyied using KEY, making the default give a shallow copy.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-count_002drows">Function: <strong>count-rows</strong> <em>DATA-FRAME KEYS PREDICATE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COUNT_002dROWS-function"></span><span id="index-Function_002c-count_002drows"></span>
+<p>Count the number of rows for which PREDICATE called on the columns corresponding to KEYS returns non-NIL.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-df">Function: <strong>df</strong> <em>&amp;rest PLIST-OR-ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DF-function"></span><span id="index-Function_002c-df"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-do_002drows">Function: <strong>do-rows</strong> <em>DATA-FRAME KEYS FUNCTION</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DO_002dROWS-function"></span><span id="index-Function_002c-do_002drows"></span>
+<p>Traverse rows from first to last, calling FUNCTION on the columns corresponding to KEYS.  Return no values.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-dv">Function: <strong>dv</strong> <em>&amp;rest PLIST-OR-ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DV-function"></span><span id="index-Function_002c-dv"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-keys">Function: <strong>keys</strong> <em>DATA</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236KEYS-function"></span><span id="index-Function_002c-keys"></span>
+<p>List of keys.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002ddf">Function: <strong>make-df</strong> <em>KEYS COLUMNS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDF-function"></span><span id="index-Function_002c-make_002ddf"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002ddv">Function: <strong>make-dv</strong> <em>KEYS COLUMNS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDV-function"></span><span id="index-Function_002c-make_002ddv"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-map_002dcolumns">Function: <strong>map-columns</strong> <em>DATA FUNCTION &amp;optional RESULT-CLASS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAP_002dCOLUMNS-function"></span><span id="index-Function_002c-map_002dcolumns"></span>
+<p>Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-map_002ddf">Function: <strong>map-df</strong> <em>DATA-FRAME KEYS FUNCTION RESULT-KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAP_002dDF-function"></span><span id="index-Function_002c-map_002ddf"></span>
+<p>Map DATA-FRAME to another one by rows.  Function is called on the columns corresponding to KEYS, and should return a sequence with the same length as RESULT-KEYS, which give the keys of the resulting data frame.  RESULT-KETS should be either symbols, or of the format (symbol &amp;optional (element-type t)).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-map_002drows">Function: <strong>map-rows</strong> <em>DATA-FRAME KEYS FUNCTION &amp;key ELEMENT-TYPE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAP_002dROWS-function"></span><span id="index-Function_002c-map_002drows"></span>
+<p>Map rows using FUNCTION, on the columns corresponding to KEYS.  Return the result with the given ELEMENT-TYPE.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-mask_002drows">Function: <strong>mask-rows</strong> <em>DATA-FRAME KEYS PREDICATE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MASK_002dROWS-function"></span><span id="index-Function_002c-mask_002drows"></span>
+<p>Return a bit-vector containing the result of calling PREDICATE on rows of the columns corresponding to KEYS (0 for NIL, 1 otherwise).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-matrix_002ddf">Function: <strong>matrix-df</strong> <em>KEYS MATRIX</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MATRIX_002dDF-function"></span><span id="index-Function_002c-matrix_002ddf"></span>
+<p>Convert a matrix to a data-frame with the given keys.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-plist_002ddf">Function: <strong>plist-df</strong> <em>PLIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDF-function"></span><span id="index-Function_002c-plist_002ddf"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-plist_002ddv">Function: <strong>plist-dv</strong> <em>PLIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDV-function"></span><span id="index-Function_002c-plist_002ddv"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-replace_002dcolumn">Function: <strong>replace-column</strong> <em>DATA KEY FUNCTION-OR-COLUMN &amp;key ELEMENT-TYPE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN-function"></span><span id="index-Function_002c-replace_002dcolumn"></span>
+<p>Create a new data frame by with new column KEY from data-frame DATE by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-replace_002dcolumn_0021">Function: <strong>replace-column!</strong> <em>DATA KEY FUNCTION-OR-COLUMN &amp;key ELEMENT-TYPE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dCOLUMN_0021-function"></span><span id="index-Function_002c-replace_002dcolumn_0021"></span>
+<p>Modify column KEY of data-frame DATE by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Exported-generic-functions"></span><div class="header">
+<p>
+Next: <a href="#Exported-conditions" accesskey="n" rel="next">Exported conditions</a>, Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Generic-functions"></span><h4 class="subsection">4.1.3 Generic functions</h4>
+<dl>
+<dt id="index-column_002dlength">Generic Function: <strong>column-length</strong> <em>COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-generic-function"></span><span id="index-Generic-Function_002c-column_002dlength"></span>
+<p>Return the length of column.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Methods</strong></dt>
+<dd><dl>
+<dt id="index-column_002dlength-1">Method: <strong>column-length</strong> <em>(COLUMN <tt>vector</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dLENGTH-COMMON_002dLISP_2236_2236VECTOR-method"></span><span id="index-Method_002c-column_002dlength"></span>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-column_002dsummary">Generic Function: <strong>column-summary</strong> <em>COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-generic-function"></span><span id="index-Generic-Function_002c-column_002dsummary"></span>
+<p>Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing, not analysis, returned values should print nicely.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Methods</strong></dt>
+<dd><dl>
+<dt id="index-column_002dsummary-1">Method: <strong>column-summary</strong> <em>(COLUMN <tt>bit-vector</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236BIT_002dVECTOR-method"></span><span id="index-Method_002c-column_002dsummary"></span>
+</dd></dl>
+<dl>
+<dt id="index-column_002dsummary-2">Method: <strong>column-summary</strong> <em>(COLUMN <tt>vector</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"></span><span id="index-Method_002c-column_002dsummary-1"></span>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Exported-conditions"></span><div class="header">
+<p>
+Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>, Previous: <a href="#Exported-generic-functions" accesskey="p" rel="prev">Exported generic functions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Conditions"></span><h4 class="subsection">4.1.4 Conditions</h4>
+<dl>
+<dt id="index-duplicate_002dkey">Condition: <strong>duplicate-key</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DUPLICATE_002dKEY-condition"></span><span id="index-Condition_002c-duplicate_002dkey"></span>
+<p>Duplicate key.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>error</tt> (condition)
+</p></dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-key">Slot: <strong>key</strong></dt>
+<dd><span id="index-Slot_002c-key"></span>
+<dl compact="compact">
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:key</tt>
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-key_002dnot_002dfound">Condition: <strong>key-not-found</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236KEY_002dNOT_002dFOUND-condition"></span><span id="index-Condition_002c-key_002dnot_002dfound"></span>
+<p>Key not found.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>error</tt> (condition)
+</p></dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-key-1">Slot: <strong>key</strong></dt>
+<dd><span id="index-Slot_002c-key-1"></span>
+<dl compact="compact">
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:key</tt>
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-keys-1">Slot: <strong>keys</strong></dt>
+<dd><span id="index-Slot_002c-keys"></span>
+<dl compact="compact">
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:keys</tt>
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Exported-classes"></span><div class="header">
+<p>
+Previous: <a href="#Exported-conditions" accesskey="p" rel="prev">Exported conditions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Classes"></span><h4 class="subsection">4.1.5 Classes</h4>
+<dl>
+<dt id="index-data_002dframe-2">Class: <strong>data-frame</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DATA_002dFRAME-class"></span><span id="index-Class_002c-data_002dframe"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236DATA-class"><tt>data</tt></a> (class)
+</p></dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><ul>
+<li> <tt>select</tt> (method)
+</li><li> <tt>print-object</tt> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA_002dFRAME-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <tt>as-array</tt> (method)
+</li><li> <tt>dims</tt> (method)
+</li><li> <tt>ncol</tt> (method)
+</li><li> <tt>nrow</tt> (method)
+</li><li> <tt>initialize-instance</tt> (method)
+</li></ul>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-data_002dvector">Class: <strong>data-vector</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DATA_002dVECTOR-class"></span><span id="index-Class_002c-data_002dvector"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236DATA-class"><tt>data</tt></a> (class)
+</p></dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><ul>
+<li> <tt>select</tt> (method)
+</li><li> <tt>print-object</tt> (method)
+</li><li> <tt>as-array</tt> (method)
+</li><li> <tt>dims</tt> (method)
+</li></ul>
+</dd>
+</dl>
+</dd></dl>
+
+
+<hr>
+<span id="Internal-definitions"></span><div class="header">
+<p>
+Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported definitions</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Internal-definitions-1"></span><h3 class="section">4.2 Internal definitions</h3>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Internal-special-variables" accesskey="1">Internal special variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-macros" accesskey="2">Internal macros</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-functions" accesskey="3">Internal functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-generic-functions" accesskey="4">Internal generic functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-structures" accesskey="5">Internal structures</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Internal-classes" accesskey="6">Internal classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Internal-special-variables"></span><div class="header">
+<p>
+Next: <a href="#Internal-macros" accesskey="n" rel="next">Internal macros</a>, Previous: <a href="#Internal-definitions" accesskey="p" rel="prev">Internal definitions</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Special-variables-1"></span><h4 class="subsection">4.2.1 Special variables</h4>
+<dl>
+<dt id="index-_002acolumn_002dsummary_002dquantiles_002dthreshold_002a">Special Variable: <strong>*column-summary-quantiles-threshold*</strong></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236_002aCOLUMN_002dSUMMARY_002dQUANTILES_002dTHRESHOLD_002a-special-variable"></span><span id="index-Special-Variable_002c-_002acolumn_002dsummary_002dquantiles_002dthreshold_002a"></span>
+<p>If the number of reals exceeds this threshold, they will be summarized with quantiles.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Internal-macros"></span><div class="header">
+<p>
+Next: <a href="#Internal-functions" accesskey="n" rel="next">Internal functions</a>, Previous: <a href="#Internal-special-variables" accesskey="p" rel="prev">Internal special variables</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Macros"></span><h4 class="subsection">4.2.2 Macros</h4>
+<dl>
+<dt id="index-define_002ddata_002dsubclass">Macro: <strong>define-data-subclass</strong> <em>CLASS ABBREVIATION</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dSUBCLASS-macro"></span><span id="index-Macro_002c-define_002ddata_002dsubclass"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Internal-functions"></span><div class="header">
+<p>
+Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal generic functions</a>, Previous: <a href="#Internal-macros" accesskey="p" rel="prev">Internal macros</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Functions-1"></span><h4 class="subsection">4.2.3 Functions</h4>
+<dl>
+<dt id="index-add_002dkey_0021">Function: <strong>add-key!</strong> <em>ORDERED-KEYS KEY</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"></span><span id="index-Function_002c-add_002dkey_0021"></span>
+<p>Modify ORDERED-KEYS by adding KEY.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-add_002dkeys">Function: <strong>add-keys</strong> <em>ORDERED-KEYS &amp;rest KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEYS-function"></span><span id="index-Function_002c-add_002dkeys"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-alist_002ddata">Function: <strong>alist-data</strong> <em>CLASS ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDATA-function"></span><span id="index-Function_002c-alist_002ddata"></span>
+<p>Create an object of CLASS (subclass of DATA) from ALIST which contains key-column pairs.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-bit_002dvector_002dsummary_002dcount">Function: <strong>bit-vector-summary-count</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dCOUNT-function"></span><span id="index-Function_002c-bit_002dvector_002dsummary_002dcount"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-bit_002dvector_002dsummary_002dlength">Function: <strong>bit-vector-summary-length</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dLENGTH-function"></span><span id="index-Function_002c-bit_002dvector_002dsummary_002dlength"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-bit_002dvector_002dsummary_002dp">Function: <strong>bit-vector-summary-p</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dP-function"></span><span id="index-Function_002c-bit_002dvector_002dsummary_002dp"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy_002dbit_002dvector_002dsummary">Function: <strong>copy-bit-vector-summary</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dBIT_002dVECTOR_002dSUMMARY-function"></span><span id="index-Function_002c-copy_002dbit_002dvector_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy_002dgeneric_002dvector_002dsummary">Function: <strong>copy-generic-vector-summary</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dGENERIC_002dVECTOR_002dSUMMARY-function"></span><span id="index-Function_002c-copy_002dgeneric_002dvector_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy_002dordered_002dkeys">Function: <strong>copy-ordered-keys</strong> <em>ORDERED-KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COPY_002dORDERED_002dKEYS-function"></span><span id="index-Function_002c-copy_002dordered_002dkeys"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy_002dquantiles_002dsummary">Function: <strong>copy-quantiles-summary</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dQUANTILES_002dSUMMARY-function"></span><span id="index-Function_002c-copy_002dquantiles_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-copy_002dvector_002dsummary_0025">Function: <strong>copy-vector-summary%</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236COPY_002dVECTOR_002dSUMMARY_0025-function"></span><span id="index-Function_002c-copy_002dvector_002dsummary_0025"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ensure_002darguments_002dalist">Function: <strong>ensure-arguments-alist</strong> <em>REST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ENSURE_002dARGUMENTS_002dALIST-function"></span><span id="index-Function_002c-ensure_002darguments_002dalist"></span>
+<p>Recognizes the following and converts them to an alist:
+</p>
+<p>plist<br>
+  alist<br>
+  (plist)<br>
+  (alist)<br>
+  (data-frame)
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ensure_002dnot_002dratio">Function: <strong>ensure-not-ratio</strong> <em>REAL</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236ENSURE_002dNOT_002dRATIO-function"></span><span id="index-Function_002c-ensure_002dnot_002dratio"></span>
+<p>When REAL is a RATIO, convert it to a float, otherwise return as is.  Used for printing.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-generic_002dvector_002dsummary_002delement_002dcount_002dalist">Function: <strong>generic-vector-summary-element-count-alist</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dELEMENT_002dCOUNT_002dALIST-function"></span><span id="index-Function_002c-generic_002dvector_002dsummary_002delement_002dcount_002dalist"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-generic_002dvector_002dsummary_002dlength">Function: <strong>generic-vector-summary-length</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dLENGTH-function"></span><span id="index-Function_002c-generic_002dvector_002dsummary_002dlength"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-generic_002dvector_002dsummary_002dp">Function: <strong>generic-vector-summary-p</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dP-function"></span><span id="index-Function_002c-generic_002dvector_002dsummary_002dp"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-generic_002dvector_002dsummary_002dquantiles">Function: <strong>generic-vector-summary-quantiles</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dQUANTILES-function"></span><span id="index-Function_002c-generic_002dvector_002dsummary_002dquantiles"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-guess_002dalist_003f">Function: <strong>guess-alist?</strong> <em>PLIST-OR-ALIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236GUESS_002dALIST_003f-function"></span><span id="index-Function_002c-guess_002dalist_003f"></span>
+<p>Test if the argument is an ALIST by checking its first element.  Used for deciding which creation function to call.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-key_002dindex">Function: <strong>key-index</strong> <em>ORDERED-KEYS KEY</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236KEY_002dINDEX-function"></span><span id="index-Function_002c-key_002dindex"></span>
+<p>Return the index for KEY.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-keys_002dcount">Function: <strong>keys-count</strong> <em>ORDERED-KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236KEYS_002dCOUNT-function"></span><span id="index-Function_002c-keys_002dcount"></span>
+<p>Number of keys.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-keys_002dvector">Function: <strong>keys-vector</strong> <em>ORDERED-KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236KEYS_002dVECTOR-function"></span><span id="index-Function_002c-keys_002dvector"></span>
+<p>Vector of all keys.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dbit_002dvector_002dsummary">Function: <strong>make-bit-vector-summary</strong> <em>&amp;key (LENGTH LENGTH) (COUNT COUNT)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dBIT_002dVECTOR_002dSUMMARY-function"></span><span id="index-Function_002c-make_002dbit_002dvector_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002ddata">Function: <strong>make-data</strong> <em>CLASS KEYS COLUMNS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA-function"></span><span id="index-Function_002c-make_002ddata"></span>
+<p>Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a copy of COLUMNS in order to ensure that it is an adjustable array with a fill pointer.  KEYS are converted to ORDERED-KEYS if necessary.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dgeneric_002dvector_002dsummary">Function: <strong>make-generic-vector-summary</strong> <em>&amp;key (LENGTH LENGTH) (QUANTILES QUANTILES) (ELEMENT-COUNT-ALIST ELEMENT-COUNT-ALIST)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dGENERIC_002dVECTOR_002dSUMMARY-function"></span><span id="index-Function_002c-make_002dgeneric_002dvector_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dordered_002dkeys">Function: <strong>make-ordered-keys</strong> <em>&amp;key (TABLE TABLE)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAKE_002dORDERED_002dKEYS-function"></span><span id="index-Function_002c-make_002dordered_002dkeys"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dquantiles_002dsummary">Function: <strong>make-quantiles-summary</strong> <em>&amp;key (COUNT COUNT) (MIN MIN) (Q25 Q25) (Q50 Q50) (Q75 Q75) (MAX MAX)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dQUANTILES_002dSUMMARY-function"></span><span id="index-Function_002c-make_002dquantiles_002dsummary"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dvector_002dsummary_0025">Function: <strong>make-vector-summary%</strong> <em>&amp;key (LENGTH LENGTH)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236MAKE_002dVECTOR_002dSUMMARY_0025-function"></span><span id="index-Function_002c-make_002dvector_002dsummary_0025"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ordered_002dkeys">Function: <strong>ordered-keys</strong> <em>KEYS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-function"></span><span id="index-Function_002c-ordered_002dkeys"></span>
+<p>Create an ORDERED-KEYS object from KEYS (a sequence).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ordered_002dkeys_002dp">Function: <strong>ordered-keys-p</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dP-function"></span><span id="index-Function_002c-ordered_002dkeys_002dp"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ordered_002dkeys_002dtable">Function: <strong>ordered-keys-table</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dTABLE-function"></span><span id="index-Function_002c-ordered_002dkeys_002dtable"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-plist_002ddata">Function: <strong>plist-data</strong> <em>CLASS PLIST</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDATA-function"></span><span id="index-Function_002c-plist_002ddata"></span>
+<p>Create an object of CLASS (subclass of DATA) from PLIST which contains keys and columns, interleaved.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-print_002dcount_002dand_002dpercentage">Function: <strong>print-count-and-percentage</strong> <em>STREAM COUNT LENGTH</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236PRINT_002dCOUNT_002dAND_002dPERCENTAGE-function"></span><span id="index-Function_002c-print_002dcount_002dand_002dpercentage"></span>
+<p>Print COUNT as is and also as a rounded percentage of 
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dcount">Function: <strong>quantiles-summary-count</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dCOUNT-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dcount"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dmax">Function: <strong>quantiles-summary-max</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMAX-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dmax"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dmin">Function: <strong>quantiles-summary-min</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMIN-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dmin"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dp">Function: <strong>quantiles-summary-p</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dP-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dp"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dq25">Function: <strong>quantiles-summary-q25</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ25-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dq25"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dq50">Function: <strong>quantiles-summary-q50</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ50-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dq50"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary_002dq75">Function: <strong>quantiles-summary-q75</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ75-function"></span><span id="index-Function_002c-quantiles_002dsummary_002dq75"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-substitute_002dkey_0021">Function: <strong>substitute-key!</strong> <em>NEW OLD DF</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236SUBSTITUTE_002dKEY_0021-function"></span><span id="index-Function_002c-substitute_002dkey_0021"></span>
+<p>Substitute NEW key, a SYMBOL, for OLD in a data-frame.<br>
+</p>
+<p>Useful when reading data files that have an empty first column name,<br>
+where the CSV reader encodes the name as :||.<br>
+</p>
+<p>Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-vector_002dsummary_0025_002dlength">Function: <strong>vector-summary%-length</strong> <em>INSTANCE</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dLENGTH-function"></span><span id="index-Function_002c-vector_002dsummary_0025_002dlength"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-vector_002dsummary_0025_002dp">Function: <strong>vector-summary%-p</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dP-function"></span><span id="index-Function_002c-vector_002dsummary_0025_002dp"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Internal-generic-functions"></span><div class="header">
+<p>
+Next: <a href="#Internal-structures" accesskey="n" rel="next">Internal structures</a>, Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functions</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Generic-functions-1"></span><h4 class="subsection">4.2.4 Generic functions</h4>
+<dl>
+<dt id="index-check_002dcolumn_002dcompatibility">Generic Function: <strong>check-column-compatibility</strong> <em>DATA COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-generic-function"></span><span id="index-Generic-Function_002c-check_002dcolumn_002dcompatibility"></span>
+<p>Check if COLUMN is compatible with DATA.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Methods</strong></dt>
+<dd><dl>
+<dt id="index-check_002dcolumn_002dcompatibility-1">Method: <strong>check-column-compatibility</strong> <em>(DATA <tt>data-frame</tt>) COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA_002dFRAME-COMMON_002dLISP_2236_2236T-method"></span><span id="index-Method_002c-check_002dcolumn_002dcompatibility"></span>
+</dd></dl>
+<dl>
+<dt id="index-check_002dcolumn_002dcompatibility-2">Method: <strong>check-column-compatibility</strong> <em>(DATA <tt>data</tt>) COLUMN</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA-COMMON_002dLISP_2236_2236T-method"></span><span id="index-Method_002c-check_002dcolumn_002dcompatibility-1"></span>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Internal-structures"></span><div class="header">
+<p>
+Next: <a href="#Internal-classes" accesskey="n" rel="next">Internal classes</a>, Previous: <a href="#Internal-generic-functions" accesskey="p" rel="prev">Internal generic functions</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Structures"></span><h4 class="subsection">4.2.5 Structures</h4>
+<dl>
+<dt id="index-bit_002dvector_002dsummary">Structure: <strong>bit-vector-summary</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY-structure"></span><span id="index-Structure_002c-bit_002dvector_002dsummary"></span>
+<p>Summary of a bit vector.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
+</p></dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><p><tt>print-object</tt> (method)
+</p></dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-count">Slot: <strong>count</strong></dt>
+<dd><span id="index-Slot_002c-count"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>alexandria.1.0.0:array-index</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY_002dCOUNT-function"><tt>bit-vector-summary-count</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf bit-vector-summary-count)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-generic_002dvector_002dsummary">Structure: <strong>generic-vector-summary</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY-structure"></span><span id="index-Structure_002c-generic_002dvector_002dsummary"></span>
+<p>Summary for generic vectors.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
+</p></dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><p><tt>print-object</tt> (method)
+</p></dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-quantiles">Slot: <strong>quantiles</strong></dt>
+<dd><span id="index-Slot_002c-quantiles"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>(or null data-frame.column::quantiles-summary)</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dQUANTILES-function"><tt>generic-vector-summary-quantiles</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf generic-vector-summary-quantiles)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-element_002dcount_002dalist">Slot: <strong>element-count-alist</strong></dt>
+<dd><span id="index-Slot_002c-element_002dcount_002dalist"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>list</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY_002dELEMENT_002dCOUNT_002dALIST-function"><tt>generic-vector-summary-element-count-alist</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf generic-vector-summary-element-count-alist)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-ordered_002dkeys-1">Structure: <strong>ordered-keys</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS-structure"></span><span id="index-Structure_002c-ordered_002dkeys"></span>
+<p>Representation of ordered keys.<br>
+</p>
+<p>TABLE maps keys to indexes, starting from zero.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>structure-object</tt> (structure)
+</p></dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><ul>
+<li> <tt>select</tt> (method)
+</li><li> <tt>canonical-representation</tt> (method)
+</li><li> <tt>axis-dimension</tt> (method)
+</li><li> <tt>print-object</tt> (method)
+</li></ul>
+</dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-table">Slot: <strong>table</strong></dt>
+<dd><span id="index-Slot_002c-table"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>hash-table</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>(make-hash-table :test (function eq))</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dTABLE-function"><tt>ordered-keys-table</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf ordered-keys-table)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-quantiles_002dsummary">Structure: <strong>quantiles-summary</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY-structure"></span><span id="index-Structure_002c-quantiles_002dsummary"></span>
+<p>Summary of a real elements (using quantiles).
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>structure-object</tt> (structure)
+</p></dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-count-1">Slot: <strong>count</strong></dt>
+<dd><span id="index-Slot_002c-count-1"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>alexandria.1.0.0:array-index</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dCOUNT-function"><tt>quantiles-summary-count</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-count)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-min">Slot: <strong>min</strong></dt>
+<dd><span id="index-Slot_002c-min"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>real</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMIN-function"><tt>quantiles-summary-min</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-min)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-q25">Slot: <strong>q25</strong></dt>
+<dd><span id="index-Slot_002c-q25"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>real</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ25-function"><tt>quantiles-summary-q25</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-q25)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-q50">Slot: <strong>q50</strong></dt>
+<dd><span id="index-Slot_002c-q50"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>real</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ50-function"><tt>quantiles-summary-q50</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-q50)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-q75">Slot: <strong>q75</strong></dt>
+<dd><span id="index-Slot_002c-q75"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>real</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dQ75-function"><tt>quantiles-summary-q75</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-q75)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-max">Slot: <strong>max</strong></dt>
+<dd><span id="index-Slot_002c-max"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>real</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236QUANTILES_002dSUMMARY_002dMAX-function"><tt>quantiles-summary-max</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf quantiles-summary-max)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-vector_002dsummary_0025">Structure: <strong>vector-summary%</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025-structure"></span><span id="index-Structure_002c-vector_002dsummary_0025"></span>
+<p>Base class for summarizing vectors.  Not exported.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN-package"><tt>data-frame.column</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file"><tt>data-frame-column.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>structure-object</tt> (structure)
+</p></dd>
+<dt><strong>Direct subclasses</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236BIT_002dVECTOR_002dSUMMARY-structure"><tt>bit-vector-summary</tt></a> (structure)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236GENERIC_002dVECTOR_002dSUMMARY-structure"><tt>generic-vector-summary</tt></a> (structure)
+</li></ul>
+</dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-length">Slot: <strong>length</strong></dt>
+<dd><span id="index-Slot_002c-length"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>alexandria.1.0.0:array-index</tt>
+</p></dd>
+<dt><strong>Initform</strong></dt>
+<dd><p><tt>0</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2024COLUMN_2236_2236VECTOR_002dSUMMARY_0025_002dLENGTH-function"><tt>vector-summary%-length</tt></a> (function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><tt>(setf vector-summary%-length)</tt> (function)
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+<hr>
+<span id="Internal-classes"></span><div class="header">
+<p>
+Previous: <a href="#Internal-structures" accesskey="p" rel="prev">Internal structures</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Classes-1"></span><h4 class="subsection">4.2.6 Classes</h4>
+<dl>
+<dt id="index-data">Class: <strong>data</strong> <em>()</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DATA-class"></span><span id="index-Class_002c-data"></span>
+<p>This class is used for implementing both data-vector and data-matrix, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Direct superclasses</strong></dt>
+<dd><p><tt>standard-object</tt> (class)
+</p></dd>
+<dt><strong>Direct subclasses</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dVECTOR-class"><tt>data-vector</tt></a> (class)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA_002dFRAME-class"><tt>data-frame</tt></a> (class)
+</li></ul>
+</dd>
+<dt><strong>Direct methods</strong></dt>
+<dd><ul>
+<li> <tt>as-alist</tt> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
+</li><li> <tt>element-type</tt> (method)
+</li></ul>
+</dd>
+<dt><strong>Direct slots</strong></dt>
+<dd><dl>
+<dt id="index-ordered_002dkeys-2">Slot: <strong>ordered-keys</strong></dt>
+<dd><span id="index-Slot_002c-ordered_002dkeys"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>data-frame::ordered-keys</tt>
+</p></dd>
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:ordered-keys</tt>
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-columns-1">Slot: <strong>columns</strong></dt>
+<dd><span id="index-Slot_002c-columns"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>vector</tt>
+</p></dd>
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:columns</tt>
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+
+
+<hr>
+<span id="Indexes"></span><div class="header">
+<p>
+Previous: <a href="#Definitions" accesskey="p" rel="prev">Definitions</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Indexes-1"></span><h2 class="appendix">Appendix A Indexes</h2>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Concept-index" rel="index" accesskey="1">Concept index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Function-index" rel="index" accesskey="2">Function index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Variable-index" rel="index" accesskey="3">Variable index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Data-type-index" rel="index" accesskey="4">Data type index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+<hr>
+<span id="Concept-index"></span><div class="header">
+<p>
+Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Previous: <a href="#Indexes" accesskey="p" rel="prev">Indexes</a>, Up: <a href="#Indexes" accesskey="u" rel="up">Indexes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Concepts"></span><h3 class="appendixsec">A.1 Concepts</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Concept-index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-cp" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Concept-index_cp_letter-D">D</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002easd"><tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002fdata_002dframe_002dcolumn_002elisp"><tt>data-frame/data-frame-column.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file">The data-frame/data-frame-column․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002fdata_002dframe_002elisp"><tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002fpkgdcl_002elisp"><tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Concept-index_cp_letter-F">F</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002easd">File, Lisp, <tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fdata_002dframe_002dcolumn_002elisp">File, Lisp, <tt>data-frame/data-frame-column.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file">The data-frame/data-frame-column․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fdata_002dframe_002elisp">File, Lisp, <tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fpkgdcl_002elisp">File, Lisp, <tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Concept-index_cp_letter-L">L</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002easd">Lisp File, <tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fdata_002dframe_002dcolumn_002elisp">Lisp File, <tt>data-frame/data-frame-column.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_002dcolumn_2024lisp-file">The data-frame/data-frame-column․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fdata_002dframe_002elisp">Lisp File, <tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fpkgdcl_002elisp">Lisp File, <tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Concept-index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+<hr>
+<span id="Function-index"></span><div class="header">
+<p>
+Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Previous: <a href="#Concept-index" accesskey="p" rel="prev">Concept index</a>, Up: <a href="#Indexes" accesskey="u" rel="up">Indexes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Functions-2"></span><h3 class="appendixsec">A.2 Functions</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-index_fn_symbol-1"><b>(</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Function-index_fn_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-fn" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_symbol-1">(</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-column_0029"><code>(setf column)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-A">A</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-add_002dcolumn_0021"><code>add-column!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-add_002dcolumns"><code>add-columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-add_002dcolumns_0021"><code>add-columns!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-add_002dkey_0021"><code>add-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-add_002dkeys"><code>add-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-alist_002ddata"><code>alist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-alist_002ddf"><code>alist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-alist_002ddv"><code>alist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-B">B</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bit_002dvector_002dsummary_002dcount"><code>bit-vector-summary-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bit_002dvector_002dsummary_002dlength"><code>bit-vector-summary-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bit_002dvector_002dsummary_002dp"><code>bit-vector-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-C">C</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-check_002dcolumn_002dcompatibility"><code>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-check_002dcolumn_002dcompatibility-1"><code>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-check_002dcolumn_002dcompatibility-2"><code>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column"><code>column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dlength"><code>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dlength-1"><code>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dsummary"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dsummary-1"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dsummary-2"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-columns"><code>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy"><code>copy</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy_002dbit_002dvector_002dsummary"><code>copy-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy_002dgeneric_002dvector_002dsummary"><code>copy-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy_002dordered_002dkeys"><code>copy-ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy_002dquantiles_002dsummary"><code>copy-quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-copy_002dvector_002dsummary_0025"><code>copy-vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-count_002drows"><code>count-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-D">D</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-define_002ddata_002dsubclass"><code>define-data-subclass</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-df"><code>df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-do_002drows"><code>do-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-dv"><code>dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-E">E</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ensure_002darguments_002dalist"><code>ensure-arguments-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ensure_002dnot_002dratio"><code>ensure-not-ratio</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-F">F</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-_0028setf-column_0029"><code><span class="roman">Function, </span>(setf column)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dcolumn_0021"><code><span class="roman">Function, </span>add-column!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dcolumns"><code><span class="roman">Function, </span>add-columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dcolumns_0021"><code><span class="roman">Function, </span>add-columns!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dkey_0021"><code><span class="roman">Function, </span>add-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dkeys"><code><span class="roman">Function, </span>add-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddata"><code><span class="roman">Function, </span>alist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddf"><code><span class="roman">Function, </span>alist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddv"><code><span class="roman">Function, </span>alist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-bit_002dvector_002dsummary_002dcount"><code><span class="roman">Function, </span>bit-vector-summary-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-bit_002dvector_002dsummary_002dlength"><code><span class="roman">Function, </span>bit-vector-summary-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-bit_002dvector_002dsummary_002dp"><code><span class="roman">Function, </span>bit-vector-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-column"><code><span class="roman">Function, </span>column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-columns"><code><span class="roman">Function, </span>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy"><code><span class="roman">Function, </span>copy</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy_002dbit_002dvector_002dsummary"><code><span class="roman">Function, </span>copy-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy_002dgeneric_002dvector_002dsummary"><code><span class="roman">Function, </span>copy-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy_002dordered_002dkeys"><code><span class="roman">Function, </span>copy-ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy_002dquantiles_002dsummary"><code><span class="roman">Function, </span>copy-quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-copy_002dvector_002dsummary_0025"><code><span class="roman">Function, </span>copy-vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-count_002drows"><code><span class="roman">Function, </span>count-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-df"><code><span class="roman">Function, </span>df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-do_002drows"><code><span class="roman">Function, </span>do-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-dv"><code><span class="roman">Function, </span>dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-ensure_002darguments_002dalist"><code><span class="roman">Function, </span>ensure-arguments-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-ensure_002dnot_002dratio"><code><span class="roman">Function, </span>ensure-not-ratio</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-generic_002dvector_002dsummary_002delement_002dcount_002dalist"><code><span class="roman">Function, </span>generic-vector-summary-element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-generic_002dvector_002dsummary_002dlength"><code><span class="roman">Function, </span>generic-vector-summary-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-generic_002dvector_002dsummary_002dp"><code><span class="roman">Function, </span>generic-vector-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-generic_002dvector_002dsummary_002dquantiles"><code><span class="roman">Function, </span>generic-vector-summary-quantiles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-guess_002dalist_003f"><code><span class="roman">Function, </span>guess-alist?</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-key_002dindex"><code><span class="roman">Function, </span>key-index</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-keys"><code><span class="roman">Function, </span>keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-keys_002dcount"><code><span class="roman">Function, </span>keys-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-keys_002dvector"><code><span class="roman">Function, </span>keys-vector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dbit_002dvector_002dsummary"><code><span class="roman">Function, </span>make-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddata"><code><span class="roman">Function, </span>make-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddf"><code><span class="roman">Function, </span>make-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddv"><code><span class="roman">Function, </span>make-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dgeneric_002dvector_002dsummary"><code><span class="roman">Function, </span>make-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dordered_002dkeys"><code><span class="roman">Function, </span>make-ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dquantiles_002dsummary"><code><span class="roman">Function, </span>make-quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dvector_002dsummary_0025"><code><span class="roman">Function, </span>make-vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-map_002dcolumns"><code><span class="roman">Function, </span>map-columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-map_002ddf"><code><span class="roman">Function, </span>map-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-map_002drows"><code><span class="roman">Function, </span>map-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-mask_002drows"><code><span class="roman">Function, </span>mask-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-matrix_002ddf"><code><span class="roman">Function, </span>matrix-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-ordered_002dkeys"><code><span class="roman">Function, </span>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-ordered_002dkeys_002dp"><code><span class="roman">Function, </span>ordered-keys-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-ordered_002dkeys_002dtable"><code><span class="roman">Function, </span>ordered-keys-table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-plist_002ddata"><code><span class="roman">Function, </span>plist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-plist_002ddf"><code><span class="roman">Function, </span>plist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-plist_002ddv"><code><span class="roman">Function, </span>plist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-print_002dcount_002dand_002dpercentage"><code><span class="roman">Function, </span>print-count-and-percentage</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dcount"><code><span class="roman">Function, </span>quantiles-summary-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dmax"><code><span class="roman">Function, </span>quantiles-summary-max</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dmin"><code><span class="roman">Function, </span>quantiles-summary-min</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dp"><code><span class="roman">Function, </span>quantiles-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dq25"><code><span class="roman">Function, </span>quantiles-summary-q25</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dq50"><code><span class="roman">Function, </span>quantiles-summary-q50</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dq75"><code><span class="roman">Function, </span>quantiles-summary-q75</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-replace_002dcolumn"><code><span class="roman">Function, </span>replace-column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-replace_002dcolumn_0021"><code><span class="roman">Function, </span>replace-column!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-substitute_002dkey_0021"><code><span class="roman">Function, </span>substitute-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-vector_002dsummary_0025_002dlength"><code><span class="roman">Function, </span>vector-summary%-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-vector_002dsummary_0025_002dp"><code><span class="roman">Function, </span>vector-summary%-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-G">G</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-check_002dcolumn_002dcompatibility"><code><span class="roman">Generic Function, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-column_002dlength"><code><span class="roman">Generic Function, </span>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-column_002dsummary"><code><span class="roman">Generic Function, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-generic_002dvector_002dsummary_002delement_002dcount_002dalist"><code>generic-vector-summary-element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-generic_002dvector_002dsummary_002dlength"><code>generic-vector-summary-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-generic_002dvector_002dsummary_002dp"><code>generic-vector-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-generic_002dvector_002dsummary_002dquantiles"><code>generic-vector-summary-quantiles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-guess_002dalist_003f"><code>guess-alist?</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-K">K</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-key_002dindex"><code>key-index</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-keys"><code>keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-keys_002dcount"><code>keys-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-keys_002dvector"><code>keys-vector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-M">M</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Macro_002c-define_002ddata_002dsubclass"><code><span class="roman">Macro, </span>define-data-subclass</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dbit_002dvector_002dsummary"><code>make-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002ddata"><code>make-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002ddf"><code>make-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002ddv"><code>make-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dgeneric_002dvector_002dsummary"><code>make-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dordered_002dkeys"><code>make-ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dquantiles_002dsummary"><code>make-quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dvector_002dsummary_0025"><code>make-vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-map_002dcolumns"><code>map-columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-map_002ddf"><code>map-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-map_002drows"><code>map-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-mask_002drows"><code>mask-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-matrix_002ddf"><code>matrix-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-check_002dcolumn_002dcompatibility"><code><span class="roman">Method, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-check_002dcolumn_002dcompatibility-1"><code><span class="roman">Method, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dlength"><code><span class="roman">Method, </span>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dsummary"><code><span class="roman">Method, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dsummary-1"><code><span class="roman">Method, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-O">O</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ordered_002dkeys"><code>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ordered_002dkeys_002dp"><code>ordered-keys-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ordered_002dkeys_002dtable"><code>ordered-keys-table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-P">P</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plist_002ddata"><code>plist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plist_002ddf"><code>plist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plist_002ddv"><code>plist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-print_002dcount_002dand_002dpercentage"><code>print-count-and-percentage</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-Q">Q</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dcount"><code>quantiles-summary-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dmax"><code>quantiles-summary-max</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dmin"><code>quantiles-summary-min</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dp"><code>quantiles-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dq25"><code>quantiles-summary-q25</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dq50"><code>quantiles-summary-q50</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary_002dq75"><code>quantiles-summary-q75</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-R">R</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-replace_002dcolumn"><code>replace-column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-replace_002dcolumn_0021"><code>replace-column!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-substitute_002dkey_0021"><code>substitute-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-V">V</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-vector_002dsummary_0025_002dlength"><code>vector-summary%-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-vector_002dsummary_0025_002dp"><code>vector-summary%-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-index_fn_symbol-1"><b>(</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Function-index_fn_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+<hr>
+<span id="Variable-index"></span><div class="header">
+<p>
+Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, Previous: <a href="#Function-index" accesskey="p" rel="prev">Function index</a>, Up: <a href="#Indexes" accesskey="u" rel="up">Indexes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Variables"></span><h3 class="appendixsec">A.3 Variables</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-T"><b>T</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-vr" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_symbol-1">*</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002acolumn_002dsummary_002dminimum_002dlength_002a"><code>*column-summary-minimum-length*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002acolumn_002dsummary_002dquantiles_002dthreshold_002a"><code>*column-summary-quantiles-threshold*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-C">C</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-columns-1"><code>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-count"><code>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-count-1"><code>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-E">E</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-element_002dcount_002dalist"><code>element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-K">K</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-key"><code>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-key-1"><code>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-keys-1"><code>keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-L">L</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-length"><code>length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-M">M</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-max"><code>max</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-min"><code>min</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-O">O</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ordered_002dkeys-2"><code>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-Q">Q</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-q25"><code>q25</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-q50"><code>q50</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-q75"><code>q75</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles"><code>quantiles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-columns"><code><span class="roman">Slot, </span>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-count"><code><span class="roman">Slot, </span>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-count-1"><code><span class="roman">Slot, </span>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-element_002dcount_002dalist"><code><span class="roman">Slot, </span>element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-key"><code><span class="roman">Slot, </span>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-key-1"><code><span class="roman">Slot, </span>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-keys"><code><span class="roman">Slot, </span>keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-length"><code><span class="roman">Slot, </span>length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-max"><code><span class="roman">Slot, </span>max</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-min"><code><span class="roman">Slot, </span>min</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-ordered_002dkeys"><code><span class="roman">Slot, </span>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-q25"><code><span class="roman">Slot, </span>q25</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-q50"><code><span class="roman">Slot, </span>q50</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-q75"><code><span class="roman">Slot, </span>q75</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-quantiles"><code><span class="roman">Slot, </span>quantiles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-table"><code><span class="roman">Slot, </span>table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002acolumn_002dsummary_002dminimum_002dlength_002a"><code><span class="roman">Special Variable, </span>*column-summary-minimum-length*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002acolumn_002dsummary_002dquantiles_002dthreshold_002a"><code><span class="roman">Special Variable, </span>*column-summary-quantiles-threshold*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-T">T</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-table"><code>table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-T"><b>T</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+<hr>
+<span id="Data-type-index"></span><div class="header">
+<p>
+Previous: <a href="#Variable-index" accesskey="p" rel="prev">Variable index</a>, Up: <a href="#Indexes" accesskey="u" rel="up">Indexes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Data-types"></span><h3 class="appendixsec">A.4 Data types</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Data-type-index_tp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-tp" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-B">B</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bit_002dvector_002dsummary"><code>bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-C">C</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Class_002c-data"><code><span class="roman">Class, </span>data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Class_002c-data_002dframe"><code><span class="roman">Class, </span>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Class_002c-data_002dvector"><code><span class="roman">Class, </span>data-vector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Condition_002c-duplicate_002dkey"><code><span class="roman">Condition, </span>duplicate-key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Condition_002c-key_002dnot_002dfound"><code><span class="roman">Condition, </span>key-not-found</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-D">D</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data"><code>data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe"><code>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe-system">The data-frame system</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe-1"><code>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe-package">The data-frame package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe-2"><code>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002ecolumn"><code>data-frame.column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024column-package">The data-frame․column package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dvector"><code>data-vector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-duplicate_002dkey"><code>duplicate-key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-G">G</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-generic_002dvector_002dsummary"><code>generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-K">K</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-key_002dnot_002dfound"><code>key-not-found</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-O">O</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ordered_002dkeys-1"><code>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-P">P</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Package_002c-data_002dframe"><code><span class="roman">Package, </span>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe-package">The data-frame package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Package_002c-data_002dframe_002ecolumn"><code><span class="roman">Package, </span>data-frame.column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024column-package">The data-frame․column package</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-Q">Q</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-quantiles_002dsummary"><code>quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Structure_002c-bit_002dvector_002dsummary"><code><span class="roman">Structure, </span>bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Structure_002c-generic_002dvector_002dsummary"><code><span class="roman">Structure, </span>generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Structure_002c-ordered_002dkeys"><code><span class="roman">Structure, </span>ordered-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Structure_002c-quantiles_002dsummary"><code><span class="roman">Structure, </span>quantiles-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Structure_002c-vector_002dsummary_0025"><code><span class="roman">Structure, </span>vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-System_002c-data_002dframe"><code><span class="roman">System, </span>data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe-system">The data-frame system</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-V">V</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-vector_002dsummary_0025"><code>vector-summary%</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Data-type-index_tp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-K"><b>K</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+
+<hr>
+
+
+
+</body>
+</html>
