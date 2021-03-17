@@ -4,8 +4,6 @@
   data frame]].  The library is experimental; comments and feedback are
   welcome whilst we sort out the best usage patterns.
 
-# Raisons d'être
-
 * User Manual
 
   The user manual needs writing. If you are a newcomer to
@@ -15,8 +13,8 @@
 
 * Reference manual
 
-  The [[https://Common-Lisp-Statistics.github.io/data-frame/][reference manual]] documents the API.
+  The [[https://Lisp-Stat.github.io/data-frame/][reference manual]] documents the API.
 
 * Reporting bugs
 
-  Please report bugs using the [[https://github.com/Common-Lisp-Statistics/data-frame/issues][issue tracker]].
+  Please report bugs using the [[https://github.com/Lisp-Stat/data-frame/issues][issue tracker]].

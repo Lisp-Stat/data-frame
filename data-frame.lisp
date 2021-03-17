@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package #:data-frame)
+(cl:in-package :data-frame)
 
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
 ;;; integers.  They are used internally and the corresponding interface is
@@ -73,13 +73,13 @@ TABLE maps keys to indexes, starting from zero."
   (aprog1 (copy-ordered-keys ordered-keys)
     (mapc (curry #'add-key! it) keys)))
 
-(defun substitute-key! (new old df) ; Keeping the current naming convention
+(defun substitute-key! (df new old)
   "Substitute NEW key, a SYMBOL, for OLD in a data-frame.
 
 Useful when reading data files that have an empty first column name,
 where the CSV reader encodes the name as :||.
 
-Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name"
+Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name"
   (setf (slot-value df 'df::ordered-keys) (df::ordered-keys (substitute new old (df::keys-vector (df::ordered-keys (df:keys df)))))))
 
 
@@ -173,7 +173,7 @@ Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name
   (consp (car plist-or-alist)))
 
 (defun keys (data)
-  "List of keys."
+  "Vector of keys."
   (check-type data data)
   (copy-seq (keys-vector (slot-value data 'ordered-keys))))
 
@@ -230,6 +230,12 @@ Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name
   "Return a new data-frame or data-vector with keys and columns added.  Does not modify DATA (see README about accepted argument formats)."
   (aprog1 (copy data)
     (apply #'add-columns! it keys-and-columns)))
+
+(defun remove-columns (data keys)
+  "ARGS: DATA data frame
+         KEYS list of keys (variables) to be removed
+Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA."
+  (select data t (set-difference (coerce (keys data) 'list) keys)))
 
 (defmacro define-data-subclass (class abbreviation)
   (check-type class symbol)
@@ -415,7 +421,7 @@ Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name
                                columns)))))
 
 (defun replace-column! (data key function-or-column &key (element-type t))
-  "Modify column KEY of data-frame DATE by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
+  "Modify column KEY of data-frame DATA by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
   (let+ (((&slots ordered-keys columns) data)
          (index (key-index ordered-keys key)))
     (setf (aref columns index)
@@ -426,5 +432,5 @@ Example: (substitute-key :name :|| *cars*) to replace an empty symbol with :name
   data)
 
 (defun replace-column (data key function-or-column &key (element-type t))
-  "Create a new data frame by with new column KEY from data-frame DATE by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
+  "Create a new data frame with new column KEY from data-frame DATA by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
   (replace-column! (copy data) key function-or-column :element-type element-type))

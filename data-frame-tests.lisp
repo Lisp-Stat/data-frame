@@ -167,3 +167,5 @@ destructive or non-destructive."
     (replace-column! df :a #'1+)
     (assert-false (equalp plist (as-plist df)))
     (assert-equalp expected-plist (as-plist df))))
+
+;; TODO add test for remove-columns

@@ -27,6 +27,7 @@
    ;; error messages for ordered keys
    #:duplicate-key
    #:key-not-found
+
    ;; generic - both data-vector and data-frame
    #:columns
    #:map-columns
@@ -36,12 +37,14 @@
    #:add-columns
    #:add-column!
    #:add-columns!
+
    ;; data-vector
    #:data-vector
    #:make-dv
    #:alist-dv
    #:plist-dv
    #:dv
+
    ;; data-frame
    #:data-frame
    #:make-df
@@ -50,6 +53,7 @@
    #:df
    #:matrix-df
    #:*column-summary-minimum-length*
+
    ;; transformations for data-frames
    #:map-rows
    #:do-rows
