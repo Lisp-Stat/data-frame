@@ -202,10 +202,16 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
     (setf (aref columns (key-index ordered-keys key)) column)))
 
 (defun columns (data &optional (slice t))
-  "Return the columns as a vector, or a selection if given (keys are resolved)."
+  "Return the columns of DATA as a vector, or a selection if given (keys are resolved)."
   (check-type data data)
   (let+ (((&slots-r/o ordered-keys columns) data))
     (select columns (canonical-representation ordered-keys slice))))
+
+(defun rows (data)
+  "Return the rows of DATA as a vector"
+  (loop for index below (aops:nrow data)
+	collecting (columns (select:select data index t)) into rows
+	finally (return (coerce rows 'vector ))))
 
 (defun map-columns (data function &optional (result-class (class-of data)))
   "Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys."
@@ -434,3 +440,4 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
 (defun replace-column (data key function-or-column &key (element-type t))
   "Create a new data frame with new column KEY from data-frame DATA by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
   (replace-column! (copy data) key function-or-column :element-type element-type))
+
