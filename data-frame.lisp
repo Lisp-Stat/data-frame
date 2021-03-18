@@ -453,16 +453,9 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   (etypecase data
     (alexandria:proper-sequence (cl:remove-duplicates data)) ; Eventually shadow the CL version
     (df:data-frame (let* ((new-rows (cl:remove-duplicates (rows data) :test #'equalp))
-<<<<<<< HEAD
 			  (new-array (make-array (list (length new-rows)
 						       (length (svref new-rows 0)))
 						 :initial-contents new-rows)))
-=======
-			  (new-array (nu:transpose
-				      (make-array (list (length new-rows)
-							(length (svref new-rows 0)))
-						  :initial-contents new-rows))))
->>>>>>> 22f055e03febca91e797b971c24ff3ff15210fd9
 			  (matrix-df (keys data) new-array)))))
 
 
