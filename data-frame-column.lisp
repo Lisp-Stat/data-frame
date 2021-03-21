@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: DATA-FRAME.COLUMN -*-
 ;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package #:data-frame.column)
+(cl:in-package :data-frame.column)
 
 (defgeneric column-length (column)
   (:documentation "Return the length of column.")

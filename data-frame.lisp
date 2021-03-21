@@ -2,6 +2,10 @@
 ;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
 (cl:in-package :data-frame)
 
+;;; Note: tpapp never mentions the difference between a data-vector
+;;; and a data-frame. As near as I can tell, a data-frame must have
+;;; the same number of rows for each variable.
+
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
 ;;; integers.  They are used internally and the corresponding interface is
 ;;; NOT EXPORTED.
@@ -441,3 +445,29 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   "Create a new data frame with new column KEY from data-frame DATA by replacing it either with the given column, or applying the function to the current values (ELEMENT-TYPE is used.)"
   (replace-column! (copy data) key function-or-column :element-type element-type))
 
+;; We give this a df- prefix to avoid symbol clash with the CL
+;; version.  After adding df:delete-duplicates, shadow both in the
+;; package declaration.
+(defun df-remove-duplicates (data)
+  "Return a modified copy of DATA from which any element (row, if a DATA-FRAME) that matches another element has been removed"
+  (etypecase data
+    (alexandria:proper-sequence (cl:remove-duplicates data)) ; Eventually shadow the CL version
+    (df:data-frame (let* ((new-rows (cl:remove-duplicates (rows data) :test #'equalp))
+<<<<<<< HEAD
+			  (new-array (make-array (list (length new-rows)
+						       (length (svref new-rows 0)))
+						 :initial-contents new-rows)))
+=======
+			  (new-array (nu:transpose
+				      (make-array (list (length new-rows)
+							(length (svref new-rows 0)))
+						  :initial-contents new-rows))))
+>>>>>>> 22f055e03febca91e797b971c24ff3ff15210fd9
+			  (matrix-df (keys data) new-array)))))
+
+
+;; TODO
+#+nil
+(defun delete-duplicates (data)
+  "Like REMOVE-DUPLICATES, but may modify DATA"
+...)

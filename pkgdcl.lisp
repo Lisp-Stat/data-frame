@@ -61,5 +61,6 @@
    #:count-rows
    #:map-df
    #:replace-column!
-   #:replace-column))
+   #:replace-column
+   #:df-remove-duplicates))
 

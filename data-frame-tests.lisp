@@ -168,4 +168,5 @@ destructive or non-destructive."
     (assert-false (equalp plist (as-plist df)))
     (assert-equalp expected-plist (as-plist df))))
 
-;; TODO add test for remove-columns
+;; TODO add tests for remove-columns
+;; TODO add tests for remove-duplicates
