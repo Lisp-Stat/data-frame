@@ -142,7 +142,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MS-PL License. See `LICENSE` for more information.
+Distributed under the MS-PL License. See [LICENSE](LICENSE) for more information.
 
 
 
