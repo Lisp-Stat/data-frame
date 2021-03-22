@@ -14,7 +14,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/lisp-stat/data-frame">
-    <img src="http://www.lisp-stat.dev/images/stats-image.svg" alt="Logo" width="80" height="80">
+    <img src="https://lisp-stat.dev/images/stats-image.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Data Frame</h3>
@@ -22,7 +22,7 @@
   <p align="center">
   A two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column
 	<br />
-    <a href="http://lisp-stat.dev/docs/tasks/data-frame/"><strong>Explore the docs »</strong></a>
+    <a href="https://lisp-stat.dev/docs/tasks/data-frame/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/lisp-stat/data-frame/issues">Report Bug</a>
@@ -91,7 +91,7 @@ To get a local copy up and running follow these steps:
 ### Prerequisites
 
 An ANSI Common Lisp implementation. Developed and tested with
-[SBCL](http://www.sbcl.org/) and
+[SBCL](https://www.sbcl.org/) and
 [CCL](https://github.com/Clozure/ccl).
 
 ### Installation
@@ -120,7 +120,7 @@ Create a data frame:
 
 ```
 
-For more examples, please refer to the [Documentation](http://lisp-stat.dev/docs/tasks/data-frame).
+For more examples, please refer to the [Documentation](https://lisp-stat.dev/docs/tasks/data-frame).
 
 
 <!-- ROADMAP -->
@@ -130,8 +130,8 @@ See the [open issues](https://github.com/lisp-stat/data-frame/issues) for a list
 
 ## Resources
 
-This system is part of the [Lisp-Stat](https://www.lisp-stat.dev/) project; that should be your first stop for information. Also see the  [resources](https://lisp-stat.dev/resources) and
-[community](https://lisp-stat.dev/community) pages for more
+This system is part of the [Lisp-Stat](https://lisp-stat.dev/) project; that should be your first stop for information. Also see the <!-- [resources](https://lisp-stat.dev/resources) and -->
+[community](https://lisp-stat.dev/community) page for more
 information.
 
 <!-- CONTRIBUTING -->
