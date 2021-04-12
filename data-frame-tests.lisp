@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
-;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2021 by Symbolics Pte. Ltd. All rights reserved.
 
-(cl:defpackage #:data-frame-tests
+(cl:defpackage :data-frame-tests
   (:use
    #:cl
    #:alexandria
@@ -13,7 +13,7 @@
   (:import-from #:nu #:as-alist #:as-plist)
   (:export #:run))
 
-(cl:in-package #:data-frame-tests)
+(cl:in-package :data-frame-tests)
 
 (defsuite data-frame ())
 
@@ -168,5 +168,28 @@ destructive or non-destructive."
     (assert-false (equalp plist (as-plist df)))
     (assert-equalp expected-plist (as-plist df))))
 
-;; TODO add tests for remove-columns
-;; TODO add tests for remove-duplicates
+
+(defsuite remove-columns (data-frame))
+
+(deftest remove-columns1 (remove-columns)
+  (let* ((plist '(:a #(1 2 3) :b #(5 7 11) :c #(100 200 300)))
+         (df (plist-df plist))
+         (df-copy (copy df))
+         (df1 (remove-columns df '(:a :b)))
+         (expected-plist '(:c #(100 200 300))))
+    (assert-equalp expected-plist (as-plist df1))
+    (assert-equalp plist (as-plist df))
+    ;; modify destructively -- not implemented yet
+    ;; (replace-column! df :a #'1+)
+    ;; (assert-false (equalp plist (as-plist df)))
+    ;; (assert-equalp expected-plist (as-plist df))
+    ))
+
+
+(defsuite remove-duplicates (data-frame))
+
+(deftest remove-duplicates1 (remove-duplicates)
+  (let* ((dup (make-df '(:a :b :c) '(#(a a 3) #(a a 3) #(a a 333))))
+	 (df1 (df-remove-duplicates dup))
+	 (expected-plist '(:a #(a 3) :b #(a 3) :c #(a 333))))
+    (assert-equalp expected-plist (as-plist df1))))

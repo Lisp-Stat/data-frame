@@ -2,6 +2,9 @@
 ;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
 (cl:in-package :data-frame.column)
 
+;;; The functions in this file are primarily for printing.  It does
+;;; not define a data-frame column.  This should be renamed.
+
 (defgeneric column-length (column)
   (:documentation "Return the length of column.")
   (:method ((column vector))

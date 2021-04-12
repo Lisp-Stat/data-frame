@@ -8,8 +8,8 @@
   :maintainer  "Steve Nunez <steve@symbolics.tech>"
   :author      "Tamas Papp <tkpapp@gmail.com>"
   :licence     :MS-PL
-  :source-control (:git "https://github.com/Common-Lisp-Statistics/data-frame.git")
-  :bug-tracker "https://github.com/Common-Lisp-Statistics/data-frame/issues"
+  :source-control (:git "https://github.com/Lisp-Stat/data-frame.git")
+  :bug-tracker "https://github.com/Lisp-Stat/data-frame/issues"
   :depends-on (#:alexandria
                #:anaphora
                #:array-operations
