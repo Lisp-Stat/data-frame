@@ -50,10 +50,6 @@ TABLE maps keys to indexes, starting from zero."
       (error 'key-not-found :key key :keys (keys-vector ordered-keys)))
     index))
 
-(defmethod print-object ((ordered-keys ordered-keys) stream)
-  (print-unreadable-object (ordered-keys stream :type t)
-    (format stream "~{~a~^, ~}" (coerce (keys-vector ordered-keys) 'list))))
-
 (defun add-key! (ordered-keys key)
   "Modify ORDERED-KEYS by adding KEY."
   (check-type key symbol)
@@ -276,17 +272,6 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
 (defmethod aops:as-array ((data-vector data-vector))
   (columns data-vector))
 
-(defmethod print-object ((data-vector data-vector) stream)
-  (let ((alist (as-alist data-vector)))
-    (pprint-logical-block (stream alist)
-      (print-unreadable-object (data-vector stream :type t)
-        (format stream "(~d)" (length alist))
-        (loop (pprint-exit-if-list-exhausted)
-              (let+ (((key . column) (pprint-pop)))
-                (format stream "~_ ~W ~W" key column))
-              (pprint-exit-if-list-exhausted)
-              (princ "," stream))))))
-
 (defmethod select ((data-vector data-vector) &rest slices)
   (let+ (((column-slice) slices)
          ((&slots-r/o ordered-keys columns) data-vector)
@@ -322,21 +307,6 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
 
 (defmethod check-column-compatibility ((data data-frame) column)
   (assert (= (column-length column) (aops:nrow data))))
-
-(defparameter *column-summary-minimum-length* 10
-  "Columns are only summarized when longer than this, otherwise they are returned as is.")
-(defmethod print-object ((data-frame data-frame) stream)
-  (let ((alist (as-alist data-frame))
-        (summarize? (<= *column-summary-minimum-length* (aops:nrow data-frame))))
-    (pprint-logical-block (stream alist)
-      (print-unreadable-object (data-frame stream :type t)
-        (format stream "(~d x ~d)" (length alist) (aops:nrow data-frame))
-        (loop (pprint-exit-if-list-exhausted)
-              (pprint-newline :mandatory stream)
-              (let+ (((key . column) (pprint-pop)))
-                (format stream "~W ~W" key (if summarize?
-                                               (column-summary column)
-                                               column))))))))
 
 (defun matrix-df (keys matrix)
   "Convert a matrix to a data-frame with the given keys."
@@ -464,3 +434,10 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
 (defun delete-duplicates (data)
   "Like REMOVE-DUPLICATES, but may modify DATA"
 ...)
+
+
+(defun 2d-array-to-list (array)
+  "Convert an array to a list of lists" 		; make flet?
+  (loop for i below (array-dimension array 0)
+        collect (loop for j below (array-dimension array 1)
+                      collect (aref array i j))))

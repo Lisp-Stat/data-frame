@@ -193,3 +193,39 @@ destructive or non-destructive."
 	 (df1 (df-remove-duplicates dup))
 	 (expected-plist '(:a #(a 3) :b #(a 3) :c #(a 333))))
     (assert-equalp expected-plist (as-plist df1))))
+
+
+
+(defsuite pretty-print (data-frame))
+
+(deftest pprint-df (pretty-print)
+  (let* ((df1 (make-df  '(:a :b :c)
+			'(#(a a a)
+			  #(b b b)
+			  #(3 33 333))))
+	 (*print-pretty* t)
+	 (expected-string ";; A B   C 
+;; A B   3
+;; A B  33
+;; A B 333
+")
+	 (actual-string (make-array '(0) :element-type 'base-char :fill-pointer 0 :adjustable t)))
+
+    (with-output-to-string (s actual-string)
+      (pprint-data-frame df1 s))
+    (assert-true (string= expected-string actual-string))))
+
+(deftest pprint-array (pretty-print)
+  (let* ((array1 #2A(#(a a a)
+		     #(b b b)
+		     #(3 33 333)))
+	 (*print-pretty* t)
+	 (expected-string ";; A A A
+;; B B B
+;; 3 33 333
+")
+	 (actual-string (make-array '(0) :element-type 'base-char :fill-pointer 0 :adjustable t)))
+
+    (with-output-to-string (s actual-string)
+      (pprint-array array1 s))
+    (assert-true (string= expected-string actual-string))))

@@ -24,6 +24,7 @@
    #:select-dev)
   (:import-from #:nu #:as-alist)
   (:export
+
    ;; error messages for ordered keys
    #:duplicate-key
    #:key-not-found
@@ -52,6 +53,7 @@
    #:plist-df
    #:df
    #:matrix-df
+   #:rows
    #:*column-summary-minimum-length*
 
    ;; transformations for data-frames
@@ -62,5 +64,13 @@
    #:map-df
    #:replace-column!
    #:replace-column
-   #:df-remove-duplicates))
+   #:remove-columns
+   #:substitute-key!
+   #:df-remove-duplicates
+
+   ;; Pretty printing
+   #:pprint-data-frame
+   #:pprint-array
+   #:head
+   #:tail))
 

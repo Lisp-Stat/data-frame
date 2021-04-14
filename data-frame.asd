@@ -19,7 +19,8 @@
   :serial t
   :components ((:file "pkgdcl")
 	       (:file "data-frame-column")
-	       (:file "data-frame"))
+	       (:file "data-frame")
+	       (:file "pprint"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (asdf:defsystem #:data-frame/tests
