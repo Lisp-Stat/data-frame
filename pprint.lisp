@@ -319,3 +319,5 @@ After defining this method it is permanently associated with data-frame objects"
   (let* ((*print-lines* 6)
 	 (*print-pretty* t))
     (df:pprint-data-frame df stream)))
+
+

@@ -18,9 +18,9 @@
                #:let-plus)
   :serial t
   :components ((:file "pkgdcl")
-	       (:file "data-frame-column")
 	       (:file "data-frame")
-	       (:file "pprint"))
+	       (:file "pprint")
+	       (:file "summary"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (asdf:defsystem #:data-frame/tests

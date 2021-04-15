@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 ;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
-
+#+nil
 (uiop:define-package #:data-frame.column
   (:use #:cl
         #:alexandria
@@ -19,7 +19,7 @@
    #:alexandria
    #:anaphora
    #:let-plus
-   #:data-frame.column
+   ;; #:data-frame.column
    #:select
    #:select-dev)
   (:import-from #:nu #:as-alist)
@@ -54,7 +54,6 @@
    #:df
    #:matrix-df
    #:rows
-   #:*column-summary-minimum-length*
 
    ;; transformations for data-frames
    #:map-rows
@@ -72,5 +71,12 @@
    #:pprint-data-frame
    #:pprint-array
    #:head
-   #:tail))
+   #:tail
+   #:column-names
+   #:row-names
+
+   ;; Summary methods
+   #:summary
+   #:column-summary
+   #:*column-summary-minimum-length*))
 

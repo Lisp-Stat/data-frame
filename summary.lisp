@@ -1,9 +1,6 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: DATA-FRAME.COLUMN -*-
-;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package :data-frame.column)
-
-;;; The functions in this file are primarily for printing.  It does
-;;; not define a data-frame column.  This should be renamed.
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: DATA-FRAME -*-
+;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
+(cl:in-package :data-frame)
 
 (defgeneric column-length (column)
   (:documentation "Return the length of column.")
@@ -80,12 +77,12 @@
                                    :element-count-alist alist))))
 
 (defmethod print-object ((summary generic-vector-summary) stream)
-  (let+ (((&structure-r/o generic-vector-summary- length quantiles
-                          element-count-alist) summary))
+  (let+ (((&structure-r/o generic-vector-summary- length quantiles element-count-alist) summary))
     #+sbcl ;; complains about unreachable code
     (declare (sb-ext:muffle-conditions sb-ext:compiler-note))
     (pprint-logical-block (stream nil)
       (pprint-logical-block (stream nil)
+	(pprint-newline :mandatory stream)
         (when quantiles
           (let+ (((&structure-r/o quantiles-summary- count min q25 q50 q75 max)
                   quantiles))
@@ -106,3 +103,22 @@
               (pprint-exit-if-list-exhausted)
               (format stream ", ~_"))))))
 
+;;; This should probably not use the pretty printing system, but this
+;;; is that way Tamas had done it.  When we rewrite the summary
+;;; system, think about using format.
+(defmethod summary ((df data-frame) &optional (stream *standard-output*))
+  (let* ((summarize? (<= *column-summary-minimum-length* (aops:nrow df)))
+	 (data-frame (remove-columns df '(:||)))
+	 (alist (as-alist data-frame))
+	 (*print-pretty* t)		; because we're using the pretty printer
+	 (*print-lines* nil))
+    (format stream "~&")			; Why is this needed?
+    (pprint-logical-block (stream alist)
+      (print-unreadable-object (data-frame stream :type t)
+        (format stream "(~d x ~d)" (length alist) (aops:nrow data-frame))
+        (loop (pprint-exit-if-list-exhausted)
+              (pprint-newline :mandatory stream)
+              (let+ (((key . column) (pprint-pop)))
+                (format stream "~W ~W" key (if summarize?
+                                               (column-summary column)
+                                               column))))))))
