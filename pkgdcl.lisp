@@ -54,6 +54,7 @@
    #:df
    #:matrix-df
    #:rows
+   #:define-data-frame
 
    ;; transformations for data-frames
    #:map-rows

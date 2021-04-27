@@ -20,7 +20,8 @@
   :components ((:file "pkgdcl")
 	       (:file "data-frame")
 	       (:file "pprint")
-	       (:file "summary"))
+	       (:file "summary")
+	       (:file "defdf"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (asdf:defsystem #:data-frame/tests

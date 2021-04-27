@@ -94,7 +94,13 @@ An ANSI Common Lisp implementation. Developed and tested with
 [SBCL](https://www.sbcl.org/) and
 [CCL](https://github.com/Clozure/ccl).
 
-### Installation
+### Quicklisp Installation
+
+```lisp
+(ql:quickload :data-frame)
+```
+
+### Manual Installation
 
 1. Clone the repository
    ```sh
