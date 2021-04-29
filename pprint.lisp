@@ -45,8 +45,8 @@
     (integer 'integer)
     (ratio   'ratio)
     (complex 'complex)
-    ;; (rational 'cl:rational)		; SBCL doesn't recognise this return type
-    ;; (real    'real)			; SBCL doesn't recognise this return type
+    ;; (rational 'cl:rational)		;SBCL doesn't recognise this return type
+    ;; (real    'real)			;SBCL doesn't recognise this return type
 
     (simple-string 'simple-string)
     (string 'string)
@@ -137,8 +137,8 @@ ARRAY is the data portion of the data-frame (type #2A), KEYS are the data-frame 
 	 (col-widths (aops:margin #'max-width   array 0))
 	 (col-types  (aops:margin #'column-type array 0))
 	 (col-digits (aops:margin #'max-decimal array 0))
-	 (variables  (map 'list #'symbol-name (keys df))) ; get variable names
-	 (variables-widths (map 'list #'length variables))   ; get their widths
+	 (variables  (map 'list #'symbol-name (keys df)))
+	 (variables-widths (map 'list #'length variables))
 	 (widths (map 'list #'(lambda (x y) (max x y)) variables-widths col-widths))) ; take the max
     (map 'list #'(lambda (type width digits)
 		   (alexandria:switch (type :test #'string=)
@@ -154,8 +154,8 @@ This is similar to df-data-formats except that we must use non-default values fo
   (let* ((array      (aops:as-array df))
 	 (col-widths (aops:margin #'max-width   array 0))
 	 (col-types  (aops:margin #'column-type array 0))
-	 (variables  (map 'list #'symbol-name (keys df)))  ; get variable names
-	 (variables-widths (map 'list #'length variables)) ; get their widths
+	 (variables  (map 'list #'symbol-name (keys df)))
+	 (variables-widths (map 'list #'length variables))
 	 (widths (map 'list #'(lambda (x y) (max x y)) variables-widths col-widths))) ; take the max
     (map 'list #'(lambda (type width)
 		   (alexandria:switch (type :test #'string=)
@@ -211,7 +211,7 @@ This is similar to df-data-formats except that we must use non-default values fo
 	  (print-unreadable-object (df stream :type t)
             (format stream "(~d observations of ~d variables)"
 		    (aops:nrow df)
-		    (if (string= "" (first variables)) ; Remove row-name from count
+		    (if (string= "" (first variables)) ;Remove row-name from count
 			(1- (aops:ncol df))
 			(aops:ncol df))))))))
 
@@ -221,7 +221,6 @@ This is similar to df-data-formats except that we must use non-default values fo
 	   (data-fmt (default-column-formats array))
 	   (f 0))
 
-      ;; (write-char #\Newline stream)	; this is neccessary for some reason
       (if *print-pretty*
 
 	  (pprint-logical-block (stream df-lists)
@@ -243,11 +242,13 @@ This is similar to df-data-formats except that we must use non-default values fo
 
 (defmethod head ((df data-frame) &optional (n 6))
   "Return the first N rows of DF; N defaults to 6"
-  (pprint-data-frame (select df (select:range 1 n) t)))
+  (let ((*print-pretty* t))
+    (pprint-data-frame (select df (select:range 1 n) t))))
 
 (defmethod tail ((df data-frame) &optional (n 6))
   "Return the last N rows of DF; N defaults to 6"
-  (pprint-data-frame (select df (select:range (- n) nil) t)))
+  (let ((*print-pretty* t))
+    (pprint-data-frame (select df (select:range (- n) nil) t))))
 
 (defmethod column-names ((df data-frame))
   "Return a list column names in DF, as strings"
@@ -290,7 +291,7 @@ After defining this method it is permanently associated with data-frame objects"
 	  (print-unreadable-object (df stream :type t)
             (format stream "(~d observations of ~d variables)"
 		    (aops:nrow df)
-		    (if (string= "" (first variables)) ; Remove row-name from count
+		    (if (string= "" (first variables)) ;Remove row-name from count
 			(1- (aops:ncol df))
 			(aops:ncol df)))))))
 
@@ -321,3 +322,42 @@ After defining this method it is permanently associated with data-frame objects"
     (df:pprint-data-frame df stream)))
 
 
+
+
+;;; Markdown
+
+(defun pprint-markdown (df &optional (stream *standard-output*))
+  "Print data frame DF, in markdown format, to STREAM"
+  (let* ((array      (aops:as-array df))
+	 (col-types  (aops:margin #'column-type array 0))
+	 (*print-pprint-dispatch* (copy-pprint-dispatch))
+	 (*print-pretty* t))
+
+    ;; For notebook printing, we only need four digits of accuracy
+    (set-pprint-dispatch 'float  (lambda (s f) (format s "~,4f" f)))
+    ;; (set-pprint-dispatch 'double-float (lambda (s f) (format s "~,2f" f)))
+
+    ;; Print column names
+    (map nil #'(lambda (x)
+		 (format stream "| ~A " x))
+	 (keys df))
+    (write-char #\| stream)
+    (write-char #\Newline stream)
+
+    ;; Print alignment
+    (map nil #'(lambda (x)
+		 (alexandria:switch (x :test #'string=)
+		   ("F" (format stream "| ---: "))
+		   ("D" (format stream "| ---: "))
+		   ("A" (format stream "| :--- "))))
+	 col-types)
+    (write-char #\| stream)
+    (write-char #\Newline stream)
+
+    ;; Print data
+    (aops:each-index i
+      (aops:each-index j
+	(format stream "| ~A " (aref array i j)))
+      (format stream " |~%"))
+
+    ))
