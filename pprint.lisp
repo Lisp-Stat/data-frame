@@ -243,11 +243,13 @@ This is similar to df-data-formats except that we must use non-default values fo
 (defmethod head ((df data-frame) &optional (n 6))
   "Return the first N rows of DF; N defaults to 6"
   (let ((*print-pretty* t))
-    (pprint-data-frame (select df (select:range 1 n) t))))
+    (if (< (aops:nrow df) 6) (setf n (aops:nrow df)))
+    (pprint-data-frame (select df (select:range 0 n) t))))
 
 (defmethod tail ((df data-frame) &optional (n 6))
   "Return the last N rows of DF; N defaults to 6"
   (let ((*print-pretty* t))
+    (if (< (aops:nrow df) 6) (setf n (aops:nrow df)))
     (pprint-data-frame (select df (select:range (- n) nil) t))))
 
 (defmethod column-names ((df data-frame))
