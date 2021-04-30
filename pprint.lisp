@@ -254,11 +254,6 @@ This is similar to df-data-formats except that we must use non-default values fo
   "Return a list column names in DF, as strings"
    (map 'list #'symbol-name (keys df)))
 
-(defmethod row-names ((df data-frame))
-  "Return a list row names in DF, as strings"
-  (coerce (select df t :||) 'list))
-
-
 ;;;
 ;;; Pretty printer system configuration
 ;;;
@@ -291,10 +286,7 @@ After defining this method it is permanently associated with data-frame objects"
 	  (print-unreadable-object (df stream :type t)
             (format stream "(~d observations of ~d variables)"
 		    (aops:nrow df)
-		    (if (string= "" (first variables)) ;Remove row-name from count
-			(1- (aops:ncol df))
-			(aops:ncol df)))))))
-
+		    (aops:ncol df))))))
 
 ;;; Printer dispatch tables
 
