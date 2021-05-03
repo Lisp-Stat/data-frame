@@ -70,6 +70,7 @@
 
    ;; Pretty printing
    #:pprint-data-frame
+   #:pprint-markdown
    #:pprint-array
    #:head
    #:tail
