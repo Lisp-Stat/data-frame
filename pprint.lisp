@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package :data-frame)
+(cl:in-package #:data-frame)
 
 ;;; Pretty print data-frames and 2D arrays
 
@@ -320,8 +320,9 @@ After defining this method it is permanently associated with data-frame objects"
 
 ;;; Markdown
 
-(defun pprint-markdown (df &optional (stream *standard-output*))
-  "Print data frame DF, in markdown format, to STREAM"
+(defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
+  "Print data frame DF, in markdown format, to STREAM
+If ROW-NUMBERS is true, also print row numbers as the first column"
   (let* ((array      (aops:as-array df))
 	 (col-types  (aops:margin #'column-type array 0))
 	 (*print-pprint-dispatch* (copy-pprint-dispatch))
@@ -332,6 +333,7 @@ After defining this method it is permanently associated with data-frame objects"
     ;; (set-pprint-dispatch 'double-float (lambda (s f) (format s "~,2f" f)))
 
     ;; Print column names
+    (if row-numbers (format stream "| "))
     (map nil #'(lambda (x)
 		 (format stream "| ~A " x))
 	 (keys df))
@@ -339,6 +341,7 @@ After defining this method it is permanently associated with data-frame objects"
     (write-char #\Newline stream)
 
     ;; Print alignment
+    (if row-numbers (format stream "| ---: "))
     (map nil #'(lambda (x)
 		 (alexandria:switch (x :test #'string=)
 		   ("F" (format stream "| ---: "))
@@ -350,8 +353,9 @@ After defining this method it is permanently associated with data-frame objects"
 
     ;; Print data
     (aops:each-index i
+      (if row-numbers (format stream "| ~A " i))
       (aops:each-index j
 	(format stream "| ~A " (aref array i j)))
       (format stream " |~%"))
 
-    ))
+    (values)))
