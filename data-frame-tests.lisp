@@ -94,7 +94,7 @@
   (let ((df (df :a v :b b :c s)))
     (assert-true (with-output-to-string (stream)
                    (print-object df stream)))))
-;;;
+
 
 (defsuite data-frame-add (data-frame))
 
@@ -229,3 +229,20 @@ destructive or non-destructive."
     (with-output-to-string (s actual-string)
       (pprint-array array1 s))
     (assert-true (string= expected-string actual-string))))
+
+
+#|
+TODO: Figure out how to test macros. I made a few trys, but since we
+are going to move away from cl-unit, I'm not going to spend any more time
+figuring this out.
+
+(defsuite define-data-frame (data-frame))
+
+(deftest defdf (define-data-frame)
+  (let ((df1 (make-df  '('a 'b 'c)
+		       '(#(a a a)
+			 #(b b b)
+			 #(3 33 333)))))
+    (define-data-frame df1)
+    (assert-equal-p df1:a #(a b 3))))
+|#

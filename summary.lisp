@@ -106,19 +106,20 @@
 ;;; This should probably not use the pretty printing system, but this
 ;;; is that way Tamas had done it.  When we rewrite the summary
 ;;; system, think about using format.
+;;; Note bug in removing the row names, fix suggested below
 (defmethod summary ((df data-frame) &optional (stream *standard-output*))
   (let* ((summarize? (<= *column-summary-minimum-length* (aops:nrow df)))
-	 (data-frame (remove-columns df '(:||)))
-	 (alist (as-alist data-frame))
+	 (alist (as-alist df))
 	 (*print-pretty* t)		; because we're using the pretty printer
 	 (*print-lines* nil))
     (format stream "~&")			; Why is this needed?
     (pprint-logical-block (stream alist)
-      (print-unreadable-object (data-frame stream :type t)
-        (format stream "(~d x ~d)" (length alist) (aops:nrow data-frame))
+      (print-unreadable-object (df stream :type t)
+        (format stream "(~d x ~d)" (length alist) (aops:nrow df))
         (loop (pprint-exit-if-list-exhausted)
               (pprint-newline :mandatory stream)
               (let+ (((key . column) (pprint-pop)))
-                (format stream "~W ~W" key (if summarize?
-                                               (column-summary column)
-                                               column))))))))
+		(unless (string= (symbol-name key) "ROW-NAME")
+                  (format stream "~W ~W" key (if summarize?
+						 (column-summary column)
+						 column)))))))))
