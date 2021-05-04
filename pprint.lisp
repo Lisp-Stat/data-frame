@@ -173,7 +173,7 @@ This is similar to df-data-formats except that we must use non-default values fo
 ;;;
 ;;; Pretty printers
 ;;;
-
+#+nil
 (defun pprint-data-frame (df &optional (stream *standard-output*))
   (let* ((df-array  (aops:as-array df))
 	 (df-lists  (2d-array-to-list df-array))
@@ -212,6 +212,61 @@ This is similar to df-data-formats except that we must use non-default values fo
             (format stream "(~d observations of ~d variables)"
 		    (aops:nrow df)
 		    (if (string= "" (first variables)) ;Remove row-name from count
+			(1- (aops:ncol df))
+			(aops:ncol df))))))))
+
+;; Consider exporting this if it turns out to be generally useful
+(defun reverse-df (df)
+  "Return DF with columns in reverse order"
+  (make-df (reverse (keys df)) (reverse (columns df))))
+
+(defun pprint-data-frame (df &optional (stream *standard-output*) (row-numbers t))
+  (let* (
+	 ;; Process DF for row numbers
+	 (dframe    (cond (row-numbers (reverse-df
+					(add-columns (reverse-df df)
+						     '||
+						     (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df)))))
+			  (t df)))
+	 (df-array  (aops:as-array dframe))
+	 (df-lists  (2d-array-to-list df-array))
+	 (variables (map 'list #'symbol-name (keys dframe)))
+	 (data-fmt  (df-data-formats dframe))
+	 (var-fmt   (df-variable-formats dframe))
+	 (f 0))
+
+
+
+    (if *print-pretty*
+	(progn
+	  ;; Print column headers
+	  (pprint-logical-block (stream variables :per-line-prefix ";; ")
+	    (loop (pprint-exit-if-list-exhausted)
+		  (format stream (nth f var-fmt) (pprint-pop))
+		  (incf f)
+		  (write-char #\Space stream)))
+
+	  (write-char #\Newline stream)
+	  (setf f 0)
+
+	  ;; Print data
+	  (pprint-logical-block (stream df-lists)
+	    (loop (pprint-exit-if-list-exhausted)
+		  (let ((row (pprint-pop)))
+		    (pprint-logical-block (stream row :per-line-prefix ";; ")
+		      (loop (pprint-exit-if-list-exhausted)
+			    (format stream (nth f data-fmt) (pprint-pop))
+			    (incf f)
+			    (write-char #\Space stream))))
+		  (pprint-newline :mandatory stream)
+		  (setf f 0))))
+
+	;; not *print-pretty*
+	(pprint-logical-block (stream df-lists)
+	  (print-unreadable-object (df stream :type t)
+            (format stream "(~d observations of ~d variables)"
+		    (aops:nrow df)
+		    (if (string= "row-name" (first variables)) ;Remove row-name from count
 			(1- (aops:ncol df))
 			(aops:ncol df))))))))
 

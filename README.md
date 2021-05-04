@@ -20,7 +20,7 @@
   <h3 align="center">Data Frame</h3>
 
   <p align="center">
-  A two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column
+  Data frames for Common Lisp. A two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column
 	<br />
     <a href="https://lisp-stat.dev/docs/tasks/data-frame/"><strong>Explore the docs »</strong></a>
     <br />
