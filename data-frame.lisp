@@ -76,11 +76,11 @@ TABLE maps keys to indexes, starting from zero."
 (defun substitute-key! (df new old)
   "Substitute NEW key, a SYMBOL, for OLD in a data-frame.
 
-Useful when reading data files that have an empty first column name,
-where the CSV reader encodes the name as :||.
+Useful when reading data files that have an empty or generated column name.
 
 Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name"
-  (setf (slot-value df 'df::ordered-keys) (df::ordered-keys (substitute new old (df::keys-vector (df::ordered-keys (df:keys df)))))))
+  (setf (slot-value df 'ordered-keys)
+	(ordered-keys (substitute new old (keys-vector (ordered-keys (keys df)))))))
 
 
 ;;;
@@ -241,7 +241,7 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
   "ARGS: DATA data frame
          KEYS list of keys (variables) to be removed
 Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA."
-  (select data t (set-difference (coerce (keys data) 'list) keys)))
+  (select data t (reverse (set-difference (coerce (keys data) 'list) keys))))
 
 (defmacro define-data-subclass (class abbreviation)
   (check-type class symbol)
