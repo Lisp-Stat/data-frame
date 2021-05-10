@@ -55,6 +55,8 @@
    #:matrix-df
    #:rows
    #:define-data-frame
+   #:define-column-names
+   #:make-data-package
 
    ;; transformations for data-frames
    #:map-rows
@@ -66,6 +68,7 @@
    #:replace-column
    #:remove-columns
    #:substitute-key!
+   #:replace-key
    #:df-remove-duplicates
 
    ;; Pretty printing
