@@ -226,7 +226,9 @@ This is similar to df-data-formats except that we must use non-default values fo
 	 (dframe    (cond (row-numbers (reverse-df
 					(add-columns (reverse-df df)
 						     '||
-						     (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df)))))
+						     (if (= (aops:nrow df) 1) ;corner case
+							 #(0)
+							 (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))))))
 			  (t df)))
 	 (df-array  (aops:as-array dframe))
 	 (df-lists  (2d-array-to-list df-array))
@@ -234,8 +236,6 @@ This is similar to df-data-formats except that we must use non-default values fo
 	 (data-fmt  (df-data-formats dframe))
 	 (var-fmt   (df-variable-formats dframe))
 	 (f 0))
-
-
 
     (if *print-pretty*
 	(progn
@@ -277,7 +277,6 @@ This is similar to df-data-formats except that we must use non-default values fo
 	   (f 0))
 
       (if *print-pretty*
-
 	  (pprint-logical-block (stream df-lists)
 	    (loop (pprint-exit-if-list-exhausted)
 		  (let ((row (pprint-pop)))
