@@ -291,7 +291,6 @@ This is similar to df-data-formats except that we must use non-default values fo
 	  (format stream "~A" array))))
 
 
-
 ;;; Not pretty printing per-se, but related
 
 (defmethod head ((df data-frame) &optional (n 6))
@@ -335,8 +334,7 @@ This is similar to df-data-formats except that we must use non-default values fo
   "Print DATA-FRAME dimensions and type
 After defining this method it is permanently associated with data-frame objects"
   (let* ((df-array  (aops:as-array df))
-	 (df-lists  (2d-array-to-list df-array))
-	 (variables (map 'list #'symbol-name (keys df))))
+	 (df-lists  (2d-array-to-list df-array)))
 
 	(pprint-logical-block (stream df-lists)
 	  (print-unreadable-object (df stream :type t)

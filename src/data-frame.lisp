@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package :data-frame)
+(in-package #:data-frame)
 
 ;;; Note: tpapp never mentions the difference between a data-vector
 ;;; and a data-frame. As near as I can tell, a data-frame must have

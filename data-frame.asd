@@ -17,11 +17,13 @@
                #:select
                #:let-plus)
   :serial t
+  :pathname "src/"
   :components ((:file "pkgdcl")
 	       (:file "data-frame")
 	       (:file "pprint")
 	       (:file "summary")
-	       (:file "defdf"))
+	       (:file "defdf")
+	       (:file "missing"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (asdf:defsystem #:data-frame/tests
@@ -33,6 +35,7 @@
   :depends-on (#:data-frame
                #:clunit)
   :serial t
+  :pathname "tests/"
   :components ((:file "data-frame-tests"))
   :perform (test-op (o s)
 		    (uiop:symbol-call :clunit :run-suite

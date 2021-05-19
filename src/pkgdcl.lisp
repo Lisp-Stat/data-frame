@@ -69,6 +69,9 @@
    #:remove-columns
    #:substitute-key!
    #:replace-key
+   #:missingp
+   #:drop-missing
+   #:replace-missing
    #:df-remove-duplicates
 
    ;; Pretty printing
