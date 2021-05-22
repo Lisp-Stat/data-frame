@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package #:data-frame)
+(in-package #:data-frame)
 
 ;;; These definitions are in a separate file because additional
 ;;; functionality is expected to be added in future.

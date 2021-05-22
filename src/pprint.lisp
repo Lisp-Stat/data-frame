@@ -4,16 +4,40 @@
 
 ;;; Pretty print data-frames and 2D arrays
 
+;;; It is not easy to line up columns dynamically when printing them.
+;;; Common lisp does have good control over justification and digits
+;;; but, unlike, say, markdown, it's up to the programmer to
+;;; explicitly specify the paddings.  If you knew a prori the widths,
+;;; this would be easy, but if you want to compute them at run-time
+;;; things get a bit ugly.
+
+;;; There are two patterns here for this:
+;;; 1. create a new structure that contains the strings in their printed format (pprint-data-frame)
+;;; 2. compute the formatting and apply each format to the original value as you loop through the structure (pprint-array)
+
+;;; Neither is particularly efficient. Option 2 is better than option
+;;; 1 in that regard, at the expense of some ugliness in the code and
+;;; keeping track of formatting strings for each column.
+
+
 (defparameter *column-summary-minimum-length* 10
   "Columns are only summarised when longer than this, otherwise they are returned as is.")
 
-;;; Recall the following definitions:
-;;; *print-length* - controls how many elements at a given level are printed (rows)
-;;; *print-lines*  - controls how many output lines are printed (columns)
+;;; The following global variables control aspects of printing:
+;; *print-length* - controls how many elements at a given level are printed (rows)
+;; *print-lines*  - controls how many output lines are printed (columns)
+(defparameter *max-digits* 4)		;max digits after decimal
+(defparameter *row-numbers-p* t)	;print row numbers
+
 
 ;;;
 ;;; Utility functions
 ;;;
+
+;; Consider exporting this if it turns out to be generally useful
+(defun reverse-df (df)
+  "Return DF with columns in reverse order"
+  (make-df (reverse (keys df)) (reverse (columns df))))
 
 (defun printer-status ()
   "Print values of all the printer variables"
@@ -66,7 +90,7 @@
 
 
 ;;;
-;;; Printing
+;;; Computing column formats
 ;;;
 
 ;;; To properly print float values we need to use the ~F directive to
@@ -80,43 +104,56 @@
 
 ;;; The three utility functions below give us this information.
 
-(defun max-width (sequence)
-  "Return the largest printed string size of the elements of SEQUENCE"
-  (apply #'max (map 'list #'(lambda (x)
-			      (length
-			       (typecase x
-				 (float (format nil "~F" x))
-				 (t (format nil "~A" x)))))
-		    sequence)))
+(defun max-width (sequence &optional (max-width nil))
+  "Return the largest printed string size of the elements of SEQUENCE, equal to or less than MAX-WIDTH"
+  (let ((actual-width (apply #'max (map 'list #'(lambda (x)
+					 (length
+					  (typecase x
+					    (float (format nil "~F" x))
+					    (t (format nil "~A" x)))))
+			       sequence))))
+    (if max-width
+	(min actual-width max-width)
+	actual-width)))
 
 (defun column-type (sequence)
   "Return a format string for the most general type found in sequence
 Use this for sequences of type T to determine how to format the column."
   (when (bit-vector-p sequence) (return-from column-type "D"))
-  (let ((type-list (map 'list #'(lambda (x) (get-type x)) sequence )))
+  (let ((type-list (map 'list #'(lambda (x) (get-type x)) sequence)))
     (cond ((member 'float   type-list) "F" )
 	  ((member 'integer type-list) "D" )
 	  ((member 'bit     type-list) "D" )
+	  ((member 'symbol  type-list) "S" )
 	  (t "A" ))))
 
-(defun max-decimal (sequence)
-  "Return the maximum number of digits to the right of the decimal point in the numbers of SEQUENCE"
-  (apply #'max (map 'list
-		    #'(lambda (x)
-			(typecase x
-			  (float (let* ((str (format nil "~F" x))
-					(pos (position #\. str)))
-				   (length (subseq str (1+ pos)))))
-			  (t 0)))
-		    sequence)))
+(defun cell-type (cell)
+  (let ((cell-type (get-type cell)))
+    (cond ((eq 'float   cell-type) "F" )
+	  ((eq 'integer cell-type) "D" )
+	  ((eq 'bit     cell-type) "D" )
+	  ((eq 'symbol  cell-type) "S" )
+	  (t "A" ))))
+
+(defun max-decimal (sequence &optional (max-digits nil))
+  "Return the maximum number of digits to the right of the decimal point in the numbers of SEQUENCE, equal to or less than MAX-DIGITS"
+  (let ((actual-digits (apply #'max
+			      (map 'list
+				   #'(lambda (x)
+				       (typecase x
+					 (float (let* ((str (format nil "~F" x))
+						       (pos (position #\. str)))
+						  (length (subseq str (1+ pos)))))
+					 (t 0)))
+				   sequence))))
+    (if max-digits
+	(min actual-digits max-digits)
+	actual-digits)))
 
 ;;;
 ;;; Formatters
 ;;;
 
-;;; These methods return formatting strings for arrays and data-frames.
-
-;;; For an array
 (defmethod default-column-formats ((array simple-array))
   "Return a list of formatting strings for ARRAY
 The method returns a set of default formatting strings using heuristics."
@@ -130,165 +167,94 @@ The method returns a set of default formatting strings using heuristics."
 		     ("A" (format nil "~~~AA"    width))))
 	 col-types col-widths col-digits)))
 
-(defmethod df-data-formats ((df data-frame))
-  "Return a list of formatting strings for data columns in a data-frame
-ARRAY is the data portion of the data-frame (type #2A), KEYS are the data-frame variables (type SYMBOL). The difference with default-column-formats is that df-data-formats returns the greater of column or variable name width."
-  (let* ((array      (aops:as-array df))
-	 (col-widths (aops:margin #'max-width   array 0))
-	 (col-types  (aops:margin #'column-type array 0))
-	 (col-digits (aops:margin #'max-decimal array 0))
-	 (variables  (map 'list #'symbol-name (keys df)))
-	 (variables-widths (map 'list #'length variables))
-	 (widths (map 'list #'(lambda (x y) (max x y)) variables-widths col-widths))) ; take the max
-    (map 'list #'(lambda (type width digits)
-		   (alexandria:switch (type :test #'string=)
-		     ("F" (format nil "~~~A,~AF" width digits))
-		     ("D" (format nil "~~~AD"    width))
-		     ("A" (format nil "~~~AA"    width))))
-	 col-types widths col-digits)))
-
-(defmethod df-variable-formats ((df data-frame))
-  "Returns a list of formatting strings for the variable names in a data-frame
-This is similar to df-data-formats except that we must use non-default values for the column headers. Strings are left-aligned by default, here we want them to match the justification of the data column."
-  ;; Basically repeat df-data-formats with different formatting strings
-  (let* ((array      (aops:as-array df))
-	 (col-widths (aops:margin #'max-width   array 0))
-	 (col-types  (aops:margin #'column-type array 0))
-	 (variables  (map 'list #'symbol-name (keys df)))
-	 (variables-widths (map 'list #'length variables))
-	 (widths (map 'list #'(lambda (x y) (max x y)) variables-widths col-widths))) ; take the max
-    (map 'list #'(lambda (type width)
-		   (alexandria:switch (type :test #'string=)
-		     ("F" (format nil "~~~A@A" width))
-		     ("D" (format nil "~~~A@A" width))
-		     ("A" (format nil "~~~AA"  width))))
-
-	             ;; These are helpful in debugging
-		     ;; ("F" (format nil "~~~A,,,'-@A" width))
-		     ;; ("D" (format nil "~~~A,,,'-@A" width))
-		     ;; ("A" (format nil "~~~A,,,'-A"  width))))
-	 col-types widths)))
+#+nil
+(defun cell-format (cell width)
+  "Return a formatter for cell"
+  (alexandria:switch ((cell-type cell) :test #'string=)
+    ("F" (format nil "~~~A,~AF" width 1))
+    ("D" (format nil "~~~AD"    width))
+    ("A" (format nil "~~~AA"    width)))
+  ("S" (format nil "~~~A@A"   width)))
 
 
 ;;;
 ;;; Pretty printers
 ;;;
-#+nil
-(defun pprint-data-frame (df &optional (stream *standard-output*))
-  (let* ((df-array  (aops:as-array df))
-	 (df-lists  (2d-array-to-list df-array))
-	 (variables (map 'list #'symbol-name (keys df)))
-	 (data-fmt  (df-data-formats df))
-	 (var-fmt   (df-variable-formats df))
-	 (f 0))
 
-    (if *print-pretty*
-	(progn
-	  ;; Print column headers
-	  (pprint-logical-block (stream variables :per-line-prefix ";; ")
-	    (loop (pprint-exit-if-list-exhausted)
-		  (format stream (nth f var-fmt) (pprint-pop))
-		  (incf f)
-		  (write-char #\Space stream)))
+(defun pprint-data-frame (data-frame
+			  &optional
+			    (stream *standard-output*)
+			    (row-numbers-p *row-numbers-p*)
+			    (max-digits *max-digits*))
+  "Return a 2D array of string suitable for pretty printing"
+  (check-type data-frame data)
+  (let* ((col-names '())
+	 (df (copy data-frame :key #'copy-array)))
+    (when row-numbers-p
+      (setf df (reverse-df
+		(add-columns (reverse-df df)
+			     '||
+			     (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))))))
+    (flet ((format-column (c)
+	     (let* ((width (max (max-width (column df c))
+				(length (symbol-name c))))
+		    (type (column-type (column df c)))
+		    (digits (min (max-decimal (column df c))
+				 max-digits))
+		    (data-fmt (alexandria:switch (type :test #'string=)
+				("F" (format nil "~~~A,~AF" width digits))
+				("D" (format nil "~~~AD"    width))
+				("A" (format nil "~~~AA"    width))
+				("S" (format nil "~~~A@A"   width))))
+		    (var-fmt (alexandria:switch (type :test #'string=) ;why does SBCL warn here?
+			       ("F" (format nil "~~~A@A" width))
+			       ("D" (format nil "~~~A@A" width))
+			       ("A" (format nil "~~~AA"  width))
+			       ("S" (format nil "~~~A@A"   width))
+			       ;; ("S" (format nil "~~~A:<A~~>"   width))
+			       )))
+	       ;; (format t "col: ~A, width: ~A, data-type: ~A, digits: ~A, fmt: ~A~%" (symbol-name c) width type digits var-fmt)
+	       (replace-column! df c #'(lambda (cell)
+					 (if (eq cell :na) ;should take same justification as column
+					     (format nil (format nil "~~~A<~~A~~>" width) cell)
+					     (format nil data-fmt cell))))
+	       (setf col-names (cons (format nil var-fmt (symbol-name c)) col-names)))))
+      (map nil #'format-column (keys df)))
 
-	  (write-char #\Newline stream)
-	  (setf f 0)
+    (pprint-logical-block (stream (reverse col-names) :per-line-prefix ";;")
+      (loop (pprint-exit-if-list-exhausted)
+	    (write-char #\Space stream)
+	    (write-sequence (pprint-pop) stream)))
+    (write-char #\Newline stream)
+    (pprint-logical-block (stream (2d-array-to-list (aops:as-array df)))
+      (loop (pprint-exit-if-list-exhausted)
+	    (let ((row (pprint-pop)))
+	      (pprint-logical-block (stream row :per-line-prefix ";; ")
+		(loop (pprint-exit-if-list-exhausted)
+		      (write-sequence (pprint-pop) stream)
+		      (write-char #\Space stream))))
+	    (pprint-newline :mandatory stream)))))
 
-	  ;; Print data
-	  (pprint-logical-block (stream df-lists)
-	    (loop (pprint-exit-if-list-exhausted)
-		  (let ((row (pprint-pop)))
-		    (pprint-logical-block (stream row :per-line-prefix ";; ")
-		      (loop (pprint-exit-if-list-exhausted)
-			    (format stream (nth f data-fmt) (pprint-pop))
-			    (incf f)
-			    (write-char #\Space stream))))
-		  (pprint-newline :mandatory stream)
-		  (setf f 0))))
-
-	;; not *print-pretty*
-	(pprint-logical-block (stream df-lists)
-	  (print-unreadable-object (df stream :type t)
-            (format stream "(~d observations of ~d variables)"
-		    (aops:nrow df)
-		    (if (string= "" (first variables)) ;Remove row-name from count
-			(1- (aops:ncol df))
-			(aops:ncol df))))))))
-
-;; Consider exporting this if it turns out to be generally useful
-(defun reverse-df (df)
-  "Return DF with columns in reverse order"
-  (make-df (reverse (keys df)) (reverse (columns df))))
-
-(defun pprint-data-frame (df &optional (stream *standard-output*) (row-numbers t))
-  (let* (
-	 ;; Process DF for row numbers
-	 (dframe    (cond (row-numbers (reverse-df
-					(add-columns (reverse-df df)
-						     '||
-						     (if (= (aops:nrow df) 1) ;corner case
-							 #(0)
-							 (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))))))
-			  (t df)))
-	 (df-array  (aops:as-array dframe))
-	 (df-lists  (2d-array-to-list df-array))
-	 (variables (map 'list #'symbol-name (keys dframe)))
-	 (data-fmt  (df-data-formats dframe))
-	 (var-fmt   (df-variable-formats dframe))
-	 (f 0))
-
-    (if *print-pretty*
-	(progn
-	  ;; Print column headers
-	  (pprint-logical-block (stream variables :per-line-prefix ";; ")
-	    (loop (pprint-exit-if-list-exhausted)
-		  (format stream (nth f var-fmt) (pprint-pop))
-		  (incf f)
-		  (write-char #\Space stream)))
-
-	  (write-char #\Newline stream)
-	  (setf f 0)
-
-	  ;; Print data
-	  (pprint-logical-block (stream df-lists)
-	    (loop (pprint-exit-if-list-exhausted)
-		  (let ((row (pprint-pop)))
-		    (pprint-logical-block (stream row :per-line-prefix ";; ")
-		      (loop (pprint-exit-if-list-exhausted)
-			    (format stream (nth f data-fmt) (pprint-pop))
-			    (incf f)
-			    (write-char #\Space stream))))
-		  (pprint-newline :mandatory stream)
-		  (setf f 0))))
-
-	;; not *print-pretty*
-	(pprint-logical-block (stream df-lists)
-	  (print-unreadable-object (df stream :type t)
-            (format stream "(~d observations of ~d variables)"
-		    (aops:nrow df)
-		    (if (string= "row-name" (first variables)) ;Remove row-name from count
-			(1- (aops:ncol df))
-			(aops:ncol df))))))))
-
-(defun pprint-array (array &optional (stream *standard-output*))
-  "Print an array to *standard-output* in a tabular format.  Print to STREAM otherwise."
-    (let* ((df-lists (2d-array-to-list array))
+;;; TODO: refactor this using the pattern in pprint-data-frame,
+;;; incorporating the code in default-column-formats and adding an
+;;; optional max-digits parameter
+(defun pprint-array (arr &optional (stream *standard-output*) (row-numbers-p *row-numbers-p*))
+  "Print an array to STREAM, defaulting to *standard-output*, in a tabular format.  If ROW-NUMBERS-P, print row numbers."
+  (let* ((array (cond (row-numbers-p (aops:stack-cols (aops:linspace 0 (1- (aops:nrow arr)) (aops:nrow arr)) arr))
+		      (t arr)))
+	 (df-lists (2d-array-to-list array))
 	   (data-fmt (default-column-formats array))
 	   (f 0))
-
-      (if *print-pretty*
-	  (pprint-logical-block (stream df-lists)
-	    (loop (pprint-exit-if-list-exhausted)
-		  (let ((row (pprint-pop)))
-		    (pprint-logical-block (stream row :per-line-prefix ";; ")
-		      (loop (pprint-exit-if-list-exhausted)
-			    (format stream (nth f data-fmt) (pprint-pop))
-			    (incf f)
-			    (write-char #\Space stream))))
-		    (pprint-newline :mandatory stream)
-		    (setf f 0)))
-
-	  (format stream "~A" array))))
+      (pprint-logical-block (stream df-lists)
+	(loop (pprint-exit-if-list-exhausted)
+	      (let ((row (pprint-pop)))
+		(pprint-logical-block (stream row :per-line-prefix ";;")
+		  (loop (pprint-exit-if-list-exhausted)
+			(write-char #\Space stream)
+			(format stream (nth f data-fmt) (pprint-pop))
+			(incf f))))
+	      (setf f 0)
+	      (write-char #\Newline stream)))))
 
 
 ;;; Not pretty printing per-se, but related
@@ -342,7 +308,9 @@ After defining this method it is permanently associated with data-frame objects"
 		    (aops:nrow df)
 		    (aops:ncol df))))))
 
+;;;
 ;;; Printer dispatch tables
+;;;
 
 ;; After setting this, with *print-pretty* nil, we get the following behaviour:
 ;; (print df)  => one line summary of number of rows and columns
@@ -370,7 +338,9 @@ After defining this method it is permanently associated with data-frame objects"
 
 
 
+;;;
 ;;; Markdown
+;;;
 
 (defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
   "Print data frame DF, in markdown format, to STREAM

@@ -204,7 +204,7 @@ destructive or non-destructive."
 			  #(b b b)
 			  #(3 33 333))))
 	 (*print-pretty* t)
-	 (expected-string ";;   A B   C 
+	 (expected-string ";;   A B   C
 ;; 0 A B   3
 ;; 1 A B  33
 ;; 2 A B 333
@@ -220,9 +220,9 @@ destructive or non-destructive."
 		     #(b b b)
 		     #(3 33 333)))
 	 (*print-pretty* t)
-	 (expected-string ";; A A A
-;; B B B
-;; 3 33 333
+	 (expected-string ";; 0 A A A
+;; 1 B B B
+;; 2 3 33 333
 ")
 	 (actual-string (make-array '(0) :element-type 'base-char :fill-pointer 0 :adjustable t)))
 
