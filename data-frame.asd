@@ -33,7 +33,7 @@
   :author      "Tamas Papp <tkpapp@gmail.com>"
   :licence     :MS-PL
   :depends-on (#:data-frame
-               #:clunit)
+               #:clunit2)
   :serial t
   :pathname "tests/"
   :components ((:file "data-frame-tests"))
