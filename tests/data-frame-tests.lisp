@@ -231,6 +231,31 @@ destructive or non-destructive."
     (assert-true (string= expected-string actual-string))))
 
 
+(defsuite missing (data-frame))
+
+(deftest d-frame (missing)
+  (let ((df (matrix-df #(:a :b :c) #2A((1.7 2.1 :na)
+				       (5.4 :na 6.1)
+				       (:na 8.3 9.5)))))
+    (assert-equalp #2A((nil nil t)
+		       (nil t nil)
+		       (t nil nil))
+      (aops:as-array (missingp df)))))
+
+(deftest array (missing)
+  (let ((arr #2A((bar 1 2 3 4 :na 6)
+	         (foo 7 8 9 :na 10 11))))
+    (assert-equalp #2A((nil nil nil nil nil t nil)
+		       (nil nil nil nil t nil nil))
+      (missingp arr))))
+
+(deftest vector (missing)
+  (let ((vec #(0 1 2 3 4 :na 6)))
+    (assert-equalp #(nil nil nil nil nil t nil) (missingp vec))))
+
+
+
+
 #|
 TODO: Figure out how to test macros. I made a few trys, but since we
 are going to move away from cl-unit, I'm not going to spend any more time
