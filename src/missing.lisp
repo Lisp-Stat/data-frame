@@ -22,7 +22,7 @@
   (:method ((data sequence))
     (map 'vector #'missingp data))
   (:method ((data array))
-    (aops:map-array data #'missingp))
+    (nu:map-array data #'missingp))
   (:method ((data data-frame))
     (map-columns data #'missingp)))
 
