@@ -33,6 +33,7 @@
    #:columns
    #:map-columns
    #:column
+   #:column-type
    #:keys
    #:copy
    #:add-columns

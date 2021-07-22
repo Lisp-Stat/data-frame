@@ -18,12 +18,13 @@
                #:let-plus)
   :serial t
   :pathname "src/"
-  :components ((:file "pkgdcl")
-	       (:file "data-frame")
-	       (:file "pprint")
-	       (:file "summary")
-	       (:file "defdf")
-	       (:file "missing"))
+  :components ((:file #:pkgdcl)
+	       (:file #:utils)
+	       (:file #:data-frame)
+	       (:file #:pprint)
+	       (:file #:summary)
+	       (:file #:defdf)
+	       (:file #:missing))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (asdf:defsystem #:data-frame/tests

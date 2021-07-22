@@ -1,0 +1,2653 @@
+This is data-frame.info, produced by makeinfo version 6.7 from
+data-frame.texi.
+
+INFO-DIR-SECTION Common Lisp
+START-INFO-DIR-ENTRY
+* Data Frame Reference: (data-frame). The Data Frame Reference Manual.
+END-INFO-DIR-ENTRY
+
+
+File: data-frame.info,  Node: Top,  Next: Systems,  Prev: (dir),  Up: (dir)
+
+The Data Frame Reference Manual
+*******************************
+
+This is the Data Frame Reference Manual, version 1.1.
+
+* Menu:
+
+* Systems:: The systems documentation
+* Files:: The files documentation
+* Packages:: The packages documentation
+* Definitions:: The symbols documentation
+* Indexes:: Concepts, functions, variables and data types
+
+
+File: data-frame.info,  Node: Systems,  Next: Files,  Prev: Top,  Up: Top
+
+1 Systems
+*********
+
+The main system appears first, followed by any subsystem dependency.
+
+* Menu:
+
+* The data-frame system::
+
+
+File: data-frame.info,  Node: The data-frame system,  Prev: Systems,  Up: Systems
+
+1.1 data-frame
+==============
+
+*Maintainer*
+     Steve Nunez <<steve@symbolics.tech>>
+*Author*
+     Tamas Papp <<tkpapp@gmail.com>>
+*Source Control*
+     (:git "https://github.com/lisp-stat/data-frame.git")
+*Bug Tracker*
+     <https://github.com/Lisp-Stat/data-frame/issues>
+*License*
+     MS-PL
+*Description*
+     Data frames for Common Lisp
+*Long Description*
+     A data manipulation package, conceptually similar to R’s
+     data.frame, but with a lisp-oriented API.
+*Version*
+     1.1
+*Dependencies*
+        • alexandria
+        • anaphora
+        • array-operations
+        • num-utils
+        • select
+        • let-plus
+*Source*
+     *note data-frame.asd: go to the data-frame․asd file. (file)
+*Directory*
+     s:/src/data-frame/
+*Components*
+        • *note pkgdcl.lisp: go to the data-frame/pkgdcl․lisp file.
+          (file)
+        • *note utils.lisp: go to the data-frame/utils․lisp file. (file)
+        • *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+        • *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+        • *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+        • *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+        • *note missing.lisp: go to the data-frame/missing․lisp file.
+          (file)
+
+
+File: data-frame.info,  Node: Files,  Next: Packages,  Prev: Systems,  Up: Top
+
+2 Files
+*******
+
+Files are sorted by type and then listed depth-first from the systems
+components trees.
+
+* Menu:
+
+* Lisp files::
+
+
+File: data-frame.info,  Node: Lisp files,  Prev: Files,  Up: Files
+
+2.1 Lisp
+========
+
+* Menu:
+
+* The data-frame.asd file: The data-frame․asd file.
+* The data-frame/pkgdcl.lisp file: The data-frame/pkgdcl․lisp file.
+* The data-frame/utils.lisp file: The data-frame/utils․lisp file.
+* The data-frame/data-frame.lisp file: The data-frame/data-frame․lisp file.
+* The data-frame/pprint.lisp file: The data-frame/pprint․lisp file.
+* The data-frame/summary.lisp file: The data-frame/summary․lisp file.
+* The data-frame/defdf.lisp file: The data-frame/defdf․lisp file.
+* The data-frame/missing.lisp file: The data-frame/missing․lisp file.
+
+
+File: data-frame.info,  Node: The data-frame․asd file,  Next: The data-frame/pkgdcl․lisp file,  Prev: Lisp files,  Up: Lisp files
+
+2.1.1 data-frame.asd
+--------------------
+
+*Location*
+     /src/data-frame/data-frame.asd
+*Systems*
+     *note data-frame: go to the data-frame system. (system)
+
+
+File: data-frame.info,  Node: The data-frame/pkgdcl․lisp file,  Next: The data-frame/utils․lisp file,  Prev: The data-frame․asd file,  Up: Lisp files
+
+2.1.2 data-frame/pkgdcl.lisp
+----------------------------
+
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     pkgdcl.lisp
+*Packages*
+     *note data-frame: go to the DATA-FRAME package.
+
+
+File: data-frame.info,  Node: The data-frame/utils․lisp file,  Next: The data-frame/data-frame․lisp file,  Prev: The data-frame/pkgdcl․lisp file,  Up: Lisp files
+
+2.1.3 data-frame/utils.lisp
+---------------------------
+
+*Dependency*
+     *note pkgdcl.lisp: go to the data-frame/pkgdcl․lisp file. (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     utils.lisp
+*Exported Definitions*
+     *note column-type: go to the DATA-FRAME∶∶COLUMN-TYPE function.
+     (function)
+*Internal Definitions*
+        • *note get-type: go to the DATA-FRAME∶∶GET-TYPE function.
+          (function)
+        • *note types-in-column: go to the DATA-FRAME∶∶TYPES-IN-COLUMN
+          function. (function)
+
+
+File: data-frame.info,  Node: The data-frame/data-frame․lisp file,  Next: The data-frame/pprint․lisp file,  Prev: The data-frame/utils․lisp file,  Up: Lisp files
+
+2.1.4 data-frame/data-frame.lisp
+--------------------------------
+
+*Dependency*
+     *note utils.lisp: go to the data-frame/utils․lisp file. (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     data-frame.lisp
+*Exported Definitions*
+        • *note add-column!: go to the DATA-FRAME∶∶ADD-COLUMN! function.
+          (function)
+        • *note add-columns: go to the DATA-FRAME∶∶ADD-COLUMNS function.
+          (function)
+        • *note add-columns!: go to the DATA-FRAME∶∶ADD-COLUMNS!
+          function. (function)
+        • *note alist-df: go to the DATA-FRAME∶∶ALIST-DF function.
+          (function)
+        • *note alist-dv: go to the DATA-FRAME∶∶ALIST-DV function.
+          (function)
+        • *note column: go to the DATA-FRAME∶∶COLUMN function.
+          (function)
+        • *note (setf column): go to the DATA-FRAME∶∶❨SETF COLUMN❩
+          function. (function)
+        • *note columns: go to the DATA-FRAME∶∶COLUMNS function.
+          (function)
+        • *note copy: go to the DATA-FRAME∶∶COPY function. (function)
+        • *note count-rows: go to the DATA-FRAME∶∶COUNT-ROWS function.
+          (function)
+        • *note data-frame: go to the DATA-FRAME∶∶DATA-FRAME class.
+          (class)
+        • *note data-vector: go to the DATA-FRAME∶∶DATA-VECTOR class.
+          (class)
+        • *note df: go to the DATA-FRAME∶∶DF function. (function)
+        • *note df-remove-duplicates: go to the
+          DATA-FRAME∶∶DF-REMOVE-DUPLICATES function. (function)
+        • *note do-rows: go to the DATA-FRAME∶∶DO-ROWS function.
+          (function)
+        • *note duplicate-key: go to the DATA-FRAME∶∶DUPLICATE-KEY
+          condition. (condition)
+        • *note dv: go to the DATA-FRAME∶∶DV function. (function)
+        • *note key-not-found: go to the DATA-FRAME∶∶KEY-NOT-FOUND
+          condition. (condition)
+        • *note keys: go to the DATA-FRAME∶∶KEYS function. (function)
+        • *note make-df: go to the DATA-FRAME∶∶MAKE-DF function.
+          (function)
+        • *note make-dv: go to the DATA-FRAME∶∶MAKE-DV function.
+          (function)
+        • *note map-columns: go to the DATA-FRAME∶∶MAP-COLUMNS function.
+          (function)
+        • *note map-df: go to the DATA-FRAME∶∶MAP-DF function.
+          (function)
+        • *note map-rows: go to the DATA-FRAME∶∶MAP-ROWS function.
+          (function)
+        • *note mask-rows: go to the DATA-FRAME∶∶MASK-ROWS function.
+          (function)
+        • *note matrix-df: go to the DATA-FRAME∶∶MATRIX-DF function.
+          (function)
+        • *note plist-df: go to the DATA-FRAME∶∶PLIST-DF function.
+          (function)
+        • *note plist-dv: go to the DATA-FRAME∶∶PLIST-DV function.
+          (function)
+        • *note remove-columns: go to the DATA-FRAME∶∶REMOVE-COLUMNS
+          function. (function)
+        • *note replace-column: go to the DATA-FRAME∶∶REPLACE-COLUMN
+          function. (function)
+        • *note replace-column!: go to the DATA-FRAME∶∶REPLACE-COLUMN!
+          function. (function)
+        • *note rows: go to the DATA-FRAME∶∶ROWS function. (function)
+        • *note substitute-key!: go to the DATA-FRAME∶∶SUBSTITUTE-KEY!
+          function. (function)
+*Internal Definitions*
+        • *note 2d-array-to-list: go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST
+          function. (function)
+        • *note add-key!: go to the DATA-FRAME∶∶ADD-KEY! function.
+          (function)
+        • *note add-keys: go to the DATA-FRAME∶∶ADD-KEYS function.
+          (function)
+        • *note alist-data: go to the DATA-FRAME∶∶ALIST-DATA function.
+          (function)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function.
+          (generic function)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME
+          COMMON-LISP∶∶T method. (method)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA
+          COMMON-LISP∶∶T method. (method)
+        • *note copy-ordered-keys: go to the
+          DATA-FRAME∶∶COPY-ORDERED-KEYS function. (function)
+        • *note data: go to the DATA-FRAME∶∶DATA class. (class)
+        • *note define-data-subclass: go to the
+          DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro. (macro)
+        • *note ensure-arguments-alist: go to the
+          DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function. (function)
+        • *note guess-alist?: go to the DATA-FRAME∶∶GUESS-ALIST?
+          function. (function)
+        • *note key-index: go to the DATA-FRAME∶∶KEY-INDEX function.
+          (function)
+        • *note keys-count: go to the DATA-FRAME∶∶KEYS-COUNT function.
+          (function)
+        • *note keys-vector: go to the DATA-FRAME∶∶KEYS-VECTOR function.
+          (function)
+        • *note make-data: go to the DATA-FRAME∶∶MAKE-DATA function.
+          (function)
+        • *note make-ordered-keys: go to the
+          DATA-FRAME∶∶MAKE-ORDERED-KEYS function. (function)
+        • *note ordered-keys: go to the DATA-FRAME∶∶ORDERED-KEYS
+          function. (function)
+        • *note ordered-keys: go to the DATA-FRAME∶∶ORDERED-KEYS
+          structure. (structure)
+        • *note ordered-keys-p: go to the DATA-FRAME∶∶ORDERED-KEYS-P
+          function. (function)
+        • *note ordered-keys-table: go to the
+          DATA-FRAME∶∶ORDERED-KEYS-TABLE function. (function)
+        • *note plist-data: go to the DATA-FRAME∶∶PLIST-DATA function.
+          (function)
+
+
+File: data-frame.info,  Node: The data-frame/pprint․lisp file,  Next: The data-frame/summary․lisp file,  Prev: The data-frame/data-frame․lisp file,  Up: Lisp files
+
+2.1.5 data-frame/pprint.lisp
+----------------------------
+
+*Dependency*
+     *note data-frame.lisp: go to the data-frame/data-frame․lisp file.
+     (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     pprint.lisp
+*Exported Definitions*
+        • *note *column-summary-minimum-length*: go to the
+          DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable.
+          (special variable)
+        • *note column-names: go to the DATA-FRAME∶∶COLUMN-NAMES
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note head: go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME
+          method. (method)
+        • *note pprint-array: go to the DATA-FRAME∶∶PPRINT-ARRAY
+          function. (function)
+        • *note pprint-data-frame: go to the
+          DATA-FRAME∶∶PPRINT-DATA-FRAME function. (function)
+        • *note pprint-markdown: go to the DATA-FRAME∶∶PPRINT-MARKDOWN
+          function. (function)
+        • *note tail: go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME
+          method. (method)
+*Internal Definitions*
+        • *note *max-digits*: go to the DATA-FRAME∶∶*MAX-DIGITS* special
+          variable. (special variable)
+        • *note *row-numbers-p*: go to the DATA-FRAME∶∶*ROW-NUMBERS-P*
+          special variable. (special variable)
+        • *note column-type-format: go to the
+          DATA-FRAME∶∶COLUMN-TYPE-FORMAT function. (function)
+        • *note default-column-formats: go to the
+          DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY
+          method. (method)
+        • *note max-decimal: go to the DATA-FRAME∶∶MAX-DECIMAL function.
+          (function)
+        • *note max-width: go to the DATA-FRAME∶∶MAX-WIDTH function.
+          (function)
+        • *note printer-status: go to the DATA-FRAME∶∶PRINTER-STATUS
+          function. (function)
+        • *note reverse-df: go to the DATA-FRAME∶∶REVERSE-DF function.
+          (function)
+
+
+File: data-frame.info,  Node: The data-frame/summary․lisp file,  Next: The data-frame/defdf․lisp file,  Prev: The data-frame/pprint․lisp file,  Up: Lisp files
+
+2.1.6 data-frame/summary.lisp
+-----------------------------
+
+*Dependency*
+     *note pprint.lisp: go to the data-frame/pprint․lisp file. (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     summary.lisp
+*Exported Definitions*
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          generic function. (generic function)
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          COMMON-LISP∶∶BIT-VECTOR method. (method)
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          COMMON-LISP∶∶VECTOR method. (method)
+        • *note summary: go to the DATA-FRAME∶∶SUMMARY
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+*Internal Definitions*
+        • *note *column-summary-quantiles-threshold*: go to the
+          DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special
+          variable. (special variable)
+        • *note bit-vector-summary: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure. (structure)
+        • *note bit-vector-summary-count: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function. (function)
+        • *note bit-vector-summary-length: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function. (function)
+        • *note bit-vector-summary-p: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function. (function)
+        • *note column-length: go to the DATA-FRAME∶∶COLUMN-LENGTH
+          generic function. (generic function)
+        • *note column-length: go to the DATA-FRAME∶∶COLUMN-LENGTH
+          COMMON-LISP∶∶VECTOR method. (method)
+        • *note copy-bit-vector-summary: go to the
+          DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function. (function)
+        • *note copy-generic-vector-summary: go to the
+          DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function. (function)
+        • *note copy-quantiles-summary: go to the
+          DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function. (function)
+        • *note copy-vector-summary%: go to the
+          DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function. (function)
+        • *note ensure-not-ratio: go to the DATA-FRAME∶∶ENSURE-NOT-RATIO
+          function. (function)
+        • *note generic-vector-summary: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure. (structure)
+        • *note generic-vector-summary-element-count-alist: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST
+          function. (function)
+        • *note generic-vector-summary-length: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function. (function)
+        • *note generic-vector-summary-p: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function. (function)
+        • *note generic-vector-summary-quantiles: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function.
+          (function)
+        • *note make-bit-vector-summary: go to the
+          DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function. (function)
+        • *note make-generic-vector-summary: go to the
+          DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function. (function)
+        • *note make-quantiles-summary: go to the
+          DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function. (function)
+        • *note make-vector-summary%: go to the
+          DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function. (function)
+        • *note print-count-and-percentage: go to the
+          DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function. (function)
+        • *note quantiles-summary: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY structure. (structure)
+        • *note quantiles-summary-count: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function. (function)
+        • *note quantiles-summary-max: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function. (function)
+        • *note quantiles-summary-min: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function. (function)
+        • *note quantiles-summary-p: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-P function. (function)
+        • *note quantiles-summary-q25: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function. (function)
+        • *note quantiles-summary-q50: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function. (function)
+        • *note quantiles-summary-q75: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function. (function)
+        • *note vector-summary%: go to the DATA-FRAME∶∶VECTOR-SUMMARY%
+          structure. (structure)
+        • *note vector-summary%-length: go to the
+          DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function. (function)
+        • *note vector-summary%-p: go to the
+          DATA-FRAME∶∶VECTOR-SUMMARY%-P function. (function)
+
+
+File: data-frame.info,  Node: The data-frame/defdf․lisp file,  Next: The data-frame/missing․lisp file,  Prev: The data-frame/summary․lisp file,  Up: Lisp files
+
+2.1.7 data-frame/defdf.lisp
+---------------------------
+
+*Dependency*
+     *note summary.lisp: go to the data-frame/summary․lisp file. (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     defdf.lisp
+*Exported Definitions*
+        • *note define-column-names: go to the
+          DATA-FRAME∶∶DEFINE-COLUMN-NAMES function. (function)
+        • *note define-data-frame: go to the
+          DATA-FRAME∶∶DEFINE-DATA-FRAME macro. (macro)
+        • *note make-data-package: go to the
+          DATA-FRAME∶∶MAKE-DATA-PACKAGE function. (function)
+*Internal Definitions*
+        • *note replace-key!: go to the DATA-FRAME∶∶REPLACE-KEY! macro.
+          (macro)
+        • *note show-symbols: go to the DATA-FRAME∶∶SHOW-SYMBOLS
+          function. (function)
+
+
+File: data-frame.info,  Node: The data-frame/missing․lisp file,  Prev: The data-frame/defdf․lisp file,  Up: Lisp files
+
+2.1.8 data-frame/missing.lisp
+-----------------------------
+
+*Dependency*
+     *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+*Parent*
+     *note data-frame: go to the data-frame system. (system)
+*Location*
+     missing.lisp
+*Exported Definitions*
+        • *note drop-missing: go to the DATA-FRAME∶∶DROP-MISSING
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP generic
+          function. (generic function)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T
+          method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP ❨eql
+          KEYWORD∶∶NA❩ method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶STRING method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶SEQUENCE method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶ARRAY method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note replace-missing: go to the DATA-FRAME∶∶REPLACE-MISSING
+          DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method. (method)
+*Internal Definitions*
+     *note drop-na: go to the DATA-FRAME∶∶DROP-NA function. (function)
+
+
+File: data-frame.info,  Node: Packages,  Next: Definitions,  Prev: Files,  Up: Top
+
+3 Packages
+**********
+
+Packages are listed by definition order.
+
+* Menu:
+
+* The data-frame package::
+
+
+File: data-frame.info,  Node: The data-frame package,  Prev: Packages,  Up: Packages
+
+3.1 data-frame
+==============
+
+*Source*
+     *note pkgdcl.lisp: go to the data-frame/pkgdcl․lisp file. (file)
+*Nicknames*
+        • dframe
+        • df
+*Use List*
+        • select-dev
+        • select
+        • let-plus
+        • anaphora
+        • alexandria
+        • common-lisp
+*Used By List*
+     lisp-stat
+*Exported Definitions*
+        • *note *column-summary-minimum-length*: go to the
+          DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable.
+          (special variable)
+        • *note add-column!: go to the DATA-FRAME∶∶ADD-COLUMN! function.
+          (function)
+        • *note add-columns: go to the DATA-FRAME∶∶ADD-COLUMNS function.
+          (function)
+        • *note add-columns!: go to the DATA-FRAME∶∶ADD-COLUMNS!
+          function. (function)
+        • *note alist-df: go to the DATA-FRAME∶∶ALIST-DF function.
+          (function)
+        • *note alist-dv: go to the DATA-FRAME∶∶ALIST-DV function.
+          (function)
+        • *note column: go to the DATA-FRAME∶∶COLUMN function.
+          (function)
+        • *note (setf column): go to the DATA-FRAME∶∶❨SETF COLUMN❩
+          function. (function)
+        • *note column-names: go to the DATA-FRAME∶∶COLUMN-NAMES generic
+          function. (generic function)
+        • *note column-names: go to the DATA-FRAME∶∶COLUMN-NAMES
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          generic function. (generic function)
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          COMMON-LISP∶∶BIT-VECTOR method. (method)
+        • *note column-summary: go to the DATA-FRAME∶∶COLUMN-SUMMARY
+          COMMON-LISP∶∶VECTOR method. (method)
+        • *note column-type: go to the DATA-FRAME∶∶COLUMN-TYPE function.
+          (function)
+        • *note columns: go to the DATA-FRAME∶∶COLUMNS function.
+          (function)
+        • *note copy: go to the DATA-FRAME∶∶COPY function. (function)
+        • *note count-rows: go to the DATA-FRAME∶∶COUNT-ROWS function.
+          (function)
+        • *note data-frame: go to the DATA-FRAME∶∶DATA-FRAME class.
+          (class)
+        • *note data-vector: go to the DATA-FRAME∶∶DATA-VECTOR class.
+          (class)
+        • *note define-column-names: go to the
+          DATA-FRAME∶∶DEFINE-COLUMN-NAMES function. (function)
+        • *note define-data-frame: go to the
+          DATA-FRAME∶∶DEFINE-DATA-FRAME macro. (macro)
+        • *note df: go to the DATA-FRAME∶∶DF function. (function)
+        • *note df-remove-duplicates: go to the
+          DATA-FRAME∶∶DF-REMOVE-DUPLICATES function. (function)
+        • *note do-rows: go to the DATA-FRAME∶∶DO-ROWS function.
+          (function)
+        • *note drop-missing: go to the DATA-FRAME∶∶DROP-MISSING generic
+          function. (generic function)
+        • *note drop-missing: go to the DATA-FRAME∶∶DROP-MISSING
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note duplicate-key: go to the DATA-FRAME∶∶DUPLICATE-KEY
+          condition. (condition)
+        • *note dv: go to the DATA-FRAME∶∶DV function. (function)
+        • *note head: go to the DATA-FRAME∶∶HEAD generic function.
+          (generic function)
+        • *note head: go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME
+          method. (method)
+        • *note key-not-found: go to the DATA-FRAME∶∶KEY-NOT-FOUND
+          condition. (condition)
+        • *note keys: go to the DATA-FRAME∶∶KEYS function. (function)
+        • *note make-data-package: go to the
+          DATA-FRAME∶∶MAKE-DATA-PACKAGE function. (function)
+        • *note make-df: go to the DATA-FRAME∶∶MAKE-DF function.
+          (function)
+        • *note make-dv: go to the DATA-FRAME∶∶MAKE-DV function.
+          (function)
+        • *note map-columns: go to the DATA-FRAME∶∶MAP-COLUMNS function.
+          (function)
+        • *note map-df: go to the DATA-FRAME∶∶MAP-DF function.
+          (function)
+        • *note map-rows: go to the DATA-FRAME∶∶MAP-ROWS function.
+          (function)
+        • *note mask-rows: go to the DATA-FRAME∶∶MASK-ROWS function.
+          (function)
+        • *note matrix-df: go to the DATA-FRAME∶∶MATRIX-DF function.
+          (function)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP generic
+          function. (generic function)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T
+          method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP ❨eql
+          KEYWORD∶∶NA❩ method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶STRING method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶SEQUENCE method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          COMMON-LISP∶∶ARRAY method. (method)
+        • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note plist-df: go to the DATA-FRAME∶∶PLIST-DF function.
+          (function)
+        • *note plist-dv: go to the DATA-FRAME∶∶PLIST-DV function.
+          (function)
+        • *note pprint-array: go to the DATA-FRAME∶∶PPRINT-ARRAY
+          function. (function)
+        • *note pprint-data-frame: go to the
+          DATA-FRAME∶∶PPRINT-DATA-FRAME function. (function)
+        • *note pprint-markdown: go to the DATA-FRAME∶∶PPRINT-MARKDOWN
+          function. (function)
+        • *note remove-columns: go to the DATA-FRAME∶∶REMOVE-COLUMNS
+          function. (function)
+        • *note replace-column: go to the DATA-FRAME∶∶REPLACE-COLUMN
+          function. (function)
+        • *note replace-column!: go to the DATA-FRAME∶∶REPLACE-COLUMN!
+          function. (function)
+        • *note replace-missing: go to the DATA-FRAME∶∶REPLACE-MISSING
+          generic function. (generic function)
+        • *note replace-missing: go to the DATA-FRAME∶∶REPLACE-MISSING
+          DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method. (method)
+        • *note rows: go to the DATA-FRAME∶∶ROWS function. (function)
+        • *note substitute-key!: go to the DATA-FRAME∶∶SUBSTITUTE-KEY!
+          function. (function)
+        • *note summary: go to the DATA-FRAME∶∶SUMMARY generic function.
+          (generic function)
+        • *note summary: go to the DATA-FRAME∶∶SUMMARY
+          DATA-FRAME∶∶DATA-FRAME method. (method)
+        • *note tail: go to the DATA-FRAME∶∶TAIL generic function.
+          (generic function)
+        • *note tail: go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME
+          method. (method)
+*Internal Definitions*
+        • *note *column-summary-quantiles-threshold*: go to the
+          DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special
+          variable. (special variable)
+        • *note *max-digits*: go to the DATA-FRAME∶∶*MAX-DIGITS* special
+          variable. (special variable)
+        • *note *row-numbers-p*: go to the DATA-FRAME∶∶*ROW-NUMBERS-P*
+          special variable. (special variable)
+        • *note 2d-array-to-list: go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST
+          function. (function)
+        • *note add-key!: go to the DATA-FRAME∶∶ADD-KEY! function.
+          (function)
+        • *note add-keys: go to the DATA-FRAME∶∶ADD-KEYS function.
+          (function)
+        • *note alist-data: go to the DATA-FRAME∶∶ALIST-DATA function.
+          (function)
+        • *note bit-vector-summary: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure. (structure)
+        • *note bit-vector-summary-count: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function. (function)
+        • *note bit-vector-summary-length: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function. (function)
+        • *note bit-vector-summary-p: go to the
+          DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function. (function)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function.
+          (generic function)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME
+          COMMON-LISP∶∶T method. (method)
+        • *note check-column-compatibility: go to the
+          DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA
+          COMMON-LISP∶∶T method. (method)
+        • *note column-length: go to the DATA-FRAME∶∶COLUMN-LENGTH
+          generic function. (generic function)
+        • *note column-length: go to the DATA-FRAME∶∶COLUMN-LENGTH
+          COMMON-LISP∶∶VECTOR method. (method)
+        • *note column-type-format: go to the
+          DATA-FRAME∶∶COLUMN-TYPE-FORMAT function. (function)
+        • *note copy-bit-vector-summary: go to the
+          DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function. (function)
+        • *note copy-generic-vector-summary: go to the
+          DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function. (function)
+        • *note copy-ordered-keys: go to the
+          DATA-FRAME∶∶COPY-ORDERED-KEYS function. (function)
+        • *note copy-quantiles-summary: go to the
+          DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function. (function)
+        • *note copy-vector-summary%: go to the
+          DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function. (function)
+        • *note data: go to the DATA-FRAME∶∶DATA class. (class)
+        • *note default-column-formats: go to the
+          DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS generic function. (generic
+          function)
+        • *note default-column-formats: go to the
+          DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY
+          method. (method)
+        • *note define-data-subclass: go to the
+          DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro. (macro)
+        • *note drop-na: go to the DATA-FRAME∶∶DROP-NA function.
+          (function)
+        • *note ensure-arguments-alist: go to the
+          DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function. (function)
+        • *note ensure-not-ratio: go to the DATA-FRAME∶∶ENSURE-NOT-RATIO
+          function. (function)
+        • *note generic-vector-summary: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure. (structure)
+        • *note generic-vector-summary-element-count-alist: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST
+          function. (function)
+        • *note generic-vector-summary-length: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function. (function)
+        • *note generic-vector-summary-p: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function. (function)
+        • *note generic-vector-summary-quantiles: go to the
+          DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function.
+          (function)
+        • *note get-type: go to the DATA-FRAME∶∶GET-TYPE function.
+          (function)
+        • *note guess-alist?: go to the DATA-FRAME∶∶GUESS-ALIST?
+          function. (function)
+        • *note key-index: go to the DATA-FRAME∶∶KEY-INDEX function.
+          (function)
+        • *note keys-count: go to the DATA-FRAME∶∶KEYS-COUNT function.
+          (function)
+        • *note keys-vector: go to the DATA-FRAME∶∶KEYS-VECTOR function.
+          (function)
+        • *note make-bit-vector-summary: go to the
+          DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function. (function)
+        • *note make-data: go to the DATA-FRAME∶∶MAKE-DATA function.
+          (function)
+        • *note make-generic-vector-summary: go to the
+          DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function. (function)
+        • *note make-ordered-keys: go to the
+          DATA-FRAME∶∶MAKE-ORDERED-KEYS function. (function)
+        • *note make-quantiles-summary: go to the
+          DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function. (function)
+        • *note make-vector-summary%: go to the
+          DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function. (function)
+        • *note max-decimal: go to the DATA-FRAME∶∶MAX-DECIMAL function.
+          (function)
+        • *note max-width: go to the DATA-FRAME∶∶MAX-WIDTH function.
+          (function)
+        • *note ordered-keys: go to the DATA-FRAME∶∶ORDERED-KEYS
+          function. (function)
+        • *note ordered-keys: go to the DATA-FRAME∶∶ORDERED-KEYS
+          structure. (structure)
+        • *note ordered-keys-p: go to the DATA-FRAME∶∶ORDERED-KEYS-P
+          function. (function)
+        • *note ordered-keys-table: go to the
+          DATA-FRAME∶∶ORDERED-KEYS-TABLE function. (function)
+        • *note plist-data: go to the DATA-FRAME∶∶PLIST-DATA function.
+          (function)
+        • *note print-count-and-percentage: go to the
+          DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function. (function)
+        • *note printer-status: go to the DATA-FRAME∶∶PRINTER-STATUS
+          function. (function)
+        • *note quantiles-summary: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY structure. (structure)
+        • *note quantiles-summary-count: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function. (function)
+        • *note quantiles-summary-max: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function. (function)
+        • *note quantiles-summary-min: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function. (function)
+        • *note quantiles-summary-p: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-P function. (function)
+        • *note quantiles-summary-q25: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function. (function)
+        • *note quantiles-summary-q50: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function. (function)
+        • *note quantiles-summary-q75: go to the
+          DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function. (function)
+        • *note replace-key!: go to the DATA-FRAME∶∶REPLACE-KEY! macro.
+          (macro)
+        • *note reverse-df: go to the DATA-FRAME∶∶REVERSE-DF function.
+          (function)
+        • *note show-symbols: go to the DATA-FRAME∶∶SHOW-SYMBOLS
+          function. (function)
+        • *note types-in-column: go to the DATA-FRAME∶∶TYPES-IN-COLUMN
+          function. (function)
+        • *note vector-summary%: go to the DATA-FRAME∶∶VECTOR-SUMMARY%
+          structure. (structure)
+        • *note vector-summary%-length: go to the
+          DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function. (function)
+        • *note vector-summary%-p: go to the
+          DATA-FRAME∶∶VECTOR-SUMMARY%-P function. (function)
+
+
+File: data-frame.info,  Node: Definitions,  Next: Indexes,  Prev: Packages,  Up: Top
+
+4 Definitions
+*************
+
+Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+
+* Menu:
+
+* Exported definitions::
+* Internal definitions::
+
+
+File: data-frame.info,  Node: Exported definitions,  Next: Internal definitions,  Prev: Definitions,  Up: Definitions
+
+4.1 Exported definitions
+========================
+
+* Menu:
+
+* Exported special variables::
+* Exported macros::
+* Exported functions::
+* Exported generic functions::
+* Exported conditions::
+* Exported classes::
+
+
+File: data-frame.info,  Node: Exported special variables,  Next: Exported macros,  Prev: Exported definitions,  Up: Exported definitions
+
+4.1.1 Special variables
+-----------------------
+
+ -- Special Variable: *column-summary-minimum-length*
+     Columns are only summarised when longer than this, otherwise they
+     are returned as is.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+
+
+File: data-frame.info,  Node: Exported macros,  Next: Exported functions,  Prev: Exported special variables,  Up: Exported definitions
+
+4.1.2 Macros
+------------
+
+ -- Macro: define-data-frame DF BODY &optional DOC
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+
+
+File: data-frame.info,  Node: Exported functions,  Next: Exported generic functions,  Prev: Exported macros,  Up: Exported definitions
+
+4.1.3 Functions
+---------------
+
+ -- Function: add-column! DATA KEY COLUMN
+     Modify DATA (a data-frame or data-vector) by adding COLUMN with
+     KEY. Return DATA.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: add-columns DATA &rest KEYS-AND-COLUMNS
+     Return a new data-frame or data-vector with keys and columns added.
+     Does not modify DATA (see README about accepted argument formats).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: add-columns! DATA &rest KEYS-AND-COLUMNS
+     Modify DATA (a data-frame or data-vector) by adding columns with
+     keys (see README about accepted argument formats).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: alist-df ALIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: alist-dv ALIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: column DATA KEY
+     Return column corresponding to key.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Writer*
+          *note (setf column): go to the DATA-FRAME∶∶❨SETF COLUMN❩
+          function. (function)
+ -- Function: (setf column) COLUMN DATA KEY
+     Set column corresponding to key.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Reader*
+          *note column: go to the DATA-FRAME∶∶COLUMN function.
+          (function)
+ -- Function: column-type COL
+     Return the most specific type found in COL
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note utils.lisp: go to the data-frame/utils․lisp file. (file)
+ -- Function: columns DATA &optional SLICE
+     Return the columns of DATA as a vector, or a selection if given
+     (keys are resolved).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: copy DATA &key KEY
+     Copy data frame or vector.  Keys are copied (and thus can be
+     modified), columns or elements are copyied using KEY, making the
+     default give a shallow copy.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: count-rows DATA-FRAME KEYS PREDICATE
+     Count the number of rows for which PREDICATE called on the columns
+     corresponding to KEYS returns non-NIL.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: define-column-names DF
+     Create a symbol macro for each column name in DF
+
+     After running this function, you can refer to a column by its name.
+     This is useful if the column names of a data frame have changed.
+
+     Example: (define-column-names mtcars)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+ -- Function: df &rest PLIST-OR-ALIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: df-remove-duplicates DATA
+     Return a modified copy of DATA from which any element (row, if a
+     DATA-FRAME) that matches another element has been removed
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: do-rows DATA-FRAME KEYS FUNCTION
+     Traverse rows from first to last, calling FUNCTION on the columns
+     corresponding to KEYS. Return no values.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: dv &rest PLIST-OR-ALIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: keys DATA
+     Vector of keys.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: make-data-package PKG-NAME
+     Create a package and import and change *PACKAGE* Example:
+     (make-data-package ’mtcars)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+ -- Function: make-df KEYS COLUMNS
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: make-dv KEYS COLUMNS
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: map-columns DATA FUNCTION &optional RESULT-CLASS
+     Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION. The result
+     is a new DATA-FRAME with the same keys.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: map-df DATA-FRAME KEYS FUNCTION RESULT-KEYS
+     Map DATA-FRAME to another one by rows.  Function is called on the
+     columns corresponding to KEYS, and should return a sequence with
+     the same length as RESULT-KEYS, which give the keys of the
+     resulting data frame.  RESULT-KETS should be either symbols, or of
+     the format (symbol &optional (element-type t)).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: map-rows DATA-FRAME KEYS FUNCTION &key ELEMENT-TYPE
+     Map rows using FUNCTION, on the columns corresponding to KEYS.
+     Return the result with the given ELEMENT-TYPE.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: mask-rows DATA-FRAME KEYS PREDICATE
+     Return a bit-vector containing the result of calling PREDICATE on
+     rows of the columns corresponding to KEYS (0 for NIL, 1 otherwise).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: matrix-df KEYS MATRIX
+     Convert a matrix to a data-frame with the given keys.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: plist-df PLIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: plist-dv PLIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: pprint-array ARR &optional STREAM ROW-NUMBERS-P
+     Print an array to STREAM, defaulting to *standard-output*, in a
+     tabular format.  If ROW-NUMBERS-P, print row numbers.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: pprint-data-frame DATA-FRAME &optional STREAM
+          ROW-NUMBERS-P MAX-DIGITS
+     Return a 2D array of string suitable for pretty printing
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: pprint-markdown DF &key STREAM ROW-NUMBERS
+     Print data frame DF, in markdown format, to STREAM
+     If ROW-NUMBERS is true, also print row numbers as the first column
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: remove-columns DATA KEYS
+     ARGS: DATA data frame
+     KEYS list of keys (variables) to be removed
+     Return a new data-frame or data-vector with keys and columns
+     removed.  Does not modify DATA.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: replace-column DATA KEY FUNCTION-OR-COLUMN &key
+          ELEMENT-TYPE
+     Create a new data frame with new column KEY from data-frame DATA by
+     replacing it either with the given column, or applying the function
+     to the current values (ELEMENT-TYPE is used.)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: replace-column! DATA KEY FUNCTION-OR-COLUMN &key
+          ELEMENT-TYPE
+     Modify column KEY of data-frame DATA by replacing it either with
+     the given column, or applying the function to the current values
+     (ELEMENT-TYPE is used.)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: rows DATA
+     Return the rows of DATA as a vector
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: substitute-key! DF NEW OLD
+     Substitute NEW key, a SYMBOL, for OLD in a data-frame.
+
+     Useful when reading data files that have an empty or generated
+     column name.
+
+     Example: (substitute-key *cars* :name :||) to replace an empty
+     symbol with :name
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+
+
+File: data-frame.info,  Node: Exported generic functions,  Next: Exported conditions,  Prev: Exported functions,  Up: Exported definitions
+
+4.1.4 Generic functions
+-----------------------
+
+ -- Generic Function: column-names DF
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: column-names (DF data-frame)
+               Return a list column names in DF, as strings
+               *Source*
+                    *note pprint.lisp: go to the data-frame/pprint․lisp
+                    file. (file)
+ -- Generic Function: column-summary COLUMN
+     Return an object that summarizes COLUMN of a DATA-FRAME. Primarily
+     intended for printing, not analysis, returned values should print
+     nicely.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Methods*
+           -- Method: column-summary (COLUMN bit-vector)
+           -- Method: column-summary (COLUMN vector)
+ -- Generic Function: drop-missing DF &optional PREDICATE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: drop-missing (DF data-frame) &optional PREDICATE
+               Remove all rows from DF that are missing values according
+               to PREDICATE
+               *Source*
+                    *note missing.lisp: go to the
+                    data-frame/missing․lisp file. (file)
+ -- Generic Function: head DF &optional N
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: head (DF data-frame) &optional N
+               Return the first N rows of DF; N defaults to 6
+               *Source*
+                    *note pprint.lisp: go to the data-frame/pprint․lisp
+                    file. (file)
+ -- Generic Function: missingp DATA
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note missing.lisp: go to the data-frame/missing․lisp file.
+          (file)
+     *Methods*
+           -- Method: missingp DATA
+           -- Method: missingp (DATA (eql na))
+           -- Method: missingp (DATA string)
+           -- Method: missingp (DATA sequence)
+           -- Method: missingp (DATA array)
+           -- Method: missingp (DATA data-frame)
+ -- Generic Function: replace-missing DF MAP-ALIST
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: replace-missing (DF data-frame) MAP-ALIST
+               Replace missing values with the values specified
+               The alist consists of a column name in the CAR and the
+               replacement value in the CDR Example: (replace-missing
+               mtcarsm ’((mtcarsm:mpg .  foo)))
+               *Source*
+                    *note missing.lisp: go to the
+                    data-frame/missing․lisp file. (file)
+ -- Generic Function: summary DF &optional STREAM
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: summary (DF data-frame) &optional STREAM
+               *Source*
+                    *note summary.lisp: go to the
+                    data-frame/summary․lisp file. (file)
+ -- Generic Function: tail DF &optional N
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: tail (DF data-frame) &optional N
+               Return the last N rows of DF; N defaults to 6
+               *Source*
+                    *note pprint.lisp: go to the data-frame/pprint․lisp
+                    file. (file)
+
+
+File: data-frame.info,  Node: Exported conditions,  Next: Exported classes,  Prev: Exported generic functions,  Up: Exported definitions
+
+4.1.5 Conditions
+----------------
+
+ -- Condition: duplicate-key ()
+     Duplicate key.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          error (condition)
+     *Direct slots*
+           -- Slot: key
+               *Initargs*
+                    :key
+ -- Condition: key-not-found ()
+     Key not found.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          error (condition)
+     *Direct slots*
+           -- Slot: key
+               *Initargs*
+                    :key
+           -- Slot: keys
+               *Initargs*
+                    :keys
+
+
+File: data-frame.info,  Node: Exported classes,  Prev: Exported conditions,  Up: Exported definitions
+
+4.1.6 Classes
+-------------
+
+ -- Class: data-frame ()
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          *note data: go to the DATA-FRAME∶∶DATA class. (class)
+     *Direct methods*
+             • *note replace-missing: go to the
+               DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME
+               COMMON-LISP∶∶T method. (method)
+             • *note drop-missing: go to the DATA-FRAME∶∶DROP-MISSING
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • *note missingp: go to the DATA-FRAME∶∶MISSINGP
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • *note summary: go to the DATA-FRAME∶∶SUMMARY
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • print-object (method)
+             • *note column-names: go to the DATA-FRAME∶∶COLUMN-NAMES
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • *note tail: go to the DATA-FRAME∶∶TAIL
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • *note head: go to the DATA-FRAME∶∶HEAD
+               DATA-FRAME∶∶DATA-FRAME method. (method)
+             • select (method)
+             • *note check-column-compatibility: go to the
+               DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY
+               DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method. (method)
+             • as-array (method)
+             • dims (method)
+             • ncol (method)
+             • nrow (method)
+             • initialize-instance (method)
+ -- Class: data-vector ()
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          *note data: go to the DATA-FRAME∶∶DATA class. (class)
+     *Direct methods*
+             • print-object (method)
+             • select (method)
+             • as-array (method)
+             • dims (method)
+
+
+File: data-frame.info,  Node: Internal definitions,  Prev: Exported definitions,  Up: Definitions
+
+4.2 Internal definitions
+========================
+
+* Menu:
+
+* Internal special variables::
+* Internal macros::
+* Internal functions::
+* Internal generic functions::
+* Internal structures::
+* Internal classes::
+
+
+File: data-frame.info,  Node: Internal special variables,  Next: Internal macros,  Prev: Internal definitions,  Up: Internal definitions
+
+4.2.1 Special variables
+-----------------------
+
+ -- Special Variable: *column-summary-quantiles-threshold*
+     If the number of reals exceeds this threshold, they will be
+     summarized with quantiles.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Special Variable: *max-digits*
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Special Variable: *row-numbers-p*
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+
+
+File: data-frame.info,  Node: Internal macros,  Next: Internal functions,  Prev: Internal special variables,  Up: Internal definitions
+
+4.2.2 Macros
+------------
+
+ -- Macro: define-data-subclass CLASS ABBREVIATION
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Macro: replace-key! DF NEW OLD
+     Replace a key in DF, updating data package symbols Example:
+     (replace-key mtcars row-name x1)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+
+
+File: data-frame.info,  Node: Internal functions,  Next: Internal generic functions,  Prev: Internal macros,  Up: Internal definitions
+
+4.2.3 Functions
+---------------
+
+ -- Function: 2d-array-to-list ARRAY
+     Convert an array to a list of lists
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: add-key! ORDERED-KEYS KEY
+     Modify ORDERED-KEYS by adding KEY.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: add-keys ORDERED-KEYS &rest KEYS
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: alist-data CLASS ALIST
+     Create an object of CLASS (subclass of DATA) from ALIST which
+     contains key-column pairs.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: bit-vector-summary-count INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: bit-vector-summary-length INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: bit-vector-summary-p OBJECT
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: column-type-format SEQUENCE
+     Return a format string for the most specific type found in sequence
+     Use this for sequences of type T to determine how to format the
+     column.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: copy-bit-vector-summary INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: copy-generic-vector-summary INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: copy-ordered-keys ORDERED-KEYS
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: copy-quantiles-summary INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: copy-vector-summary% INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: drop-na DF
+     Remove all rows from DF that are missing values.  Convenience
+     R-like function.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note missing.lisp: go to the data-frame/missing․lisp file.
+          (file)
+ -- Function: ensure-arguments-alist REST
+     Recognizes the following and converts them to an alist:
+
+     plist
+     alist
+     (plist)
+     (alist)
+     (data-frame)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: ensure-not-ratio REAL
+     When REAL is a RATIO, convert it to a float, otherwise return as
+     is.  Used for printing.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: generic-vector-summary-element-count-alist INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: generic-vector-summary-length INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: generic-vector-summary-p OBJECT
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: generic-vector-summary-quantiles INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: get-type X
+     Return the most specific type symbol for x
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note utils.lisp: go to the data-frame/utils․lisp file. (file)
+ -- Function: guess-alist? PLIST-OR-ALIST
+     Test if the argument is an ALIST by checking its first element.
+     Used for deciding which creation function to call.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: key-index ORDERED-KEYS KEY
+     Return the index for KEY.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: keys-count ORDERED-KEYS
+     Number of keys.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: keys-vector ORDERED-KEYS
+     Vector of all keys.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: make-bit-vector-summary &key (LENGTH LENGTH) (COUNT COUNT)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: make-data CLASS KEYS COLUMNS
+     Create a DATA object from KEYS and COLUMNS. FOR INTERNAL USE.
+     Always creates a copy of COLUMNS in order to ensure that it is an
+     adjustable array with a fill pointer.  KEYS are converted to
+     ORDERED-KEYS if necessary.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: make-generic-vector-summary &key (LENGTH LENGTH)
+          (QUANTILES QUANTILES) (ELEMENT-COUNT-ALIST
+          ELEMENT-COUNT-ALIST)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: make-ordered-keys &key (TABLE TABLE)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: make-quantiles-summary &key (COUNT COUNT) (MIN MIN) (Q25
+          Q25) (Q50 Q50) (Q75 Q75) (MAX MAX)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: make-vector-summary% &key (LENGTH LENGTH)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: max-decimal SEQUENCE &optional MAX-DIGITS
+     Return the maximum number of digits to the right of the decimal
+     point in the numbers of SEQUENCE, equal to or less than MAX-DIGITS
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: max-width SEQUENCE &optional MAX-WIDTH
+     Return the largest printed string size of the elements of SEQUENCE,
+     equal to or less than MAX-WIDTH
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: ordered-keys KEYS
+     Create an ORDERED-KEYS object from KEYS (a sequence).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: ordered-keys-p OBJECT
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: ordered-keys-table INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: plist-data CLASS PLIST
+     Create an object of CLASS (subclass of DATA) from PLIST which
+     contains keys and columns, interleaved.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+ -- Function: print-count-and-percentage STREAM COUNT LENGTH
+     Print COUNT as is and also as a rounded percentage of
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: printer-status ()
+     Print values of all the printer variables
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: quantiles-summary-count INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-max INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-min INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-p OBJECT
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-q25 INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-q50 INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: quantiles-summary-q75 INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: reverse-df DF
+     Return DF with columns in reverse order
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note pprint.lisp: go to the data-frame/pprint․lisp file.
+          (file)
+ -- Function: show-symbols PKG
+     Print all symbols in PKG Example: (show-symbols ’mtcars)
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note defdf.lisp: go to the data-frame/defdf․lisp file. (file)
+ -- Function: types-in-column SEQ
+     Return a list of the types found in SEQ
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note utils.lisp: go to the data-frame/utils․lisp file. (file)
+ -- Function: vector-summary%-length INSTANCE
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+ -- Function: vector-summary%-p OBJECT
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+
+
+File: data-frame.info,  Node: Internal generic functions,  Next: Internal structures,  Prev: Internal functions,  Up: Internal definitions
+
+4.2.4 Generic functions
+-----------------------
+
+ -- Generic Function: check-column-compatibility DATA COLUMN
+     Check if COLUMN is compatible with DATA.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Methods*
+           -- Method: check-column-compatibility (DATA data-frame)
+                    COLUMN
+           -- Method: check-column-compatibility (DATA data) COLUMN
+ -- Generic Function: column-length COLUMN
+     Return the length of column.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Methods*
+           -- Method: column-length (COLUMN vector)
+ -- Generic Function: default-column-formats ARRAY
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Methods*
+           -- Method: default-column-formats (ARRAY simple-array)
+               Return a list of formatting strings for ARRAY
+               The method returns a set of default formatting strings
+               using heuristics.
+               *Source*
+                    *note pprint.lisp: go to the data-frame/pprint․lisp
+                    file. (file)
+
+
+File: data-frame.info,  Node: Internal structures,  Next: Internal classes,  Prev: Internal generic functions,  Up: Internal definitions
+
+4.2.5 Structures
+----------------
+
+ -- Structure: bit-vector-summary ()
+     Summary of a bit vector.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Direct superclasses*
+          *note vector-summary%: go to the DATA-FRAME∶∶VECTOR-SUMMARY%
+          structure. (structure)
+     *Direct methods*
+          print-object (method)
+     *Direct slots*
+           -- Slot: count
+               *Type*
+                    alexandria:array-index
+               *Initform*
+                    0
+               *Readers*
+                    *note bit-vector-summary-count: go to the
+                    DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function.
+                    (function)
+               *Writers*
+                    (setf bit-vector-summary-count) (function)
+ -- Structure: generic-vector-summary ()
+     Summary for generic vectors.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Direct superclasses*
+          *note vector-summary%: go to the DATA-FRAME∶∶VECTOR-SUMMARY%
+          structure. (structure)
+     *Direct methods*
+          print-object (method)
+     *Direct slots*
+           -- Slot: quantiles
+               *Type*
+                    (or null data-frame::quantiles-summary)
+               *Readers*
+                    *note generic-vector-summary-quantiles: go to the
+                    DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES
+                    function. (function)
+               *Writers*
+                    (setf generic-vector-summary-quantiles) (function)
+           -- Slot: element-count-alist
+               *Type*
+                    list
+               *Readers*
+                    *note generic-vector-summary-element-count-alist: go
+                    to the
+                    DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST
+                    function. (function)
+               *Writers*
+                    (setf generic-vector-summary-element-count-alist)
+                    (function)
+ -- Structure: ordered-keys ()
+     Representation of ordered keys.
+
+     TABLE maps keys to indexes, starting from zero.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          structure-object (structure)
+     *Direct methods*
+             • print-object (method)
+             • select (method)
+             • canonical-representation (method)
+             • axis-dimension (method)
+     *Direct slots*
+           -- Slot: table
+               *Type*
+                    hash-table
+               *Initform*
+                    (make-hash-table :test (function eq))
+               *Readers*
+                    *note ordered-keys-table: go to the
+                    DATA-FRAME∶∶ORDERED-KEYS-TABLE function. (function)
+               *Writers*
+                    (setf ordered-keys-table) (function)
+ -- Structure: quantiles-summary ()
+     Summary of a real elements (using quantiles).
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Direct superclasses*
+          structure-object (structure)
+     *Direct slots*
+           -- Slot: count
+               *Type*
+                    alexandria:array-index
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-count: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-count) (function)
+           -- Slot: min
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-min: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-min) (function)
+           -- Slot: q25
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-q25: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-q25) (function)
+           -- Slot: q50
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-q50: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-q50) (function)
+           -- Slot: q75
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-q75: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-q75) (function)
+           -- Slot: max
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note quantiles-summary-max: go to the
+                    DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function.
+                    (function)
+               *Writers*
+                    (setf quantiles-summary-max) (function)
+ -- Structure: vector-summary% ()
+     Base class for summarizing vectors.  Not exported.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note summary.lisp: go to the data-frame/summary․lisp file.
+          (file)
+     *Direct superclasses*
+          structure-object (structure)
+     *Direct subclasses*
+             • *note bit-vector-summary: go to the
+               DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure. (structure)
+             • *note generic-vector-summary: go to the
+               DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure. (structure)
+     *Direct slots*
+           -- Slot: length
+               *Type*
+                    alexandria:array-index
+               *Initform*
+                    0
+               *Readers*
+                    *note vector-summary%-length: go to the
+                    DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function.
+                    (function)
+               *Writers*
+                    (setf vector-summary%-length) (function)
+
+
+File: data-frame.info,  Node: Internal classes,  Prev: Internal structures,  Up: Internal definitions
+
+4.2.6 Classes
+-------------
+
+ -- Class: data ()
+     This class is used for implementing both data-vector and
+     data-matrix, and represents an ordered collection of key-column
+     pairs.  Columns are not assumed to have any specific attributes.
+     This class is not exported.
+     *Package*
+          *note data-frame: go to the DATA-FRAME package.
+     *Source*
+          *note data-frame.lisp: go to the data-frame/data-frame․lisp
+          file. (file)
+     *Direct superclasses*
+          standard-object (class)
+     *Direct subclasses*
+             • *note data-vector: go to the DATA-FRAME∶∶DATA-VECTOR
+               class. (class)
+             • *note data-frame: go to the DATA-FRAME∶∶DATA-FRAME class.
+               (class)
+     *Direct methods*
+             • as-alist (method)
+             • *note check-column-compatibility: go to the
+               DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA
+               COMMON-LISP∶∶T method. (method)
+             • element-type (method)
+     *Direct slots*
+           -- Slot: ordered-keys
+               *Type*
+                    data-frame::ordered-keys
+               *Initargs*
+                    :ordered-keys
+           -- Slot: columns
+               *Type*
+                    vector
+               *Initargs*
+                    :columns
+
+
+File: data-frame.info,  Node: Indexes,  Prev: Definitions,  Up: Top
+
+Appendix A Indexes
+******************
+
+* Menu:
+
+* Concept index::
+* Function index::
+* Variable index::
+* Data type index::
+
+
+File: data-frame.info,  Node: Concept index,  Next: Function index,  Prev: Indexes,  Up: Indexes
+
+A.1 Concepts
+============
+
+ [index ]
+* Menu:
+
+* data-frame.asd:                        The data-frame․asd file.
+                                                                (line 6)
+* data-frame/data-frame.lisp:            The data-frame/data-frame․lisp file.
+                                                                (line 6)
+* data-frame/defdf.lisp:                 The data-frame/defdf․lisp file.
+                                                                (line 6)
+* data-frame/missing.lisp:               The data-frame/missing․lisp file.
+                                                                (line 6)
+* data-frame/pkgdcl.lisp:                The data-frame/pkgdcl․lisp file.
+                                                                (line 6)
+* data-frame/pprint.lisp:                The data-frame/pprint․lisp file.
+                                                                (line 6)
+* data-frame/summary.lisp:               The data-frame/summary․lisp file.
+                                                                (line 6)
+* data-frame/utils.lisp:                 The data-frame/utils․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame.asd:            The data-frame․asd file.
+                                                                (line 6)
+* File, Lisp, data-frame/data-frame.lisp: The data-frame/data-frame․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/defdf.lisp:     The data-frame/defdf․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/missing.lisp:   The data-frame/missing․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/pkgdcl.lisp:    The data-frame/pkgdcl․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/pprint.lisp:    The data-frame/pprint․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/summary.lisp:   The data-frame/summary․lisp file.
+                                                                (line 6)
+* File, Lisp, data-frame/utils.lisp:     The data-frame/utils․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame.asd:             The data-frame․asd file.
+                                                                (line 6)
+* Lisp File, data-frame/data-frame.lisp: The data-frame/data-frame․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/defdf.lisp:      The data-frame/defdf․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/missing.lisp:    The data-frame/missing․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/pkgdcl.lisp:     The data-frame/pkgdcl․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/pprint.lisp:     The data-frame/pprint․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/summary.lisp:    The data-frame/summary․lisp file.
+                                                                (line 6)
+* Lisp File, data-frame/utils.lisp:      The data-frame/utils․lisp file.
+                                                                (line 6)
+
+
+File: data-frame.info,  Node: Function index,  Next: Variable index,  Prev: Concept index,  Up: Indexes
+
+A.2 Functions
+=============
+
+ [index ]
+* Menu:
+
+* (setf column):                         Exported functions.  (line  52)
+* 2d-array-to-list:                      Internal functions.  (line   6)
+* add-column!:                           Exported functions.  (line   6)
+* add-columns:                           Exported functions.  (line  14)
+* add-columns!:                          Exported functions.  (line  22)
+* add-key!:                              Internal functions.  (line  13)
+* add-keys:                              Internal functions.  (line  20)
+* alist-data:                            Internal functions.  (line  26)
+* alist-df:                              Exported functions.  (line  30)
+* alist-dv:                              Exported functions.  (line  36)
+* bit-vector-summary-count:              Internal functions.  (line  34)
+* bit-vector-summary-length:             Internal functions.  (line  40)
+* bit-vector-summary-p:                  Internal functions.  (line  46)
+* check-column-compatibility:            Internal generic functions.
+                                                              (line   6)
+* check-column-compatibility <1>:        Internal generic functions.
+                                                              (line  14)
+* check-column-compatibility <2>:        Internal generic functions.
+                                                              (line  16)
+* column:                                Exported functions.  (line  42)
+* column-length:                         Internal generic functions.
+                                                              (line  17)
+* column-length <1>:                     Internal generic functions.
+                                                              (line  25)
+* column-names:                          Exported generic functions.
+                                                              (line   6)
+* column-names <1>:                      Exported generic functions.
+                                                              (line  10)
+* column-summary:                        Exported generic functions.
+                                                              (line  15)
+* column-summary <1>:                    Exported generic functions.
+                                                              (line  25)
+* column-summary <2>:                    Exported generic functions.
+                                                              (line  26)
+* column-type:                           Exported functions.  (line  62)
+* column-type-format:                    Internal functions.  (line  52)
+* columns:                               Exported functions.  (line  68)
+* copy:                                  Exported functions.  (line  76)
+* copy-bit-vector-summary:               Internal functions.  (line  61)
+* copy-generic-vector-summary:           Internal functions.  (line  67)
+* copy-ordered-keys:                     Internal functions.  (line  73)
+* copy-quantiles-summary:                Internal functions.  (line  79)
+* copy-vector-summary%:                  Internal functions.  (line  85)
+* count-rows:                            Exported functions.  (line  85)
+* default-column-formats:                Internal generic functions.
+                                                              (line  26)
+* default-column-formats <1>:            Internal generic functions.
+                                                              (line  30)
+* define-column-names:                   Exported functions.  (line  93)
+* define-data-frame:                     Exported macros.     (line   6)
+* define-data-subclass:                  Internal macros.     (line   6)
+* df:                                    Exported functions.  (line 104)
+* df-remove-duplicates:                  Exported functions.  (line 110)
+* do-rows:                               Exported functions.  (line 118)
+* drop-missing:                          Exported generic functions.
+                                                              (line  27)
+* drop-missing <1>:                      Exported generic functions.
+                                                              (line  31)
+* drop-na:                               Internal functions.  (line  91)
+* dv:                                    Exported functions.  (line 126)
+* ensure-arguments-alist:                Internal functions.  (line  99)
+* ensure-not-ratio:                      Internal functions.  (line 112)
+* Function, (setf column):               Exported functions.  (line  53)
+* Function, 2d-array-to-list:            Internal functions.  (line   7)
+* Function, add-column!:                 Exported functions.  (line   7)
+* Function, add-columns:                 Exported functions.  (line  15)
+* Function, add-columns!:                Exported functions.  (line  23)
+* Function, add-key!:                    Internal functions.  (line  14)
+* Function, add-keys:                    Internal functions.  (line  21)
+* Function, alist-data:                  Internal functions.  (line  27)
+* Function, alist-df:                    Exported functions.  (line  31)
+* Function, alist-dv:                    Exported functions.  (line  37)
+* Function, bit-vector-summary-count:    Internal functions.  (line  35)
+* Function, bit-vector-summary-length:   Internal functions.  (line  41)
+* Function, bit-vector-summary-p:        Internal functions.  (line  47)
+* Function, column:                      Exported functions.  (line  43)
+* Function, column-type:                 Exported functions.  (line  63)
+* Function, column-type-format:          Internal functions.  (line  53)
+* Function, columns:                     Exported functions.  (line  69)
+* Function, copy:                        Exported functions.  (line  77)
+* Function, copy-bit-vector-summary:     Internal functions.  (line  62)
+* Function, copy-generic-vector-summary: Internal functions.  (line  68)
+* Function, copy-ordered-keys:           Internal functions.  (line  74)
+* Function, copy-quantiles-summary:      Internal functions.  (line  80)
+* Function, copy-vector-summary%:        Internal functions.  (line  86)
+* Function, count-rows:                  Exported functions.  (line  86)
+* Function, define-column-names:         Exported functions.  (line  94)
+* Function, df:                          Exported functions.  (line 105)
+* Function, df-remove-duplicates:        Exported functions.  (line 111)
+* Function, do-rows:                     Exported functions.  (line 119)
+* Function, drop-na:                     Internal functions.  (line  92)
+* Function, dv:                          Exported functions.  (line 127)
+* Function, ensure-arguments-alist:      Internal functions.  (line 100)
+* Function, ensure-not-ratio:            Internal functions.  (line 113)
+* Function, generic-vector-summary-element-count-alist: Internal functions.
+                                                              (line 121)
+* Function, generic-vector-summary-length: Internal functions.
+                                                              (line 127)
+* Function, generic-vector-summary-p:    Internal functions.  (line 133)
+* Function, generic-vector-summary-quantiles: Internal functions.
+                                                              (line 139)
+* Function, get-type:                    Internal functions.  (line 145)
+* Function, guess-alist?:                Internal functions.  (line 151)
+* Function, key-index:                   Internal functions.  (line 159)
+* Function, keys:                        Exported functions.  (line 133)
+* Function, keys-count:                  Internal functions.  (line 166)
+* Function, keys-vector:                 Internal functions.  (line 173)
+* Function, make-bit-vector-summary:     Internal functions.  (line 180)
+* Function, make-data:                   Internal functions.  (line 186)
+* Function, make-data-package:           Exported functions.  (line 140)
+* Function, make-df:                     Exported functions.  (line 147)
+* Function, make-dv:                     Exported functions.  (line 153)
+* Function, make-generic-vector-summary: Internal functions.  (line 198)
+* Function, make-ordered-keys:           Internal functions.  (line 204)
+* Function, make-quantiles-summary:      Internal functions.  (line 211)
+* Function, make-vector-summary%:        Internal functions.  (line 217)
+* Function, map-columns:                 Exported functions.  (line 159)
+* Function, map-df:                      Exported functions.  (line 167)
+* Function, map-rows:                    Exported functions.  (line 178)
+* Function, mask-rows:                   Exported functions.  (line 186)
+* Function, matrix-df:                   Exported functions.  (line 194)
+* Function, max-decimal:                 Internal functions.  (line 223)
+* Function, max-width:                   Internal functions.  (line 231)
+* Function, ordered-keys:                Internal functions.  (line 239)
+* Function, ordered-keys-p:              Internal functions.  (line 246)
+* Function, ordered-keys-table:          Internal functions.  (line 252)
+* Function, plist-data:                  Internal functions.  (line 258)
+* Function, plist-df:                    Exported functions.  (line 201)
+* Function, plist-dv:                    Exported functions.  (line 207)
+* Function, pprint-array:                Exported functions.  (line 213)
+* Function, pprint-data-frame:           Exported functions.  (line 222)
+* Function, pprint-markdown:             Exported functions.  (line 229)
+* Function, print-count-and-percentage:  Internal functions.  (line 266)
+* Function, printer-status:              Internal functions.  (line 273)
+* Function, quantiles-summary-count:     Internal functions.  (line 280)
+* Function, quantiles-summary-max:       Internal functions.  (line 286)
+* Function, quantiles-summary-min:       Internal functions.  (line 292)
+* Function, quantiles-summary-p:         Internal functions.  (line 298)
+* Function, quantiles-summary-q25:       Internal functions.  (line 304)
+* Function, quantiles-summary-q50:       Internal functions.  (line 310)
+* Function, quantiles-summary-q75:       Internal functions.  (line 316)
+* Function, remove-columns:              Exported functions.  (line 237)
+* Function, replace-column:              Exported functions.  (line 248)
+* Function, replace-column!:             Exported functions.  (line 258)
+* Function, reverse-df:                  Internal functions.  (line 322)
+* Function, rows:                        Exported functions.  (line 267)
+* Function, show-symbols:                Internal functions.  (line 329)
+* Function, substitute-key!:             Exported functions.  (line 274)
+* Function, types-in-column:             Internal functions.  (line 335)
+* Function, vector-summary%-length:      Internal functions.  (line 341)
+* Function, vector-summary%-p:           Internal functions.  (line 347)
+* Generic Function, check-column-compatibility: Internal generic functions.
+                                                              (line   7)
+* Generic Function, column-length:       Internal generic functions.
+                                                              (line  18)
+* Generic Function, column-names:        Exported generic functions.
+                                                              (line   7)
+* Generic Function, column-summary:      Exported generic functions.
+                                                              (line  16)
+* Generic Function, default-column-formats: Internal generic functions.
+                                                              (line  27)
+* Generic Function, drop-missing:        Exported generic functions.
+                                                              (line  28)
+* Generic Function, head:                Exported generic functions.
+                                                              (line  38)
+* Generic Function, missingp:            Exported generic functions.
+                                                              (line  47)
+* Generic Function, replace-missing:     Exported generic functions.
+                                                              (line  60)
+* Generic Function, summary:             Exported generic functions.
+                                                              (line  72)
+* Generic Function, tail:                Exported generic functions.
+                                                              (line  80)
+* generic-vector-summary-element-count-alist: Internal functions.
+                                                              (line 120)
+* generic-vector-summary-length:         Internal functions.  (line 126)
+* generic-vector-summary-p:              Internal functions.  (line 132)
+* generic-vector-summary-quantiles:      Internal functions.  (line 138)
+* get-type:                              Internal functions.  (line 144)
+* guess-alist?:                          Internal functions.  (line 150)
+* head:                                  Exported generic functions.
+                                                              (line  37)
+* head <1>:                              Exported generic functions.
+                                                              (line  41)
+* key-index:                             Internal functions.  (line 158)
+* keys:                                  Exported functions.  (line 132)
+* keys-count:                            Internal functions.  (line 165)
+* keys-vector:                           Internal functions.  (line 172)
+* Macro, define-data-frame:              Exported macros.     (line   7)
+* Macro, define-data-subclass:           Internal macros.     (line   7)
+* Macro, replace-key!:                   Internal macros.     (line  13)
+* make-bit-vector-summary:               Internal functions.  (line 179)
+* make-data:                             Internal functions.  (line 185)
+* make-data-package:                     Exported functions.  (line 139)
+* make-df:                               Exported functions.  (line 146)
+* make-dv:                               Exported functions.  (line 152)
+* make-generic-vector-summary:           Internal functions.  (line 195)
+* make-ordered-keys:                     Internal functions.  (line 203)
+* make-quantiles-summary:                Internal functions.  (line 209)
+* make-vector-summary%:                  Internal functions.  (line 216)
+* map-columns:                           Exported functions.  (line 158)
+* map-df:                                Exported functions.  (line 166)
+* map-rows:                              Exported functions.  (line 177)
+* mask-rows:                             Exported functions.  (line 185)
+* matrix-df:                             Exported functions.  (line 193)
+* max-decimal:                           Internal functions.  (line 222)
+* max-width:                             Internal functions.  (line 230)
+* Method, check-column-compatibility:    Internal generic functions.
+                                                              (line  16)
+* Method, check-column-compatibility <1>: Internal generic functions.
+                                                              (line  17)
+* Method, column-length:                 Internal generic functions.
+                                                              (line  26)
+* Method, column-names:                  Exported generic functions.
+                                                              (line  11)
+* Method, column-summary:                Exported generic functions.
+                                                              (line  26)
+* Method, column-summary <1>:            Exported generic functions.
+                                                              (line  27)
+* Method, default-column-formats:        Internal generic functions.
+                                                              (line  31)
+* Method, drop-missing:                  Exported generic functions.
+                                                              (line  32)
+* Method, head:                          Exported generic functions.
+                                                              (line  42)
+* Method, missingp:                      Exported generic functions.
+                                                              (line  54)
+* Method, missingp <1>:                  Exported generic functions.
+                                                              (line  55)
+* Method, missingp <2>:                  Exported generic functions.
+                                                              (line  56)
+* Method, missingp <3>:                  Exported generic functions.
+                                                              (line  57)
+* Method, missingp <4>:                  Exported generic functions.
+                                                              (line  58)
+* Method, missingp <5>:                  Exported generic functions.
+                                                              (line  59)
+* Method, replace-missing:               Exported generic functions.
+                                                              (line  64)
+* Method, summary:                       Exported generic functions.
+                                                              (line  76)
+* Method, tail:                          Exported generic functions.
+                                                              (line  84)
+* missingp:                              Exported generic functions.
+                                                              (line  46)
+* missingp <1>:                          Exported generic functions.
+                                                              (line  53)
+* missingp <2>:                          Exported generic functions.
+                                                              (line  54)
+* missingp <3>:                          Exported generic functions.
+                                                              (line  55)
+* missingp <4>:                          Exported generic functions.
+                                                              (line  56)
+* missingp <5>:                          Exported generic functions.
+                                                              (line  57)
+* missingp <6>:                          Exported generic functions.
+                                                              (line  58)
+* ordered-keys:                          Internal functions.  (line 238)
+* ordered-keys-p:                        Internal functions.  (line 245)
+* ordered-keys-table:                    Internal functions.  (line 251)
+* plist-data:                            Internal functions.  (line 257)
+* plist-df:                              Exported functions.  (line 200)
+* plist-dv:                              Exported functions.  (line 206)
+* pprint-array:                          Exported functions.  (line 212)
+* pprint-data-frame:                     Exported functions.  (line 220)
+* pprint-markdown:                       Exported functions.  (line 228)
+* print-count-and-percentage:            Internal functions.  (line 265)
+* printer-status:                        Internal functions.  (line 272)
+* quantiles-summary-count:               Internal functions.  (line 279)
+* quantiles-summary-max:                 Internal functions.  (line 285)
+* quantiles-summary-min:                 Internal functions.  (line 291)
+* quantiles-summary-p:                   Internal functions.  (line 297)
+* quantiles-summary-q25:                 Internal functions.  (line 303)
+* quantiles-summary-q50:                 Internal functions.  (line 309)
+* quantiles-summary-q75:                 Internal functions.  (line 315)
+* remove-columns:                        Exported functions.  (line 236)
+* replace-column:                        Exported functions.  (line 246)
+* replace-column!:                       Exported functions.  (line 256)
+* replace-key!:                          Internal macros.     (line  12)
+* replace-missing:                       Exported generic functions.
+                                                              (line  59)
+* replace-missing <1>:                   Exported generic functions.
+                                                              (line  63)
+* reverse-df:                            Internal functions.  (line 321)
+* rows:                                  Exported functions.  (line 266)
+* show-symbols:                          Internal functions.  (line 328)
+* substitute-key!:                       Exported functions.  (line 273)
+* summary:                               Exported generic functions.
+                                                              (line  71)
+* summary <1>:                           Exported generic functions.
+                                                              (line  75)
+* tail:                                  Exported generic functions.
+                                                              (line  79)
+* tail <1>:                              Exported generic functions.
+                                                              (line  83)
+* types-in-column:                       Internal functions.  (line 334)
+* vector-summary%-length:                Internal functions.  (line 340)
+* vector-summary%-p:                     Internal functions.  (line 346)
+
+
+File: data-frame.info,  Node: Variable index,  Next: Data type index,  Prev: Function index,  Up: Indexes
+
+A.3 Variables
+=============
+
+ [index ]
+* Menu:
+
+* *column-summary-minimum-length*:       Exported special variables.
+                                                              (line   6)
+* *column-summary-quantiles-threshold*:  Internal special variables.
+                                                              (line   6)
+* *max-digits*:                          Internal special variables.
+                                                              (line  14)
+* *row-numbers-p*:                       Internal special variables.
+                                                              (line  20)
+* columns:                               Internal classes.    (line  35)
+* count:                                 Internal structures. (line  19)
+* count <1>:                             Internal structures. (line 100)
+* element-count-alist:                   Internal structures. (line  52)
+* key:                                   Exported conditions. (line  16)
+* key <1>:                               Exported conditions. (line  29)
+* keys:                                  Exported conditions. (line  32)
+* length:                                Internal structures. (line 181)
+* max:                                   Internal structures. (line 155)
+* min:                                   Internal structures. (line 111)
+* ordered-keys:                          Internal classes.    (line  30)
+* q25:                                   Internal structures. (line 122)
+* q50:                                   Internal structures. (line 133)
+* q75:                                   Internal structures. (line 144)
+* quantiles:                             Internal structures. (line  43)
+* Slot, columns:                         Internal classes.    (line  36)
+* Slot, count:                           Internal structures. (line  20)
+* Slot, count <1>:                       Internal structures. (line 101)
+* Slot, element-count-alist:             Internal structures. (line  53)
+* Slot, key:                             Exported conditions. (line  17)
+* Slot, key <1>:                         Exported conditions. (line  30)
+* Slot, keys:                            Exported conditions. (line  33)
+* Slot, length:                          Internal structures. (line 182)
+* Slot, max:                             Internal structures. (line 156)
+* Slot, min:                             Internal structures. (line 112)
+* Slot, ordered-keys:                    Internal classes.    (line  31)
+* Slot, q25:                             Internal structures. (line 123)
+* Slot, q50:                             Internal structures. (line 134)
+* Slot, q75:                             Internal structures. (line 145)
+* Slot, quantiles:                       Internal structures. (line  44)
+* Slot, table:                           Internal structures. (line  81)
+* Special Variable, *column-summary-minimum-length*: Exported special variables.
+                                                              (line   7)
+* Special Variable, *column-summary-quantiles-threshold*: Internal special variables.
+                                                              (line   7)
+* Special Variable, *max-digits*:        Internal special variables.
+                                                              (line  15)
+* Special Variable, *row-numbers-p*:     Internal special variables.
+                                                              (line  21)
+* table:                                 Internal structures. (line  80)
+
+
+File: data-frame.info,  Node: Data type index,  Prev: Variable index,  Up: Indexes
+
+A.4 Data types
+==============
+
+ [index ]
+* Menu:
+
+* bit-vector-summary:                    Internal structures. (line   6)
+* Class, data:                           Internal classes.    (line   7)
+* Class, data-frame:                     Exported classes.    (line   7)
+* Class, data-vector:                    Exported classes.    (line  41)
+* Condition, duplicate-key:              Exported conditions. (line   7)
+* Condition, key-not-found:              Exported conditions. (line  20)
+* data:                                  Internal classes.    (line   6)
+* data-frame:                            The data-frame system.
+                                                              (line   6)
+* data-frame <1>:                        The data-frame package.
+                                                              (line   6)
+* data-frame <2>:                        Exported classes.    (line   6)
+* data-vector:                           Exported classes.    (line  40)
+* duplicate-key:                         Exported conditions. (line   6)
+* generic-vector-summary:                Internal structures. (line  30)
+* key-not-found:                         Exported conditions. (line  19)
+* ordered-keys:                          Internal structures. (line  63)
+* Package, data-frame:                   The data-frame package.
+                                                              (line   6)
+* quantiles-summary:                     Internal structures. (line  90)
+* Structure, bit-vector-summary:         Internal structures. (line   7)
+* Structure, generic-vector-summary:     Internal structures. (line  31)
+* Structure, ordered-keys:               Internal structures. (line  64)
+* Structure, quantiles-summary:          Internal structures. (line  91)
+* Structure, vector-summary%:            Internal structures. (line 167)
+* System, data-frame:                    The data-frame system.
+                                                              (line   6)
+* vector-summary%:                       Internal structures. (line 166)
+
+
+
+Tag Table:
+Node: Top222
+Node: Systems643
+Node: The data-frame system847
+Ref: go to the data-frame system963
+Node: Files2311
+Node: Lisp files2524
+Node: The data-frame․asd file3175
+Ref: go to the data-frame․asd file3355
+Node: The data-frame/pkgdcl․lisp file3474
+Ref: go to the data-frame/pkgdcl․lisp file3692
+Node: The data-frame/utils․lisp file3855
+Ref: go to the data-frame/utils․lisp file4083
+Node: The data-frame/data-frame․lisp file4602
+Ref: go to the data-frame/data-frame․lisp file4840
+Node: The data-frame/pprint․lisp file10660
+Ref: go to the data-frame/pprint․lisp file10892
+Node: The data-frame/summary․lisp file12880
+Ref: go to the data-frame/summary․lisp file13109
+Node: The data-frame/defdf․lisp file17981
+Ref: go to the data-frame/defdf․lisp file18207
+Node: The data-frame/missing․lisp file18970
+Ref: go to the data-frame/missing․lisp file19157
+Node: Packages20531
+Node: The data-frame package20719
+Ref: go to the DATA-FRAME package20838
+Node: Definitions35974
+Node: Exported definitions36245
+Node: Exported special variables36577
+Ref: go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable36820
+Node: Exported macros37091
+Ref: go to the DATA-FRAME∶∶DEFINE-DATA-FRAME macro37307
+Node: Exported functions37470
+Ref: go to the DATA-FRAME∶∶ADD-COLUMN! function37683
+Ref: go to the DATA-FRAME∶∶ADD-COLUMNS function38011
+Ref: go to the DATA-FRAME∶∶ADD-COLUMNS! function38393
+Ref: go to the DATA-FRAME∶∶ALIST-DF function38730
+Ref: go to the DATA-FRAME∶∶ALIST-DV function38941
+Ref: go to the DATA-FRAME∶∶COLUMN function39153
+Ref: go to the DATA-FRAME∶∶❨SETF COLUMN❩ function39540
+Ref: go to the DATA-FRAME∶∶COLUMN-TYPE function39892
+Ref: go to the DATA-FRAME∶∶COLUMNS function40145
+Ref: go to the DATA-FRAME∶∶COPY function40455
+Ref: go to the DATA-FRAME∶∶COUNT-ROWS function40858
+Ref: go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function41193
+Ref: go to the DATA-FRAME∶∶DF function41635
+Ref: go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function41857
+Ref: go to the DATA-FRAME∶∶DO-ROWS function42219
+Ref: go to the DATA-FRAME∶∶DV function42556
+Ref: go to the DATA-FRAME∶∶KEYS function42762
+Ref: go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function43006
+Ref: go to the DATA-FRAME∶∶MAKE-DF function43301
+Ref: go to the DATA-FRAME∶∶MAKE-DV function43518
+Ref: go to the DATA-FRAME∶∶MAP-COLUMNS function43763
+Ref: go to the DATA-FRAME∶∶MAP-DF function44121
+Ref: go to the DATA-FRAME∶∶MAP-ROWS function44699
+Ref: go to the DATA-FRAME∶∶MASK-ROWS function45051
+Ref: go to the DATA-FRAME∶∶MATRIX-DF function45413
+Ref: go to the DATA-FRAME∶∶PLIST-DF function45683
+Ref: go to the DATA-FRAME∶∶PLIST-DV function45894
+Ref: go to the DATA-FRAME∶∶PPRINT-ARRAY function46138
+Ref: go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function46535
+Ref: go to the DATA-FRAME∶∶PPRINT-MARKDOWN function46828
+Ref: go to the DATA-FRAME∶∶REMOVE-COLUMNS function47169
+Ref: go to the DATA-FRAME∶∶REPLACE-COLUMN function47615
+Ref: go to the DATA-FRAME∶∶REPLACE-COLUMN! function48080
+Ref: go to the DATA-FRAME∶∶ROWS function48455
+Ref: go to the DATA-FRAME∶∶SUBSTITUTE-KEY! function48719
+Node: Exported generic functions49141
+Ref: go to the DATA-FRAME∶∶COLUMN-NAMES generic function49370
+Ref: go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method49509
+Ref: go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function49744
+Ref: go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶BIT-VECTOR method50148
+Ref: go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶VECTOR method50201
+Ref: go to the DATA-FRAME∶∶DROP-MISSING generic function50259
+Ref: go to the DATA-FRAME∶∶DROP-MISSING DATA-FRAME∶∶DATA-FRAME method50418
+Ref: go to the DATA-FRAME∶∶HEAD generic function50694
+Ref: go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method50837
+Ref: go to the DATA-FRAME∶∶MISSINGP generic function51066
+Ref: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T method51293
+Ref: go to the DATA-FRAME∶∶MISSINGP ❨eql KEYWORD∶∶NA❩ method51340
+Ref: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶STRING method51385
+Ref: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶SEQUENCE method51432
+Ref: go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶ARRAY method51476
+Ref: go to the DATA-FRAME∶∶MISSINGP DATA-FRAME∶∶DATA-FRAME method51525
+Ref: go to the DATA-FRAME∶∶REPLACE-MISSING generic function51576
+Ref: go to the DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method51728
+Ref: go to the DATA-FRAME∶∶SUMMARY generic function52165
+Ref: go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method52316
+Ref: go to the DATA-FRAME∶∶TAIL generic function52491
+Ref: go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method52634
+Node: Exported conditions52827
+Ref: go to the DATA-FRAME∶∶DUPLICATE-KEY condition53034
+Ref: go to the DATA-FRAME∶∶KEY-NOT-FOUND condition53418
+Node: Exported classes53848
+Ref: go to the DATA-FRAME∶∶DATA-FRAME class54007
+Ref: go to the DATA-FRAME∶∶DATA-VECTOR class55710
+Node: Internal definitions56148
+Node: Internal special variables56460
+Ref: go to the DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special variable56708
+Ref: go to the DATA-FRAME∶∶*MAX-DIGITS* special variable57016
+Ref: go to the DATA-FRAME∶∶*ROW-NUMBERS-P* special variable57228
+Node: Internal macros57403
+Ref: go to the DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro57619
+Ref: go to the DATA-FRAME∶∶REPLACE-KEY! macro57836
+Node: Internal functions58102
+Ref: go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function58310
+Ref: go to the DATA-FRAME∶∶ADD-KEY! function58573
+Ref: go to the DATA-FRAME∶∶ADD-KEYS function58842
+Ref: go to the DATA-FRAME∶∶ALIST-DATA function59061
+Ref: go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function59390
+Ref: go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function59615
+Ref: go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function59833
+Ref: go to the DATA-FRAME∶∶COLUMN-TYPE-FORMAT function60051
+Ref: go to the DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function60427
+Ref: go to the DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function60654
+Ref: go to the DATA-FRAME∶∶COPY-ORDERED-KEYS function60875
+Ref: go to the DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function61103
+Ref: go to the DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function61323
+Ref: go to the DATA-FRAME∶∶DROP-NA function61524
+Ref: go to the DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function61831
+Ref: go to the DATA-FRAME∶∶ENSURE-NOT-RATIO function62177
+Ref: go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST function62518
+Ref: go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function62747
+Ref: go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function62969
+Ref: go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function63201
+Ref: go to the DATA-FRAME∶∶GET-TYPE function63402
+Ref: go to the DATA-FRAME∶∶GUESS-ALIST? function63654
+Ref: go to the DATA-FRAME∶∶KEY-INDEX function64002
+Ref: go to the DATA-FRAME∶∶KEYS-COUNT function64253
+Ref: go to the DATA-FRAME∶∶KEYS-VECTOR function64495
+Ref: go to the DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function64775
+Ref: go to the DATA-FRAME∶∶MAKE-DATA function64994
+Ref: go to the DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function65559
+Ref: go to the DATA-FRAME∶∶MAKE-ORDERED-KEYS function65786
+Ref: go to the DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function66084
+Ref: go to the DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function66316
+Ref: go to the DATA-FRAME∶∶MAX-DECIMAL function66548
+Ref: go to the DATA-FRAME∶∶MAX-WIDTH function66916
+Ref: go to the DATA-FRAME∶∶ORDERED-KEYS function67232
+Ref: go to the DATA-FRAME∶∶ORDERED-KEYS-P function67509
+Ref: go to the DATA-FRAME∶∶ORDERED-KEYS-TABLE function67733
+Ref: go to the DATA-FRAME∶∶PLIST-DATA function67952
+Ref: go to the DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function68307
+Ref: go to the DATA-FRAME∶∶PRINTER-STATUS function68574
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function68842
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function69063
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function69284
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-P function69501
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function69722
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function69943
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function70164
+Ref: go to the DATA-FRAME∶∶REVERSE-DF function70368
+Ref: go to the DATA-FRAME∶∶SHOW-SYMBOLS function70618
+Ref: go to the DATA-FRAME∶∶TYPES-IN-COLUMN function70878
+Ref: go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function71131
+Ref: go to the DATA-FRAME∶∶VECTOR-SUMMARY%-P function71346
+Node: Internal generic functions71523
+Ref: go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function71775
+Ref: go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method72112
+Ref: go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method72180
+Ref: go to the DATA-FRAME∶∶COLUMN-LENGTH generic function72223
+Ref: go to the DATA-FRAME∶∶COLUMN-LENGTH COMMON-LISP∶∶VECTOR method72500
+Ref: go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS generic function72551
+Ref: go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method72705
+Node: Internal structures73001
+Ref: go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure73213
+Ref: go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure74085
+Ref: go to the DATA-FRAME∶∶ORDERED-KEYS structure75406
+Ref: go to the DATA-FRAME∶∶QUANTILES-SUMMARY structure76389
+Ref: go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure79084
+Node: Internal classes80099
+Ref: go to the DATA-FRAME∶∶DATA class80252
+Node: Indexes81560
+Node: Concept index81756
+Node: Function index85470
+Node: Variable index107140
+Node: Data type index110801
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

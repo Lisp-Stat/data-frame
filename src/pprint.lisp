@@ -58,37 +58,6 @@
   (format t ";;    *print-right-margin* = ~a~%" *print-right-margin*))
 
 
-;;; Note: cl:type-of is under-constrained and returns implementation
-;;; specific results, so we use our own version
-;;; See: https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node53.html
-(defun get-type (x)
-  "Return the most specific type symbol for x"
-  (typecase x
-    (bit     'bit)
-    (float   'float)
-    (integer 'integer)
-    (ratio   'ratio)
-    (complex 'complex)
-    ;; (rational 'cl:rational)		;SBCL doesn't recognise this return type
-    ;; (real    'real)			;SBCL doesn't recognise this return type
-
-    (simple-string 'simple-string)
-    (string 'string)
-
-    (list          'list)
-    (symbol        'symbol)
-    (bit-vector    'bit-vector)
-    (simple-vector 'simple-vector)
-    (simple-array  'simple-array)
-    (vector        'vector)
-    (array         'array)
-    (sequence      'sequence)
-
-    (function 'function)
-    (package  'package)))
-
-
-
 ;;;
 ;;; Computing column formats
 ;;;
@@ -116,24 +85,18 @@
 	(min actual-width max-width)
 	actual-width)))
 
-(defun column-type (sequence)
-  "Return a format string for the most general type found in sequence
+(defun column-type-format (sequence)
+  "Return a format string for the most specific type found in sequence
 Use this for sequences of type T to determine how to format the column."
-  (when (bit-vector-p sequence) (return-from column-type "D"))
-  (let ((type-list (map 'list #'(lambda (x) (get-type x)) sequence)))
-    (cond ((member 'float   type-list) "F" )
-	  ((member 'integer type-list) "D" )
-	  ((member 'bit     type-list) "D" )
-	  ((member 'symbol  type-list) "S" )
-	  (t "A" ))))
-
-(defun cell-type (cell)
-  (let ((cell-type (get-type cell)))
-    (cond ((eq 'float   cell-type) "F" )
-	  ((eq 'integer cell-type) "D" )
-	  ((eq 'bit     cell-type) "D" )
-	  ((eq 'symbol  cell-type) "S" )
-	  (t "A" ))))
+  (when (bit-vector-p sequence) (return-from column-type-format "D"))
+  ;; (let ((x (column-type sequence)))
+  (case (column-type sequence)
+    (single-float "F")
+    (double-float "F")
+    (integer "D")
+    (bit "D")
+    (symbol "S")
+    (t "A")))
 
 (defun max-decimal (sequence &optional (max-digits nil))
   "Return the maximum number of digits to the right of the decimal point in the numbers of SEQUENCE, equal to or less than MAX-DIGITS"
@@ -158,7 +121,7 @@ Use this for sequences of type T to determine how to format the column."
   "Return a list of formatting strings for ARRAY
 The method returns a set of default formatting strings using heuristics."
   (let ((col-widths (aops:margin #'max-width   array 0))
-	(col-types  (aops:margin #'column-type array 0))
+	(col-types  (aops:margin #'column-type-format array 0))
 	(col-digits (aops:margin #'max-decimal array 0)))
     (map 'list #'(lambda (type width digits)
 		   (alexandria:switch (type :test #'string=)
@@ -167,14 +130,6 @@ The method returns a set of default formatting strings using heuristics."
 		     ("A" (format nil "~~~AA"    width))))
 	 col-types col-widths col-digits)))
 
-#+nil
-(defun cell-format (cell width)
-  "Return a formatter for cell"
-  (alexandria:switch ((cell-type cell) :test #'string=)
-    ("F" (format nil "~~~A,~AF" width 1))
-    ("D" (format nil "~~~AD"    width))
-    ("A" (format nil "~~~AA"    width)))
-  ("S" (format nil "~~~A@A"   width)))
 
 
 ;;;
@@ -198,7 +153,7 @@ The method returns a set of default formatting strings using heuristics."
     (flet ((format-column (c)
 	     (let* ((width (max (max-width (column df c))
 				(length (symbol-name c))))
-		    (type (column-type (column df c)))
+		    (type (column-type-format (column df c)))
 		    (digits (min (max-decimal (column df c))
 				 max-digits))
 		    (data-fmt (alexandria:switch (type :test #'string=)
@@ -243,8 +198,8 @@ The method returns a set of default formatting strings using heuristics."
   (let* ((array (cond (row-numbers-p (aops:stack-cols (aops:linspace 0 (1- (aops:nrow arr)) (aops:nrow arr)) arr))
 		      (t arr)))
 	 (df-lists (2d-array-to-list array))
-	   (data-fmt (default-column-formats array))
-	   (f 0))
+	 (data-fmt (default-column-formats array))
+	 (f 0))
       (pprint-logical-block (stream df-lists)
 	(loop (pprint-exit-if-list-exhausted)
 	      (let ((row (pprint-pop)))
@@ -346,7 +301,7 @@ After defining this method it is permanently associated with data-frame objects"
   "Print data frame DF, in markdown format, to STREAM
 If ROW-NUMBERS is true, also print row numbers as the first column"
   (let* ((array      (aops:as-array df))
-	 (col-types  (aops:margin #'column-type array 0))
+	 (col-types  (aops:margin #'column-type-format array 0))
 	 (*print-pprint-dispatch* (copy-pprint-dispatch))
 	 (*print-pretty* t))
 

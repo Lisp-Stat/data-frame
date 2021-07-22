@@ -1,0 +1,2877 @@
+\input texinfo
+
+@c data-frame.texi --- Reference manual
+
+@c Copyright (C) 2021 Steve Nunez
+@c Copyright (C) 2021 Tamas Papp
+
+@c This file is part of Data Frame.
+
+
+
+@c Commentary:
+
+@c Generated automatically by Declt version 2.4 patchlevel 1 "Will Decker"
+@c on Thu Jul 22 16:53:49 2021 GMT+8.
+
+
+@c ====================================================================
+@c Header
+@c ====================================================================
+@c %**start of header
+@setfilename data-frame.info
+@settitle The Data Frame Reference Manual
+@afourpaper
+@documentencoding UTF-8
+@c %**end of header
+
+
+
+@c ====================================================================
+@c Format Specific Tweaks
+@c ====================================================================
+@tex
+%% Declt uses several Unicode characters to "reveal" blanks. This
+%% works fine in HTML or Info output, but TeX will have problems with
+%% these. The code below translates those characters to something that
+%% TeX can handle.
+
+%% U+23B5 (Bottom Square Bracket), used to reveal white spaces, is
+%% translated to its Computer Modern teletype version.
+\DeclareUnicodeCharacter{23B5}{{\tt\char'040}}
+
+%% U+21B5 (Downwards Arrow With Corner Leftwards), used to reveal
+%% carriage returns, is translated to \hookleftarrow in math mode.
+\DeclareUnicodeCharacter{21B5}{\ensuremath\hookleftarrow}
+
+%% U+21E5 (Rightwards Arrow To Bar), used to reveal tabs, is
+%% translated to something that looks similar, based on a rightarrow
+%% and a vertical bar from the math extension font.
+\DeclareUnicodeCharacter{21E5}{%
+  \ensuremath{\rightarrow\kern-.5em\mathchar\"130C}}
+
+
+%% Declt uses several Unicode characters to replace "fragile" ones in
+%% anchor names and references. These characters are chosen to resemble
+%% the original ones, without interfering with Info syntax. In TeX
+%% however, we can switch them back to the original versions, because
+%% cross-references are done differently. In theory, I think we could do
+%% something similar for HTML output (again, only the Info syntax poses
+%% problems), but I don't know how to do something similar to what's
+%% below.
+
+%% U+2024 (One Dot Leader) replaces periods.
+\DeclareUnicodeCharacter{2024}{.}
+
+%% U+2236 (Ratio) replaces colons.
+\DeclareUnicodeCharacter{2236}{:}
+
+%% U+2768 (Medium Left Parenthesis Ornament) replaces left parenthesis.
+\DeclareUnicodeCharacter{2768}{(}
+
+%% U+2769 (Medium Right Parenthesis Ornament) replaces right parenthesis.
+\DeclareUnicodeCharacter{2769}{)}
+
+%% U+214B (Turned Ampersand) replaces ampersands.
+\DeclareUnicodeCharacter{214B}{&}
+
+%% U+2216 (Set Minus) replaces backslashes.
+\DeclareUnicodeCharacter{2216}{\char"5C}
+
+%% The following ones are already defined in texinfo.tex so we have nothing
+%% more to do:
+%% U+201A (Single Low-9 Quotation Mark) replaces commas.
+%% U+2205 (Empty Set) replaces empty symbol names.
+
+@end tex
+
+
+
+@c ====================================================================
+@c Settings
+@c ====================================================================
+@setchapternewpage odd
+@documentdescription
+The Data Frame Reference Manual, version 1.1.
+@end documentdescription
+
+
+
+@c ====================================================================
+@c New Commands
+@c ====================================================================
+
+@c ---------------
+@c Indexing macros
+@c ---------------
+
+@c Packages
+@macro packageindex{name}
+@tpindex \name\
+@tpindex @r{Package, }\name\
+@end macro
+
+@c Systems
+@macro systemindex{name}
+@tpindex \name\
+@tpindex @r{System, }\name\
+@end macro
+
+@c Modules
+@macro moduleindex{name}
+@cindex @t{\name\}
+@cindex Module, @t{\name\}
+@end macro
+
+@c Other files
+@macro otherfileindex{name}
+@cindex @t{\name\}
+@cindex Other File, @t{\name\}
+@cindex File, other, @t{\name\}
+@end macro
+
+@c Lisp files
+@macro lispfileindex{name}
+@cindex @t{\name\}
+@cindex Lisp File, @t{\name\}
+@cindex File, Lisp, @t{\name\}
+@end macro
+
+@c C files
+@macro cfileindex{name}
+@cindex @t{\name\}
+@cindex C File, @t{\name\}
+@cindex File, C, @t{\name\}
+@end macro
+
+@c Java files
+@macro javafileindex{name}
+@cindex @t{\name\}
+@cindex Java File, @t{\name\}
+@cindex File, Java, @t{\name\}
+@end macro
+
+@c Static files
+@macro staticfileindex{name}
+@cindex @t{\name\}
+@cindex Static File, @t{\name\}
+@cindex File, static, @t{\name\}
+@end macro
+
+@c Doc files
+@macro docfileindex{name}
+@cindex @t{\name\}
+@cindex Doc File, @t{\name\}
+@cindex File, doc, @t{\name\}
+@end macro
+
+@c HTML files
+@macro htmlfileindex{name}
+@cindex @t{\name\}
+@cindex HTML File, @t{\name\}
+@cindex File, html, @t{\name\}
+@end macro
+
+@c The following macros are meant to be used within @defxxx environments.
+@c Texinfo performs half the indexing job and we do the other half.
+
+@c Constants
+@macro constantsubindex{name}
+@vindex @r{Constant, }\name\
+@end macro
+
+@c Special variables
+@macro specialsubindex{name}
+@vindex @r{Special Variable, }\name\
+@end macro
+
+@c Symbol macros
+@macro symbolmacrosubindex{name}
+@vindex @r{Symbol Macro, }\name\
+@end macro
+
+@c Slots
+@macro slotsubindex{name}
+@vindex @r{Slot, }\name\
+@end macro
+
+@c Macros
+@macro macrosubindex{name}
+@findex @r{Macro, }\name\
+@end macro
+
+@c Compiler Macros
+@macro compilermacrosubindex{name}
+@findex @r{Compiler Macro, }\name\
+@end macro
+
+@c Functions
+@macro functionsubindex{name}
+@findex @r{Function, }\name\
+@end macro
+
+@c Methods
+@macro methodsubindex{name}
+@findex @r{Method, }\name\
+@end macro
+
+@c Generic Functions
+@macro genericsubindex{name}
+@findex @r{Generic Function, }\name\
+@end macro
+
+@c Setf Expanders
+@macro setfexpandersubindex{name}
+@findex @r{Setf Expander, }\name\
+@end macro
+
+@c Method Combinations
+@macro shortcombinationsubindex{name}
+@tpindex @r{Short Method Combination, }\name\
+@tpindex @r{Method Combination, Short, }\name\
+@end macro
+
+@macro longcombinationsubindex{name}
+@tpindex @r{Long Method Combination, }\name\
+@tpindex @r{Method Combination, Long, }\name\
+@end macro
+
+@c Conditions
+@macro conditionsubindex{name}
+@tpindex @r{Condition, }\name\
+@end macro
+
+@c Structures
+@macro structuresubindex{name}
+@tpindex @r{Structure, }\name\
+@end macro
+
+@c Types
+@macro typesubindex{name}
+@tpindex @r{Type, }\name\
+@end macro
+
+@c Classes
+@macro classsubindex{name}
+@tpindex @r{Class, }\name\
+@end macro
+
+
+
+@c ====================================================================
+@c Info Category and Directory
+@c ====================================================================
+@dircategory Common Lisp
+@direntry
+* Data Frame Reference: (data-frame). The Data Frame Reference Manual.
+@end direntry
+
+
+
+@c ====================================================================
+@c Title Page
+@c ====================================================================
+@titlepage
+@title The Data Frame Reference Manual
+@subtitle Data frames for Common Lisp, version 1.1
+
+@author Steve Nunez <@email{steve@atchar{}symbolics.tech}>
+@author Tamas Papp <@email{tkpapp@atchar{}gmail.com}>
+
+@end titlepage
+
+
+
+@c ====================================================================
+@c Table of Contents
+@c ====================================================================
+@contents
+
+
+
+@c ====================================================================
+@c Top
+@c ====================================================================
+@ifnottex
+@node Top, Systems, (dir), (dir)
+@top The Data Frame Reference Manual
+This is the Data Frame Reference Manual, version 1.1.
+
+@menu
+* Systems:: The systems documentation
+* Files:: The files documentation
+* Packages:: The packages documentation
+* Definitions:: The symbols documentation
+* Indexes:: Concepts, functions, variables and data types
+@end menu
+@end ifnottex
+
+
+
+@c ====================================================================
+@c Systems
+@c ====================================================================
+@node Systems, Files, Top, Top
+@chapter Systems
+The main system appears first, followed by any subsystem dependency.
+
+@menu
+* The data-frame system::
+@end menu
+
+
+@c ---------------------
+@c The data-frame system
+@c ---------------------
+@node The data-frame system, , Systems, Systems
+@section @t{data-frame}
+@anchor{go to the data-frame system}@c
+@systemindex{data-frame}@c
+@table @strong
+@item Maintainer
+Steve Nunez <@email{steve@atchar{}symbolics.tech}>
+@item Author
+Tamas Papp <@email{tkpapp@atchar{}gmail.com}>
+@item Source Control
+@t{(:git "https://github.com/lisp-stat/data-frame.git")}
+@item Bug Tracker
+@uref{https://github.com/Lisp-Stat/data-frame/issues}
+@item License
+MS-PL
+@item Description
+Data frames for Common Lisp
+@item Long Description
+A data manipulation package@comma{} conceptually similar to R's data.frame@comma{} but with a lisp-oriented API.
+@item Version
+1.1
+@item Dependencies
+@itemize @bullet
+@item
+@t{alexandria}
+@item
+@t{anaphora}
+@item
+@t{array-operations}
+@item
+@t{num-utils}
+@item
+@t{select}
+@item
+@t{let-plus}
+@end itemize
+@item Source
+@ref{go to the data-frame․asd file, , @t{data-frame.asd}} (file)
+@item Directory
+@url{file://s:/src/data-frame/, ignore, @t{s:/src/data-frame/}}
+@item Components
+@itemize @bullet
+@item
+@ref{go to the data-frame/pkgdcl․lisp file, , @t{pkgdcl.lisp}} (file)
+@item
+@ref{go to the data-frame/utils․lisp file, , @t{utils.lisp}} (file)
+@item
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@item
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@item
+@ref{go to the data-frame/missing․lisp file, , @t{missing.lisp}} (file)
+@end itemize
+@end table
+
+
+
+@c ====================================================================
+@c Files
+@c ====================================================================
+@node Files, Packages, Systems, Top
+@chapter Files
+Files are sorted by type and then listed depth-first from the systems
+components trees.
+
+@menu
+* Lisp files::
+@end menu
+
+
+@c ----------
+@c Lisp files
+@c ----------
+@node Lisp files, , Files, Files
+@section Lisp
+@menu
+* The data-frame.asd file: The data-frame․asd file.
+* The data-frame/pkgdcl.lisp file: The data-frame/pkgdcl․lisp file.
+* The data-frame/utils.lisp file: The data-frame/utils․lisp file.
+* The data-frame/data-frame.lisp file: The data-frame/data-frame․lisp file.
+* The data-frame/pprint.lisp file: The data-frame/pprint․lisp file.
+* The data-frame/summary.lisp file: The data-frame/summary․lisp file.
+* The data-frame/defdf.lisp file: The data-frame/defdf․lisp file.
+* The data-frame/missing.lisp file: The data-frame/missing․lisp file.
+@end menu
+
+@node The data-frame․asd file, The data-frame/pkgdcl․lisp file, Lisp files, Lisp files
+@subsection @t{data-frame.asd}
+@anchor{go to the data-frame․asd file}@c
+@lispfileindex{data-frame.asd}@c
+@table @strong
+@item Location
+@url{file://s:/src/data-frame/data-frame.asd, ignore, @t{/src/data-frame/data-frame.asd}}
+@item Systems
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@end table
+
+@node The data-frame/pkgdcl․lisp file, The data-frame/utils․lisp file, The data-frame․asd file, Lisp files
+@subsection @t{data-frame/pkgdcl.lisp}
+@anchor{go to the data-frame/pkgdcl․lisp file}@c
+@lispfileindex{data-frame/pkgdcl.lisp}@c
+@table @strong
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/pkgdcl.lisp, ignore, @t{pkgdcl.lisp}}
+@item Packages
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@end table
+
+@node The data-frame/utils․lisp file, The data-frame/data-frame․lisp file, The data-frame/pkgdcl․lisp file, Lisp files
+@subsection @t{data-frame/utils.lisp}
+@anchor{go to the data-frame/utils․lisp file}@c
+@lispfileindex{data-frame/utils.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/pkgdcl․lisp file, , @t{pkgdcl.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/utils.lisp, ignore, @t{utils.lisp}}
+@item Exported Definitions
+@ref{go to the DATA-FRAME∶∶COLUMN-TYPE function, , @t{column-type}} (function)
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶GET-TYPE function, , @t{get-type}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶TYPES-IN-COLUMN function, , @t{types-in-column}} (function)
+@end itemize
+@end table
+
+@node The data-frame/data-frame․lisp file, The data-frame/pprint․lisp file, The data-frame/utils․lisp file, Lisp files
+@subsection @t{data-frame/data-frame.lisp}
+@anchor{go to the data-frame/data-frame․lisp file}@c
+@lispfileindex{data-frame/data-frame.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/utils․lisp file, , @t{utils.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/data-frame.lisp, ignore, @t{data-frame.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMN! function, , @t{add-column!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMNS function, , @t{add-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMNS! function, , @t{add-columns!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DF function, , @t{alist-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DV function, , @t{alist-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN function, , @t{column}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function, , @t{(setf column)}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMNS function, , @t{columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY function, , @t{copy}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COUNT-ROWS function, , @t{count-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DATA-FRAME class, , @t{data-frame}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DATA-VECTOR class, , @t{data-vector}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DF function, , @t{df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function, , @t{df-remove-duplicates}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DO-ROWS function, , @t{do-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DUPLICATE-KEY condition, , @t{duplicate-key}} (condition)
+@item
+@ref{go to the DATA-FRAME∶∶DV function, , @t{dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEY-NOT-FOUND condition, , @t{key-not-found}} (condition)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS function, , @t{keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DF function, , @t{make-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DV function, , @t{make-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-COLUMNS function, , @t{map-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-DF function, , @t{map-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-ROWS function, , @t{map-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MASK-ROWS function, , @t{mask-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MATRIX-DF function, , @t{matrix-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DF function, , @t{plist-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DV function, , @t{plist-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REMOVE-COLUMNS function, , @t{remove-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-COLUMN function, , @t{replace-column}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-COLUMN! function, , @t{replace-column!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ROWS function, , @t{rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶SUBSTITUTE-KEY! function, , @t{substitute-key!}} (function)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function, , @t{2d-array-to-list}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-KEY! function, , @t{add-key!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-KEYS function, , @t{add-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DATA function, , @t{alist-data}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function, , @t{check-column-compatibility}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-ORDERED-KEYS function, , @t{copy-ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DATA class, , @t{data}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro, , @t{define-data-subclass}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function, , @t{ensure-arguments-alist}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GUESS-ALIST? function, , @t{guess-alist?}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEY-INDEX function, , @t{key-index}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS-COUNT function, , @t{keys-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS-VECTOR function, , @t{keys-vector}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DATA function, , @t{make-data}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-ORDERED-KEYS function, , @t{make-ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS function, , @t{ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS structure, , @t{ordered-keys}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS-P function, , @t{ordered-keys-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS-TABLE function, , @t{ordered-keys-table}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DATA function, , @t{plist-data}} (function)
+@end itemize
+@end table
+
+@node The data-frame/pprint․lisp file, The data-frame/summary․lisp file, The data-frame/data-frame․lisp file, Lisp files
+@subsection @t{data-frame/pprint.lisp}
+@anchor{go to the data-frame/pprint․lisp file}@c
+@lispfileindex{data-frame/pprint.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/pprint.lisp, ignore, @t{pprint.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable, , @t{*column-summary-minimum-length*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method, , @t{head}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-ARRAY function, , @t{pprint-array}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function, , @t{pprint-data-frame}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-MARKDOWN function, , @t{pprint-markdown}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method, , @t{tail}} (method)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*MAX-DIGITS* special variable, , @t{*max-digits*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶*ROW-NUMBERS-P* special variable, , @t{*row-numbers-p*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-TYPE-FORMAT function, , @t{column-type-format}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method, , @t{default-column-formats}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MAX-DECIMAL function, , @t{max-decimal}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAX-WIDTH function, , @t{max-width}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PRINTER-STATUS function, , @t{printer-status}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REVERSE-DF function, , @t{reverse-df}} (function)
+@end itemize
+@end table
+
+@node The data-frame/summary․lisp file, The data-frame/defdf․lisp file, The data-frame/pprint․lisp file, Lisp files
+@subsection @t{data-frame/summary.lisp}
+@anchor{go to the data-frame/summary․lisp file}@c
+@lispfileindex{data-frame/summary.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/summary.lisp, ignore, @t{summary.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function, , @t{column-summary}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶BIT-VECTOR method, , @t{column-summary}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶VECTOR method, , @t{column-summary}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method, , @t{summary}} (method)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special variable, , @t{*column-summary-quantiles-threshold*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure, , @t{bit-vector-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function, , @t{bit-vector-summary-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function, , @t{bit-vector-summary-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function, , @t{bit-vector-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-LENGTH generic function, , @t{column-length}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-LENGTH COMMON-LISP∶∶VECTOR method, , @t{column-length}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function, , @t{copy-bit-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function, , @t{copy-generic-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function, , @t{copy-quantiles-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function, , @t{copy-vector-summary%}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ENSURE-NOT-RATIO function, , @t{ensure-not-ratio}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure, , @t{generic-vector-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST function, , @t{generic-vector-summary-element-count-alist}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function, , @t{generic-vector-summary-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function, , @t{generic-vector-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function, , @t{generic-vector-summary-quantiles}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function, , @t{make-bit-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function, , @t{make-generic-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function, , @t{make-quantiles-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function, , @t{make-vector-summary%}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function, , @t{print-count-and-percentage}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY structure, , @t{quantiles-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function, , @t{quantiles-summary-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function, , @t{quantiles-summary-max}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function, , @t{quantiles-summary-min}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-P function, , @t{quantiles-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function, , @t{quantiles-summary-q25}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function, , @t{quantiles-summary-q50}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function, , @t{quantiles-summary-q75}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function, , @t{vector-summary%-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-P function, , @t{vector-summary%-p}} (function)
+@end itemize
+@end table
+
+@node The data-frame/defdf․lisp file, The data-frame/missing․lisp file, The data-frame/summary․lisp file, Lisp files
+@subsection @t{data-frame/defdf.lisp}
+@anchor{go to the data-frame/defdf․lisp file}@c
+@lispfileindex{data-frame/defdf.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/defdf.lisp, ignore, @t{defdf.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function, , @t{define-column-names}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-DATA-FRAME macro, , @t{define-data-frame}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function, , @t{make-data-package}} (function)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-KEY! macro, , @t{replace-key!}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶SHOW-SYMBOLS function, , @t{show-symbols}} (function)
+@end itemize
+@end table
+
+@node The data-frame/missing․lisp file, , The data-frame/defdf․lisp file, Lisp files
+@subsection @t{data-frame/missing.lisp}
+@anchor{go to the data-frame/missing․lisp file}@c
+@lispfileindex{data-frame/missing.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
+@url{file://s:/src/data-frame/src/missing.lisp, ignore, @t{missing.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶DROP-MISSING DATA-FRAME∶∶DATA-FRAME method, , @t{drop-missing}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP generic function, , @t{missingp}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP ❨eql KEYWORD∶∶NA❩ method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶STRING method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶SEQUENCE method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶ARRAY method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP DATA-FRAME∶∶DATA-FRAME method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{replace-missing}} (method)
+@end itemize
+@item Internal Definitions
+@ref{go to the DATA-FRAME∶∶DROP-NA function, , @t{drop-na}} (function)
+@end table
+
+
+
+@c ====================================================================
+@c Packages
+@c ====================================================================
+@node Packages, Definitions, Files, Top
+@chapter Packages
+Packages are listed by definition order.
+
+@menu
+* The data-frame package::
+@end menu
+
+
+@c ----------------------
+@c The data-frame package
+@c ----------------------
+@node The data-frame package, , Packages, Packages
+@section @t{data-frame}
+@anchor{go to the DATA-FRAME package}@c
+@packageindex{data-frame}@c
+@table @strong
+@item Source
+@ref{go to the data-frame/pkgdcl․lisp file, , @t{pkgdcl.lisp}} (file)
+@item Nicknames
+@itemize @bullet
+@item
+@t{dframe}
+@item
+@t{df}
+@end itemize
+@item Use List
+@itemize @bullet
+@item
+@t{select-dev}
+@item
+@t{select}
+@item
+@t{let-plus}
+@item
+@t{anaphora}
+@item
+@t{alexandria}
+@item
+@t{common-lisp}
+@end itemize
+@item Used By List
+@t{lisp-stat}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable, , @t{*column-summary-minimum-length*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMN! function, , @t{add-column!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMNS function, , @t{add-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-COLUMNS! function, , @t{add-columns!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DF function, , @t{alist-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DV function, , @t{alist-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN function, , @t{column}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function, , @t{(setf column)}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES generic function, , @t{column-names}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function, , @t{column-summary}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶BIT-VECTOR method, , @t{column-summary}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶VECTOR method, , @t{column-summary}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-TYPE function, , @t{column-type}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMNS function, , @t{columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY function, , @t{copy}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COUNT-ROWS function, , @t{count-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DATA-FRAME class, , @t{data-frame}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DATA-VECTOR class, , @t{data-vector}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function, , @t{define-column-names}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-DATA-FRAME macro, , @t{define-data-frame}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶DF function, , @t{df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function, , @t{df-remove-duplicates}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DO-ROWS function, , @t{do-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DROP-MISSING generic function, , @t{drop-missing}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶DROP-MISSING DATA-FRAME∶∶DATA-FRAME method, , @t{drop-missing}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶DUPLICATE-KEY condition, , @t{duplicate-key}} (condition)
+@item
+@ref{go to the DATA-FRAME∶∶DV function, , @t{dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶HEAD generic function, , @t{head}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method, , @t{head}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶KEY-NOT-FOUND condition, , @t{key-not-found}} (condition)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS function, , @t{keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function, , @t{make-data-package}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DF function, , @t{make-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DV function, , @t{make-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-COLUMNS function, , @t{map-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-DF function, , @t{map-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAP-ROWS function, , @t{map-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MASK-ROWS function, , @t{mask-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MATRIX-DF function, , @t{matrix-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP generic function, , @t{missingp}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP ❨eql KEYWORD∶∶NA❩ method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶STRING method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶SEQUENCE method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶ARRAY method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP DATA-FRAME∶∶DATA-FRAME method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DF function, , @t{plist-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DV function, , @t{plist-dv}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-ARRAY function, , @t{pprint-array}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function, , @t{pprint-data-frame}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-MARKDOWN function, , @t{pprint-markdown}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REMOVE-COLUMNS function, , @t{remove-columns}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-COLUMN function, , @t{replace-column}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-COLUMN! function, , @t{replace-column!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-MISSING generic function, , @t{replace-missing}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{replace-missing}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶ROWS function, , @t{rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶SUBSTITUTE-KEY! function, , @t{substitute-key!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶SUMMARY generic function, , @t{summary}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method, , @t{summary}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶TAIL generic function, , @t{tail}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method, , @t{tail}} (method)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special variable, , @t{*column-summary-quantiles-threshold*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶*MAX-DIGITS* special variable, , @t{*max-digits*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶*ROW-NUMBERS-P* special variable, , @t{*row-numbers-p*}} (special variable)
+@item
+@ref{go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function, , @t{2d-array-to-list}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-KEY! function, , @t{add-key!}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ADD-KEYS function, , @t{add-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ALIST-DATA function, , @t{alist-data}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure, , @t{bit-vector-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function, , @t{bit-vector-summary-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function, , @t{bit-vector-summary-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function, , @t{bit-vector-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function, , @t{check-column-compatibility}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-LENGTH generic function, , @t{column-length}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-LENGTH COMMON-LISP∶∶VECTOR method, , @t{column-length}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-TYPE-FORMAT function, , @t{column-type-format}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function, , @t{copy-bit-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function, , @t{copy-generic-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-ORDERED-KEYS function, , @t{copy-ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function, , @t{copy-quantiles-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function, , @t{copy-vector-summary%}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DATA class, , @t{data}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS generic function, , @t{default-column-formats}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method, , @t{default-column-formats}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro, , @t{define-data-subclass}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶DROP-NA function, , @t{drop-na}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function, , @t{ensure-arguments-alist}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ENSURE-NOT-RATIO function, , @t{ensure-not-ratio}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure, , @t{generic-vector-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST function, , @t{generic-vector-summary-element-count-alist}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function, , @t{generic-vector-summary-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function, , @t{generic-vector-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function, , @t{generic-vector-summary-quantiles}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GET-TYPE function, , @t{get-type}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶GUESS-ALIST? function, , @t{guess-alist?}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEY-INDEX function, , @t{key-index}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS-COUNT function, , @t{keys-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶KEYS-VECTOR function, , @t{keys-vector}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function, , @t{make-bit-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-DATA function, , @t{make-data}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function, , @t{make-generic-vector-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-ORDERED-KEYS function, , @t{make-ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function, , @t{make-quantiles-summary}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function, , @t{make-vector-summary%}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAX-DECIMAL function, , @t{max-decimal}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶MAX-WIDTH function, , @t{max-width}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS function, , @t{ordered-keys}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS structure, , @t{ordered-keys}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS-P function, , @t{ordered-keys-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS-TABLE function, , @t{ordered-keys-table}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PLIST-DATA function, , @t{plist-data}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function, , @t{print-count-and-percentage}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PRINTER-STATUS function, , @t{printer-status}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY structure, , @t{quantiles-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function, , @t{quantiles-summary-count}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function, , @t{quantiles-summary-max}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function, , @t{quantiles-summary-min}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-P function, , @t{quantiles-summary-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function, , @t{quantiles-summary-q25}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function, , @t{quantiles-summary-q50}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function, , @t{quantiles-summary-q75}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-KEY! macro, , @t{replace-key!}} (macro)
+@item
+@ref{go to the DATA-FRAME∶∶REVERSE-DF function, , @t{reverse-df}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶SHOW-SYMBOLS function, , @t{show-symbols}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶TYPES-IN-COLUMN function, , @t{types-in-column}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function, , @t{vector-summary%-length}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-P function, , @t{vector-summary%-p}} (function)
+@end itemize
+@end table
+
+
+
+@c ====================================================================
+@c Definitions
+@c ====================================================================
+@node Definitions, Indexes, Packages, Top
+@chapter Definitions
+Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+
+@menu
+* Exported definitions::
+* Internal definitions::
+@end menu
+
+
+@c --------------------
+@c Exported definitions
+@c --------------------
+@node Exported definitions, Internal definitions, Definitions, Definitions
+@section Exported definitions
+@menu
+* Exported special variables::
+* Exported macros::
+* Exported functions::
+* Exported generic functions::
+* Exported conditions::
+* Exported classes::
+@end menu
+
+@node Exported special variables, Exported macros, Exported definitions, Exported definitions
+@subsection Special variables
+@defvr {Special Variable} *column-summary-minimum-length*
+@anchor{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable}@c
+@specialsubindex{*column-summary-minimum-length*}@c
+Columns are only summarised when longer than this@comma{} otherwise they are returned as is.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end defvr
+
+@node Exported macros, Exported functions, Exported special variables, Exported definitions
+@subsection Macros
+@deffn {Macro} {define-data-frame} DF BODY &optional DOC
+@anchor{go to the DATA-FRAME∶∶DEFINE-DATA-FRAME macro}@c
+@macrosubindex{define-data-frame}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@end table
+@end deffn
+
+@node Exported functions, Exported generic functions, Exported macros, Exported definitions
+@subsection Functions
+@deffn {Function} {add-column!} DATA KEY COLUMN
+@anchor{go to the DATA-FRAME∶∶ADD-COLUMN! function}@c
+@functionsubindex{add-column!}@c
+Modify DATA (a data-frame or data-vector) by adding COLUMN with KEY.  Return DATA.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {add-columns} DATA &rest KEYS-AND-COLUMNS
+@anchor{go to the DATA-FRAME∶∶ADD-COLUMNS function}@c
+@functionsubindex{add-columns}@c
+Return a new data-frame or data-vector with keys and columns added.  Does not modify DATA (see README about accepted argument formats).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {add-columns!} DATA &rest KEYS-AND-COLUMNS
+@anchor{go to the DATA-FRAME∶∶ADD-COLUMNS! function}@c
+@functionsubindex{add-columns!}@c
+Modify DATA (a data-frame or data-vector) by adding columns with keys (see README about accepted argument formats).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {alist-df} ALIST
+@anchor{go to the DATA-FRAME∶∶ALIST-DF function}@c
+@functionsubindex{alist-df}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {alist-dv} ALIST
+@anchor{go to the DATA-FRAME∶∶ALIST-DV function}@c
+@functionsubindex{alist-dv}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {column} DATA KEY
+@anchor{go to the DATA-FRAME∶∶COLUMN function}@c
+@functionsubindex{column}@c
+Return column corresponding to key.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Writer
+@ref{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function, , @t{(setf column)}} (function)
+@end table
+@end deffn
+@deffn {Function} {(setf column)} COLUMN DATA KEY
+@anchor{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function}@c
+@functionsubindex{(setf column)}@c
+Set column corresponding to key.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Reader
+@ref{go to the DATA-FRAME∶∶COLUMN function, , @t{column}} (function)
+@end table
+@end deffn
+@deffn {Function} {column-type} COL
+@anchor{go to the DATA-FRAME∶∶COLUMN-TYPE function}@c
+@functionsubindex{column-type}@c
+Return the most specific type found in COL
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/utils․lisp file, , @t{utils.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {columns} DATA &optional SLICE
+@anchor{go to the DATA-FRAME∶∶COLUMNS function}@c
+@functionsubindex{columns}@c
+Return the columns of DATA as a vector@comma{} or a selection if given (keys are resolved).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy} DATA &key KEY
+@anchor{go to the DATA-FRAME∶∶COPY function}@c
+@functionsubindex{copy}@c
+Copy data frame or vector.  Keys are copied (and thus can be modified)@comma{} columns or elements are copyied using KEY@comma{} making the default give a shallow copy.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {count-rows} DATA-FRAME KEYS PREDICATE
+@anchor{go to the DATA-FRAME∶∶COUNT-ROWS function}@c
+@functionsubindex{count-rows}@c
+Count the number of rows for which PREDICATE called on the columns corresponding to KEYS returns non-NIL.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {define-column-names} DF
+@anchor{go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function}@c
+@functionsubindex{define-column-names}@c
+Create a symbol macro for each column name in DF@*
+
+After running this function@comma{} you can refer to a column by its name. This is useful if the column names of a data frame have changed.
+
+Example: (define-column-names mtcars)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {df} &rest PLIST-OR-ALIST
+@anchor{go to the DATA-FRAME∶∶DF function}@c
+@functionsubindex{df}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {df-remove-duplicates} DATA
+@anchor{go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function}@c
+@functionsubindex{df-remove-duplicates}@c
+Return a modified copy of DATA from which any element (row@comma{} if a DATA-FRAME) that matches another element has been removed
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {do-rows} DATA-FRAME KEYS FUNCTION
+@anchor{go to the DATA-FRAME∶∶DO-ROWS function}@c
+@functionsubindex{do-rows}@c
+Traverse rows from first to last@comma{} calling FUNCTION on the columns corresponding to KEYS.  Return no values.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {dv} &rest PLIST-OR-ALIST
+@anchor{go to the DATA-FRAME∶∶DV function}@c
+@functionsubindex{dv}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {keys} DATA
+@anchor{go to the DATA-FRAME∶∶KEYS function}@c
+@functionsubindex{keys}@c
+Vector of keys.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-data-package} PKG-NAME
+@anchor{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function}@c
+@functionsubindex{make-data-package}@c
+Create a package and import and change *PACKAGE*
+Example: (make-data-package 'mtcars)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-df} KEYS COLUMNS
+@anchor{go to the DATA-FRAME∶∶MAKE-DF function}@c
+@functionsubindex{make-df}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-dv} KEYS COLUMNS
+@anchor{go to the DATA-FRAME∶∶MAKE-DV function}@c
+@functionsubindex{make-dv}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {map-columns} DATA FUNCTION &optional RESULT-CLASS
+@anchor{go to the DATA-FRAME∶∶MAP-COLUMNS function}@c
+@functionsubindex{map-columns}@c
+Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {map-df} DATA-FRAME KEYS FUNCTION RESULT-KEYS
+@anchor{go to the DATA-FRAME∶∶MAP-DF function}@c
+@functionsubindex{map-df}@c
+Map DATA-FRAME to another one by rows.  Function is called on the columns corresponding to KEYS@comma{} and should return a sequence with the same length as RESULT-KEYS@comma{} which give the keys of the resulting data frame.  RESULT-KETS should be either symbols@comma{} or of the format (symbol @ampchar{}optional (element-type t)).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {map-rows} DATA-FRAME KEYS FUNCTION &key ELEMENT-TYPE
+@anchor{go to the DATA-FRAME∶∶MAP-ROWS function}@c
+@functionsubindex{map-rows}@c
+Map rows using FUNCTION@comma{} on the columns corresponding to KEYS.  Return the result with the given ELEMENT-TYPE.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {mask-rows} DATA-FRAME KEYS PREDICATE
+@anchor{go to the DATA-FRAME∶∶MASK-ROWS function}@c
+@functionsubindex{mask-rows}@c
+Return a bit-vector containing the result of calling PREDICATE on rows of the columns corresponding to KEYS (0 for NIL@comma{} 1 otherwise).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {matrix-df} KEYS MATRIX
+@anchor{go to the DATA-FRAME∶∶MATRIX-DF function}@c
+@functionsubindex{matrix-df}@c
+Convert a matrix to a data-frame with the given keys.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {plist-df} PLIST
+@anchor{go to the DATA-FRAME∶∶PLIST-DF function}@c
+@functionsubindex{plist-df}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {plist-dv} PLIST
+@anchor{go to the DATA-FRAME∶∶PLIST-DV function}@c
+@functionsubindex{plist-dv}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {pprint-array} ARR &optional STREAM ROW-NUMBERS-P
+@anchor{go to the DATA-FRAME∶∶PPRINT-ARRAY function}@c
+@functionsubindex{pprint-array}@c
+Print an array to STREAM@comma{} defaulting to *standard-output*@comma{} in a tabular format.  If ROW-NUMBERS-P@comma{} print row numbers.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {pprint-data-frame} DATA-FRAME &optional STREAM ROW-NUMBERS-P MAX-DIGITS
+@anchor{go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function}@c
+@functionsubindex{pprint-data-frame}@c
+Return a 2D array of string suitable for pretty printing
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {pprint-markdown} DF &key STREAM ROW-NUMBERS
+@anchor{go to the DATA-FRAME∶∶PPRINT-MARKDOWN function}@c
+@functionsubindex{pprint-markdown}@c
+Print data frame DF@comma{} in markdown format@comma{} to STREAM@*
+If ROW-NUMBERS is true@comma{} also print row numbers as the first column
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {remove-columns} DATA KEYS
+@anchor{go to the DATA-FRAME∶∶REMOVE-COLUMNS function}@c
+@functionsubindex{remove-columns}@c
+ARGS: DATA data frame@*
+         KEYS list of keys (variables) to be removed@*
+Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {replace-column} DATA KEY FUNCTION-OR-COLUMN &key ELEMENT-TYPE
+@anchor{go to the DATA-FRAME∶∶REPLACE-COLUMN function}@c
+@functionsubindex{replace-column}@c
+Create a new data frame with new column KEY from data-frame DATA by replacing it either with the given column@comma{} or applying the function to the current values (ELEMENT-TYPE is used.)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {replace-column!} DATA KEY FUNCTION-OR-COLUMN &key ELEMENT-TYPE
+@anchor{go to the DATA-FRAME∶∶REPLACE-COLUMN! function}@c
+@functionsubindex{replace-column!}@c
+Modify column KEY of data-frame DATA by replacing it either with the given column@comma{} or applying the function to the current values (ELEMENT-TYPE is used.)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {rows} DATA
+@anchor{go to the DATA-FRAME∶∶ROWS function}@c
+@functionsubindex{rows}@c
+Return the rows of DATA as a vector
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {substitute-key!} DF NEW OLD
+@anchor{go to the DATA-FRAME∶∶SUBSTITUTE-KEY! function}@c
+@functionsubindex{substitute-key!}@c
+Substitute NEW key@comma{} a SYMBOL@comma{} for OLD in a data-frame.@*
+
+Useful when reading data files that have an empty or generated column name.@*
+
+Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+
+@node Exported generic functions, Exported conditions, Exported functions, Exported definitions
+@subsection Generic functions
+@deffn {Generic Function} {column-names} DF
+@anchor{go to the DATA-FRAME∶∶COLUMN-NAMES generic function}@c
+@genericsubindex{column-names}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {column-names} (DF @t{data-frame})
+@anchor{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{column-names}@c
+Return a list column names in DF@comma{} as strings
+@table @strong
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {column-summary} COLUMN
+@anchor{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function}@c
+@genericsubindex{column-summary}@c
+Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing@comma{} not analysis@comma{} returned values should print nicely.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Methods
+@deffn {Method} {column-summary} (COLUMN @t{bit-vector})
+@anchor{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶BIT-VECTOR method}@c
+@methodsubindex{column-summary}@c
+@end deffn
+@deffn {Method} {column-summary} (COLUMN @t{vector})
+@anchor{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶VECTOR method}@c
+@methodsubindex{column-summary}@c
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {drop-missing} DF &optional PREDICATE
+@anchor{go to the DATA-FRAME∶∶DROP-MISSING generic function}@c
+@genericsubindex{drop-missing}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {drop-missing} (DF @t{data-frame}) &optional PREDICATE
+@anchor{go to the DATA-FRAME∶∶DROP-MISSING DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{drop-missing}@c
+Remove all rows from DF that are missing values according to PREDICATE
+@table @strong
+@item Source
+@ref{go to the data-frame/missing․lisp file, , @t{missing.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {head} DF &optional N
+@anchor{go to the DATA-FRAME∶∶HEAD generic function}@c
+@genericsubindex{head}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {head} (DF @t{data-frame}) &optional N
+@anchor{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{head}@c
+Return the first N rows of DF; N defaults to 6
+@table @strong
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {missingp} DATA
+@anchor{go to the DATA-FRAME∶∶MISSINGP generic function}@c
+@genericsubindex{missingp}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/missing․lisp file, , @t{missing.lisp}} (file)
+@item Methods
+@deffn {Method} {missingp} DATA
+@anchor{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶T method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@deffn {Method} {missingp} (DATA @t{(eql na)})
+@anchor{go to the DATA-FRAME∶∶MISSINGP ❨eql KEYWORD∶∶NA❩ method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@deffn {Method} {missingp} (DATA @t{string})
+@anchor{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶STRING method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@deffn {Method} {missingp} (DATA @t{sequence})
+@anchor{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶SEQUENCE method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@deffn {Method} {missingp} (DATA @t{array})
+@anchor{go to the DATA-FRAME∶∶MISSINGP COMMON-LISP∶∶ARRAY method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@deffn {Method} {missingp} (DATA @t{data-frame})
+@anchor{go to the DATA-FRAME∶∶MISSINGP DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{missingp}@c
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {replace-missing} DF MAP-ALIST
+@anchor{go to the DATA-FRAME∶∶REPLACE-MISSING generic function}@c
+@genericsubindex{replace-missing}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {replace-missing} (DF @t{data-frame}) MAP-ALIST
+@anchor{go to the DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method}@c
+@methodsubindex{replace-missing}@c
+Replace missing values with the values specified@*
+The alist consists of a column name in the CAR and the replacement value in the CDR
+Example: (replace-missing mtcarsm '((mtcarsm:mpg . foo)))
+@table @strong
+@item Source
+@ref{go to the data-frame/missing․lisp file, , @t{missing.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {summary} DF &optional STREAM
+@anchor{go to the DATA-FRAME∶∶SUMMARY generic function}@c
+@genericsubindex{summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {summary} (DF @t{data-frame}) &optional STREAM
+@anchor{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{summary}@c
+@table @strong
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {tail} DF &optional N
+@anchor{go to the DATA-FRAME∶∶TAIL generic function}@c
+@genericsubindex{tail}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {tail} (DF @t{data-frame}) &optional N
+@anchor{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method}@c
+@methodsubindex{tail}@c
+Return the last N rows of DF; N defaults to 6
+@table @strong
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+
+@node Exported conditions, Exported classes, Exported generic functions, Exported definitions
+@subsection Conditions
+@deftp {Condition} {duplicate-key} ()
+@anchor{go to the DATA-FRAME∶∶DUPLICATE-KEY condition}@c
+@conditionsubindex{duplicate-key}@c
+Duplicate key.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@t{error} (condition)
+@item Direct slots
+@defvr {Slot} key
+@slotsubindex{key}@c
+@table @strong
+@item Initargs
+@t{:key}
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Condition} {key-not-found} ()
+@anchor{go to the DATA-FRAME∶∶KEY-NOT-FOUND condition}@c
+@conditionsubindex{key-not-found}@c
+Key not found.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@t{error} (condition)
+@item Direct slots
+@defvr {Slot} key
+@slotsubindex{key}@c
+@table @strong
+@item Initargs
+@t{:key}
+@end table
+@end defvr
+@defvr {Slot} keys
+@slotsubindex{keys}@c
+@table @strong
+@item Initargs
+@t{:keys}
+@end table
+@end defvr
+@end table
+@end deftp
+
+@node Exported classes, , Exported conditions, Exported definitions
+@subsection Classes
+@deftp {Class} {data-frame} ()
+@anchor{go to the DATA-FRAME∶∶DATA-FRAME class}@c
+@classsubindex{data-frame}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@ref{go to the DATA-FRAME∶∶DATA class, , @t{data}} (class)
+@item Direct methods
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶REPLACE-MISSING DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{replace-missing}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶DROP-MISSING DATA-FRAME∶∶DATA-FRAME method, , @t{drop-missing}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶MISSINGP DATA-FRAME∶∶DATA-FRAME method, , @t{missingp}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method, , @t{summary}} (method)
+@item
+@t{print-object} (method)
+@item
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method, , @t{tail}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method, , @t{head}} (method)
+@item
+@t{select} (method)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@t{as-array} (method)
+@item
+@t{dims} (method)
+@item
+@t{ncol} (method)
+@item
+@t{nrow} (method)
+@item
+@t{initialize-instance} (method)
+@end itemize
+@end table
+@end deftp
+@deftp {Class} {data-vector} ()
+@anchor{go to the DATA-FRAME∶∶DATA-VECTOR class}@c
+@classsubindex{data-vector}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@ref{go to the DATA-FRAME∶∶DATA class, , @t{data}} (class)
+@item Direct methods
+@itemize @bullet
+@item
+@t{print-object} (method)
+@item
+@t{select} (method)
+@item
+@t{as-array} (method)
+@item
+@t{dims} (method)
+@end itemize
+@end table
+@end deftp
+
+
+@c --------------------
+@c Internal definitions
+@c --------------------
+@node Internal definitions, , Exported definitions, Definitions
+@section Internal definitions
+@menu
+* Internal special variables::
+* Internal macros::
+* Internal functions::
+* Internal generic functions::
+* Internal structures::
+* Internal classes::
+@end menu
+
+@node Internal special variables, Internal macros, Internal definitions, Internal definitions
+@subsection Special variables
+@defvr {Special Variable} *column-summary-quantiles-threshold*
+@anchor{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-QUANTILES-THRESHOLD* special variable}@c
+@specialsubindex{*column-summary-quantiles-threshold*}@c
+If the number of reals exceeds this threshold@comma{} they will be summarized with quantiles.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end defvr
+@defvr {Special Variable} *max-digits*
+@anchor{go to the DATA-FRAME∶∶*MAX-DIGITS* special variable}@c
+@specialsubindex{*max-digits*}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end defvr
+@defvr {Special Variable} *row-numbers-p*
+@anchor{go to the DATA-FRAME∶∶*ROW-NUMBERS-P* special variable}@c
+@specialsubindex{*row-numbers-p*}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end defvr
+
+@node Internal macros, Internal functions, Internal special variables, Internal definitions
+@subsection Macros
+@deffn {Macro} {define-data-subclass} CLASS ABBREVIATION
+@anchor{go to the DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro}@c
+@macrosubindex{define-data-subclass}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Macro} {replace-key!} DF NEW OLD
+@anchor{go to the DATA-FRAME∶∶REPLACE-KEY! macro}@c
+@macrosubindex{replace-key!}@c
+Replace a key in DF@comma{} updating data package symbols
+Example: (replace-key mtcars row-name x1)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@end table
+@end deffn
+
+@node Internal functions, Internal generic functions, Internal macros, Internal definitions
+@subsection Functions
+@deffn {Function} {2d-array-to-list} ARRAY
+@anchor{go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function}@c
+@functionsubindex{2d-array-to-list}@c
+Convert an array to a list of lists
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {add-key!} ORDERED-KEYS KEY
+@anchor{go to the DATA-FRAME∶∶ADD-KEY! function}@c
+@functionsubindex{add-key!}@c
+Modify ORDERED-KEYS by adding KEY.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {add-keys} ORDERED-KEYS &rest KEYS
+@anchor{go to the DATA-FRAME∶∶ADD-KEYS function}@c
+@functionsubindex{add-keys}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {alist-data} CLASS ALIST
+@anchor{go to the DATA-FRAME∶∶ALIST-DATA function}@c
+@functionsubindex{alist-data}@c
+Create an object of CLASS (subclass of DATA) from ALIST which contains key-column pairs.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {bit-vector-summary-count} INSTANCE
+@anchor{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function}@c
+@functionsubindex{bit-vector-summary-count}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {bit-vector-summary-length} INSTANCE
+@anchor{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-LENGTH function}@c
+@functionsubindex{bit-vector-summary-length}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {bit-vector-summary-p} OBJECT
+@anchor{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-P function}@c
+@functionsubindex{bit-vector-summary-p}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {column-type-format} SEQUENCE
+@anchor{go to the DATA-FRAME∶∶COLUMN-TYPE-FORMAT function}@c
+@functionsubindex{column-type-format}@c
+Return a format string for the most specific type found in sequence
+Use this for sequences of type T to determine how to format the column.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy-bit-vector-summary} INSTANCE
+@anchor{go to the DATA-FRAME∶∶COPY-BIT-VECTOR-SUMMARY function}@c
+@functionsubindex{copy-bit-vector-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy-generic-vector-summary} INSTANCE
+@anchor{go to the DATA-FRAME∶∶COPY-GENERIC-VECTOR-SUMMARY function}@c
+@functionsubindex{copy-generic-vector-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy-ordered-keys} ORDERED-KEYS
+@anchor{go to the DATA-FRAME∶∶COPY-ORDERED-KEYS function}@c
+@functionsubindex{copy-ordered-keys}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy-quantiles-summary} INSTANCE
+@anchor{go to the DATA-FRAME∶∶COPY-QUANTILES-SUMMARY function}@c
+@functionsubindex{copy-quantiles-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {copy-vector-summary%} INSTANCE
+@anchor{go to the DATA-FRAME∶∶COPY-VECTOR-SUMMARY% function}@c
+@functionsubindex{copy-vector-summary%}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {drop-na} DF
+@anchor{go to the DATA-FRAME∶∶DROP-NA function}@c
+@functionsubindex{drop-na}@c
+Remove all rows from DF that are missing values. Convenience R-like function.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/missing․lisp file, , @t{missing.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {ensure-arguments-alist} REST
+@anchor{go to the DATA-FRAME∶∶ENSURE-ARGUMENTS-ALIST function}@c
+@functionsubindex{ensure-arguments-alist}@c
+Recognizes the following and converts them to an alist:
+
+  plist@*
+  alist@*
+  (plist)@*
+  (alist)@*
+  (data-frame)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {ensure-not-ratio} REAL
+@anchor{go to the DATA-FRAME∶∶ENSURE-NOT-RATIO function}@c
+@functionsubindex{ensure-not-ratio}@c
+When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as is.  Used for printing.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {generic-vector-summary-element-count-alist} INSTANCE
+@anchor{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST function}@c
+@functionsubindex{generic-vector-summary-element-count-alist}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {generic-vector-summary-length} INSTANCE
+@anchor{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-LENGTH function}@c
+@functionsubindex{generic-vector-summary-length}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {generic-vector-summary-p} OBJECT
+@anchor{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-P function}@c
+@functionsubindex{generic-vector-summary-p}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {generic-vector-summary-quantiles} INSTANCE
+@anchor{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function}@c
+@functionsubindex{generic-vector-summary-quantiles}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {get-type} X
+@anchor{go to the DATA-FRAME∶∶GET-TYPE function}@c
+@functionsubindex{get-type}@c
+Return the most specific type symbol for x
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/utils․lisp file, , @t{utils.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {guess-alist?} PLIST-OR-ALIST
+@anchor{go to the DATA-FRAME∶∶GUESS-ALIST? function}@c
+@functionsubindex{guess-alist?}@c
+Test if the argument is an ALIST by checking its first element.  Used for deciding which creation function to call.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {key-index} ORDERED-KEYS KEY
+@anchor{go to the DATA-FRAME∶∶KEY-INDEX function}@c
+@functionsubindex{key-index}@c
+Return the index for KEY.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {keys-count} ORDERED-KEYS
+@anchor{go to the DATA-FRAME∶∶KEYS-COUNT function}@c
+@functionsubindex{keys-count}@c
+Number of keys.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {keys-vector} ORDERED-KEYS
+@anchor{go to the DATA-FRAME∶∶KEYS-VECTOR function}@c
+@functionsubindex{keys-vector}@c
+Vector of all keys.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-bit-vector-summary} &key (LENGTH LENGTH) (COUNT COUNT)
+@anchor{go to the DATA-FRAME∶∶MAKE-BIT-VECTOR-SUMMARY function}@c
+@functionsubindex{make-bit-vector-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-data} CLASS KEYS COLUMNS
+@anchor{go to the DATA-FRAME∶∶MAKE-DATA function}@c
+@functionsubindex{make-data}@c
+Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a copy of COLUMNS in order to ensure that it is an adjustable array with a fill pointer.  KEYS are converted to ORDERED-KEYS if necessary.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-generic-vector-summary} &key (LENGTH LENGTH) (QUANTILES QUANTILES) (ELEMENT-COUNT-ALIST ELEMENT-COUNT-ALIST)
+@anchor{go to the DATA-FRAME∶∶MAKE-GENERIC-VECTOR-SUMMARY function}@c
+@functionsubindex{make-generic-vector-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-ordered-keys} &key (TABLE TABLE)
+@anchor{go to the DATA-FRAME∶∶MAKE-ORDERED-KEYS function}@c
+@functionsubindex{make-ordered-keys}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-quantiles-summary} &key (COUNT COUNT) (MIN MIN) (Q25 Q25) (Q50 Q50) (Q75 Q75) (MAX MAX)
+@anchor{go to the DATA-FRAME∶∶MAKE-QUANTILES-SUMMARY function}@c
+@functionsubindex{make-quantiles-summary}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {make-vector-summary%} &key (LENGTH LENGTH)
+@anchor{go to the DATA-FRAME∶∶MAKE-VECTOR-SUMMARY% function}@c
+@functionsubindex{make-vector-summary%}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {max-decimal} SEQUENCE &optional MAX-DIGITS
+@anchor{go to the DATA-FRAME∶∶MAX-DECIMAL function}@c
+@functionsubindex{max-decimal}@c
+Return the maximum number of digits to the right of the decimal point in the numbers of SEQUENCE@comma{} equal to or less than MAX-DIGITS
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {max-width} SEQUENCE &optional MAX-WIDTH
+@anchor{go to the DATA-FRAME∶∶MAX-WIDTH function}@c
+@functionsubindex{max-width}@c
+Return the largest printed string size of the elements of SEQUENCE@comma{} equal to or less than MAX-WIDTH
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {ordered-keys} KEYS
+@anchor{go to the DATA-FRAME∶∶ORDERED-KEYS function}@c
+@functionsubindex{ordered-keys}@c
+Create an ORDERED-KEYS object from KEYS (a sequence).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {ordered-keys-p} OBJECT
+@anchor{go to the DATA-FRAME∶∶ORDERED-KEYS-P function}@c
+@functionsubindex{ordered-keys-p}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {ordered-keys-table} INSTANCE
+@anchor{go to the DATA-FRAME∶∶ORDERED-KEYS-TABLE function}@c
+@functionsubindex{ordered-keys-table}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {plist-data} CLASS PLIST
+@anchor{go to the DATA-FRAME∶∶PLIST-DATA function}@c
+@functionsubindex{plist-data}@c
+Create an object of CLASS (subclass of DATA) from PLIST which contains keys and columns@comma{} interleaved.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {print-count-and-percentage} STREAM COUNT LENGTH
+@anchor{go to the DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function}@c
+@functionsubindex{print-count-and-percentage}@c
+Print COUNT as is and also as a rounded percentage of 
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {printer-status} ()
+@anchor{go to the DATA-FRAME∶∶PRINTER-STATUS function}@c
+@functionsubindex{printer-status}@c
+Print values of all the printer variables
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-count} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function}@c
+@functionsubindex{quantiles-summary-count}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-max} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function}@c
+@functionsubindex{quantiles-summary-max}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-min} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function}@c
+@functionsubindex{quantiles-summary-min}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-p} OBJECT
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-P function}@c
+@functionsubindex{quantiles-summary-p}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-q25} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function}@c
+@functionsubindex{quantiles-summary-q25}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-q50} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function}@c
+@functionsubindex{quantiles-summary-q50}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {quantiles-summary-q75} INSTANCE
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function}@c
+@functionsubindex{quantiles-summary-q75}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {reverse-df} DF
+@anchor{go to the DATA-FRAME∶∶REVERSE-DF function}@c
+@functionsubindex{reverse-df}@c
+Return DF with columns in reverse order
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {show-symbols} PKG
+@anchor{go to the DATA-FRAME∶∶SHOW-SYMBOLS function}@c
+@functionsubindex{show-symbols}@c
+Print all symbols in PKG
+Example: (show-symbols 'mtcars)
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {types-in-column} SEQ
+@anchor{go to the DATA-FRAME∶∶TYPES-IN-COLUMN function}@c
+@functionsubindex{types-in-column}@c
+Return a list of the types found in SEQ
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/utils․lisp file, , @t{utils.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {vector-summary%-length} INSTANCE
+@anchor{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function}@c
+@functionsubindex{vector-summary%-length}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {vector-summary%-p} OBJECT
+@anchor{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-P function}@c
+@functionsubindex{vector-summary%-p}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@end table
+@end deffn
+
+@node Internal generic functions, Internal structures, Internal functions, Internal definitions
+@subsection Generic functions
+@deffn {Generic Function} {check-column-compatibility} DATA COLUMN
+@anchor{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY generic function}@c
+@genericsubindex{check-column-compatibility}@c
+Check if COLUMN is compatible with DATA.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Methods
+@deffn {Method} {check-column-compatibility} (DATA @t{data-frame}) COLUMN
+@anchor{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA-FRAME COMMON-LISP∶∶T method}@c
+@methodsubindex{check-column-compatibility}@c
+@end deffn
+@deffn {Method} {check-column-compatibility} (DATA @t{data}) COLUMN
+@anchor{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method}@c
+@methodsubindex{check-column-compatibility}@c
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {column-length} COLUMN
+@anchor{go to the DATA-FRAME∶∶COLUMN-LENGTH generic function}@c
+@genericsubindex{column-length}@c
+Return the length of column.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Methods
+@deffn {Method} {column-length} (COLUMN @t{vector})
+@anchor{go to the DATA-FRAME∶∶COLUMN-LENGTH COMMON-LISP∶∶VECTOR method}@c
+@methodsubindex{column-length}@c
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {default-column-formats} ARRAY
+@anchor{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS generic function}@c
+@genericsubindex{default-column-formats}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {default-column-formats} (ARRAY @t{simple-array})
+@anchor{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method}@c
+@methodsubindex{default-column-formats}@c
+Return a list of formatting strings for ARRAY@*
+The method returns a set of default formatting strings using heuristics.
+@table @strong
+@item Source
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@end table
+@end deffn
+@end table
+@end deffn
+
+@node Internal structures, Internal classes, Internal generic functions, Internal definitions
+@subsection Structures
+@deftp {Structure} {bit-vector-summary} ()
+@anchor{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure}@c
+@structuresubindex{bit-vector-summary}@c
+Summary of a bit vector.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Direct superclasses
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
+@item Direct methods
+@t{print-object} (method)
+@item Direct slots
+@defvr {Slot} count
+@slotsubindex{count}@c
+@table @strong
+@item Type
+@t{alexandria:array-index}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY-COUNT function, , @t{bit-vector-summary-count}} (function)
+@item Writers
+@t{(setf bit-vector-summary-count)} (function)
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {generic-vector-summary} ()
+@anchor{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure}@c
+@structuresubindex{generic-vector-summary}@c
+Summary for generic vectors.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Direct superclasses
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
+@item Direct methods
+@t{print-object} (method)
+@item Direct slots
+@defvr {Slot} quantiles
+@slotsubindex{quantiles}@c
+@table @strong
+@item Type
+@t{(or null data-frame::quantiles-summary)}
+@item Readers
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-QUANTILES function, , @t{generic-vector-summary-quantiles}} (function)
+@item Writers
+@t{(setf generic-vector-summary-quantiles)} (function)
+@end table
+@end defvr
+@defvr {Slot} element-count-alist
+@slotsubindex{element-count-alist}@c
+@table @strong
+@item Type
+@t{list}
+@item Readers
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY-ELEMENT-COUNT-ALIST function, , @t{generic-vector-summary-element-count-alist}} (function)
+@item Writers
+@t{(setf generic-vector-summary-element-count-alist)} (function)
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {ordered-keys} ()
+@anchor{go to the DATA-FRAME∶∶ORDERED-KEYS structure}@c
+@structuresubindex{ordered-keys}@c
+Representation of ordered keys.@*
+
+TABLE maps keys to indexes@comma{} starting from zero.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@t{structure-object} (structure)
+@item Direct methods
+@itemize @bullet
+@item
+@t{print-object} (method)
+@item
+@t{select} (method)
+@item
+@t{canonical-representation} (method)
+@item
+@t{axis-dimension} (method)
+@end itemize
+@item Direct slots
+@defvr {Slot} table
+@slotsubindex{table}@c
+@table @strong
+@item Type
+@t{hash-table}
+@item Initform
+@t{(make-hash-table :test (function eq))}
+@item Readers
+@ref{go to the DATA-FRAME∶∶ORDERED-KEYS-TABLE function, , @t{ordered-keys-table}} (function)
+@item Writers
+@t{(setf ordered-keys-table)} (function)
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {quantiles-summary} ()
+@anchor{go to the DATA-FRAME∶∶QUANTILES-SUMMARY structure}@c
+@structuresubindex{quantiles-summary}@c
+Summary of a real elements (using quantiles).
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Direct superclasses
+@t{structure-object} (structure)
+@item Direct slots
+@defvr {Slot} count
+@slotsubindex{count}@c
+@table @strong
+@item Type
+@t{alexandria:array-index}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-COUNT function, , @t{quantiles-summary-count}} (function)
+@item Writers
+@t{(setf quantiles-summary-count)} (function)
+@end table
+@end defvr
+@defvr {Slot} min
+@slotsubindex{min}@c
+@table @strong
+@item Type
+@t{real}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MIN function, , @t{quantiles-summary-min}} (function)
+@item Writers
+@t{(setf quantiles-summary-min)} (function)
+@end table
+@end defvr
+@defvr {Slot} q25
+@slotsubindex{q25}@c
+@table @strong
+@item Type
+@t{real}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q25 function, , @t{quantiles-summary-q25}} (function)
+@item Writers
+@t{(setf quantiles-summary-q25)} (function)
+@end table
+@end defvr
+@defvr {Slot} q50
+@slotsubindex{q50}@c
+@table @strong
+@item Type
+@t{real}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q50 function, , @t{quantiles-summary-q50}} (function)
+@item Writers
+@t{(setf quantiles-summary-q50)} (function)
+@end table
+@end defvr
+@defvr {Slot} q75
+@slotsubindex{q75}@c
+@table @strong
+@item Type
+@t{real}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-Q75 function, , @t{quantiles-summary-q75}} (function)
+@item Writers
+@t{(setf quantiles-summary-q75)} (function)
+@end table
+@end defvr
+@defvr {Slot} max
+@slotsubindex{max}@c
+@table @strong
+@item Type
+@t{real}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY-MAX function, , @t{quantiles-summary-max}} (function)
+@item Writers
+@t{(setf quantiles-summary-max)} (function)
+@end table
+@end defvr
+@end table
+@end deftp
+@deftp {Structure} {vector-summary%} ()
+@anchor{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure}@c
+@structuresubindex{vector-summary%}@c
+Base class for summarizing vectors.  Not exported.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
+@item Direct superclasses
+@t{structure-object} (structure)
+@item Direct subclasses
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure, , @t{bit-vector-summary}} (structure)
+@item
+@ref{go to the DATA-FRAME∶∶GENERIC-VECTOR-SUMMARY structure, , @t{generic-vector-summary}} (structure)
+@end itemize
+@item Direct slots
+@defvr {Slot} length
+@slotsubindex{length}@c
+@table @strong
+@item Type
+@t{alexandria:array-index}
+@item Initform
+@t{0}
+@item Readers
+@ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function, , @t{vector-summary%-length}} (function)
+@item Writers
+@t{(setf vector-summary%-length)} (function)
+@end table
+@end defvr
+@end table
+@end deftp
+
+@node Internal classes, , Internal structures, Internal definitions
+@subsection Classes
+@deftp {Class} {data} ()
+@anchor{go to the DATA-FRAME∶∶DATA class}@c
+@classsubindex{data}@c
+This class is used for implementing both data-vector and data-matrix@comma{} and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@item Direct superclasses
+@t{standard-object} (class)
+@item Direct subclasses
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶DATA-VECTOR class, , @t{data-vector}} (class)
+@item
+@ref{go to the DATA-FRAME∶∶DATA-FRAME class, , @t{data-frame}} (class)
+@end itemize
+@item Direct methods
+@itemize @bullet
+@item
+@t{as-alist} (method)
+@item
+@ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
+@item
+@t{element-type} (method)
+@end itemize
+@item Direct slots
+@defvr {Slot} ordered-keys
+@slotsubindex{ordered-keys}@c
+@table @strong
+@item Type
+@t{data-frame::ordered-keys}
+@item Initargs
+@t{:ordered-keys}
+@end table
+@end defvr
+@defvr {Slot} columns
+@slotsubindex{columns}@c
+@table @strong
+@item Type
+@t{vector}
+@item Initargs
+@t{:columns}
+@end table
+@end defvr
+@end table
+@end deftp
+
+
+
+@c ====================================================================
+@c Indexes
+@c ====================================================================
+@node Indexes, , Definitions, Top
+@appendix Indexes
+@menu
+* Concept index::
+* Function index::
+* Variable index::
+* Data type index::
+@end menu
+
+
+@c -------------
+@c Concept index
+@c -------------
+@node Concept index, Function index, Indexes, Indexes
+@appendixsec Concepts
+@printindex cp
+
+@page
+
+
+@c --------------
+@c Function index
+@c --------------
+@node Function index, Variable index, Concept index, Indexes
+@appendixsec Functions
+@printindex fn
+
+@page
+
+
+@c --------------
+@c Variable index
+@c --------------
+@node Variable index, Data type index, Function index, Indexes
+@appendixsec Variables
+@printindex vr
+
+@page
+
+
+@c ---------------
+@c Data type index
+@c ---------------
+@node Data type index, , Variable index, Indexes
+@appendixsec Data types
+@printindex tp
+
+@bye
+
+@c data-frame.texi ends here
