@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2020 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
 #+nil
 (uiop:define-package #:data-frame.column
   (:use #:cl
@@ -17,6 +17,7 @@
   (:use
    #:cl
    #:alexandria
+   #:alexandria+
    #:anaphora
    #:let-plus
    ;; #:data-frame.column
@@ -34,6 +35,7 @@
    #:map-columns
    #:column
    #:column-type
+   #:column-names
    #:keys
    #:copy
    #:add-columns
@@ -81,8 +83,10 @@
    #:pprint-array
    #:head
    #:tail
-   #:column-names
-   #:row-names
+
+   ;; Formatted output
+   #:df-print
+   #:df-summary
 
    ;; Summary methods
    #:summary

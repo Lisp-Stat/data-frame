@@ -109,7 +109,11 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
     :type ordered-keys)
    (columns
     :initarg :columns
-    :type vector))
+    :type vector)
+   (doc-string
+    :initarg :nil
+    :type string
+    :accessor doc-string))
   (:documentation "This class is used for implementing both data-vector and data-matrix, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
 
 (defmethod aops:element-type ((data data))
@@ -206,6 +210,10 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
   (check-type data data)
   (let+ (((&slots-r/o ordered-keys columns) data))
     (select columns (canonical-representation ordered-keys slice))))
+
+(defun column-names (df)
+  "Return a list of column names in DF, as strings"
+   (map 'list #'symbol-name (keys df)))
 
 (defun rows (data)
   "Return the rows of DATA as a vector"
@@ -435,9 +443,22 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   "Like REMOVE-DUPLICATES, but may modify DATA"
 ...)
 
+(defmethod print-object ((ordered-keys ordered-keys) stream)
+  (print-unreadable-object (ordered-keys stream :type t)
+    (format stream "~{~a~^, ~}" (coerce (keys-vector ordered-keys) 'list))))
 
-(defun 2d-array-to-list (array)
-  "Convert an array to a list of lists" 		; make flet?
-  (loop for i below (array-dimension array 0)
-        collect (loop for j below (array-dimension array 1)
-                      collect (aref array i j))))
+(defmethod print-object ((data-vector data-vector) stream)
+  (let ((alist (as-alist data-vector)))
+      (print-unreadable-object (data-vector stream :type t)
+        (format stream "of ~d variables" (length alist)))))
+
+(defmethod print-object ((df data-frame) stream)
+  "Print DATA-FRAME dimensions and type
+After defining this method it is permanently associated with data-frame objects"
+  (print-unreadable-object (df stream :type t)
+    (format stream "(~d observations of ~d variables)"
+	    (aops:nrow df)
+	    (aops:ncol df))
+    (when (doc-string df)
+      (fresh-line stream)
+      (format stream "~A" (doc-string df)))))

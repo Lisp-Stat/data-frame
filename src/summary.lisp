@@ -1,6 +1,12 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package :data-frame)
+(in-package #:data-frame)
+
+(defparameter *column-summary-minimum-length* 10
+  "Columns are only summarised when longer than this, otherwise they are returned as is.")
+
+(defparameter *column-summary-quantiles-threshold* 10
+  "If the number of reals exceeds this threshold, they will be summarized with quantiles.")
 
 (defgeneric column-length (column)
   (:documentation "Return the length of column.")
@@ -44,9 +50,6 @@
       (float real 1.0)
       real))
 
-(defparameter *column-summary-quantiles-threshold* 10
-  "If the number of reals exceeds this threshold, they will be summarized with quantiles.")
-
 (defgeneric column-summary (column)
   (:documentation "Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing, not analysis, returned values should print nicely.")
   (:method ((column bit-vector))
@@ -78,48 +81,32 @@
 
 (defmethod print-object ((summary generic-vector-summary) stream)
   (let+ (((&structure-r/o generic-vector-summary- length quantiles element-count-alist) summary))
-    #+sbcl ;; complains about unreachable code
-    (declare (sb-ext:muffle-conditions sb-ext:compiler-note))
-    (pprint-logical-block (stream nil)
-      (pprint-logical-block (stream nil)
-	(pprint-newline :mandatory stream)
-        (when quantiles
-          (let+ (((&structure-r/o quantiles-summary- count min q25 q50 q75 max)
-                  quantiles))
-            (format stream
-                    "~W reals, ~:_min=~W, ~:_q25=~W, ~:_q50=~W, ~:_q75=~W, ~:_max=~W"
-                    count min (ensure-not-ratio q25) (ensure-not-ratio q50)
-                    (ensure-not-ratio q75) max))))
-      (when (and quantiles element-count-alist)
-        (format stream "; ")
-        (pprint-newline :linear stream))
-      (pprint-logical-block (stream element-count-alist)
-        (loop (pprint-exit-if-list-exhausted)
-              ;; (when quantiles
-              ;;   (format stream ", ~@_"))
-              (let+ (((element . count) (pprint-pop)))
-                (print-count-and-percentage stream count length)
-                (format stream " x ~W" element))
-              (pprint-exit-if-list-exhausted)
-              (format stream ", ~_"))))))
+    (when quantiles
+      (let+ (((&structure-r/o quantiles-summary- count min q25 q50 q75 max)
+              quantiles))
+        (format stream
+                "~W reals, ~:_min=~W, ~:_q25=~W, ~:_q50=~W, ~:_q75=~W, ~:_max=~W"
+                count min (ensure-not-ratio q25) (ensure-not-ratio q50)
+                (ensure-not-ratio q75) max)))
+    ;; (when (and quantiles element-count-alist)
+    (when element-count-alist
+      (loop for (element . count) in element-count-alist do
+        (print-count-and-percentage stream count length)
+        (format stream " x ~W, " element)))))
 
-;;; This should probably not use the pretty printing system, but this
-;;; is that way Tamas had done it.  When we rewrite the summary
-;;; system, think about using format.
-;;; Note bug in removing the row names, fix suggested below
+;;; Deprecated, based on Tama's version
+;;; TODO: write a better summary system.
+;;; See https://github.com/Lisp-Stat/data-frame/issues/4
 (defmethod summary ((df data-frame) &optional (stream *standard-output*))
+  "Deprecated. Print simple stastical summary of data frame"
   (let* ((summarize? (<= *column-summary-minimum-length* (aops:nrow df)))
-	 (alist (as-alist df))
-	 (*print-pretty* t)		; because we're using the pretty printer
-	 (*print-lines* nil))
-    (format stream "~&")			; Why is this needed?
-    (pprint-logical-block (stream alist)
-      (print-unreadable-object (df stream :type t)
-        (format stream "(~d x ~d)" (length alist) (aops:nrow df))
-        (loop (pprint-exit-if-list-exhausted)
-              (pprint-newline :mandatory stream)
-              (let+ (((key . column) (pprint-pop)))
-		(unless (string= (symbol-name key) "ROW-NAME")
-                  (format stream "~W ~W" key (if summarize?
-						 (column-summary column)
-						 column)))))))))
+	 (alist (as-alist df)))
+    (fresh-line stream)
+    (print-unreadable-object (df stream :type t)
+      (format stream "(~d x ~d)" (length alist) (aops:nrow df))
+      (fresh-line stream)
+      (loop for (key . column) in alist do
+	(unless (string= (symbol-name key) "ROW-NAME")
+          (format stream "~A: ~A~%" (symbol-name key) (if summarize?
+							  (column-summary column)
+							  column)))))))

@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
-;;; Copyright (c) 2021-2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
 
-(cl:defpackage :data-frame-tests
+(defpackage :data-frame-tests
   (:use
    #:cl
    #:alexandria
@@ -89,11 +89,6 @@
       (assert-eq 'bit (array-element-type mask-rows)))
     (assert-equalp (count 1 mask)
         (count-rows df '(:a :b) #'predicate))))
-
-(deftest print-object (data-frame-basics)
-  (let ((df (df :a v :b b :c s)))
-    (assert-true (with-output-to-string (stream)
-                   (print-object df stream)))))
 
 
 (defsuite data-frame-add (data-frame))

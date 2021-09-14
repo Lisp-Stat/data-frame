@@ -4,6 +4,14 @@
 
 ;;; Pretty print data-frames and 2D arrays
 
+;;; This is an extension of the original work by Tamas that used the
+;;; Common Lisp pretty printing system to format data-frames for
+;;; printing. As an experiment, I have to conclude that using the
+;;; pretty printer this way is a bad idea. It was intended to format
+;;; lisp code, not more complicated output. Future work should be done
+;;; in formatted-output.lisp and these functions are considered
+;;; deprecated.
+
 ;;; It is not easy to line up columns dynamically when printing them.
 ;;; Common lisp does have good control over justification and digits
 ;;; but, unlike, say, markdown, it's up to the programmer to
@@ -19,9 +27,6 @@
 ;;; 1 in that regard, at the expense of some ugliness in the code and
 ;;; keeping track of formatting strings for each column.
 
-
-(defparameter *column-summary-minimum-length* 10
-  "Columns are only summarised when longer than this, otherwise they are returned as is.")
 
 ;;; The following global variables control aspects of printing:
 ;; *print-length* - controls how many elements at a given level are printed (rows)
@@ -57,6 +62,12 @@
   (format t ";;        *print-readably* = ~a~%" *print-readably*)
   (format t ";;    *print-right-margin* = ~a~%" *print-right-margin*))
 
+
+(defun 2d-array-to-list (array)
+  "Convert an array to a list of lists" 		; make flet?
+  (loop for i below (array-dimension array 0)
+        collect (loop for j below (array-dimension array 1)
+                      collect (aref array i j))))
 
 ;;;
 ;;; Computing column formats
@@ -165,10 +176,8 @@ The method returns a set of default formatting strings using heuristics."
 			       ("F" (format nil "~~~A@A" width))
 			       ("D" (format nil "~~~A@A" width))
 			       ("A" (format nil "~~~AA"  width))
-			       ("S" (format nil "~~~A@A"   width))
-			       ;; ("S" (format nil "~~~A:<A~~>"   width))
-			       )))
-	       ;; (format t "col: ~A, width: ~A, data-type: ~A, digits: ~A, fmt: ~A~%" (symbol-name c) width type digits var-fmt)
+			       ("S" (format nil "~~~A@A"   width)))))
+
 	       (replace-column! df c #'(lambda (cell)
 					 (if (eq cell :na) ;should take same justification as column
 					     (format nil (format nil "~~~A<~~A~~>" width) cell)
@@ -226,45 +235,8 @@ The method returns a set of default formatting strings using heuristics."
     (if (< (aops:nrow df) 6) (setf n (aops:nrow df)))
     (pprint-data-frame (select df (select:range (- n) nil) t))))
 
-(defmethod column-names ((df data-frame))
-  "Return a list column names in DF, as strings"
-   (map 'list #'symbol-name (keys df)))
-
 ;;;
 ;;; Pretty printer system configuration
-;;;
-
-;; Do not delete, used in a few places when printing to REPL
-(defmethod print-object ((ordered-keys ordered-keys) stream)
-  (print-unreadable-object (ordered-keys stream :type t)
-    (format stream "~{~a~^, ~}" (coerce (keys-vector ordered-keys) 'list))))
-
-;; data-vectors should probably be deprecated
-(defmethod print-object ((data-vector data-vector) stream)
-  (let ((alist (as-alist data-vector)))
-    (pprint-logical-block (stream alist)
-      (print-unreadable-object (data-vector stream :type t)
-        (format stream "(~d)" (length alist))
-        (loop (pprint-exit-if-list-exhausted)
-              (let+ (((key . column) (pprint-pop)))
-                (format stream "~_ ~W ~W" key column))
-              (pprint-exit-if-list-exhausted)
-              (princ "," stream))))))
-
-(defmethod print-object ((df data-frame) stream)
-  "Print DATA-FRAME dimensions and type
-After defining this method it is permanently associated with data-frame objects"
-  (let* ((df-array  (aops:as-array df))
-	 (df-lists  (2d-array-to-list df-array)))
-
-	(pprint-logical-block (stream df-lists)
-	  (print-unreadable-object (df stream :type t)
-            (format stream "(~d observations of ~d variables)"
-		    (aops:nrow df)
-		    (aops:ncol df))))))
-
-;;;
-;;; Printer dispatch tables
 ;;;
 
 ;; After setting this, with *print-pretty* nil, we get the following behaviour:
@@ -297,6 +269,7 @@ After defining this method it is permanently associated with data-frame objects"
 ;;; Markdown
 ;;;
 
+;; TODO: Remove pprint-dispatch functions and move to formatted-output.lisp
 (defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
   "Print data frame DF, in markdown format, to STREAM
 If ROW-NUMBERS is true, also print row numbers as the first column"
@@ -334,5 +307,4 @@ If ROW-NUMBERS is true, also print row numbers as the first column"
       (aops:each-index j
 	(format stream "| ~A " (aref array i j)))
       (format stream " |~%"))
-
     (values)))
