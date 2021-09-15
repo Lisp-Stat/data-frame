@@ -51,6 +51,7 @@
 
    ;; data-frame
    #:data-frame
+   #:doc-string
    #:make-df
    #:alist-df
    #:plist-df
@@ -59,7 +60,7 @@
    #:rows
    #:define-data-frame
    #:define-column-names
-   #:make-data-package
+
 
    ;; transformations for data-frames
    #:map-rows
