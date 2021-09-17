@@ -54,3 +54,49 @@
 ;;; TODO Summarise a data frame
 ;;; See https://github.com/Lisp-Stat/data-frame/issues/4
 
+
+
+
+
+
+;;;
+;;; Markdown
+;;;
+
+(defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
+  "Print data frame DF, in markdown format, to STREAM
+If ROW-NUMBERS is true, also print row numbers as the first column"
+  (let* ((array      (aops:as-array df))
+	 (col-types  (aops:margin #'column-type-format array 0))
+	 (*print-pprint-dispatch* (copy-pprint-dispatch))
+	 (*print-pretty* t))
+
+    ;; For notebook printing, we only need four digits of accuracy
+    (set-pprint-dispatch 'float  (lambda (s f) (format s "~,4f" f)))
+
+    ;; Print column names
+    (if row-numbers (format stream "| "))
+    (map nil #'(lambda (x)
+		 (format stream "| ~A " x))
+	 (keys df))
+    (write-char #\| stream)
+    (write-char #\Newline stream)
+
+    ;; Print alignment
+    (if row-numbers (format stream "| ---: "))
+    (map nil #'(lambda (x)
+		 (alexandria:switch (x :test #'string=)
+		   ("F" (format stream "| ---: "))
+		   ("D" (format stream "| ---: "))
+		   ("A" (format stream "| :--- "))))
+	 col-types)
+    (write-char #\| stream)
+    (write-char #\Newline stream)
+
+    ;; Print data
+    (aops:each-index i
+      (if row-numbers (format stream "| ~A " i))
+      (aops:each-index j
+	(format stream "| ~A " (aref array i j)))
+      (format stream " |~%"))
+    (values)))

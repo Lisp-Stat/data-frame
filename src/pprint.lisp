@@ -1,6 +1,9 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
-(cl:in-package #:data-frame)
+(in-package #:data-frame)
+
+#+genera (eval-when (eval load compile) (xp::install :package :data-frame :macro T))
+
 
 ;;; Pretty print data-frames and 2D arrays
 
@@ -128,7 +131,7 @@ Use this for sequences of type T to determine how to format the column."
 ;;; Formatters
 ;;;
 
-(defmethod default-column-formats ((array simple-array))
+(defmethod default-column-formats ((array (eql 'simple-array)))	;Need eql .. for Genera
   "Return a list of formatting strings for ARRAY
 The method returns a set of default formatting strings using heuristics."
   (let ((col-widths (aops:margin #'max-width   array 0))
@@ -152,7 +155,7 @@ The method returns a set of default formatting strings using heuristics."
 			    (stream *standard-output*)
 			    (row-numbers-p *row-numbers-p*)
 			    (max-digits *max-digits*))
-  "Return a 2D array of string suitable for pretty printing"
+  "Print DATA-FRAME to STREAM using the pretty printer"
   (check-type data-frame data)
   (let* ((col-names '())
 	 (df (copy data-frame :key #'copy-array)))
@@ -172,7 +175,7 @@ The method returns a set of default formatting strings using heuristics."
 				("D" (format nil "~~~AD"    width))
 				("A" (format nil "~~~AA"    width))
 				("S" (format nil "~~~A@A"   width))))
-		    (var-fmt (alexandria:switch (type :test #'string=) ;why does SBCL warn here?
+		    (var-fmt (alexandria:switch (type :test #'string=) ;why does SBCL warn here? Macro?
 			       ("F" (format nil "~~~A@A" width))
 			       ("D" (format nil "~~~A@A" width))
 			       ("A" (format nil "~~~AA"  width))
@@ -185,17 +188,18 @@ The method returns a set of default formatting strings using heuristics."
 	       (setf col-names (cons (format nil var-fmt (symbol-name c)) col-names)))))
       (map nil #'format-column (keys df)))
 
+    (write-char #\Newline stream)
     (pprint-logical-block (stream (reverse col-names) :per-line-prefix ";;")
       (loop (pprint-exit-if-list-exhausted)
 	    (write-char #\Space stream)
-	    (write-sequence (pprint-pop) stream)))
+	    (write-string (pprint-pop) stream)))
     (write-char #\Newline stream)
     (pprint-logical-block (stream (2d-array-to-list (aops:as-array df)))
       (loop (pprint-exit-if-list-exhausted)
 	    (let ((row (pprint-pop)))
 	      (pprint-logical-block (stream row :per-line-prefix ";; ")
 		(loop (pprint-exit-if-list-exhausted)
-		      (write-sequence (pprint-pop) stream)
+		      (write-string (pprint-pop) stream)
 		      (write-char #\Space stream))))
 	    (pprint-newline :mandatory stream)))))
 
@@ -262,49 +266,3 @@ The method returns a set of default formatting strings using heuristics."
 	 (*print-pretty* t))
     (df:pprint-data-frame df stream)))
 
-
-
-
-;;;
-;;; Markdown
-;;;
-
-;; TODO: Remove pprint-dispatch functions and move to formatted-output.lisp
-(defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
-  "Print data frame DF, in markdown format, to STREAM
-If ROW-NUMBERS is true, also print row numbers as the first column"
-  (let* ((array      (aops:as-array df))
-	 (col-types  (aops:margin #'column-type-format array 0))
-	 (*print-pprint-dispatch* (copy-pprint-dispatch))
-	 (*print-pretty* t))
-
-    ;; For notebook printing, we only need four digits of accuracy
-    (set-pprint-dispatch 'float  (lambda (s f) (format s "~,4f" f)))
-    ;; (set-pprint-dispatch 'double-float (lambda (s f) (format s "~,2f" f)))
-
-    ;; Print column names
-    (if row-numbers (format stream "| "))
-    (map nil #'(lambda (x)
-		 (format stream "| ~A " x))
-	 (keys df))
-    (write-char #\| stream)
-    (write-char #\Newline stream)
-
-    ;; Print alignment
-    (if row-numbers (format stream "| ---: "))
-    (map nil #'(lambda (x)
-		 (alexandria:switch (x :test #'string=)
-		   ("F" (format stream "| ---: "))
-		   ("D" (format stream "| ---: "))
-		   ("A" (format stream "| :--- "))))
-	 col-types)
-    (write-char #\| stream)
-    (write-char #\Newline stream)
-
-    ;; Print data
-    (aops:each-index i
-      (if row-numbers (format stream "| ~A " i))
-      (aops:each-index j
-	(format stream "| ~A " (aref array i j)))
-      (format stream " |~%"))
-    (values)))

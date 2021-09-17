@@ -8,6 +8,9 @@
 (defparameter *column-summary-quantiles-threshold* 10
   "If the number of reals exceeds this threshold, they will be summarized with quantiles.")
 
+(defparameter *column-summary-factors-threshold* 10
+  "If the number of factors exceeds this threshold, they will not be printed.")
+
 (defgeneric column-length (column)
   (:documentation "Return the length of column.")
   (:method ((column vector))
@@ -24,11 +27,6 @@
 (defstruct (bit-vector-summary (:include vector-summary%))
   "Summary of a bit vector."
   (count 0 :type array-index :read-only t))
-
-(defmethod print-object ((summary bit-vector-summary) stream)
-  (let+ (((&structure-r/o bit-vector-summary- length count) summary))
-    (princ "bits, ones: " stream)
-    (print-count-and-percentage stream count length)))
 
 (defstruct quantiles-summary
   "Summary of a real elements (using quantiles)."
@@ -79,20 +77,38 @@
                                    :quantiles quantiles
                                    :element-count-alist alist))))
 
+
+;;; Remove these two print-object functions once we get a proper summary system
+;;; See https://github.com/Lisp-Stat/data-frame/issues/4
+
+;;; An alternative to print-object that would work on Genera, CCL and
+;;; SBCL is to use the :print-function option to defstruct and add the
+;;; print-depth parameter to these.
+#-genera
+(defmethod print-object ((summary bit-vector-summary) stream)
+  (let+ (((&structure-r/o bit-vector-summary- length count) summary))
+    (princ "bits, ones: " stream)
+    (print-count-and-percentage stream count length)))
+
+#-genera
 (defmethod print-object ((summary generic-vector-summary) stream)
   (let+ (((&structure-r/o generic-vector-summary- length quantiles element-count-alist) summary))
     (when quantiles
       (let+ (((&structure-r/o quantiles-summary- count min q25 q50 q75 max)
-              quantiles))
+              quantiles)
+	     (*print-pprint-dispatch* (copy-pprint-dispatch))
+	     (*print-pretty* t))
+	(set-pprint-dispatch 'float  (lambda (s f) (format s "~,2f" f))) ;Should be configurable
         (format stream
                 "~W reals, ~:_min=~W, ~:_q25=~W, ~:_q50=~W, ~:_q75=~W, ~:_max=~W"
                 count min (ensure-not-ratio q25) (ensure-not-ratio q50)
                 (ensure-not-ratio q75) max)))
-    ;; (when (and quantiles element-count-alist)
     (when element-count-alist
-      (loop for (element . count) in element-count-alist do
-        (print-count-and-percentage stream count length)
-        (format stream " x ~W, " element)))))
+      (if (< 0 (length element-count-alist) *column-summary-factors-threshold*)
+	  (loop for (element . count) in element-count-alist do
+            (print-count-and-percentage stream count length)
+            (format stream " x ~W, " element)) ;;)))
+	  (format stream "factor count threshold exceeded")))))
 
 ;;; Deprecated, based on Tama's version
 ;;; TODO: write a better summary system.
@@ -107,6 +123,10 @@
       (fresh-line stream)
       (loop for (key . column) in alist do
 	(unless (string= (symbol-name key) "ROW-NAME")
-          (format stream "~A: ~A~%" (symbol-name key) (if summarize?
-							  (column-summary column)
-							  column)))))))
+          (format stream
+		  "~A:~C~A~%"
+		  (symbol-name key)
+		  #\Tab
+		  (if summarize?
+		      (column-summary column)
+		      column)))))))

@@ -12,6 +12,7 @@
 
 (defgeneric missingp (data)
   (:method (data)
+    (declare (ignore data))
     nil)
   ;; (:method ((data null))		;nil sentinel for missing value
   ;;   t)

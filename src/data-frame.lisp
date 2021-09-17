@@ -104,13 +104,17 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
 ;;; generic implementation -- the class is not exported, only the functionality
 
 (defclass data ()
-  ((ordered-keys
+  ((name				;same as the symbol-name
+    :initarg nil
+    :type string
+    :accessor name)
+   (ordered-keys
     :initarg :ordered-keys
     :type ordered-keys)
    (columns
     :initarg :columns
     :type vector)
-   (doc-string
+   (doc-string				;same as symbol doc-string, but available for functions (like print-object)
     :initarg :nil
     :type string
     :accessor doc-string))
@@ -136,7 +140,8 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
 
 (defgeneric check-column-compatibility (data column)
   (:documentation "Check if COLUMN is compatible with DATA.")
-  (:method ((data data) column)))
+  (:method ((data data) column) ;no-op. Was Tamas going to implement it later?
+    (declare (ignore column))))
 
 (defun ensure-arguments-alist (rest)
   "Recognizes the following and converts them to an alist:
@@ -456,9 +461,10 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   "Print DATA-FRAME dimensions and type
 After defining this method it is permanently associated with data-frame objects"
   (print-unreadable-object (df stream :type t)
+    (when (slot-boundp df 'name) (format stream "~A " (name df)))
     (format stream "(~d observations of ~d variables)"
 	    (aops:nrow df)
 	    (aops:ncol df))
-    (when (doc-string df)
+    (when (slot-boundp df 'doc-string)
       (fresh-line stream)
       (format stream "~A" (doc-string df)))))

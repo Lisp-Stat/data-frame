@@ -2,8 +2,7 @@
 
 @c data-frame.texi --- Reference manual
 
-@c Copyright (C) 2021 Steve Nunez
-@c Copyright (C) 2021 Tamas Papp
+@c Copyright (C) 2020--2021 Steve Nunez
 
 @c This file is part of Data Frame.
 
@@ -12,7 +11,7 @@
 @c Commentary:
 
 @c Generated automatically by Declt version 2.4 patchlevel 1 "Will Decker"
-@c on Thu Jul 22 16:53:49 2021 GMT+8.
+@c on Fri Sep 17 13:02:30 2021 GMT+8.
 
 
 @c ====================================================================
@@ -92,7 +91,7 @@
 @c ====================================================================
 @setchapternewpage odd
 @documentdescription
-The Data Frame Reference Manual, version 1.1.
+The Data Frame Reference Manual, version 2.0.
 @end documentdescription
 
 
@@ -273,10 +272,9 @@ The Data Frame Reference Manual, version 1.1.
 @c ====================================================================
 @titlepage
 @title The Data Frame Reference Manual
-@subtitle Data frames for Common Lisp, version 1.1
+@subtitle Data frames for Common Lisp, version 2.0
 
 @author Steve Nunez <@email{steve@atchar{}symbolics.tech}>
-@author Tamas Papp <@email{tkpapp@atchar{}gmail.com}>
 
 @end titlepage
 
@@ -295,7 +293,7 @@ The Data Frame Reference Manual, version 1.1.
 @ifnottex
 @node Top, Systems, (dir), (dir)
 @top The Data Frame Reference Manual
-This is the Data Frame Reference Manual, version 1.1.
+This is the Data Frame Reference Manual, version 2.0.
 
 @menu
 * Systems:: The systems documentation
@@ -328,10 +326,8 @@ The main system appears first, followed by any subsystem dependency.
 @anchor{go to the data-frame system}@c
 @systemindex{data-frame}@c
 @table @strong
-@item Maintainer
-Steve Nunez <@email{steve@atchar{}symbolics.tech}>
 @item Author
-Tamas Papp <@email{tkpapp@atchar{}gmail.com}>
+Steve Nunez <@email{steve@atchar{}symbolics.tech}>
 @item Source Control
 @t{(:git "https://github.com/lisp-stat/data-frame.git")}
 @item Bug Tracker
@@ -343,11 +339,13 @@ Data frames for Common Lisp
 @item Long Description
 A data manipulation package@comma{} conceptually similar to R's data.frame@comma{} but with a lisp-oriented API.
 @item Version
-1.1
+2.0
 @item Dependencies
 @itemize @bullet
 @item
 @t{alexandria}
+@item
+@t{alexandria+}
 @item
 @t{anaphora}
 @item
@@ -373,6 +371,8 @@ A data manipulation package@comma{} conceptually similar to R's data.frame@comma
 @ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
 @item
 @ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@item
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
 @item
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @item
@@ -408,6 +408,7 @@ components trees.
 * The data-frame/utils.lisp file: The data-frame/utils․lisp file.
 * The data-frame/data-frame.lisp file: The data-frame/data-frame․lisp file.
 * The data-frame/pprint.lisp file: The data-frame/pprint․lisp file.
+* The data-frame/formatted-output.lisp file: The data-frame/formatted-output․lisp file.
 * The data-frame/summary.lisp file: The data-frame/summary․lisp file.
 * The data-frame/defdf.lisp file: The data-frame/defdf․lisp file.
 * The data-frame/missing.lisp file: The data-frame/missing․lisp file.
@@ -487,6 +488,8 @@ components trees.
 @item
 @ref{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function, , @t{(setf column)}} (function)
 @item
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES function, , @t{column-names}} (function)
+@item
 @ref{go to the DATA-FRAME∶∶COLUMNS function, , @t{columns}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶COPY function, , @t{copy}} (function)
@@ -502,6 +505,10 @@ components trees.
 @ref{go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function, , @t{df-remove-duplicates}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶DO-ROWS function, , @t{do-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DOC-STRING DATA-FRAME∶∶DATA method, , @t{doc-string}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ COMMON-LISP∶∶T DATA-FRAME∶∶DATA method, , @t{(setf doc-string)}} (method)
 @item
 @ref{go to the DATA-FRAME∶∶DUPLICATE-KEY condition, , @t{duplicate-key}} (condition)
 @item
@@ -541,8 +548,6 @@ components trees.
 @end itemize
 @item Internal Definitions
 @itemize @bullet
-@item
-@ref{go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function, , @t{2d-array-to-list}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶ADD-KEY! function, , @t{add-key!}} (function)
 @item
@@ -588,7 +593,7 @@ components trees.
 @end itemize
 @end table
 
-@node The data-frame/pprint․lisp file, The data-frame/summary․lisp file, The data-frame/data-frame․lisp file, Lisp files
+@node The data-frame/pprint․lisp file, The data-frame/formatted-output․lisp file, The data-frame/data-frame․lisp file, Lisp files
 @subsection @t{data-frame/pprint.lisp}
 @anchor{go to the data-frame/pprint․lisp file}@c
 @lispfileindex{data-frame/pprint.lisp}@c
@@ -602,17 +607,11 @@ components trees.
 @item Exported Definitions
 @itemize @bullet
 @item
-@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable, , @t{*column-summary-minimum-length*}} (special variable)
-@item
-@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
-@item
 @ref{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method, , @t{head}} (method)
 @item
 @ref{go to the DATA-FRAME∶∶PPRINT-ARRAY function, , @t{pprint-array}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function, , @t{pprint-data-frame}} (function)
-@item
-@ref{go to the DATA-FRAME∶∶PPRINT-MARKDOWN function, , @t{pprint-markdown}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method, , @t{tail}} (method)
 @end itemize
@@ -623,9 +622,11 @@ components trees.
 @item
 @ref{go to the DATA-FRAME∶∶*ROW-NUMBERS-P* special variable, , @t{*row-numbers-p*}} (special variable)
 @item
+@ref{go to the DATA-FRAME∶∶2D-ARRAY-TO-LIST function, , @t{2d-array-to-list}} (function)
+@item
 @ref{go to the DATA-FRAME∶∶COLUMN-TYPE-FORMAT function, , @t{column-type-format}} (function)
 @item
-@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method, , @t{default-column-formats}} (method)
+@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS ❨eql COMMON-LISP∶∶SIMPLE-ARRAY❩ method, , @t{default-column-formats}} (method)
 @item
 @ref{go to the DATA-FRAME∶∶MAX-DECIMAL function, , @t{max-decimal}} (function)
 @item
@@ -637,19 +638,50 @@ components trees.
 @end itemize
 @end table
 
-@node The data-frame/summary․lisp file, The data-frame/defdf․lisp file, The data-frame/pprint․lisp file, Lisp files
-@subsection @t{data-frame/summary.lisp}
-@anchor{go to the data-frame/summary․lisp file}@c
-@lispfileindex{data-frame/summary.lisp}@c
+@node The data-frame/formatted-output․lisp file, The data-frame/summary․lisp file, The data-frame/pprint․lisp file, Lisp files
+@subsection @t{data-frame/formatted-output.lisp}
+@anchor{go to the data-frame/formatted-output․lisp file}@c
+@lispfileindex{data-frame/formatted-output.lisp}@c
 @table @strong
 @item Dependency
 @ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
 @item Parent
 @ref{go to the data-frame system, , @t{data-frame}} (system)
 @item Location
+@url{file://s:/src/data-frame/src/formatted-output.lisp, ignore, @t{formatted-output.lisp}}
+@item Exported Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶DF-PRINT function, , @t{df-print}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PPRINT-MARKDOWN function, , @t{pprint-markdown}} (function)
+@end itemize
+@item Internal Definitions
+@itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶AESTHETIC-STRING function, , @t{aesthetic-string}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶PRINT-TABLE function, , @t{print-table}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶WEAVE function, , @t{weave}} (function)
+@end itemize
+@end table
+
+@node The data-frame/summary․lisp file, The data-frame/defdf․lisp file, The data-frame/formatted-output․lisp file, Lisp files
+@subsection @t{data-frame/summary.lisp}
+@anchor{go to the data-frame/summary․lisp file}@c
+@lispfileindex{data-frame/summary.lisp}@c
+@table @strong
+@item Dependency
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
+@item Parent
+@ref{go to the data-frame system, , @t{data-frame}} (system)
+@item Location
 @url{file://s:/src/data-frame/src/summary.lisp, ignore, @t{summary.lisp}}
 @item Exported Definitions
 @itemize @bullet
+@item
+@ref{go to the DATA-FRAME∶∶*COLUMN-SUMMARY-MINIMUM-LENGTH* special variable, , @t{*column-summary-minimum-length*}} (special variable)
 @item
 @ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function, , @t{column-summary}} (generic function)
 @item
@@ -747,8 +779,6 @@ components trees.
 @ref{go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function, , @t{define-column-names}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶DEFINE-DATA-FRAME macro, , @t{define-data-frame}} (macro)
-@item
-@ref{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function, , @t{make-data-package}} (function)
 @end itemize
 @item Internal Definitions
 @itemize @bullet
@@ -819,13 +849,8 @@ Packages are listed by definition order.
 @table @strong
 @item Source
 @ref{go to the data-frame/pkgdcl․lisp file, , @t{pkgdcl.lisp}} (file)
-@item Nicknames
-@itemize @bullet
-@item
-@t{dframe}
-@item
+@item Nickname
 @t{df}
-@end itemize
 @item Use List
 @itemize @bullet
 @item
@@ -841,8 +866,6 @@ Packages are listed by definition order.
 @item
 @t{common-lisp}
 @end itemize
-@item Used By List
-@t{lisp-stat}
 @item Exported Definitions
 @itemize @bullet
 @item
@@ -862,9 +885,7 @@ Packages are listed by definition order.
 @item
 @ref{go to the DATA-FRAME∶∶❨SETF COLUMN❩ function, , @t{(setf column)}} (function)
 @item
-@ref{go to the DATA-FRAME∶∶COLUMN-NAMES generic function, , @t{column-names}} (generic function)
-@item
-@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
+@ref{go to the DATA-FRAME∶∶COLUMN-NAMES function, , @t{column-names}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function, , @t{column-summary}} (generic function)
 @item
@@ -890,9 +911,19 @@ Packages are listed by definition order.
 @item
 @ref{go to the DATA-FRAME∶∶DF function, , @t{df}} (function)
 @item
+@ref{go to the DATA-FRAME∶∶DF-PRINT function, , @t{df-print}} (function)
+@item
 @ref{go to the DATA-FRAME∶∶DF-REMOVE-DUPLICATES function, , @t{df-remove-duplicates}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶DO-ROWS function, , @t{do-rows}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶DOC-STRING generic function, , @t{doc-string}} (generic function)
+@item
+@ref{go to the DATA-FRAME∶∶DOC-STRING DATA-FRAME∶∶DATA method, , @t{doc-string}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ COMMON-LISP∶∶T DATA-FRAME∶∶DATA method, , @t{(setf doc-string)}} (method)
+@item
+@ref{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ generic function, , @t{(setf doc-string)}} (generic function)
 @item
 @ref{go to the DATA-FRAME∶∶DROP-MISSING generic function, , @t{drop-missing}} (generic function)
 @item
@@ -909,8 +940,6 @@ Packages are listed by definition order.
 @ref{go to the DATA-FRAME∶∶KEY-NOT-FOUND condition, , @t{key-not-found}} (condition)
 @item
 @ref{go to the DATA-FRAME∶∶KEYS function, , @t{keys}} (function)
-@item
-@ref{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function, , @t{make-data-package}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶MAKE-DF function, , @t{make-df}} (function)
 @item
@@ -987,6 +1016,8 @@ Packages are listed by definition order.
 @item
 @ref{go to the DATA-FRAME∶∶ADD-KEYS function, , @t{add-keys}} (function)
 @item
+@ref{go to the DATA-FRAME∶∶AESTHETIC-STRING function, , @t{aesthetic-string}} (function)
+@item
 @ref{go to the DATA-FRAME∶∶ALIST-DATA function, , @t{alist-data}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶BIT-VECTOR-SUMMARY structure, , @t{bit-vector-summary}} (structure)
@@ -1023,7 +1054,7 @@ Packages are listed by definition order.
 @item
 @ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS generic function, , @t{default-column-formats}} (generic function)
 @item
-@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method, , @t{default-column-formats}} (method)
+@ref{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS ❨eql COMMON-LISP∶∶SIMPLE-ARRAY❩ method, , @t{default-column-formats}} (method)
 @item
 @ref{go to the DATA-FRAME∶∶DEFINE-DATA-SUBCLASS macro, , @t{define-data-subclass}} (macro)
 @item
@@ -1081,6 +1112,8 @@ Packages are listed by definition order.
 @item
 @ref{go to the DATA-FRAME∶∶PRINT-COUNT-AND-PERCENTAGE function, , @t{print-count-and-percentage}} (function)
 @item
+@ref{go to the DATA-FRAME∶∶PRINT-TABLE function, , @t{print-table}} (function)
+@item
 @ref{go to the DATA-FRAME∶∶PRINTER-STATUS function, , @t{printer-status}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶QUANTILES-SUMMARY structure, , @t{quantiles-summary}} (structure)
@@ -1112,6 +1145,8 @@ Packages are listed by definition order.
 @ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-LENGTH function, , @t{vector-summary%-length}} (function)
 @item
 @ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY%-P function, , @t{vector-summary%-p}} (function)
+@item
+@ref{go to the DATA-FRAME∶∶WEAVE function, , @t{weave}} (function)
 @end itemize
 @end table
 
@@ -1155,7 +1190,7 @@ Columns are only summarised when longer than this@comma{} otherwise they are ret
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
-@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @end table
 @end defvr
 
@@ -1253,6 +1288,17 @@ Set column corresponding to key.
 @ref{go to the DATA-FRAME∶∶COLUMN function, , @t{column}} (function)
 @end table
 @end deffn
+@deffn {Function} {column-names} DF
+@anchor{go to the DATA-FRAME∶∶COLUMN-NAMES function}@c
+@functionsubindex{column-names}@c
+Return a list of column names in DF@comma{} as strings
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
 @deffn {Function} {column-type} COL
 @anchor{go to the DATA-FRAME∶∶COLUMN-TYPE function}@c
 @functionsubindex{column-type}@c
@@ -1297,13 +1343,11 @@ Count the number of rows for which PREDICATE called on the columns corresponding
 @ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
 @end table
 @end deffn
-@deffn {Function} {define-column-names} DF
+@deffn {Function} {define-column-names} DF PACKAGE
 @anchor{go to the DATA-FRAME∶∶DEFINE-COLUMN-NAMES function}@c
 @functionsubindex{define-column-names}@c
 Create a symbol macro for each column name in DF@*
-
 After running this function@comma{} you can refer to a column by its name. This is useful if the column names of a data frame have changed.
-
 Example: (define-column-names mtcars)
 @table @strong
 @item Package
@@ -1320,6 +1364,17 @@ Example: (define-column-names mtcars)
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
 @ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {df-print} DF
+@anchor{go to the DATA-FRAME∶∶DF-PRINT function}@c
+@functionsubindex{df-print}@c
+Print DF to *standard-output* in table format
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
 @end table
 @end deffn
 @deffn {Function} {df-remove-duplicates} DATA
@@ -1363,18 +1418,6 @@ Vector of keys.
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
 @ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
-@end table
-@end deffn
-@deffn {Function} {make-data-package} PKG-NAME
-@anchor{go to the DATA-FRAME∶∶MAKE-DATA-PACKAGE function}@c
-@functionsubindex{make-data-package}@c
-Create a package and import and change *PACKAGE*
-Example: (make-data-package 'mtcars)
-@table @strong
-@item Package
-@ref{go to the DATA-FRAME package, , @t{data-frame}}
-@item Source
-@ref{go to the data-frame/defdf․lisp file, , @t{defdf.lisp}} (file)
 @end table
 @end deffn
 @deffn {Function} {make-df} KEYS COLUMNS
@@ -1486,7 +1529,7 @@ Print an array to STREAM@comma{} defaulting to *standard-output*@comma{} in a ta
 @deffn {Function} {pprint-data-frame} DATA-FRAME &optional STREAM ROW-NUMBERS-P MAX-DIGITS
 @anchor{go to the DATA-FRAME∶∶PPRINT-DATA-FRAME function}@c
 @functionsubindex{pprint-data-frame}@c
-Return a 2D array of string suitable for pretty printing
+Print DATA-FRAME to STREAM using the pretty printer
 @table @strong
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
@@ -1503,7 +1546,7 @@ If ROW-NUMBERS is true@comma{} also print row numbers as the first column
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
-@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
 @end table
 @end deffn
 @deffn {Function} {remove-columns} DATA KEYS
@@ -1570,24 +1613,6 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
 
 @node Exported generic functions, Exported conditions, Exported functions, Exported definitions
 @subsection Generic functions
-@deffn {Generic Function} {column-names} DF
-@anchor{go to the DATA-FRAME∶∶COLUMN-NAMES generic function}@c
-@genericsubindex{column-names}@c
-@table @strong
-@item Package
-@ref{go to the DATA-FRAME package, , @t{data-frame}}
-@item Methods
-@deffn {Method} {column-names} (DF @t{data-frame})
-@anchor{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method}@c
-@methodsubindex{column-names}@c
-Return a list column names in DF@comma{} as strings
-@table @strong
-@item Source
-@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
-@end table
-@end deffn
-@end table
-@end deffn
 @deffn {Generic Function} {column-summary} COLUMN
 @anchor{go to the DATA-FRAME∶∶COLUMN-SUMMARY generic function}@c
 @genericsubindex{column-summary}@c
@@ -1605,6 +1630,36 @@ Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for
 @deffn {Method} {column-summary} (COLUMN @t{vector})
 @anchor{go to the DATA-FRAME∶∶COLUMN-SUMMARY COMMON-LISP∶∶VECTOR method}@c
 @methodsubindex{column-summary}@c
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {doc-string} OBJECT
+@anchor{go to the DATA-FRAME∶∶DOC-STRING generic function}@c
+@genericsubindex{doc-string}@c
+@deffnx {Generic Function} {(setf doc-string)} NEW-VALUE OBJECT
+@anchor{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ generic function}@c
+@genericsubindex{(setf doc-string)}@c
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Methods
+@deffn {Method} {doc-string} (DATA @t{data})
+@anchor{go to the DATA-FRAME∶∶DOC-STRING DATA-FRAME∶∶DATA method}@c
+@methodsubindex{doc-string}@c
+automatically generated reader method
+@table @strong
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Method} {(setf doc-string)} NEW-VALUE (DATA @t{data})
+@anchor{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ COMMON-LISP∶∶T DATA-FRAME∶∶DATA method}@c
+@methodsubindex{(setf doc-string)}@c
+automatically generated writer method
+@table @strong
+@item Source
+@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
 @end deffn
 @end table
 @end deffn
@@ -1709,6 +1764,7 @@ Example: (replace-missing mtcarsm '((mtcarsm:mpg . foo)))
 @deffn {Method} {summary} (DF @t{data-frame}) &optional STREAM
 @anchor{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method}@c
 @methodsubindex{summary}@c
+Deprecated. Print simple stastical summary of data frame
 @table @strong
 @item Source
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
@@ -1810,13 +1866,11 @@ Key not found.
 @item
 @ref{go to the DATA-FRAME∶∶SUMMARY DATA-FRAME∶∶DATA-FRAME method, , @t{summary}} (method)
 @item
-@t{print-object} (method)
-@item
-@ref{go to the DATA-FRAME∶∶COLUMN-NAMES DATA-FRAME∶∶DATA-FRAME method, , @t{column-names}} (method)
-@item
 @ref{go to the DATA-FRAME∶∶TAIL DATA-FRAME∶∶DATA-FRAME method, , @t{tail}} (method)
 @item
 @ref{go to the DATA-FRAME∶∶HEAD DATA-FRAME∶∶DATA-FRAME method, , @t{head}} (method)
+@item
+@t{print-object} (method)
 @item
 @t{select} (method)
 @item
@@ -1923,7 +1977,7 @@ If the number of reals exceeds this threshold@comma{} they will be summarized wi
 @anchor{go to the DATA-FRAME∶∶REPLACE-KEY! macro}@c
 @macrosubindex{replace-key!}@c
 Replace a key in DF@comma{} updating data package symbols
-Example: (replace-key mtcars row-name x1)
+Example: (replace-key! mtcars row-name x1)
 @table @strong
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
@@ -1942,7 +1996,7 @@ Convert an array to a list of lists
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
-@ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@ref{go to the data-frame/pprint․lisp file, , @t{pprint.lisp}} (file)
 @end table
 @end deffn
 @deffn {Function} {add-key!} ORDERED-KEYS KEY
@@ -1964,6 +2018,17 @@ Modify ORDERED-KEYS by adding KEY.
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Source
 @ref{go to the data-frame/data-frame․lisp file, , @t{data-frame.lisp}} (file)
+@end table
+@end deffn
+@deffn {Function} {aesthetic-string} THING
+@anchor{go to the DATA-FRAME∶∶AESTHETIC-STRING function}@c
+@functionsubindex{aesthetic-string}@c
+Return the string used to represent `thing` when printing aesthetically.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
 @end table
 @end deffn
 @deffn {Function} {alist-data} CLASS ALIST
@@ -2339,6 +2404,26 @@ Print COUNT as is and also as a rounded percentage of
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @end table
 @end deffn
+@deffn {Function} {print-table} ROWS &optional STREAM
+@anchor{go to the DATA-FRAME∶∶PRINT-TABLE function}@c
+@functionsubindex{print-table}@c
+Print `rows` as a nicely-formatted table.@*
+  Each row should have the same number of colums.@*
+  Columns will be justified properly to fit the longest item in each one.
+  Example:@*
+    (print-table '((1 :red something)@*
+                   (2 :green more)))@*
+    =>@*
+    1 | RED   | SOMETHING@*
+    2 | GREEN | MORE@*
+  
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
+@end table
+@end deffn
 @deffn {Function} {printer-status} ()
 @anchor{go to the DATA-FRAME∶∶PRINTER-STATUS function}@c
 @functionsubindex{printer-status}@c
@@ -2474,6 +2559,18 @@ Return a list of the types found in SEQ
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @end table
 @end deffn
+@deffn {Function} {weave} &rest LISTS
+@anchor{go to the DATA-FRAME∶∶WEAVE function}@c
+@functionsubindex{weave}@c
+Return a list whose elements alternate between each of the lists
+`lists`. Weaving stops when any of the lists has been exhausted.
+@table @strong
+@item Package
+@ref{go to the DATA-FRAME package, , @t{data-frame}}
+@item Source
+@ref{go to the data-frame/formatted-output․lisp file, , @t{formatted-output.lisp}} (file)
+@end table
+@end deffn
 
 @node Internal generic functions, Internal structures, Internal functions, Internal definitions
 @subsection Generic functions
@@ -2520,8 +2617,8 @@ Return the length of column.
 @item Package
 @ref{go to the DATA-FRAME package, , @t{data-frame}}
 @item Methods
-@deffn {Method} {default-column-formats} (ARRAY @t{simple-array})
-@anchor{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS COMMON-LISP∶∶SIMPLE-ARRAY method}@c
+@deffn {Method} {default-column-formats} (ARRAY @t{(eql simple-array)})
+@anchor{go to the DATA-FRAME∶∶DEFAULT-COLUMN-FORMATS ❨eql COMMON-LISP∶∶SIMPLE-ARRAY❩ method}@c
 @methodsubindex{default-column-formats}@c
 Return a list of formatting strings for ARRAY@*
 The method returns a set of default formatting strings using heuristics.
@@ -2546,8 +2643,6 @@ Summary of a bit vector.
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @item Direct superclasses
 @ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
-@item Direct methods
-@t{print-object} (method)
 @item Direct slots
 @defvr {Slot} count
 @slotsubindex{count}@c
@@ -2575,8 +2670,6 @@ Summary for generic vectors.
 @ref{go to the data-frame/summary․lisp file, , @t{summary.lisp}} (file)
 @item Direct superclasses
 @ref{go to the DATA-FRAME∶∶VECTOR-SUMMARY% structure, , @t{vector-summary%}} (structure)
-@item Direct methods
-@t{print-object} (method)
 @item Direct slots
 @defvr {Slot} quantiles
 @slotsubindex{quantiles}@c
@@ -2797,6 +2890,10 @@ This class is used for implementing both data-vector and data-matrix@comma{} and
 @ref{go to the DATA-FRAME∶∶CHECK-COLUMN-COMPATIBILITY DATA-FRAME∶∶DATA COMMON-LISP∶∶T method, , @t{check-column-compatibility}} (method)
 @item
 @t{element-type} (method)
+@item
+@t{doc-string} (method)
+@item
+@ref{go to the DATA-FRAME∶∶DOC-STRING DATA-FRAME∶∶DATA method, , @t{doc-string}} (method)
 @end itemize
 @item Direct slots
 @defvr {Slot} ordered-keys
@@ -2815,6 +2912,19 @@ This class is used for implementing both data-vector and data-matrix@comma{} and
 @t{vector}
 @item Initargs
 @t{:columns}
+@end table
+@end defvr
+@defvr {Slot} doc-string
+@slotsubindex{doc-string}@c
+@table @strong
+@item Type
+@t{string}
+@item Initargs
+@t{:nil}
+@item Readers
+@ref{go to the DATA-FRAME∶∶DOC-STRING generic function, , @t{doc-string}} (generic function)
+@item Writers
+@ref{go to the DATA-FRAME∶∶❨SETF DOC-STRING❩ generic function, , @t{(setf doc-string)}} (generic function)
 @end table
 @end defvr
 @end table

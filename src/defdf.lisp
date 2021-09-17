@@ -6,7 +6,6 @@
 ;;; functionality is expected to be added in future.
 
 (defmacro define-data-frame (df body &optional doc)
-;  `(declare (ignorable ',df))
   (when (and doc (not (stringp doc))) (error "Data frame documentation is not a string"))
   `(let* ((df-str (string ',df))
 	  (*package* (if (find-package df-str)    ;exists?
@@ -14,9 +13,10 @@
 			 (make-package df-str :use '())))) ;no, make it
      (defparameter ,df ,body ,doc)
      (eval '(define-column-names ,df *package*))
-     #+sbcl (eval '(setf (doc-string ,df) ,doc)) ;If we don't use eval, SBCL complains about undefined variable
-     #-sbcl (setf (doc-string ,df) ,doc)	 ;but no one else does
-     ',df))
+     (eval '(setf (name ,df) (symbol-name ',df)))
+     (when ,doc
+       (eval '(setf (doc-string ,df) ,doc)))
+     (eval ',df)))			;show user something was done
 
 (defun define-column-names (df package)
   "Create a symbol macro for each column name in DF

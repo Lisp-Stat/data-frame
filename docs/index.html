@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>The Data Frame Reference Manual</title>
 
-<meta name="description" content="The Data Frame Reference Manual, version 1.1.">
+<meta name="description" content="The Data Frame Reference Manual, version 2.0.">
 <meta name="keywords" content="The Data Frame Reference Manual">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
@@ -103,9 +103,10 @@ ul.no-bullet {list-style: none}
       <li><a id="toc-data_002dframe_002futils_002elisp" href="#The-data_002dframe_002futils_2024lisp-file">2.1.3 <tt>data-frame/utils.lisp</tt></a></li>
       <li><a id="toc-data_002dframe_002fdata_002dframe_002elisp" href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">2.1.4 <tt>data-frame/data-frame.lisp</tt></a></li>
       <li><a id="toc-data_002dframe_002fpprint_002elisp" href="#The-data_002dframe_002fpprint_2024lisp-file">2.1.5 <tt>data-frame/pprint.lisp</tt></a></li>
-      <li><a id="toc-data_002dframe_002fsummary_002elisp" href="#The-data_002dframe_002fsummary_2024lisp-file">2.1.6 <tt>data-frame/summary.lisp</tt></a></li>
-      <li><a id="toc-data_002dframe_002fdefdf_002elisp" href="#The-data_002dframe_002fdefdf_2024lisp-file">2.1.7 <tt>data-frame/defdf.lisp</tt></a></li>
-      <li><a id="toc-data_002dframe_002fmissing_002elisp" href="#The-data_002dframe_002fmissing_2024lisp-file">2.1.8 <tt>data-frame/missing.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fformatted_002doutput_002elisp" href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file">2.1.6 <tt>data-frame/formatted-output.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fsummary_002elisp" href="#The-data_002dframe_002fsummary_2024lisp-file">2.1.7 <tt>data-frame/summary.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fdefdf_002elisp" href="#The-data_002dframe_002fdefdf_2024lisp-file">2.1.8 <tt>data-frame/defdf.lisp</tt></a></li>
+      <li><a id="toc-data_002dframe_002fmissing_002elisp" href="#The-data_002dframe_002fmissing_2024lisp-file">2.1.9 <tt>data-frame/missing.lisp</tt></a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-Packages-1" href="#Packages">3 Packages</a>
@@ -151,7 +152,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="#Systems" accesskey="n" rel="next">Systems</a>, Previous: <a href="dir.html#Top" accesskey="p" rel="prev">(dir)</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="The-Data-Frame-Reference-Manual"></span><h1 class="top">The Data Frame Reference Manual</h1>
-<p>This is the Data Frame Reference Manual, version 1.1.
+<p>This is the Data Frame Reference Manual, version 2.0.
 </p>
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#Systems" accesskey="1">Systems</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The systems documentation
@@ -191,11 +192,8 @@ Previous: <a href="#Systems" accesskey="p" rel="prev">Systems</a>, Up: <a href="
 <span id="go-to-the-data_002dframe-system"></span><span id="index-data_002dframe"></span>
 <span id="index-System_002c-data_002dframe"></span>
 <dl compact="compact">
-<dt><strong>Maintainer</strong></dt>
-<dd><p>Steve Nunez &lt;<a href="mailto:steve@symbolics.tech">steve@symbolics.tech</a>&gt;
-</p></dd>
 <dt><strong>Author</strong></dt>
-<dd><p>Tamas Papp &lt;<a href="mailto:tkpapp@gmail.com">tkpapp@gmail.com</a>&gt;
+<dd><p>Steve Nunez &lt;<a href="mailto:steve@symbolics.tech">steve@symbolics.tech</a>&gt;
 </p></dd>
 <dt><strong>Source Control</strong></dt>
 <dd><p><tt>(:git &quot;https://github.com/lisp-stat/data-frame.git&quot;)</tt>
@@ -213,11 +211,12 @@ Previous: <a href="#Systems" accesskey="p" rel="prev">Systems</a>, Up: <a href="
 <dd><p>A data manipulation package, conceptually similar to R&rsquo;s data.frame, but with a lisp-oriented API.
 </p></dd>
 <dt><strong>Version</strong></dt>
-<dd><p>1.1
+<dd><p>2.0
 </p></dd>
 <dt><strong>Dependencies</strong></dt>
 <dd><ul>
 <li> <tt>alexandria</tt>
+</li><li> <tt>alexandria+</tt>
 </li><li> <tt>anaphora</tt>
 </li><li> <tt>array-operations</tt>
 </li><li> <tt>num-utils</tt>
@@ -237,6 +236,7 @@ Previous: <a href="#Systems" accesskey="p" rel="prev">Systems</a>, Up: <a href="
 </li><li> <a href="#go-to-the-data_002dframe_002futils_2024lisp-file"><tt>utils.lisp</tt></a> (file)
 </li><li> <a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
 </li><li> <a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
+</li><li> <a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
 </li><li> <a href="#go-to-the-data_002dframe_002fsummary_2024lisp-file"><tt>summary.lisp</tt></a> (file)
 </li><li> <a href="#go-to-the-data_002dframe_002fdefdf_2024lisp-file"><tt>defdf.lisp</tt></a> (file)
 </li><li> <a href="#go-to-the-data_002dframe_002fmissing_2024lisp-file"><tt>missing.lisp</tt></a> (file)
@@ -278,11 +278,13 @@ Previous: <a href="#Files" accesskey="p" rel="prev">Files</a>, Up: <a href="#Fil
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="5">The data-frame/pprint.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="6">The data-frame/summary.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file" accesskey="6">The data-frame/formatted-output.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="7">The data-frame/defdf.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="7">The data-frame/summary.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fmissing_2024lisp-file" accesskey="8">The data-frame/missing.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="8">The data-frame/defdf.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-data_002dframe_002fmissing_2024lisp-file" accesskey="9">The data-frame/missing.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -383,6 +385,7 @@ Next: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="n" rel="
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDV-function"><tt>alist-dv</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"><tt>column</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"><tt>(setf column)</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-function"><tt>column-names</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMNS-function"><tt>columns</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY-function"><tt>copy</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COUNT_002dROWS-function"><tt>count-rows</tt></a> (function)
@@ -391,6 +394,8 @@ Next: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="n" rel="
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF-function"><tt>df</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF_002dREMOVE_002dDUPLICATES-function"><tt>df-remove-duplicates</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DO_002dROWS-function"><tt>do-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-DATA_002dFRAME_2236_2236DATA-method"><tt>doc-string</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-COMMON_002dLISP_2236_2236T-DATA_002dFRAME_2236_2236DATA-method"><tt>(setf doc-string)</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DUPLICATE_002dKEY-condition"><tt>duplicate-key</tt></a> (condition)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DV-function"><tt>dv</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dNOT_002dFOUND-condition"><tt>key-not-found</tt></a> (condition)
@@ -413,8 +418,7 @@ Next: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="n" rel="
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-DATA_002dFRAME_2236_22362D_002dARRAY_002dTO_002dLIST-function"><tt>2d-array-to-list</tt></a> (function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"><tt>add-key!</tt></a> (function)
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"><tt>add-key!</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEYS-function"><tt>add-keys</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDATA-function"><tt>alist-data</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-generic-function"><tt>check-column-compatibility</tt></a> (generic function)
@@ -442,7 +446,7 @@ Next: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="n" rel="
 <hr>
 <span id="The-data_002dframe_002fpprint_2024lisp-file"></span><div class="header">
 <p>
-Next: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="n" rel="next">The data-frame/summary․lisp file</a>, Previous: <a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file" accesskey="p" rel="prev">The data-frame/data-frame․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file" accesskey="n" rel="next">The data-frame/formatted-output․lisp file</a>, Previous: <a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file" accesskey="p" rel="prev">The data-frame/data-frame․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="data_002dframe_002fpprint_002elisp"></span><h4 class="subsection">2.1.5 <tt>data-frame/pprint.lisp</tt></h4>
 <span id="go-to-the-data_002dframe_002fpprint_2024lisp-file"></span><span id="index-data_002dframe_002fpprint_002elisp"></span>
@@ -460,12 +464,9 @@ Next: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="n" rel=
 </p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"><tt>*column-summary-minimum-length*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>column-names</tt></a> (method)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236HEAD-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>head</tt></a> (method)
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236HEAD-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>head</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PPRINT_002dARRAY-function"><tt>pprint-array</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PPRINT_002dDATA_002dFRAME-function"><tt>pprint-data-frame</tt></a> (function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PPRINT_002dMARKDOWN-function"><tt>pprint-markdown</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236TAIL-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>tail</tt></a> (method)
 </li></ul>
 </dd>
@@ -473,8 +474,9 @@ Next: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="n" rel=
 <dd><ul>
 <li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aMAX_002dDIGITS_002a-special-variable"><tt>*max-digits*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aROW_002dNUMBERS_002dP_002a-special-variable"><tt>*row-numbers-p*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_22362D_002dARRAY_002dTO_002dLIST-function"><tt>2d-array-to-list</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dTYPE_002dFORMAT-function"><tt>column-type-format</tt></a> (function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY-method"><tt>default-column-formats</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-_2768eql-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY_2769-method"><tt>default-column-formats</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAX_002dDECIMAL-function"><tt>max-decimal</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAX_002dWIDTH-function"><tt>max-width</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PRINTER_002dSTATUS-function"><tt>printer-status</tt></a> (function)
@@ -484,17 +486,51 @@ Next: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="n" rel=
 </dl>
 
 <hr>
+<span id="The-data_002dframe_002fformatted_002doutput_2024lisp-file"></span><div class="header">
+<p>
+Next: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="n" rel="next">The data-frame/summary․lisp file</a>, Previous: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="p" rel="prev">The data-frame/pprint․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="data_002dframe_002fformatted_002doutput_002elisp"></span><h4 class="subsection">2.1.6 <tt>data-frame/formatted-output.lisp</tt></h4>
+<span id="go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"></span><span id="index-data_002dframe_002fformatted_002doutput_002elisp"></span>
+<span id="index-Lisp-File_002c-data_002dframe_002fformatted_002doutput_002elisp"></span>
+<span id="index-File_002c-Lisp_002c-data_002dframe_002fformatted_002doutput_002elisp"></span>
+<dl compact="compact">
+<dt><strong>Dependency</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Parent</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
+</p></dd>
+<dt><strong>Location</strong></dt>
+<dd><p><a href="file://s:/src/data-frame/src/formatted-output.lisp"><tt>formatted-output.lisp</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF_002dPRINT-function"><tt>df-print</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PPRINT_002dMARKDOWN-function"><tt>pprint-markdown</tt></a> (function)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236AESTHETIC_002dSTRING-function"><tt>aesthetic-string</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PRINT_002dTABLE-function"><tt>print-table</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236WEAVE-function"><tt>weave</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+<hr>
 <span id="The-data_002dframe_002fsummary_2024lisp-file"></span><div class="header">
 <p>
-Next: <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="n" rel="next">The data-frame/defdf․lisp file</a>, Previous: <a href="#The-data_002dframe_002fpprint_2024lisp-file" accesskey="p" rel="prev">The data-frame/pprint․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="n" rel="next">The data-frame/defdf․lisp file</a>, Previous: <a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file" accesskey="p" rel="prev">The data-frame/formatted-output․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="data_002dframe_002fsummary_002elisp"></span><h4 class="subsection">2.1.6 <tt>data-frame/summary.lisp</tt></h4>
+<span id="data_002dframe_002fsummary_002elisp"></span><h4 class="subsection">2.1.7 <tt>data-frame/summary.lisp</tt></h4>
 <span id="go-to-the-data_002dframe_002fsummary_2024lisp-file"></span><span id="index-data_002dframe_002fsummary_002elisp"></span>
 <span id="index-Lisp-File_002c-data_002dframe_002fsummary_002elisp"></span>
 <span id="index-File_002c-Lisp_002c-data_002dframe_002fsummary_002elisp"></span>
 <dl compact="compact">
 <dt><strong>Dependency</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
 </p></dd>
 <dt><strong>Parent</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe-system"><tt>data-frame</tt></a> (system)
@@ -504,7 +540,8 @@ Next: <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="n" rel="n
 </p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-generic-function"><tt>column-summary</tt></a> (generic function)
+<li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"><tt>*column-summary-minimum-length*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-generic-function"><tt>column-summary</tt></a> (generic function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236BIT_002dVECTOR-method"><tt>column-summary</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-summary</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236SUMMARY-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>summary</tt></a> (method)
@@ -554,7 +591,7 @@ Next: <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="n" rel="n
 <p>
 Next: <a href="#The-data_002dframe_002fmissing_2024lisp-file" accesskey="n" rel="next">The data-frame/missing․lisp file</a>, Previous: <a href="#The-data_002dframe_002fsummary_2024lisp-file" accesskey="p" rel="prev">The data-frame/summary․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="data_002dframe_002fdefdf_002elisp"></span><h4 class="subsection">2.1.7 <tt>data-frame/defdf.lisp</tt></h4>
+<span id="data_002dframe_002fdefdf_002elisp"></span><h4 class="subsection">2.1.8 <tt>data-frame/defdf.lisp</tt></h4>
 <span id="go-to-the-data_002dframe_002fdefdf_2024lisp-file"></span><span id="index-data_002dframe_002fdefdf_002elisp"></span>
 <span id="index-Lisp-File_002c-data_002dframe_002fdefdf_002elisp"></span>
 <span id="index-File_002c-Lisp_002c-data_002dframe_002fdefdf_002elisp"></span>
@@ -572,7 +609,6 @@ Next: <a href="#The-data_002dframe_002fmissing_2024lisp-file" accesskey="n" rel=
 <dd><ul>
 <li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dCOLUMN_002dNAMES-function"><tt>define-column-names</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dFRAME-macro"><tt>define-data-frame</tt></a> (macro)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA_002dPACKAGE-function"><tt>make-data-package</tt></a> (function)
 </li></ul>
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
@@ -588,7 +624,7 @@ Next: <a href="#The-data_002dframe_002fmissing_2024lisp-file" accesskey="n" rel=
 <p>
 Previous: <a href="#The-data_002dframe_002fdefdf_2024lisp-file" accesskey="p" rel="prev">The data-frame/defdf․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="data_002dframe_002fmissing_002elisp"></span><h4 class="subsection">2.1.8 <tt>data-frame/missing.lisp</tt></h4>
+<span id="data_002dframe_002fmissing_002elisp"></span><h4 class="subsection">2.1.9 <tt>data-frame/missing.lisp</tt></h4>
 <span id="go-to-the-data_002dframe_002fmissing_2024lisp-file"></span><span id="index-data_002dframe_002fmissing_002elisp"></span>
 <span id="index-Lisp-File_002c-data_002dframe_002fmissing_002elisp"></span>
 <span id="index-File_002c-Lisp_002c-data_002dframe_002fmissing_002elisp"></span>
@@ -648,12 +684,9 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe_002fpkgdcl_2024lisp-file"><tt>pkgdcl.lisp</tt></a> (file)
 </p></dd>
-<dt><strong>Nicknames</strong></dt>
-<dd><ul>
-<li> <tt>dframe</tt>
-</li><li> <tt>df</tt>
-</li></ul>
-</dd>
+<dt><strong>Nickname</strong></dt>
+<dd><p><tt>df</tt>
+</p></dd>
 <dt><strong>Use List</strong></dt>
 <dd><ul>
 <li> <tt>select-dev</tt>
@@ -664,9 +697,6 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <tt>common-lisp</tt>
 </li></ul>
 </dd>
-<dt><strong>Used By List</strong></dt>
-<dd><p><tt>lisp-stat</tt>
-</p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_002aCOLUMN_002dSUMMARY_002dMINIMUM_002dLENGTH_002a-special-variable"><tt>*column-summary-minimum-length*</tt></a> (special variable)
@@ -677,8 +707,7 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDV-function"><tt>alist-dv</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN-function"><tt>column</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-COLUMN_2769-function"><tt>(setf column)</tt></a> (function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-generic-function"><tt>column-names</tt></a> (generic function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>column-names</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-function"><tt>column-names</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-generic-function"><tt>column-summary</tt></a> (generic function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236BIT_002dVECTOR-method"><tt>column-summary</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"><tt>column-summary</tt></a> (method)
@@ -691,8 +720,13 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dCOLUMN_002dNAMES-function"><tt>define-column-names</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dFRAME-macro"><tt>define-data-frame</tt></a> (macro)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF-function"><tt>df</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF_002dPRINT-function"><tt>df-print</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DF_002dREMOVE_002dDUPLICATES-function"><tt>df-remove-duplicates</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DO_002dROWS-function"><tt>do-rows</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-generic-function"><tt>doc-string</tt></a> (generic function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-DATA_002dFRAME_2236_2236DATA-method"><tt>doc-string</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-COMMON_002dLISP_2236_2236T-DATA_002dFRAME_2236_2236DATA-method"><tt>(setf doc-string)</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-generic-function"><tt>(setf doc-string)</tt></a> (generic function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DROP_002dMISSING-generic-function"><tt>drop-missing</tt></a> (generic function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DROP_002dMISSING-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>drop-missing</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DUPLICATE_002dKEY-condition"><tt>duplicate-key</tt></a> (condition)
@@ -701,7 +735,6 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236HEAD-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>head</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEY_002dNOT_002dFOUND-condition"><tt>key-not-found</tt></a> (condition)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236KEYS-function"><tt>keys</tt></a> (function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA_002dPACKAGE-function"><tt>make-data-package</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDF-function"><tt>make-df</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDV-function"><tt>make-dv</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MAP_002dCOLUMNS-function"><tt>map-columns</tt></a> (function)
@@ -742,6 +775,7 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_22362D_002dARRAY_002dTO_002dLIST-function"><tt>2d-array-to-list</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEY_0021-function"><tt>add-key!</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ADD_002dKEYS-function"><tt>add-keys</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236AESTHETIC_002dSTRING-function"><tt>aesthetic-string</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ALIST_002dDATA-function"><tt>alist-data</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236BIT_002dVECTOR_002dSUMMARY-structure"><tt>bit-vector-summary</tt></a> (structure)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236BIT_002dVECTOR_002dSUMMARY_002dCOUNT-function"><tt>bit-vector-summary-count</tt></a> (function)
@@ -760,7 +794,7 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COPY_002dVECTOR_002dSUMMARY_0025-function"><tt>copy-vector-summary%</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DATA-class"><tt>data</tt></a> (class)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-generic-function"><tt>default-column-formats</tt></a> (generic function)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY-method"><tt>default-column-formats</tt></a> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-_2768eql-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY_2769-method"><tt>default-column-formats</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dDATA_002dSUBCLASS-macro"><tt>define-data-subclass</tt></a> (macro)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DROP_002dNA-function"><tt>drop-na</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ENSURE_002dARGUMENTS_002dALIST-function"><tt>ensure-arguments-alist</tt></a> (function)
@@ -789,6 +823,7 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236ORDERED_002dKEYS_002dTABLE-function"><tt>ordered-keys-table</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PLIST_002dDATA-function"><tt>plist-data</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PRINT_002dCOUNT_002dAND_002dPERCENTAGE-function"><tt>print-count-and-percentage</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PRINT_002dTABLE-function"><tt>print-table</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236PRINTER_002dSTATUS-function"><tt>printer-status</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236QUANTILES_002dSUMMARY-structure"><tt>quantiles-summary</tt></a> (structure)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236QUANTILES_002dSUMMARY_002dCOUNT-function"><tt>quantiles-summary-count</tt></a> (function)
@@ -805,6 +840,7 @@ Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236VECTOR_002dSUMMARY_0025_002dLENGTH-function"><tt>vector-summary%-length</tt></a> (function)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236VECTOR_002dSUMMARY_0025_002dP-function"><tt>vector-summary%-p</tt></a> (function)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236WEAVE-function"><tt>weave</tt></a> (function)
 </li></ul>
 </dd>
 </dl>
@@ -864,7 +900,7 @@ Next: <a href="#Exported-macros" accesskey="n" rel="next">Exported macros</a>, P
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
 </p></dd>
 <dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
+<dd><p><a href="#go-to-the-data_002dframe_002fsummary_2024lisp-file"><tt>summary.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -990,6 +1026,19 @@ Next: <a href="#Exported-generic-functions" accesskey="n" rel="next">Exported ge
 </dl>
 </dd></dl>
 <dl>
+<dt id="index-column_002dnames">Function: <strong>column-names</strong> <em>DF</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-function"></span><span id="index-Function_002c-column_002dnames"></span>
+<p>Return a list of column names in DF, as strings
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
 <dt id="index-column_002dtype">Function: <strong>column-type</strong> <em>COL</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dTYPE-function"></span><span id="index-Function_002c-column_002dtype"></span>
 <p>Return the most specific type found in COL
@@ -1042,13 +1091,11 @@ Next: <a href="#Exported-generic-functions" accesskey="n" rel="next">Exported ge
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-define_002dcolumn_002dnames">Function: <strong>define-column-names</strong> <em>DF</em></dt>
+<dt id="index-define_002dcolumn_002dnames">Function: <strong>define-column-names</strong> <em>DF PACKAGE</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236DEFINE_002dCOLUMN_002dNAMES-function"></span><span id="index-Function_002c-define_002dcolumn_002dnames"></span>
 <p>Create a symbol macro for each column name in DF<br>
-</p>
-<p>After running this function, you can refer to a column by its name. This is useful if the column names of a data frame have changed.
-</p>
-<p>Example: (define-column-names mtcars)
+After running this function, you can refer to a column by its name. This is useful if the column names of a data frame have changed.
+Example: (define-column-names mtcars)
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
@@ -1067,6 +1114,19 @@ Next: <a href="#Exported-generic-functions" accesskey="n" rel="next">Exported ge
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-df_002dprint">Function: <strong>df-print</strong> <em>DF</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DF_002dPRINT-function"></span><span id="index-Function_002c-df_002dprint"></span>
+<p>Print DF to *standard-output* in table format
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1118,20 +1178,6 @@ Next: <a href="#Exported-generic-functions" accesskey="n" rel="next">Exported ge
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-make_002ddata_002dpackage">Function: <strong>make-data-package</strong> <em>PKG-NAME</em></dt>
-<dd><span id="go-to-the-DATA_002dFRAME_2236_2236MAKE_002dDATA_002dPACKAGE-function"></span><span id="index-Function_002c-make_002ddata_002dpackage"></span>
-<p>Create a package and import and change *PACKAGE*
-Example: (make-data-package &rsquo;mtcars)
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fdefdf_2024lisp-file"><tt>defdf.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1264,7 +1310,7 @@ Example: (make-data-package &rsquo;mtcars)
 <dl>
 <dt id="index-pprint_002ddata_002dframe">Function: <strong>pprint-data-frame</strong> <em>DATA-FRAME &amp;optional STREAM ROW-NUMBERS-P MAX-DIGITS</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236PPRINT_002dDATA_002dFRAME-function"></span><span id="index-Function_002c-pprint_002ddata_002dframe"></span>
-<p>Return a 2D array of string suitable for pretty printing
+<p>Print DATA-FRAME to STREAM using the pretty printer
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
@@ -1284,7 +1330,7 @@ If ROW-NUMBERS is true, also print row numbers as the first column
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
 </p></dd>
 <dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1367,27 +1413,6 @@ Next: <a href="#Exported-conditions" accesskey="n" rel="next">Exported condition
 </div>
 <span id="Generic-functions"></span><h4 class="subsection">4.1.4 Generic functions</h4>
 <dl>
-<dt id="index-column_002dnames">Generic Function: <strong>column-names</strong> <em>DF</em></dt>
-<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-generic-function"></span><span id="index-Generic-Function_002c-column_002dnames"></span>
-<dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
-</p></dd>
-<dt><strong>Methods</strong></dt>
-<dd><dl>
-<dt id="index-column_002dnames-1">Method: <strong>column-names</strong> <em>(DF <tt>data-frame</tt>)</em></dt>
-<dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"></span><span id="index-Method_002c-column_002dnames"></span>
-<p>Return a list column names in DF, as strings
-</p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-</dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-column_002dsummary">Generic Function: <strong>column-summary</strong> <em>COLUMN</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-generic-function"></span><span id="index-Generic-Function_002c-column_002dsummary"></span>
 <p>Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing, not analysis, returned values should print nicely.
@@ -1406,6 +1431,39 @@ Next: <a href="#Exported-conditions" accesskey="n" rel="next">Exported condition
 <dl>
 <dt id="index-column_002dsummary-2">Method: <strong>column-summary</strong> <em>(COLUMN <tt>vector</tt>)</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dSUMMARY-COMMON_002dLISP_2236_2236VECTOR-method"></span><span id="index-Method_002c-column_002dsummary-1"></span>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-doc_002dstring">Generic Function: <strong>doc-string</strong> <em>OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-generic-function"></span><span id="index-Generic-Function_002c-doc_002dstring"></span>
+</dd><dt id="index-_0028setf-doc_002dstring_0029">Generic Function: <strong>(setf doc-string)</strong> <em>NEW-VALUE OBJECT</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-generic-function"></span><span id="index-Generic-Function_002c-_0028setf-doc_002dstring_0029"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Methods</strong></dt>
+<dd><dl>
+<dt id="index-doc_002dstring-1">Method: <strong>doc-string</strong> <em>(DATA <tt>data</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-DATA_002dFRAME_2236_2236DATA-method"></span><span id="index-Method_002c-doc_002dstring"></span>
+<p>automatically generated reader method
+</p><dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-_0028setf-doc_002dstring_0029-1">Method: <strong>(setf doc-string)</strong> <em>NEW-VALUE (DATA <tt>data</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-COMMON_002dLISP_2236_2236T-DATA_002dFRAME_2236_2236DATA-method"></span><span id="index-Method_002c-_0028setf-doc_002dstring_0029"></span>
+<p>automatically generated writer method
+</p><dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
 </dd></dl>
 </dd>
 </dl>
@@ -1524,7 +1582,8 @@ Example: (replace-missing mtcarsm &rsquo;((mtcarsm:mpg . foo)))
 <dd><dl>
 <dt id="index-summary-1">Method: <strong>summary</strong> <em>(DF <tt>data-frame</tt>) &amp;optional STREAM</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236SUMMARY-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"></span><span id="index-Method_002c-summary"></span>
-<dl compact="compact">
+<p>Deprecated. Print simple stastical summary of data frame
+</p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe_002fsummary_2024lisp-file"><tt>summary.lisp</tt></a> (file)
 </p></dd>
@@ -1650,10 +1709,9 @@ Previous: <a href="#Exported-conditions" accesskey="p" rel="prev">Exported condi
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DROP_002dMISSING-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>drop-missing</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236MISSINGP-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>missingp</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236SUMMARY-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>summary</tt></a> (method)
-</li><li> <tt>print-object</tt> (method)
-</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236COLUMN_002dNAMES-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>column-names</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236TAIL-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>tail</tt></a> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236HEAD-DATA_002dFRAME_2236_2236DATA_002dFRAME-method"><tt>head</tt></a> (method)
+</li><li> <tt>print-object</tt> (method)
 </li><li> <tt>select</tt> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA_002dFRAME-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
 </li><li> <tt>as-array</tt> (method)
@@ -1777,7 +1835,7 @@ Next: <a href="#Internal-functions" accesskey="n" rel="next">Internal functions<
 <dt id="index-replace_002dkey_0021">Macro: <strong>replace-key!</strong> <em>DF NEW OLD</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236REPLACE_002dKEY_0021-macro"></span><span id="index-Macro_002c-replace_002dkey_0021"></span>
 <p>Replace a key in DF, updating data package symbols
-Example: (replace-key mtcars row-name x1)
+Example: (replace-key! mtcars row-name x1)
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
@@ -1803,7 +1861,7 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
 </p></dd>
 <dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+<dd><p><a href="#go-to-the-data_002dframe_002fpprint_2024lisp-file"><tt>pprint.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1829,6 +1887,19 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-data_002dframe_002fdata_002dframe_2024lisp-file"><tt>data-frame.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-aesthetic_002dstring">Function: <strong>aesthetic-string</strong> <em>THING</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236AESTHETIC_002dSTRING-function"></span><span id="index-Function_002c-aesthetic_002dstring"></span>
+<p>Return the string used to represent &lsquo;thing&lsquo; when printing aesthetically.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -2276,6 +2347,28 @@ Use this for sequences of type T to determine how to format the column.
 </dl>
 </dd></dl>
 <dl>
+<dt id="index-print_002dtable">Function: <strong>print-table</strong> <em>ROWS &amp;optional STREAM</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236PRINT_002dTABLE-function"></span><span id="index-Function_002c-print_002dtable"></span>
+<p>Print &lsquo;rows&lsquo; as a nicely-formatted table.<br>
+  Each row should have the same number of colums.<br>
+  Columns will be justified properly to fit the longest item in each one.
+  Example:<br>
+    (print-table &rsquo;((1 :red something)<br>
+                   (2 :green more)))<br>
+    =&gt;<br>
+    1 | RED   | SOMETHING<br>
+    2 | GREEN | MORE<br>
+</p>  
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
 <dt id="index-printer_002dstatus">Function: <strong>printer-status</strong> <em>()</em></dt>
 <dd><span id="go-to-the-DATA_002dFRAME_2236_2236PRINTER_002dSTATUS-function"></span><span id="index-Function_002c-printer_002dstatus"></span>
 <p>Print values of all the printer variables
@@ -2436,6 +2529,20 @@ Example: (show-symbols &rsquo;mtcars)
 </p></dd>
 </dl>
 </dd></dl>
+<dl>
+<dt id="index-weave">Function: <strong>weave</strong> <em>&amp;rest LISTS</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236WEAVE-function"></span><span id="index-Function_002c-weave"></span>
+<p>Return a list whose elements alternate between each of the lists
+&lsquo;lists&lsquo;. Weaving stops when any of the lists has been exhausted.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME-package"><tt>data-frame</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-data_002dframe_002fformatted_002doutput_2024lisp-file"><tt>formatted-output.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
 
 <hr>
 <span id="Internal-generic-functions"></span><div class="header">
@@ -2494,8 +2601,8 @@ Next: <a href="#Internal-structures" accesskey="n" rel="next">Internal structure
 </p></dd>
 <dt><strong>Methods</strong></dt>
 <dd><dl>
-<dt id="index-default_002dcolumn_002dformats-1">Method: <strong>default-column-formats</strong> <em>(ARRAY <tt>simple-array</tt>)</em></dt>
-<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY-method"></span><span id="index-Method_002c-default_002dcolumn_002dformats"></span>
+<dt id="index-default_002dcolumn_002dformats-1">Method: <strong>default-column-formats</strong> <em>(ARRAY <tt>(eql simple-array)</tt>)</em></dt>
+<dd><span id="go-to-the-DATA_002dFRAME_2236_2236DEFAULT_002dCOLUMN_002dFORMATS-_2768eql-COMMON_002dLISP_2236_2236SIMPLE_002dARRAY_2769-method"></span><span id="index-Method_002c-default_002dcolumn_002dformats"></span>
 <p>Return a list of formatting strings for ARRAY<br>
 The method returns a set of default formatting strings using heuristics.
 </p><dl compact="compact">
@@ -2527,9 +2634,6 @@ Next: <a href="#Internal-classes" accesskey="n" rel="next">Internal classes</a>,
 </p></dd>
 <dt><strong>Direct superclasses</strong></dt>
 <dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
-</p></dd>
-<dt><strong>Direct methods</strong></dt>
-<dd><p><tt>print-object</tt> (method)
 </p></dd>
 <dt><strong>Direct slots</strong></dt>
 <dd><dl>
@@ -2566,9 +2670,6 @@ Next: <a href="#Internal-classes" accesskey="n" rel="next">Internal classes</a>,
 </p></dd>
 <dt><strong>Direct superclasses</strong></dt>
 <dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236VECTOR_002dSUMMARY_0025-structure"><tt>vector-summary%</tt></a> (structure)
-</p></dd>
-<dt><strong>Direct methods</strong></dt>
-<dd><p><tt>print-object</tt> (method)
 </p></dd>
 <dt><strong>Direct slots</strong></dt>
 <dd><dl>
@@ -2850,6 +2951,8 @@ Previous: <a href="#Internal-structures" accesskey="p" rel="prev">Internal struc
 <li> <tt>as-alist</tt> (method)
 </li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236CHECK_002dCOLUMN_002dCOMPATIBILITY-DATA_002dFRAME_2236_2236DATA-COMMON_002dLISP_2236_2236T-method"><tt>check-column-compatibility</tt></a> (method)
 </li><li> <tt>element-type</tt> (method)
+</li><li> <tt>doc-string</tt> (method)
+</li><li> <a href="#go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-DATA_002dFRAME_2236_2236DATA-method"><tt>doc-string</tt></a> (method)
 </li></ul>
 </dd>
 <dt><strong>Direct slots</strong></dt>
@@ -2874,6 +2977,24 @@ Previous: <a href="#Internal-structures" accesskey="p" rel="prev">Internal struc
 </p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:columns</tt>
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-doc_002dstring-2">Slot: <strong>doc-string</strong></dt>
+<dd><span id="index-Slot_002c-doc_002dstring"></span>
+<dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>string</tt>
+</p></dd>
+<dt><strong>Initargs</strong></dt>
+<dd><p><tt>:nil</tt>
+</p></dd>
+<dt><strong>Readers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236DOC_002dSTRING-generic-function"><tt>doc-string</tt></a> (generic function)
+</p></dd>
+<dt><strong>Writers</strong></dt>
+<dd><p><a href="#go-to-the-DATA_002dFRAME_2236_2236_2768SETF-DOC_002dSTRING_2769-generic-function"><tt>(setf doc-string)</tt></a> (generic function)
 </p></dd>
 </dl>
 </dd></dl>
@@ -2921,6 +3042,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002easd"><tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002fdata_002dframe_002elisp"><tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002fdefdf_002elisp"><tt>data-frame/defdf.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdefdf_2024lisp-file">The data-frame/defdf․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data_002dframe_002fformatted_002doutput_002elisp"><tt>data-frame/formatted-output.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file">The data-frame/formatted-output․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002fmissing_002elisp"><tt>data-frame/missing.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fmissing_2024lisp-file">The data-frame/missing․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002fpkgdcl_002elisp"><tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-data_002dframe_002fpprint_002elisp"><tt>data-frame/pprint.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpprint_2024lisp-file">The data-frame/pprint․lisp file</a></td></tr>
@@ -2931,6 +3053,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002easd">File, Lisp, <tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fdata_002dframe_002elisp">File, Lisp, <tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fdefdf_002elisp">File, Lisp, <tt>data-frame/defdf.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdefdf_2024lisp-file">The data-frame/defdf․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fformatted_002doutput_002elisp">File, Lisp, <tt>data-frame/formatted-output.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file">The data-frame/formatted-output․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fmissing_002elisp">File, Lisp, <tt>data-frame/missing.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fmissing_2024lisp-file">The data-frame/missing․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fpkgdcl_002elisp">File, Lisp, <tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-data_002dframe_002fpprint_002elisp">File, Lisp, <tt>data-frame/pprint.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpprint_2024lisp-file">The data-frame/pprint․lisp file</a></td></tr>
@@ -2941,6 +3064,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002easd">Lisp File, <tt>data-frame.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_2024asd-file">The data-frame․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fdata_002dframe_002elisp">Lisp File, <tt>data-frame/data-frame.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdata_002dframe_2024lisp-file">The data-frame/data-frame․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fdefdf_002elisp">Lisp File, <tt>data-frame/defdf.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fdefdf_2024lisp-file">The data-frame/defdf․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fformatted_002doutput_002elisp">Lisp File, <tt>data-frame/formatted-output.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fformatted_002doutput_2024lisp-file">The data-frame/formatted-output․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fmissing_002elisp">Lisp File, <tt>data-frame/missing.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fmissing_2024lisp-file">The data-frame/missing․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fpkgdcl_002elisp">Lisp File, <tt>data-frame/pkgdcl.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpkgdcl_2024lisp-file">The data-frame/pkgdcl․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-data_002dframe_002fpprint_002elisp">Lisp File, <tt>data-frame/pprint.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-data_002dframe_002fpprint_2024lisp-file">The data-frame/pprint․lisp file</a></td></tr>
@@ -3003,12 +3127,16 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-V"><b>V</b></a>
  &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-W"><b>W</b></a>
+ &nbsp; 
 </td></tr></table>
 <table class="index-fn" border="0">
 <tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_symbol-1">(</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_0028setf-column_0029"><code>(setf column)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-doc_002dstring_0029"><code>(setf doc-string)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-doc_002dstring_0029-1"><code>(setf doc-string)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_symbol-2">2</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-2d_002darray_002dto_002dlist"><code>2d-array-to-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3019,6 +3147,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-add_002dcolumns_0021"><code>add-columns!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-add_002dkey_0021"><code>add-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-add_002dkeys"><code>add-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-aesthetic_002dstring"><code>aesthetic-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-alist_002ddata"><code>alist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-alist_002ddf"><code>alist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-alist_002ddv"><code>alist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -3035,8 +3164,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-column"><code>column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-column_002dlength"><code>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-column_002dlength-1"><code>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-column_002dnames"><code>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-column_002dnames-1"><code>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-column_002dnames"><code>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-column_002dsummary"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-column_002dsummary-1"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-column_002dsummary-2"><code>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
@@ -3058,8 +3186,11 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-define_002ddata_002dframe"><code>define-data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-macros">Exported macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-define_002ddata_002dsubclass"><code>define-data-subclass</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-df"><code>df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-df_002dprint"><code>df-print</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-df_002dremove_002dduplicates"><code>df-remove-duplicates</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-do_002drows"><code>do-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-doc_002dstring"><code>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-doc_002dstring-1"><code>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-drop_002dmissing"><code>drop-missing</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-drop_002dmissing-1"><code>drop-missing</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-drop_002dna"><code>drop-na</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3077,6 +3208,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dcolumns_0021"><code><span class="roman">Function, </span>add-columns!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dkey_0021"><code><span class="roman">Function, </span>add-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-add_002dkeys"><code><span class="roman">Function, </span>add-keys</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-aesthetic_002dstring"><code><span class="roman">Function, </span>aesthetic-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddata"><code><span class="roman">Function, </span>alist-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddf"><code><span class="roman">Function, </span>alist-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-alist_002ddv"><code><span class="roman">Function, </span>alist-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -3084,6 +3216,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bit_002dvector_002dsummary_002dlength"><code><span class="roman">Function, </span>bit-vector-summary-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bit_002dvector_002dsummary_002dp"><code><span class="roman">Function, </span>bit-vector-summary-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-column"><code><span class="roman">Function, </span>column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-column_002dnames"><code><span class="roman">Function, </span>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-column_002dtype"><code><span class="roman">Function, </span>column-type</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-column_002dtype_002dformat"><code><span class="roman">Function, </span>column-type-format</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-columns"><code><span class="roman">Function, </span>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -3096,6 +3229,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-count_002drows"><code><span class="roman">Function, </span>count-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-define_002dcolumn_002dnames"><code><span class="roman">Function, </span>define-column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-df"><code><span class="roman">Function, </span>df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-df_002dprint"><code><span class="roman">Function, </span>df-print</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-df_002dremove_002dduplicates"><code><span class="roman">Function, </span>df-remove-duplicates</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-do_002drows"><code><span class="roman">Function, </span>do-rows</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-drop_002dna"><code><span class="roman">Function, </span>drop-na</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3114,7 +3248,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-keys_002dvector"><code><span class="roman">Function, </span>keys-vector</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dbit_002dvector_002dsummary"><code><span class="roman">Function, </span>make-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddata"><code><span class="roman">Function, </span>make-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddata_002dpackage"><code><span class="roman">Function, </span>make-data-package</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddf"><code><span class="roman">Function, </span>make-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002ddv"><code><span class="roman">Function, </span>make-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dgeneric_002dvector_002dsummary"><code><span class="roman">Function, </span>make-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3138,6 +3271,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-pprint_002ddata_002dframe"><code><span class="roman">Function, </span>pprint-data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-pprint_002dmarkdown"><code><span class="roman">Function, </span>pprint-markdown</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-print_002dcount_002dand_002dpercentage"><code><span class="roman">Function, </span>print-count-and-percentage</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-print_002dtable"><code><span class="roman">Function, </span>print-table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-printer_002dstatus"><code><span class="roman">Function, </span>printer-status</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dcount"><code><span class="roman">Function, </span>quantiles-summary-count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-quantiles_002dsummary_002dmax"><code><span class="roman">Function, </span>quantiles-summary-max</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3156,13 +3290,15 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-types_002din_002dcolumn"><code><span class="roman">Function, </span>types-in-column</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-vector_002dsummary_0025_002dlength"><code><span class="roman">Function, </span>vector-summary%-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-vector_002dsummary_0025_002dp"><code><span class="roman">Function, </span>vector-summary%-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-weave"><code><span class="roman">Function, </span>weave</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-G">G</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-_0028setf-doc_002dstring_0029"><code><span class="roman">Generic Function, </span>(setf doc-string)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-check_002dcolumn_002dcompatibility"><code><span class="roman">Generic Function, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-column_002dlength"><code><span class="roman">Generic Function, </span>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-column_002dnames"><code><span class="roman">Generic Function, </span>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-column_002dsummary"><code><span class="roman">Generic Function, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-default_002dcolumn_002dformats"><code><span class="roman">Generic Function, </span>default-column-formats</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-doc_002dstring"><code><span class="roman">Generic Function, </span>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-drop_002dmissing"><code><span class="roman">Generic Function, </span>drop-missing</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-head"><code><span class="roman">Generic Function, </span>head</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-missingp"><code><span class="roman">Generic Function, </span>missingp</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
@@ -3192,7 +3328,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Macro_002c-replace_002dkey_0021"><code><span class="roman">Macro, </span>replace-key!</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-make_002dbit_002dvector_002dsummary"><code>make-bit-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-make_002ddata"><code>make-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-make_002ddata_002dpackage"><code>make-data-package</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-make_002ddf"><code>make-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-make_002ddv"><code>make-dv</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-make_002dgeneric_002dvector_002dsummary"><code>make-generic-vector-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -3206,13 +3341,14 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-matrix_002ddf"><code>matrix-df</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-max_002ddecimal"><code>max-decimal</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-max_002dwidth"><code>max-width</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-_0028setf-doc_002dstring_0029"><code><span class="roman">Method, </span>(setf doc-string)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-check_002dcolumn_002dcompatibility"><code><span class="roman">Method, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-check_002dcolumn_002dcompatibility-1"><code><span class="roman">Method, </span>check-column-compatibility</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dlength"><code><span class="roman">Method, </span>column-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dnames"><code><span class="roman">Method, </span>column-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dsummary"><code><span class="roman">Method, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-column_002dsummary-1"><code><span class="roman">Method, </span>column-summary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-default_002dcolumn_002dformats"><code><span class="roman">Method, </span>default-column-formats</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-doc_002dstring"><code><span class="roman">Method, </span>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-drop_002dmissing"><code><span class="roman">Method, </span>drop-missing</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-head"><code><span class="roman">Method, </span>head</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-missingp"><code><span class="roman">Method, </span>missingp</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-generic-functions">Exported generic functions</a></td></tr>
@@ -3245,6 +3381,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-pprint_002ddata_002dframe"><code>pprint-data-frame</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-pprint_002dmarkdown"><code>pprint-markdown</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-print_002dcount_002dand_002dpercentage"><code>print-count-and-percentage</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-print_002dtable"><code>print-table</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-printer_002dstatus"><code>printer-status</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-Q">Q</th><td></td><td></td></tr>
@@ -3280,6 +3417,9 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><th id="Function-index_fn_letter-V">V</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-vector_002dsummary_0025_002dlength"><code>vector-summary%-length</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-vector_002dsummary_0025_002dp"><code>vector-summary%-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-W">W</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-weave"><code>weave</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 </table>
 <table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-index_fn_symbol-1"><b>(</b></a>
@@ -3321,6 +3461,8 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-V"><b>V</b></a>
  &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-W"><b>W</b></a>
+ &nbsp; 
 </td></tr></table>
 
 
@@ -3335,6 +3477,8 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
  &nbsp; 
 <br>
 <a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-D"><b>D</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
  &nbsp; 
@@ -3367,6 +3511,9 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td></td><td valign="top"><a href="#index-count"><code>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-count-1"><code>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-D">D</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-doc_002dstring-2"><code>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Variable-index_vr_letter-E">E</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-element_002dcount_002dalist"><code>element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -3395,6 +3542,7 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-columns"><code><span class="roman">Slot, </span>columns</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-count"><code><span class="roman">Slot, </span>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-count-1"><code><span class="roman">Slot, </span>count</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-doc_002dstring"><code><span class="roman">Slot, </span>doc-string</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-classes">Internal classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-element_002dcount_002dalist"><code><span class="roman">Slot, </span>element-count-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-structures">Internal structures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-key"><code><span class="roman">Slot, </span>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-key-1"><code><span class="roman">Slot, </span>key</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-conditions">Exported conditions</a></td></tr>
@@ -3421,6 +3569,8 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
  &nbsp; 
 <br>
 <a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-D"><b>D</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
  &nbsp; 
