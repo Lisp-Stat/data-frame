@@ -19,9 +19,10 @@
      (unless (and *ask-on-redefine*
 		  (boundp ',df)
 		  (not (y-or-n-p "Data frame has a value. Redefine?")))
+
        (defparameter ,df ,body ,documentation)
-       (eval '(define-column-names ,df *package*))
        (eval '(setf (name ,df) (symbol-name ',df)))
+       (eval '(define-column-names ',df *package*))
        (when ,documentation
 	  (eval '(setf (doc-string ,df) ,documentation)))
        (pushnew ',df *data-frames*)
@@ -34,12 +35,15 @@ Example: (define-column-names mtcars)"
   (maphash #'(lambda (key index)
 	       (let ((col (intern (symbol-name key) package)))
 		 (export col)
-		 (eval `(cl:define-symbol-macro ,col (cl:aref (columns ,df) ,index)))))
-	   (ordered-keys-table (slot-value df 'ordered-keys))))
+		 (eval `(cl:define-symbol-macro ,col (aref (columns ,df) ,index)))))
+	   (ordered-keys-table (slot-value (symbol-value df) 'ordered-keys))))
 
+;; TODO
+;; 1. Undefine the symbol macros associated with the data frame
+;; 2. Delete the package associated with the data frame
+;; See https://stackoverflow.com/questions/69296485/undefining-a-symbol-macro
 (defun undef (df)
-"Args: (df)
-If DF is the symbol of a defined data-frame it is-frame is unbound and
+  "If DF is the symbol of a defined data-frame it is unbound and
 removed from the list of data-frames. If DF is a list of data-frame
 names each is unbound and removed. Returns DF.
 
@@ -49,12 +53,6 @@ Example: (undef 'mtcars)"
       (setf *data-frames* (delete s *data-frames*))
       (makunbound s)))
   df)
-
-;; Unexported. Mostly for debugging
-(defun show-symbols (pkg)
-  "Print all symbols in PKG
-Example: (show-symbols 'mtcars)"
-  (do-symbols (s (find-package (symbol-name pkg))) (print s)))
 
 (defun show-data-frames (&optional (stream *standard-output*))
   "Print all data frames in the current environment in reverse order of creation, i.e. most recently created first."
@@ -76,3 +74,8 @@ Example: (replace-key! mtcars row-name x1)"
      (unintern old-key)
      (funcall #'define-column-names ,df *package*)))
 
+;; Unexported. For debugging
+(defun show-symbols (pkg)
+  "Print all symbols in PKG
+Example: (show-symbols 'mtcars)"
+  (do-symbols (s (find-package (symbol-name pkg))) (print s)))
