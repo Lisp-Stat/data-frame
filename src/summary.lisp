@@ -103,6 +103,7 @@
                 "~W reals, ~:_min=~W, ~:_q25=~W, ~:_q50=~W, ~:_q75=~W, ~:_max=~W"
                 count min (ensure-not-ratio q25) (ensure-not-ratio q50)
                 (ensure-not-ratio q75) max)))
+    ;; (when (and element-count-alist quantiles) ;; Tamas' version
     (when element-count-alist
       (if (< 0 (length element-count-alist) *column-summary-factors-threshold*)
 	  (loop for (element . count) in element-count-alist do

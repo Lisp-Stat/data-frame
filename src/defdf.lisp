@@ -5,18 +5,27 @@
 ;;; These definitions are in a separate file because additional
 ;;; functionality is expected to be added in future.
 
-(defmacro define-data-frame (df body &optional doc)
-  (when (and doc (not (stringp doc))) (error "Data frame documentation is not a string"))
+(defvar *data-frames* nil
+  "Global list of all data frames")
+(defvar *ask-on-redefine* nil
+  "If set, the system will ask the user for confirmation before redefining a data frame")
+
+(defmacro define-data-frame (df body &optional documentation)
+  (when (and documentation (not (stringp documentation))) (error "Data frame documentation is not a string"))
   `(let* ((df-str (string ',df))
 	  (*package* (if (find-package df-str)    ;exists?
 			 (find-package df-str)    ;yes, return it
 			 (make-package df-str :use '())))) ;no, make it
-     (defparameter ,df ,body ,doc)
-     (eval '(define-column-names ,df *package*))
-     (eval '(setf (name ,df) (symbol-name ',df)))
-     (when ,doc
-       (eval '(setf (doc-string ,df) ,doc)))
-     (eval ',df)))			;show user something was done
+     (unless (and *ask-on-redefine*
+		  (boundp ',df)
+		  (not (y-or-n-p "Data frame has a value. Redefine?")))
+       (defparameter ,df ,body ,documentation)
+       (eval '(define-column-names ,df *package*))
+       (eval '(setf (name ,df) (symbol-name ',df)))
+       (when ,documentation
+	  (eval '(setf (doc-string ,df) ,documentation)))
+       (pushnew ',df *data-frames*)
+       ',df)))
 
 (defun define-column-names (df package)
   "Create a symbol macro for each column name in DF
@@ -28,10 +37,33 @@ Example: (define-column-names mtcars)"
 		 (eval `(cl:define-symbol-macro ,col (cl:aref (columns ,df) ,index)))))
 	   (ordered-keys-table (slot-value df 'ordered-keys))))
 
+(defun undef (df)
+"Args: (df)
+If DF is the symbol of a defined data-frame it is-frame is unbound and
+removed from the list of data-frames. If DF is a list of data-frame
+names each is unbound and removed. Returns DF.
+
+Example: (undef 'mtcars)"
+  (dolist (s (if (listp df) df (list df)))
+    (when (member s *data-frames*)
+      (setf *data-frames* (delete s *data-frames*))
+      (makunbound s)))
+  df)
+
+;; Unexported. Mostly for debugging
 (defun show-symbols (pkg)
   "Print all symbols in PKG
 Example: (show-symbols 'mtcars)"
   (do-symbols (s (find-package (symbol-name pkg))) (print s)))
+
+(defun show-data-frames (&optional (stream *standard-output*))
+  "Print all data frames in the current environment in reverse order of creation, i.e. most recently created first."
+  (loop for df in *data-frames* do
+  ;; "Print all data frames in the current environment in alphabetical order"
+  ;; (loop for df in (sort (copy-list *data-frames*) #'string<=) do
+    (print-object (symbol-value df) stream)
+    (fresh-line stream)
+    (terpri stream)))
 
 (defmacro replace-key! (df new old)
   "Replace a key in DF, updating data package symbols

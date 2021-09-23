@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
-#+genera (eval-when (eval load compile) (xp::install :package :data-frame :macro T))
+#+genera (eval-when (eval load compile) (xp::install))
 
 
 ;;; Pretty print data-frames and 2D arrays
@@ -175,7 +175,7 @@ The method returns a set of default formatting strings using heuristics."
 				("D" (format nil "~~~AD"    width))
 				("A" (format nil "~~~AA"    width))
 				("S" (format nil "~~~A@A"   width))))
-		    (var-fmt (alexandria:switch (type :test #'string=) ;why does SBCL warn here? Macro?
+		    (var-fmt (alexandria:switch (type :test #'string=) ; Why does SBCL complain about this, and only here?
 			       ("F" (format nil "~~~A@A" width))
 			       ("D" (format nil "~~~A@A" width))
 			       ("A" (format nil "~~~AA"  width))

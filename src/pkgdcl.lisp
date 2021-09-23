@@ -46,8 +46,9 @@
     #:matrix-df
     #:rows
     #:define-data-frame
+    #:undef
     #:define-column-names
-
+    #:show-data-frames
 
     ;; transformations for data-frames
     #:map-rows

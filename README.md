@@ -71,8 +71,6 @@
   manipulated as, a Common Lisp array. Data frames hold tightly
   coupled collections of variables that all belong to one experiment.
 
-
-
 ### Built With
 
 * [anaphora](https://github.com/tokenrove/anaphora)
@@ -94,27 +92,50 @@ An ANSI Common Lisp implementation. Developed and tested with
 [SBCL](https://www.sbcl.org/) and
 [CCL](https://github.com/Clozure/ccl).
 
-### Quicklisp Installation
+### Installation
 
-```lisp
-(ql:quickload :data-frame)
+Lisp-Stat is composed of several system that are designed to be
+independently useful.  So you can, for example, use `data-frame` for
+any project needing to manipulate two dimension data in a machine
+learning or statistical setting.
+
+#### Getting the source
+
+To make the system accessible to [ASDF](https://common-lisp.net/project/asdf/) (a build facility, similar to `make` in the C world), clone the repository in a directory ASDF knows about.  By default the `common-lisp` directory in your home directory is known. Create this if it doesn't already exist and then:
+
+1. Clone the repositories
+```sh
+cd ~/common-lisp && \
+git clone https://github.com/Lisp-Stat/data-frame.git && \
+git clone https://github.com/Lisp-Stat/dfio.git
 ```
-
-### Manual Installation
-
-1. Clone the repository
-   ```sh
-   cd ~/quicklisp/local-projects &&
-   git clone https://github.com/Lisp-Stat/data-frame.git
-   ```
 2. Reset the ASDF source-registry to find the new system (from the REPL)
    ```lisp
    (asdf:clear-source-registry)
    ```
 3. Load the system
    ```lisp
-   (ql:quickload :data-frame)
+   (asdf:load-system :data-frame)
    ```
+
+If you have installed the slime ASDF extensions, you can invoke this
+with a comma (',') from the slime REPL in emacs.
+
+#### Getting dependencies
+
+To get the third party systems that Lisp-Stat depends on you can use a dependency manager, such as [Quicklisp](https://www.quicklisp.org/beta/) or [CLPM](https://www.clpm.dev/) Once installed, get the dependencies with either of:
+
+```lisp
+(clpm-client:sync :sources "clpi") ;sources may vary
+```
+
+```lisp
+(ql:quickload :data-frame)
+```
+
+You need do this only once. After obtaining the dependencies, you can
+load the system with `ASDF` as described above without first syncing
+sources.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
