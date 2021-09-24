@@ -45,7 +45,7 @@
     #:df
     #:matrix-df
     #:rows
-    #:define-data-frame
+    #:defdf
     #:undef
     #:define-column-names
     #:show-data-frames

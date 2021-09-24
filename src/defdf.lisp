@@ -10,7 +10,7 @@
 (defvar *ask-on-redefine* nil
   "If set, the system will ask the user for confirmation before redefining a data frame")
 
-(defmacro define-data-frame (df body &optional documentation)
+(defmacro defdf (df body &optional documentation)
   (when (and documentation (not (stringp documentation))) (error "Data frame documentation is not a string"))
   `(let* ((df-str (string ',df))
 	  (*package* (if (find-package df-str)    ;exists?
@@ -72,7 +72,7 @@ Example: (replace-key! mtcars row-name x1)"
      (export sym)
      (substitute-key! ,df sym old-key)
      (unintern old-key)
-     (funcall #'define-column-names ,df *package*)))
+     (funcall #'define-column-names ',df *package*)))
 
 ;; Unexported. For debugging
 (defun show-symbols (pkg)
