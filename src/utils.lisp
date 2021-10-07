@@ -11,6 +11,7 @@
     (bit     'bit)
     (single-float 'single-float)
     (double-float 'double-float)
+    ;; (fixnum  'fixnum)
     (integer 'integer)
     (ratio   'ratio)
     (complex 'complex)
@@ -43,11 +44,12 @@
 
 (defun column-type (col)
   "Return the most specific type found in COL"
-  (when (bit-vector-p col) (return-from column-type 'bit-vector))
   (let ((type-list (types-in-column col)))
     (cond ((member 'single-float type-list) 'single-float)
 	  ((member 'double-float type-list) 'double-float)
+	  ((member 'fixnum  type-list) 'fixnum)
 	  ((member 'integer type-list) 'integer)
+	  ((member 'string  type-list) 'string)
 	  ((member 'bit     type-list) 'bit)
 	  ((member 'symbol  type-list) 'symbol)
 	  (t 'string ))))

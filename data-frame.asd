@@ -5,7 +5,6 @@
   :version      (:read-file-form "version.sexp")
   :description "Data frames for Common Lisp"
   :long-description "A data manipulation package, conceptually similar to R's data.frame"
-  :author      "Tamas Papp <tkpapp@gmail.com>"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :source-control (:git "https://github.com/Lisp-Stat/data-frame.git")
@@ -33,7 +32,6 @@
 (defsystem "data-frame/tests"
   :version "0"
   :description "Unit tests for DATA-FRAME."
-  :author      "Tamas Papp <tkpapp@gmail.com>"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("data-frame"

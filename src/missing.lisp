@@ -18,6 +18,8 @@
   ;;   t)
   (:method ((data (eql :na)))
     t)
+  (:method ((data (eql :missing)))
+    t)
   (:method ((data string))
     nil)
   (:method ((data sequence))
@@ -43,7 +45,8 @@
 (defmethod replace-missing ((df data-frame) map-alist)
   "Replace missing values with the values specified
 The alist consists of a column name in the CAR and the replacement value in the CDR
-Example: (replace-missing mtcarsm '((mtcarsm:mpg . foo)))"
+Example: (replace-missing mtcarsm '((mpg . foo)))"
   (loop for (column . value) in map-alist
 	do (setf df (replace-column df column (substitute value :na (column df column))))
+	   (setf df (replace-column df column (substitute value :missing (column df column))))
 	finally (return df)))

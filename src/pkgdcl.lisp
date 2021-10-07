@@ -84,9 +84,17 @@
     #:name
     #:doc-string
 
-   ;; Summary methods
-   #:summary
-   #:column-summary
-   #:*column-summary-minimum-length*))
+    ;; Summary methods
+    #:summary				;summarize a data frame
+    #:summarize-column			;summarize a variable
+    #:get-summaries			;return a list of variable summaries
+    #:bit-variable-summary
+    #:real-variable-summary
+    #:factor-variable-summary
+    #:generic-variable-summary
+    #:*summary-minimum-length*		;columns are only summarised when longer than this
+    #:*quantile-threshold*		;if the number of unique reals exceeds this threshold, they will be summarized with quantiles
+    #:*distinct-threshold*		;if an integer variable has <= discrete values, consider it a factor
+    #:*distinct-maximum*))              ;If a string/factor variable has > *distinct-maximum* values, exclude it
 
 
