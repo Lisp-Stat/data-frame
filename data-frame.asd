@@ -11,6 +11,7 @@
   :source-control (:git "https://github.com/Lisp-Stat/data-frame.git")
   :bug-tracker "https://github.com/Lisp-Stat/data-frame/issues"
   :depends-on ("alexandria"
+	       "alexandria+"
                "anaphora"
                "array-operations"
                "num-utils"

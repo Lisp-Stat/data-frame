@@ -6,6 +6,7 @@
   (:use
     #:cl
     #:alexandria
+    #:alexandria+
     #:anaphora
     #:let-plus
     #:select
@@ -60,7 +61,7 @@
     #:replace-column
     #:remove-columns
     #:substitute-key!
-    #:replace-key
+    #:replace-key!
     #:missingp
     #:drop-missing
     #:replace-missing
@@ -73,12 +74,19 @@
     #:head
     #:tail
 
+    ;; Data properties
+    #:heuristicate-types
+    #:set-properties
+
     ;; Formatted output
     #:df-print
     #:df-summary
+    #:name
+    #:doc-string
 
-    ;; Summary methods
-    #:summary
-    #:column-summary
-    #:*column-summary-minimum-length*))
+   ;; Summary methods
+   #:summary
+   #:column-summary
+   #:*column-summary-minimum-length*))
+
 
