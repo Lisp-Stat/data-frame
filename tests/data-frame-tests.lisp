@@ -199,7 +199,8 @@ destructive or non-destructive."
 			  #(b b b)
 			  #(3 33 333))))
 	 (*print-pretty* t)
-	 (expected-string ";;   A B   C
+	 (expected-string "
+;;   A B   C
 ;; 0 A B   3
 ;; 1 A B  33
 ;; 2 A B 333
@@ -256,13 +257,13 @@ TODO: Figure out how to test macros. I made a few trys, but since we
 are going to move away from cl-unit, I'm not going to spend any more time
 figuring this out.
 
-(defsuite define-data-frame (data-frame))
+(defsuite defdf (data-frame))
 
-(deftest defdf (define-data-frame)
+(deftest defdf (defdf)
   (let ((df1 (make-df  '('a 'b 'c)
 		       '(#(a a a)
 			 #(b b b)
 			 #(3 33 333)))))
-    (define-data-frame df1)
+    (defdf df1)
     (assert-equal-p df1:a #(a b 3))))
 |#

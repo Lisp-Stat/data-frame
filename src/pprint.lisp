@@ -131,7 +131,8 @@ Use this for sequences of type T to determine how to format the column."
 ;;; Formatters
 ;;;
 
-(defmethod default-column-formats ((array (eql 'simple-array)))	;Need eql .. for Genera
+(defmethod default-column-formats (#-genera (array simple-array)
+				   #+genera (array 'simple-array))
   "Return a list of formatting strings for ARRAY
 The method returns a set of default formatting strings using heuristics."
   (let ((col-widths (aops:margin #'max-width   array 0))
@@ -158,7 +159,8 @@ The method returns a set of default formatting strings using heuristics."
   "Print DATA-FRAME to STREAM using the pretty printer"
   (check-type data-frame data)
   (let* ((col-names '())
-	 (df (copy data-frame :key #'copy-array)))
+	 (df (copy data-frame :key #'copy-array))
+	 (*print-pretty* t))
     (when row-numbers-p
       (setf df (reverse-df
 		(add-columns (reverse-df df)
@@ -264,5 +266,5 @@ The method returns a set of default formatting strings using heuristics."
   "Print the first six rows of DATA-FRAME"
   (let* ((*print-lines* 6)
 	 (*print-pretty* t))
-    (df:pprint-data-frame df stream)))
+    (df:pprint-data-frame df stream nil)))
 
