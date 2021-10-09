@@ -13,14 +13,17 @@ Often when reading in a data set, the types will be inconsistent in a variable. 
 		      (col-type (column-type data)))
 
 		 ;; Assign type property to symbol-macro.
-		 (eval `(alexandria+:defprop ,(find-symbol (concatenate 'string (name df) "$" (symbol-name key)))
+		 (eval `(alexandria+:defprop ,(find-symbol (symbol-name key) (find-package (name df))  )
 			    ,col-type :type))))
        (keys df)))
 
+;; This is here for the case of using '$' for a separator. Easier to
+;; switch to package format than rewriting summary functions
 (defun sym-mac (df var)
   "Return the symbol macro for VAR in the DATA-FRAME DF"
-  (find-symbol (concatenate 'string (name df) "$" (symbol-name var))))
+  (find-symbol (symbol-name var) (find-package (name df))))
 
+#+nil
 (defun var-name (var)
   "Return the name of the variable without the symbol-macro prefix
 Example: (var-name mtcars$mpg) returns 'mpg'"
@@ -42,7 +45,7 @@ Example:
 			         :gear :NA
 			         :carb :NA))"
   (loop for (key value) on prop-values by #'cddr
-	for sym = (sym-mac df key)
+	for sym = (find-symbol (symbol-name key) (find-package (name df)))
 	when sym do (eval `(alexandria+:defprop ,sym ,value ,property))))
 
 (defun show-properties (df)

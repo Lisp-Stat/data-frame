@@ -144,7 +144,8 @@ Useful for detecting row numbers in imported data"
             #(0 1/4 1/2 3/4 1))))
 
     (make-real-variable-summary
-     :name (df::var-name (symbol-name column))
+     ;; :name (df::var-name (symbol-name column)) ; for df$variable style
+     :name (symbol-name column)
      :desc (get column :label)
      :length (length data)
      :missing (length (which data :predicate #'missingp))
@@ -158,7 +159,8 @@ Useful for detecting row numbers in imported data"
          (alist (as-alist table)))
 
     (make-factor-variable-summary
-     :name (df::var-name (symbol-name column))
+     ;; :name (df::var-name (symbol-name column)) ; for df$variable style
+     :name (symbol-name column)
      :desc (if (get column :label) (get column :label) "")
      :length (length data)
      :missing (length (which data :predicate #'missingp))
@@ -187,7 +189,7 @@ Useful for detecting row numbers in imported data"
                                  (copy-list alist))
                              #'>= :key #'cdr)))
     (make-generic-variable-summary :length length
-				   ;; :name (df::var-name (symbol-name column))
+				   :name (symbol-name column)
                                    :quantiles quantiles
                                    :element-count-alist alist)))
 
@@ -204,7 +206,8 @@ Useful for detecting row numbers in imported data"
       (integer      (summarize-real-variable column))
       (string       (summarize-factor-variable column))
       (bit (make-bit-variable-summary
-	    :name (df::var-name (symbol-name column))
+	    ;; :name (df::var-name (symbol-name column)) ; for df$variable style
+	    :name (symbol-name column)
 	    :desc (get column :label)
 	    :length (length data)
 	    :count (count 1 data)))
@@ -249,7 +252,6 @@ Useful for detecting row numbers in imported data"
 		       (monotonicp data)	;exclude row numbers
 		       (and (< *distinct-maximum* ;exclude row names with a few repeats
 			       (distinct data))
-			    (equal 'string (column-type (column df key))))
-		       )
+			    (equal 'string (column-type (column df key)))))
 		   do (format stream "~%~A: ~A" key (summarize-generic-variable data)))))
 

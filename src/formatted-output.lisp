@@ -100,3 +100,4 @@ If ROW-NUMBERS is true, also print row numbers as the first column"
 	(format stream "| ~A " (aref array i j)))
       (format stream " |~%"))
     (values)))
+
