@@ -35,7 +35,7 @@
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("data-frame"
-               "clunit")
+               "clunit2")
   :serial t
   :pathname "tests/"
   :components ((:file "data-frame-tests"))

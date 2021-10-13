@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
 ;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
 
-(defpackage :data-frame-tests
+(defpackage #:data-frame-tests
   (:use
    #:cl
    #:alexandria
@@ -151,7 +151,7 @@ destructive or non-destructive."
 (deftest replace-column1 (replace-column)
   (let* ((plist '(:a #(1 2 3) :b #(5 7 11)))
          (df (plist-df plist))
-         (df-copy (copy df))
+         ;; (df-copy (copy df))
          (df1 (replace-column df :a #'1+))
          (df2 (replace-column df :a #(2 3 4)))
          (expected-plist '(:a #(2 3 4) :b #(5 7 11))))
@@ -169,7 +169,7 @@ destructive or non-destructive."
 (deftest remove-columns1 (remove-columns)
   (let* ((plist '(:a #(1 2 3) :b #(5 7 11) :c #(100 200 300)))
          (df (plist-df plist))
-         (df-copy (copy df))
+         ;; (df-copy (copy df))
          (df1 (remove-columns df '(:a :b)))
          (expected-plist '(:c #(100 200 300))))
     (assert-equalp expected-plist (as-plist df1))
