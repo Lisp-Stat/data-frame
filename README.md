@@ -89,14 +89,14 @@ To get a local copy up and running follow these steps:
 ### Prerequisites
 
 An ANSI Common Lisp implementation. Developed and tested with
-[SBCL](https://www.sbcl.org/) and
-[CCL](https://github.com/Clozure/ccl).
+[SBCL](https://www.sbcl.org/) ~~and
+[CCL](https://github.com/Clozure/ccl)~~.
 
 ### Installation
 
 Lisp-Stat is composed of several system that are designed to be
 independently useful.  So you can, for example, use `data-frame` for
-any project needing to manipulate two dimension data in a machine
+any project needing to manipulate two dimensional data in a machine
 learning or statistical setting.
 
 #### Getting the source

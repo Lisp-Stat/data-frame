@@ -168,9 +168,10 @@ Useful for detecting row numbers in imported data"
 
 (defun summarize-generic-variable (column)
   "Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing, not analysis, returned values should print nicely.  This function can be used on any type of column, even one with mixed types"
-  (let+ ((length (length column))
+  (let+ ((data (eval column))
+	 (length (length data))
          (table (aprog1 (nu:make-sparse-counter :test #'equal)
-                  (map nil (curry #'nu:add it) column)))
+                  (map nil (curry #'nu:add it) data)))
          (alist (as-alist table))
          ((&flet real? (item) (realp (car item))))
          (reals-alist (remove-if (complement #'real?) alist))
@@ -197,7 +198,7 @@ Useful for detecting row numbers in imported data"
 
 (defun summarize-column (column)
   "Return a summary struct for COLUMN"
-  (let ((data (eval column)))
+  (let ((data (eval column)))		;We don't need eval any longer, but it doesn't hurt, except possibly security.
     (case (get column :type)
 
       ;; Implementation types
@@ -214,7 +215,7 @@ Useful for detecting row numbers in imported data"
 
       ;; Statistical types, note keyword in case key
       (:factor (summarize-factor-variable column))
-      (t (summarize-generic-variable data)))))
+      (t (summarize-generic-variable column)))))
 
 (defun get-summaries (df)
   "Return a list of summaries of the variables in DF"
