@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
-;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "data-frame"
   :version      (:read-file-form "version.sexp")
@@ -26,7 +26,8 @@
 	       (:file "summary")
 	       (:file "defdf")
 	       (:file "properties")
-	       (:file "missing"))
+	       (:file "missing")
+	       (:file "plist-aops"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"

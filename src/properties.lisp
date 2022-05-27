@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 ;;; TODO Check if the type property is already set and, if different
@@ -13,7 +13,7 @@ Often when reading in a data set, the types will be inconsistent in a variable. 
 		      (col-type (column-type data)))
 
 		 ;; Assign type property to symbol-macro.
-		 (eval `(alexandria+:defprop ,(find-symbol (symbol-name key) (find-package (name df))  )
+		 (eval `(alexandria+:defprop ,(find-symbol (symbol-name key) (find-package (name df)))
 			    ,col-type :type))))
        (keys df)))
 

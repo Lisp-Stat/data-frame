@@ -399,7 +399,7 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
 
 (defun mask-rows (data-frame keys predicate)
   "Return a bit-vector containing the result of calling PREDICATE on rows of the columns corresponding to KEYS (0 for NIL, 1 otherwise)."
-  (map-rows data-frame keys (compose (lambda (flag)
+  (map-rows data-frame keys (compose (lambda (flag) ;translate nil/non-nil to 0 or 1
                                        (if flag 1 0))
                                      predicate)
             :element-type 'bit))

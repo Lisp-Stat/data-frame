@@ -1,10 +1,19 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
-;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
+
+;;; TODO Clean up & expand these tests, and at the same time convert to parachute
+
+;;; When we inherited these tests from Tamas Papp they seemed a
+;;; work-in-progress, and not up to his usual standard. They could
+;;; benefit from a good rework. This would be a good opportunity to
+;;; convert them to our 'standard' test framework, parachute.
+
 
 (defpackage #:data-frame-tests
   (:use
    #:cl
    #:alexandria
+   #:alexandria+
    #:anaphora
    #:clunit
    #:let-plus
@@ -250,6 +259,20 @@ destructive or non-destructive."
     (assert-equalp #(nil nil nil nil nil t nil) (missingp vec))))
 
 
+;;; plist-aops
+
+(defsuite plist-aops (data-frame))
+
+(deftest as-array (plist-aops)
+   (let ((arr #2A((1 4) (2 5) (3 6)))
+	 (pl '(:a #(1 2 3) :b #(4 5 6))))
+     (assert-equalp arr (nth-value 0 (aops:as-array pl)))))
+
+(deftest dims (plist-aops)
+   (let ((pl '(:a #(1 2 3) :b #(4 5 6))))
+     (assert-equalp '(3 2) (aops:dims pl))
+     (assert-equalp 3 (aops:nrow pl))
+     (assert-equalp 2 (aops:ncol pl))))
 
 
 #|

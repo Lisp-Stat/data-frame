@@ -181,7 +181,7 @@ The method returns a set of default formatting strings using heuristics."
 			       ("F" (format nil "~~~A@A" width))
 			       ("D" (format nil "~~~A@A" width))
 			       ("A" (format nil "~~~AA"  width))
-			       ("S" (format nil "~~~A@A"   width)))))
+			       ("S" (format nil "~~~A@A" width)))))
 
 	       (replace-column! df c #'(lambda (cell)
 					 (if (eq cell :na) ;should take same justification as column
