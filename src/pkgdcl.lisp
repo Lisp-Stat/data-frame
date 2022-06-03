@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:data-frame
   (:nicknames #:df)
@@ -14,7 +14,9 @@
   (:import-from #:nu #:as-alist)
   (:export
 
-    ;; error messages for ordered keys
+    ;; errors & conditions
+    #:*large-data*			;maximum data size for a particular use case
+    #:large-data
     #:duplicate-key
     #:key-not-found
 

@@ -1,11 +1,37 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2020 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 ;;; Note: tpapp never mentions the difference between a data-vector
 ;;; and a data-frame. As near as I can tell, a data-frame must have
 ;;; the same number of rows for each variable.
 
+(defparameter *large-data* most-positive-fixnum ;4611686018427387903
+  "An indication that the data set is large for a particular use case.
+This should be bound by a user to the maximum number of data points they consider to be 'normal'. The function can then signal a large-data warning if it is exceeded.
+
+E.g. (let ((df:*large-data* 50000))
+       (handler-bind ((large-data ...
+          (some-data-operation ; this will signal if the data is too large
+            (restart-bind ...")
+
+(define-condition large-data (warning)
+  ((data-size :initarg :data-size
+	      :reader   data-size))
+  (:report (lambda (condition stream)
+	     (format stream
+		     "You are attempting to embed a large number of data points (~D); the recommended maximum is ~D."
+		     (data-size condition) *large-data*)))
+  (:documentation "Warn user about potentially large data sets"))
+
+;; SBCL's condition system doesn't use standard-object, use :report in define-condition
+#+nil
+(defmethod print-object ((object large-data) stream)
+  (print-unreadable-object (object stream :type t :identity t)
+    (format stream "~@[L~A ~]"
+            (data-size object))))
+
+
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
 ;;; integers.  They are used internally and the corresponding interface is
 ;;; NOT EXPORTED.

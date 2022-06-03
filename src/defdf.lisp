@@ -14,13 +14,10 @@
 (defmacro defdf (df body &optional documentation)
   (when (and documentation (not (stringp documentation))) (error "Data frame documentation is not a string"))
   `(let* ((df-str (string ',df))
-	  (*package* (if (find-package df-str)    ;exists?
-			 (error "~S package exists and cannot use existing package for data frame name" df-str)    ;yes, raise error
-			 (make-package df-str :use '())))) ;no, make it
-     (unless (and *ask-on-redefine*
+	  (*package* (make-package df-str :use '())))
+     (unless (and *ask-on-redefine*	;TODO handle this with a condition
 		  (boundp ',df)
 		  (not (y-or-n-p "Data frame has a value. Redefine?")))
-       ;; (format t "in defdf, package is: ~A" *package*)
        (defparameter ,df ,body ,documentation)
        (eval '(setf (name ,df) (symbol-name ',df)))
        (eval '(define-column-names ',df *package*))
