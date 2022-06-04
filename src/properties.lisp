@@ -2,9 +2,6 @@
 ;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
-;;; TODO Check if the type property is already set and, if different
-;;; from the calculated type, offer the user a choice of whether to
-;;; proceed.
 (defun heuristicate-types (df)
   "Coerce each element of the column vectors to the most specific type in the column
 Often when reading in a data set, the types will be inconsistent in a variable.  For example one observation might be 5.1, and another 5.  Whilst mathmatically equivalent, we want our variable vectors to have identical types.  The COLUMN-TYPE function returns the most specific numeric type in the column, then coerces all the vector elements to this type"
@@ -18,6 +15,7 @@ Often when reading in a data set, the types will be inconsistent in a variable. 
 
 ;; This is here for the case of using '$' for a package separator.
 ;; Easier to switch to package format than rewriting summary functions
+#+nil
 (defun sym-mac (df var)
   "Return the symbol macro for VAR in the DATA-FRAME DF"
   (find-symbol (symbol-name var) (find-package (name df))))
@@ -78,9 +76,9 @@ Example:
 Standard properties are 'label', 'type' and 'unit'"
   (let* ((rows (loop for key across (keys df)
 		    collect (list (symbol-name key)
-				  (get (sym-mac df key) :type)
-				  (get (sym-mac df key) :unit)
-				  (get (sym-mac df key) :label)))))
+				  (get key :type)
+				  (get key :unit)
+				  (get key :label)))))
     (push '("--------" "----" "----" "-----------") rows)
     (push '("Variable" "Type" "Unit" "Label") rows)
     (print-table rows)))

@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2020-2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 ;;; Summary control variables
@@ -220,7 +220,7 @@ Useful for detecting row numbers in imported data"
 (defun get-summaries (df)
   "Return a list of summaries of the variables in DF"
   (loop for key across (keys df)
-	collect (summarize-column (sym-mac df key))))
+	collect (summarize-column key)))
 
 ;; TODO add :remove-missing parameter so we can summarize in the early stages of data exploration.
 ;; Perhaps, if set, have it use summarize-generic-variable
@@ -228,7 +228,7 @@ Useful for detecting row numbers in imported data"
   "Print a summary of DF to STREAM, using heuristics for better formatting"
   (if (slot-boundp df 'name)		;assume a cleansed/recoded data frame
       (loop for key across (keys df)
-	    for column = (sym-mac df key)
+	    for column = key
 	    for data   = (eval column)
 	    for length = (length data)
 
