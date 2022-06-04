@@ -65,7 +65,6 @@
   (format t ";;        *print-readably* = ~a~%" *print-readably*)
   (format t ";;    *print-right-margin* = ~a~%" *print-right-margin*))
 
-
 (defun 2d-array-to-list (array)
   "Convert an array to a list of lists" 		; make flet?
   (loop for i below (array-dimension array 0)
@@ -103,13 +102,13 @@
   "Return a format string for the most specific type found in sequence
 Use this for sequences of type T to determine how to format the column."
   (when (bit-vector-p sequence) (return-from column-type-format "D"))
-  ;; (let ((x (column-type sequence)))
   (case (column-type sequence)
-    (single-float "F")
-    (double-float "F")
-    (integer "D")
-    (bit "D")
-    (symbol "S")
+    (:single-float "F")
+    (:double-float "F")
+    (:integer "D")
+    (:bit "D")
+    (:symbol "S")
+    (:catagorical "A")
     (t "A")))
 
 (defun max-decimal (sequence &optional (max-digits nil))

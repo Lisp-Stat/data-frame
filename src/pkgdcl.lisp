@@ -21,6 +21,7 @@
     #:key-not-found
 
     ;; generic - both data-vector and data-frame
+    #:data-type
     #:columns
     #:map-columns
     #:column

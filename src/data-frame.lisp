@@ -24,12 +24,7 @@ E.g. (let ((df:*large-data* 50000))
 		     (data-size condition) *large-data*)))
   (:documentation "Warn user about potentially large data sets"))
 
-;; SBCL's condition system doesn't use standard-object, use :report in define-condition
-#+nil
-(defmethod print-object ((object large-data) stream)
-  (print-unreadable-object (object stream :type t :identity t)
-    (format stream "~@[L~A ~]"
-            (data-size object))))
+(deftype data-type () '(member :string :double-float :single-float :categorical :temporal :integer :bit))
 
 
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
