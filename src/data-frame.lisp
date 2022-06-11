@@ -15,6 +15,7 @@ E.g. (let ((df:*large-data* 50000))
           (some-data-operation ; this will signal if the data is too large
             (restart-bind ...")
 
+;;; TODO Rework the condition system to inherit from a data-error class
 (define-condition large-data (warning)
   ((data-size :initarg :data-size
 	      :reader   data-size))
@@ -95,7 +96,7 @@ TABLE maps keys to indexes, starting from zero."
     (mapc (curry #'add-key! it) keys)))
 
 (defun substitute-key! (df new old)
-  "Substitute NEW key, a SYMBOL, for OLD in a data-frame.
+  "Substitute NEW key, a SYMBOL, for OLD in a DATA-FRAME.
 
 Useful when reading data files that have an empty or generated column name.
 
@@ -135,7 +136,11 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
    (columns
     :initarg :columns
     :type vector)
-   (doc-string				;same as symbol doc-string, but available for functions (like print-object)
+   (source
+    :initarg :source
+    :accessor source
+    :documentation "The source of this data set.  This should be a STRING that we can use to create a URL or FILESPEC.")
+   (doc-string			;I'd like this to be 'documentation', but that conflicts with the CL version
     :initarg :nil
     :type string
     :accessor doc-string))
@@ -491,13 +496,16 @@ After defining this method it is permanently associated with data-frame objects"
       (format stream "~A" (doc-string df)))))
 
 (defmethod describe-object ((df data-frame) stream)
-  (format stream "~A~%" (if (slot-boundp df 'name)
-			    (name df)
-			    (symbol-name df)))
-  (when (slot-boundp df 'doc-string)
-    (format t "  ~A~%" (doc-string df)))
-  (format t "  A data-frame with ~D observations of ~D variables~2%" (aops:nrow df) (aops:ncol df))
-  (let ((rows (loop for key across (keys df)
+  (let+ (((&slots-r/o name (doc doc-string) source) df))
+    (format stream "~A: A data-frame with ~D observations of ~D variables~%"
+	    (if name
+		name
+		(symbol-name df))
+	    (aops:nrow df)
+	    (aops:ncol df))
+    (when doc (format t "  ~A~%" doc))
+    (when source (format t "  Source: ~A~2%" source)))
+    (let ((rows (loop for key across (keys df)
 		    collect (list (symbol-name key)
 				  (get key :type)
 				  (get key :unit)

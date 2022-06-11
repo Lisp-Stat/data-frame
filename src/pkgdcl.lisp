@@ -3,6 +3,7 @@
 
 (uiop:define-package #:data-frame
   (:nicknames #:df)
+  (:documentation "I really need to write this")
   (:use
     #:cl
     #:alexandria
@@ -42,7 +43,8 @@
 
     ;; data-frame
     #:data-frame
-    #:doc-string
+    #:doc-string			;same as CL:documentation, but for data-frames
+    #:source				;return the source of the data
     #:make-df
     #:alist-df
     #:plist-df
@@ -53,6 +55,7 @@
     #:undef
     #:define-column-names
     #:show-data-frames
+    #:*ask-on-redefine*
 
     ;; transformations for data-frames
     #:map-rows
