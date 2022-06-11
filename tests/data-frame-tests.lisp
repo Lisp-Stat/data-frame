@@ -1,19 +1,10 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
 ;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
-;;; TODO Clean up & expand these tests, and at the same time convert to parachute
-
-;;; When we inherited these tests from Tamas Papp they seemed a
-;;; work-in-progress, and not up to his usual standard. They could
-;;; benefit from a good rework. This would be a good opportunity to
-;;; convert them to our 'standard' test framework, parachute.
-
-
-(defpackage #:data-frame-tests
+(uiop:define-package #:data-frame-tests
   (:use
    #:cl
    #:alexandria
-   #:alexandria+
    #:anaphora
    #:clunit
    #:let-plus
@@ -52,18 +43,18 @@
     @body))
 
 (deftest data-frame-creation (data-frame-basics)
-  (let* ((plist `(:vector ,v :symbols ,s))
+  (let* ((plist `(:vector ,v :symbols ,s :bits ,b))
          (df (apply #'df plist))
          (df-plist (plist-df plist))
          (df-alist (alist-df (plist-alist plist))))
-    (assert-equalp #(:vector :symbols) (keys df))
-    (assert-equalp (vector v s) (columns df))
-    (assert-equalp (vector v s) (columns df t))
+    (assert-equalp #(:vector :symbols :bits) (keys df))
+    (assert-equalp (vector v s b) (columns df))
+    (assert-equalp (vector v s b) (columns df t))
     (assert-equalp (vector v) (columns df #(:vector)))
     (assert-equalp v (columns df :vector))
-    (assert-equalp v (columns df -2))
-    (assert-equalp `(:vector ,v :symbols ,s) (as-plist df))
-    (assert-equalp `((:vector . ,v) (:symbols . ,s)) (as-alist df))
+    (assert-equalp v (columns df -3))
+    (assert-equalp `(:vector ,v :symbols ,s :bits ,b) (as-plist df))
+    (assert-equalp `((:vector . ,v) (:symbols . ,s) (:bits . ,b)) (as-alist df))
     (assert-equalp (as-alist df) (as-alist df-plist))
     (assert-equalp (as-alist df) (as-alist df-alist))))
 
@@ -79,7 +70,11 @@
                                              #(:vector))))
     (assert-equalp #(2 4) (select df (mask-rows df :vector #'evenp) :vector))))
 
-(deftest data-frame-map (data-frame-basics)
+
+
+(defsuite data-frame-operations (data-frame))
+
+(deftest data-frame-map (data-frame-operations)
   (let+ ((df (df :a #(2 3 5)
                  :b #(7 11 13)))
          (product #(14 33 65))
@@ -120,24 +115,25 @@
 
   4. test that the second data frame is equivalent to the concatenated plist.
 
-This is a pretty comprehensive test of the add-column family of functions,
+This is a comprehensive test of the add-column family of functions,
 destructive or non-destructive."
-  (with-unique-names (df df2 plist12)
-    (once-only (plist1 plist2)
-      `(let* ((,df (plist-df ,plist1))
-              (,df2 (apply ,add-function ,df ,plist2))
-              (,plist12 (append ,plist1 ,plist2)))
-         (assert-equal (if ,append?
-                           ,plist12
-                           ,plist1)
-             (as-plist ,df))
-         (assert-equal ,plist12
-             (as-plist ,df2))))))
+    (with-unique-names (df df2 plist12)
+      (once-only (plist1 plist2)
+	`(let* ((,df (plist-df ,plist1))
+		(,df2 (apply ,add-function ,df ,plist2))
+		(,plist12 (append ,plist1 ,plist2)))
+           (assert-equal (if ,append?
+                             ,plist12
+                             ,plist1)
+               (as-plist ,df))
+           (assert-equal ,plist12
+               (as-plist ,df2))))))
 
 (deftest add-column (data-frame-add)
-    (test-add #'add-columns plist1 plist2 nil)
-    (test-add #'add-column! plist1 plist2 t)
-    (test-add #'add-columns! plist1 plist2 t))
+  (test-add #'add-columns plist1 plist2 nil)
+  (test-add #'add-column! plist1 plist2 t)
+  (test-add #'add-columns! plist1 plist2 t)
+  (assert-equalp '(:a #(1 2 3) :b #(4 5 6)) plist12)) ;this test is only here to quiet the compiler
 
 (deftest add-map (data-frame-add)
   (let* ((plist3 '(:c #(4 10 18)))
@@ -184,10 +180,9 @@ destructive or non-destructive."
     (assert-equalp expected-plist (as-plist df1))
     (assert-equalp plist (as-plist df))
     ;; modify destructively -- not implemented yet
-    ;; (replace-column! df :a #'1+)
-    ;; (assert-false (equalp plist (as-plist df)))
-    ;; (assert-equalp expected-plist (as-plist df))
-    ))
+    (replace-column! df :a #'1+)
+    (assert-false (equalp plist (as-plist df)))
+    (assert-equalp '(:a #(2 3 4) :b #(5 7 11) :c #(100 200 300)) (as-plist df))))
 
 
 (defsuite remove-duplicates (data-frame))
@@ -275,18 +270,29 @@ destructive or non-destructive."
      (assert-equalp 2 (aops:ncol pl))))
 
 
-#|
-TODO: Figure out how to test macros. I made a few trys, but since we
-are going to move away from cl-unit, I'm not going to spend any more time
-figuring this out.
 
-(defsuite defdf (data-frame))
+#| It is not going to be easy, if it's possible at all, to write unit
+tests for define-data-frame because of the way it modifies the lisp
+environment.  I have tried, but the interaction between the test
+framework, it's macros and define-data-frame is complex and I've not
+got a single test assertion working.
 
-(deftest defdf (defdf)
-  (let ((df1 (make-df  '('a 'b 'c)
-		       '(#(a a a)
-			 #(b b b)
-			 #(3 33 333)))))
-    (defdf df1)
-    (assert-equal-p df1:a #(a b 3))))
+(defsuite define-data-frame (data-frame))
+
+(deffixture define-data-frame (@body)
+  (let* ((v #(1 2 3 4))
+         (b #*0110)
+         (s #(a b c d)))
+    @body))
+
+(deftest define-data-frame (define-data-frame)
+  (let* ((plist `(:vector ,v :symbols ,s :bits ,b))
+         (df (apply #'df plist)))
+    ;;	 (new-df (data-frame::define-data-frame 'new-df df)))
+    (data-frame::define-data-frame 'new-df df)
+    (assert-true (boundp 'new-df))
+    ;"new-df" (slot-value new-df 'name))
+
+    )
+  )
 |#

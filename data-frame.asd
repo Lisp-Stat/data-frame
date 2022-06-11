@@ -4,7 +4,7 @@
 (defsystem "data-frame"
   :version      (:read-file-form "version.sexp")
   :description "Data frames for Common Lisp"
-  :long-description "A data manipulation package, conceptually similar to R's data.frame"
+  :long-description "A data manipulation library, conceptually similar to R's data.frame"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :source-control (:git "https://github.com/Lisp-Stat/data-frame.git")
@@ -15,7 +15,8 @@
                "array-operations"
                "num-utils"
                "select"
-               "let-plus")
+               "let-plus"
+               "duologue")
   :serial t
   :pathname "src/"
   :components ((:file "pkgdcl")
@@ -41,6 +42,7 @@
   :pathname "tests/"
   :components ((:file "data-frame-tests"))
   :perform (test-op (o s)
-		    (symbol-call :clunit :run-suite
-				 (find-symbol* :data-frame
-					       :data-frame-tests))))
+		    (let ((*print-pretty* t)) ;work around clunit issue #9
+		      (symbol-call :clunit :run-suite
+				   (find-symbol* :data-frame
+						 :data-frame-tests)))))
