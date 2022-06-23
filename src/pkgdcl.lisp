@@ -100,7 +100,7 @@
     #:generic-variable-summary
     #:*summary-minimum-length*		;columns are only summarised when longer than this
     #:*quantile-threshold*		;if the number of unique reals exceeds this threshold, they will be summarized with quantiles
-    #:*distinct-threshold*		;if an integer variable has <= discrete values, consider it a factor
-    #:*distinct-maximum*))              ;If a string/factor variable has > *distinct-maximum* values, exclude it
+    #:*distinct-threshold*		;if an integer variable has <= discrete values, consider it a categorical variable
+    #:*distinct-maximum*))              ;if a string/factor variable has > *distinct-maximum* values, exclude it
 
 

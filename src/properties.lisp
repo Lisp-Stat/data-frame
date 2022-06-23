@@ -13,19 +13,6 @@ Often when reading in a data set, the types will be inconsistent in a variable. 
 		 (setf (get sym :type) col-type)))
        (keys df)))
 
-;; This is here for the case of using '$' for a package separator.
-;; Easier to switch to package format than rewriting summary functions
-#+nil
-(defun sym-mac (df var)
-  "Return the symbol macro for VAR in the DATA-FRAME DF"
-  (find-symbol (symbol-name var) (find-package (name df))))
-
-#+nil
-(defun var-name (var)
-  "Return the name of the variable without the data-frame prefix
-Example: (var-name mtcars$mpg) returns 'mpg'"
-  (subseq var (1+ (search "$" var))))
-
 (defun set-properties (df property prop-values)
   "Set the PROPERTY of each variable in DF to a value.  The value is specified in the plist PROP-VALUES.
 Example:

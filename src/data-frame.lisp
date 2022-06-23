@@ -95,15 +95,6 @@ TABLE maps keys to indexes, starting from zero."
   (aprog1 (copy-ordered-keys ordered-keys)
     (mapc (curry #'add-key! it) keys)))
 
-(defun substitute-key! (df new old)
-  "Substitute NEW key, a SYMBOL, for OLD in a DATA-FRAME.
-
-Useful when reading data files that have an empty or generated column name.
-
-Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name"
-  (setf (slot-value df 'ordered-keys)
-	(ordered-keys (substitute new old (keys-vector (ordered-keys (keys df)))))))
-
 
 ;;;
 ;;; Implementation of SELECT for ORDERED-KEYS
@@ -144,9 +135,9 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
     :initarg :nil
     :type string
     :accessor doc-string))
-  (:documentation "This class is used for implementing both data-vector and data-matrix, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
+  (:documentation "This class is used for implementing both data-vector and data-frame, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
 
-(defmethod aops:element-type ((data data))
+(defmethod aops:element-type ((data data)) ;should this be doing something?
   t)
 
 (defun make-data (class keys columns)
@@ -194,6 +185,12 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
                       rest))            ; first element of an alist
             (t (error%)))))))
 
+
+;;; These two functions, alist-data & plist data can be used to create
+;;; DATA-VECTOR classes, that is a class works just like DATA-FRAME,
+;;; but permits unequal length variables.  To date, I haven't found
+;;; much (any) need for a DATA-VECTOR and haven't done any
+;;; improvements to that class.
 (defun alist-data (class alist)
   "Create an object of CLASS (subclass of DATA) from ALIST which contains key-column pairs."
   (assert alist () "Can't create an empty data frame.")
@@ -202,10 +199,6 @@ Example: (substitute-key *cars* :name :||) to replace an empty symbol with :name
 (defun plist-data (class plist)
   "Create an object of CLASS (subclass of DATA) from PLIST which contains keys and columns, interleaved."
   (alist-data class (plist-alist plist)))
-
-(defun guess-alist? (plist-or-alist)
-  "Test if the argument is an ALIST by checking its first element.  Used for deciding which creation function to call."
-  (consp (car plist-or-alist)))
 
 (defun keys (data)
   "Vector of keys."
@@ -299,7 +292,7 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
        (defun ,plist-fn (plist)
          (plist-data ',class plist))
        (defun ,abbreviation (&rest plist-or-alist)
-         (if (guess-alist? plist-or-alist)
+         (if (alistp plist-or-alist)
              (,alist-fn plist-or-alist)
              (,plist-fn plist-or-alist))))))
 
@@ -455,8 +448,8 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   (replace-column! (copy data) key function-or-column :element-type element-type))
 
 ;; We give this a df- prefix to avoid symbol clash with the CL
-;; version.  After adding df:delete-duplicates, shadow both in the
-;; package declaration.
+;; function (which, sadly, is not generic).  After adding
+;; df:delete-duplicates, shadow both in the package declaration.
 (defun df-remove-duplicates (data)
   "Return a modified copy of DATA from which any element (row, if a DATA-FRAME) that matches another element has been removed"
   (etypecase data
@@ -493,23 +486,27 @@ After defining this method it is permanently associated with data-frame objects"
 	    (aops:ncol df))
     (when (slot-boundp df 'doc-string)
       (fresh-line stream)
-      (format stream "~A" (doc-string df)))))
+      (format stream "~A" (subseq (doc-string df)
+				  0
+				  (position #\newline (doc-string df))))))) ;print a 'short' doc-string, up to the first newline
+;;      (format stream "~A" (doc-string df))))) ;print entire doc-string
 
 (defmethod describe-object ((df data-frame) stream)
   (let+ (((&slots-r/o name (doc doc-string) source) df))
-    (format stream "~A: A data-frame with ~D observations of ~D variables~%"
+    (format stream "~A~%  A data-frame with ~D observations of ~D variables~%"
 	    (if name
 		name
 		(symbol-name df))
 	    (aops:nrow df)
 	    (aops:ncol df))
-    (when doc (format t "  ~A~%" doc))
-    (when source (format t "  Source: ~A~2%" source)))
-    (let ((rows (loop for key across (keys df)
+    (when source (format t "  Source: ~A~%" source))
+    (when doc (format t "  Documentation: ~A~2%" doc)))
+  (let ((rows (loop for key across (keys df)
+		    for sym = (find-symbol (symbol-name key) (find-package (name df)))
 		    collect (list (symbol-name key)
-				  (get key :type)
-				  (get key :unit)
-				  (get key :label)))))
+				  (get sym :type)
+				  (get sym :unit)
+				  (get sym :label)))))
     (push '("--------" "----" "----" "-----------") rows)
     (push '("Variable" "Type" "Unit" "Label") rows)
     (print-table rows)))
