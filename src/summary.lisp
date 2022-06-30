@@ -144,7 +144,6 @@ Useful for detecting row numbers in imported data"
             #(0 1/4 1/2 3/4 1))))
 
     (make-real-variable-summary
-     ;; :name (df::var-name (symbol-name column)) ; for df$variable style
      :name (symbol-name column)
      :desc (get column :label)
      :length (length data)
@@ -202,11 +201,12 @@ Useful for detecting row numbers in imported data"
     (case (get column :type)
 
       ;; Implementation types
-      (double-float (summarize-real-variable column))
-      (single-float (summarize-real-variable column))
-      (integer      (summarize-real-variable column))
-      (string       (summarize-factor-variable column))
-      (bit (make-bit-variable-summary
+      (:double-float (summarize-real-variable column))
+      (:single-float (summarize-real-variable column))
+      (:integer      (summarize-real-variable column))
+      (:string       (summarize-factor-variable column)) ;we really should remove this at some point.
+      (:catagorical  (summarize-factor-variable column))
+      (:bit (make-bit-variable-summary
 	    ;; :name (df::var-name (symbol-name column)) ; for df$variable style
 	    :name (symbol-name column)
 	    :desc (get column :label)
@@ -222,31 +222,37 @@ Useful for detecting row numbers in imported data"
   (loop for key across (keys df)
 	collect (summarize-column key)))
 
+(defmacro summary (df &optional (stream *standard-output*))
+  `(summarize-dataframe ',df ,stream))
+
 ;; TODO add :remove-missing parameter so we can summarize in the early stages of data exploration.
 ;; Perhaps, if set, have it use summarize-generic-variable
-(defmethod summary ((df data-frame) &optional (stream *standard-output*))
+(defun summarize-dataframe (data-frame &optional (stream *standard-output*))
   "Print a summary of DF to STREAM, using heuristics for better formatting"
-  (if (slot-boundp df 'name)		;assume a cleansed/recoded data frame
+  (let ((df (symbol-value data-frame))
+	(pkg (find-package (symbol-name data-frame))))
+    (if pkg
       (loop for key across (keys df)
-	    for column = key
-	    for data   = (eval column)
+	    for column = (find-symbol (string-upcase (symbol-name key)) pkg)
+	    for data   = (column df key)
 	    for length = (length data)
 
 	    unless (or (= (length data)
 			  (distinct data))	;exclude row names
 		       (monotonicp data))	;exclude row numbers
 	      collect (case (get column :type)	;special cases
-			(double-float (if (< (distinct data) *quantile-threshold*) ;summarise as a factor
+			(:double-float (if (< (distinct data) *quantile-threshold*) ;summarise as a factor
 					  (summarize-factor-variable column)
 					  (summarize-real-variable column)))
-			(single-float (if (< (distinct data) *quantile-threshold*) ;summarise as a factor
+			(:single-float (if (< (distinct data) *quantile-threshold*) ;summarise as a factor
 					  (summarize-factor-variable column)
 					  (summarize-real-variable column)))
-			(integer (if (< (distinct data) *distinct-threshold*) ;summarise as a factor
+			(:integer (if (< (distinct data) *distinct-threshold*) ;summarise as a factor
 				     (summarize-factor-variable column)
 				     (summarize-real-variable column)))
 			(t (summarize-column column))))
-      (loop for key across (keys df)	;raw data frame, use generic summary functions
+
+      (loop for key across (keys df)	;no data-frame environment, use generic summary functions
 	    for data = (column df key)
 	    unless (or (= (length data)
 			  (distinct data))	;exclude row names
@@ -254,5 +260,5 @@ Useful for detecting row numbers in imported data"
 		       (and (< *distinct-maximum* ;exclude row names with a few repeats
 			       (distinct data))
 			    (equal 'string (column-type (column df key)))))
-		   do (format stream "~%~A: ~A" key (summarize-generic-variable data)))))
+		   do (format stream "~%~A: ~A" key (summarize-generic-variable data))))))
 
