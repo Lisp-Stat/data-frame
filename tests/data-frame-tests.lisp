@@ -13,7 +13,7 @@
   (:import-from #:nu #:as-alist #:as-plist)
   (:export #:run))
 
-(cl:in-package :data-frame-tests)
+(in-package :data-frame-tests)
 
 (defsuite data-frame ())
 
@@ -34,6 +34,7 @@
       (assert-equalp '(:a 2 :b 3 :c 4) (as-plist dv2))
       (assert-true (typep dv2 'data-vector)))))
 
+
 (defsuite data-frame-basics (data-frame))
 
 (deffixture data-frame-basics (@body)
@@ -71,7 +72,7 @@
     (assert-equalp #(2 4) (select df (mask-rows df :vector #'evenp) :vector))))
 
 
-
+
 (defsuite data-frame-operations (data-frame))
 
 (deftest data-frame-map (data-frame-operations)
@@ -94,7 +95,16 @@
     (assert-equalp (count 1 mask)
         (count-rows df '(:a :b) #'predicate))))
 
+(deftest rename! (data-frame-operations)
+  (let+ ((df (df :a #(2 3 5)
+                 :b #(7 11 13))))
+    (assert-equalp #(:a :b) (keys df))
+    (rename-column! df :c :a)
+    (assert-equalp #(:c :b) (keys df) "Rename failed")))
 
+
+
+
 (defsuite data-frame-add (data-frame))
 
 (deffixture data-frame-add (@body)
@@ -149,6 +159,7 @@ destructive or non-destructive."
       (assert-equalp plist123 (as-plist df))
       (assert-equalp plist123 (as-plist df2)))))
 
+
 ;;; replace-column
 
 (defsuite replace-column (data-frame))
@@ -179,7 +190,16 @@ destructive or non-destructive."
          (expected-plist '(:c #(100 200 300))))
     (assert-equalp expected-plist (as-plist df1))
     (assert-equalp plist (as-plist df))
-    ;; modify destructively -- not implemented yet
+
+    (remove-column! df :a)
+    (assert-false (equalp plist (as-plist df)))
+    (assert-equalp '(:b #(5 7 11) :c #(100 200 300)) (as-plist df))))
+
+
+(defsuite replace-columns (data-frame))
+(deftest replace-columns1 (remove-columns)
+  (let* ((plist '(:a #(1 2 3) :b #(5 7 11) :c #(100 200 300)))
+         (df (plist-df plist)))
     (replace-column! df :a #'1+)
     (assert-false (equalp plist (as-plist df)))
     (assert-equalp '(:a #(2 3 4) :b #(5 7 11) :c #(100 200 300)) (as-plist df))))
@@ -197,7 +217,7 @@ destructive or non-destructive."
 
 (defsuite pretty-print (data-frame))
 
-(deftest pprint-df (pretty-print)
+(deftest print-df (pretty-print)
   (let* ((df1 (make-df  '(:a :b :c)
 			'(#(a a a)
 			  #(b b b)
@@ -212,10 +232,10 @@ destructive or non-destructive."
 	 (actual-string (make-array '(0) :element-type 'base-char :fill-pointer 0 :adjustable t)))
 
     (with-output-to-string (s actual-string)
-      (pprint-data-frame df1 s))
+      (print-data df1 s))
     (assert-true (string= expected-string actual-string))))
 
-(deftest pprint-array (pretty-print)
+(deftest print-array (pretty-print)
   (let* ((array1 #2A(#(a a a)
 		     #(b b b)
 		     #(3 33 333)))
@@ -227,10 +247,10 @@ destructive or non-destructive."
 	 (actual-string (make-array '(0) :element-type 'base-char :fill-pointer 0 :adjustable t)))
 
     (with-output-to-string (s actual-string)
-      (pprint-array array1 s))
+      (print-array array1 s))
     (assert-true (string= expected-string actual-string))))
 
-
+
 (defsuite missing (data-frame))
 
 (deftest d-frame (missing)
@@ -253,7 +273,14 @@ destructive or non-destructive."
   (let ((vec #(0 1 2 3 4 :na 6)))
     (assert-equalp #(nil nil nil nil nil t nil) (missingp vec))))
 
+(deftest ignore-missing (missing)
+  (let ((vec #(0 1 2 3 4 :na 6)))
+    (assert-true (nu:num= (funcall (ignore-missing #'mean) vec)
+			  2.6666667
+			  nu:*num=-tolerance*))))
 
+
+
 ;;; plist-aops
 
 (defsuite plist-aops (data-frame))
@@ -269,14 +296,8 @@ destructive or non-destructive."
      (assert-equalp 3 (aops:nrow pl))
      (assert-equalp 2 (aops:ncol pl))))
 
-
-
-#| It is not going to be easy, if it's possible at all, to write unit
-tests for define-data-frame because of the way it modifies the lisp
-environment.  I have tried, but the interaction between the test
-framework, it's macros and define-data-frame is complex and I've not
-got a single test assertion working.
-
+
+;;; Data frame environment
 (defsuite define-data-frame (data-frame))
 
 (deffixture define-data-frame (@body)
@@ -286,13 +307,25 @@ got a single test assertion working.
     @body))
 
 (deftest define-data-frame (define-data-frame)
-  (let* ((plist `(:vector ,v :symbols ,s :bits ,b))
+  (let* ((plist `(vector ,v symbols ,s bits ,b))
          (df (apply #'df plist)))
-    ;;	 (new-df (data-frame::define-data-frame 'new-df df)))
-    (data-frame::define-data-frame 'new-df df)
-    (assert-true (boundp 'new-df))
-    ;"new-df" (slot-value new-df 'name))
 
-    )
-  )
-|#
+    ;; Define an environment
+    (df::defdf new-df df)
+    (assert-true (boundp 'new-df) "The data frame was not bound")
+    (assert-equalp (type-of (symbol-value 'new-df)) 'data-frame "new-df is not bound to a data-frame")
+
+    ;; Ensure variables, package and macros were created
+    (assert-true (find-package "NEW-DF") "Data frame package not found")
+    (assert-equalp #(1 2 3 4) (eval (find-symbol "VECTOR"  (find-package "NEW-DF"))))
+    (assert-equalp #*0110     (eval (find-symbol "BITS"    (find-package "NEW-DF"))))
+    (assert-equalp #(a b c d) (eval (find-symbol "SYMBOLS" (find-package "NEW-DF"))))
+
+    ;; ;; Remove symbol and package
+    (let ((*package* (find-package "DATA-FRAME-TESTS"))) ;this is normally run from the REPL, and undef assumes (eq *package* REPL package)
+      (df::undef data-frame-tests::new-df))
+
+    (assert-false (boundp (find-symbol "NEW-DF" (find-package "DATA-FRAME-TESTS"))) "The data frame was not removed")
+    (assert-false (find-package "NEW-DF"))))
+
+

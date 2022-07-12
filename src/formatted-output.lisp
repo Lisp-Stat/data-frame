@@ -8,6 +8,9 @@
 ;;; used anywhere, i.e. Genera and other CL implementations. They are
 ;;; all prefaced by DF- to distinguish them from presentation functions.
 
+;;; This example looks like it would map onto data frames easily:
+;;; https://stackoverflow.com/questions/26894147/pretty-print-values-in-fixed-width-fields
+
 ;;; Table printing
 ;;; Taken from: https://github.com/vindarel/print-licenses/blob/master/print-licenses.lisp
 (defun aesthetic-string (thing)
@@ -22,7 +25,7 @@
 ;;; TODO: Make print-table take a vector-of-vectors instead of a list-of-lists
 ;;; This way we could simply pass in (rows df) for processing
 (defun print-table (rows &optional (stream *standard-output*))
-  "Print `rows` as a nicely-formatted table.
+  "Print ROWS as a nicely-formatted table.
   Each row should have the same number of colums.
   Columns will be justified properly to fit the longest item in each one.
   Example:
@@ -55,15 +58,12 @@
 ;;; See https://github.com/Lisp-Stat/data-frame/issues/4
 
 
-
-
-
 
 ;;;
 ;;; Markdown
 ;;;
 
-(defun pprint-markdown (df &key (stream *standard-output*) (row-numbers nil))
+(defun print-markdown (df &key (stream *standard-output*) (row-numbers nil))
   "Print data frame DF, in markdown format, to STREAM
 If ROW-NUMBERS is true, also print row numbers as the first column"
   (let* ((array      (aops:as-array df))

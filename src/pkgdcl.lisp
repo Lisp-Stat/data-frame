@@ -3,7 +3,6 @@
 
 (uiop:define-package #:data-frame
   (:nicknames #:df)
-  (:documentation "I really need to write this")
   (:use
     #:cl
     #:alexandria
@@ -53,9 +52,9 @@
     #:rows
     #:defdf
     #:undef
-    #:define-column-names
+    #:defdf-env				;define package/symbol macros for environment
     #:show-data-frames
-    #:*ask-on-redefine*
+    #:*ask-on-redefine*			;if non-nil, ask user if a data frame will be overwritten
 
     ;; transformations for data-frames
     #:map-rows
@@ -65,30 +64,44 @@
     #:map-df
     #:replace-column!
     #:replace-column
+    #:remove-column!
     #:remove-columns
-    #:substitute-key!
+    #:rename-column!
     #:replace-key!
+    #:df-remove-duplicates
+
+    ;; missing values
     #:missingp
     #:drop-missing
     #:replace-missing
-    #:df-remove-duplicates
+    #:ignore-missing
 
     ;; Pretty printing
-    #:pprint-data-frame
-    #:pprint-markdown
-    #:pprint-array
+    #:print-data
+    #:print-markdown
+    #:print-array
     #:head
     #:tail
+    #:short-string			;shorten a long doc-string by returning up to the first newline
 
     ;; Data properties
     #:heuristicate-types
     #:set-properties
+    #:get-property
+    #:set-property
 
     ;; Formatted output
     #:df-print
     #:df-summary
     #:name
     #:doc-string
+
+    ;; Sequence utilities -- these should be in array-operations
+    #:delete-nth			;delete the nth item from a sequence
+    #:delete-nth*			;modify macro for delete-nth
+
+    ;; Subsets of data
+    #:filter-rows
 
     ;; Summary methods
     #:summary				;summarize a data frame

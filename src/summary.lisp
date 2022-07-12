@@ -18,7 +18,7 @@
 
 
 (defstruct variable-summary%
-  "Base class for summarizing variables.  Not exported."
+  "Base class for summarizing variables.  Summary functions take SYMBOLs, rather than values, because the symbol property lists naming the variables have meta-data, e.g. type, label, that we want to print.  Not exported."
   (length  0 :type array-index :read-only t)
   (missing 0 :type fixnum      :read-only t)
   (name   "" :type string      :read-only t)
@@ -98,7 +98,7 @@
     (length column)))
 
 (defun print-count-and-percentage (stream count length)
-  "Print COUNT as is and also as a rounded percentage of "
+  "Print COUNT as is and also as a rounded percentage"
   (format stream "~D (~D%)" count (round (/ count length) 1/100)))
 
 (defun ensure-not-ratio (real)
@@ -109,7 +109,7 @@
 
 ;;; TODO figure out where distinct and monotonic should reside. Probably num-utils.
 (defun distinct (column)
-  "Returns the number of distinct elements in COLUMN
+  "Returns the number of distinct elements in COLUMN, a symbol naming a variable.
 Useful for formatting columns for human output"
   (let+ ((data (eval column))
 	 (table (aprog1 (nu:make-sparse-counter :test #'equal)
@@ -118,7 +118,7 @@ Useful for formatting columns for human output"
     (length alist)))
 
 (defun monotonicp (column)
-  "Returns t if all elements of COLUMN are increasing monotonically
+  "Returns t if all elements of COLUMN, a SYMBOL, are increasing monotonically
 Useful for detecting row numbers in imported data"
   (let ((data (eval column)))
     (if (not (every #'numberp data))
@@ -141,14 +141,17 @@ Useful for detecting row numbers in imported data"
 	   (nu:weighted-quantiles
             (mapcar #'car reals-alist)
             (mapcar #'cdr reals-alist)
-            #(0 1/4 1/2 3/4 1))))
+            #(0 1/4 1/2 3/4 1)))
+	 (mean-ignore-missing (ignore-missing #'mean :warn-user t)))
 
     (make-real-variable-summary
      :name (symbol-name column)
-     :desc (get column :label)
+     :desc (if (get column :label)
+	       (get column :label)
+	       "")
      :length (length data)
      :missing (length (which data :predicate #'missingp))
-     :min min :q25 q25 :q50 q50 :mean (mean data) :q75 q75 :max max)))
+     :min min :q25 q25 :q50 q50 :mean (funcall mean-ignore-missing data) :q75 q75 :max max)))
 
 (defun summarize-factor-variable (column)
   "Return an alist of factor/count pairs"
@@ -165,9 +168,10 @@ Useful for detecting row numbers in imported data"
      :missing (length (which data :predicate #'missingp))
      :element-count-alist (stable-sort alist #'>= :key #'cdr))))
 
-(defun summarize-generic-variable (column)
+(defun summarize-generic-variable (column &optional name)
   "Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing, not analysis, returned values should print nicely.  This function can be used on any type of column, even one with mixed types"
   (let+ ((data (eval column))
+	 ;; (data column)
 	 (length (length data))
          (table (aprog1 (nu:make-sparse-counter :test #'equal)
                   (map nil (curry #'nu:add it) data)))
@@ -189,15 +193,18 @@ Useful for detecting row numbers in imported data"
                                  (copy-list alist))
                              #'>= :key #'cdr)))
     (make-generic-variable-summary :length length
-				   :name (symbol-name column)
+				   :name (if name
+					     name
+					     "")
                                    :quantiles quantiles
                                    :element-count-alist alist)))
 
 
 
-(defun summarize-column (column)
+(defun summarize-column (column &optional name)
   "Return a summary struct for COLUMN"
-  (let ((data (eval column)))		;We don't need eval any longer, but it doesn't hurt, except possibly security.
+  (let ((data (eval column))
+	(label (get column :label)))
     (case (get column :type)
 
       ;; Implementation types
@@ -207,11 +214,14 @@ Useful for detecting row numbers in imported data"
       (:string       (summarize-factor-variable column)) ;we really should remove this at some point.
       (:catagorical  (summarize-factor-variable column))
       (:bit (make-bit-variable-summary
-	    ;; :name (df::var-name (symbol-name column)) ; for df$variable style
-	    :name (symbol-name column)
-	    :desc (get column :label)
-	    :length (length data)
-	    :count (count 1 data)))
+	     :name (if name
+		       name
+		       (symbol-name column))
+	     :desc (if label
+		       label
+		       "")
+	     :length (length data)
+	     :count (count 1 data)))
 
       ;; Statistical types, note keyword in case key
       (:factor (summarize-factor-variable column))
@@ -222,15 +232,16 @@ Useful for detecting row numbers in imported data"
   (loop for key across (keys df)
 	collect (summarize-column key)))
 
+#+nil
 (defmacro summary (df &optional (stream *standard-output*))
-  `(summarize-dataframe ',df ,stream))
+  `(summarize-dataframe ,df ,stream))
 
 ;; TODO add :remove-missing parameter so we can summarize in the early stages of data exploration.
 ;; Perhaps, if set, have it use summarize-generic-variable
-(defun summarize-dataframe (data-frame &optional (stream *standard-output*))
+(defun summary (df &optional (stream *standard-output*))
   "Print a summary of DF to STREAM, using heuristics for better formatting"
-  (let ((df (symbol-value data-frame))
-	(pkg (find-package (symbol-name data-frame))))
+  (let* ((name (when (slot-boundp df 'name) (name df)))
+	 (pkg (find-package name)))
     (if pkg
       (loop for key across (keys df)
 	    for column = (find-symbol (string-upcase (symbol-name key)) pkg)
@@ -259,6 +270,6 @@ Useful for detecting row numbers in imported data"
 		       (monotonicp data)	;exclude row numbers
 		       (and (< *distinct-maximum* ;exclude row names with a few repeats
 			       (distinct data))
-			    (equal 'string (column-type (column df key)))))
-		   do (format stream "~%~A: ~A" key (summarize-generic-variable data))))))
+			    (equal :string (column-type (column df key)))))
+	      do (format stream "~%~A: ~A" key (summarize-generic-variable data))))))
 

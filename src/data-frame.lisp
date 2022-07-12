@@ -15,17 +15,9 @@ E.g. (let ((df:*large-data* 50000))
           (some-data-operation ; this will signal if the data is too large
             (restart-bind ...")
 
-;;; TODO Rework the condition system to inherit from a data-error class
-(define-condition large-data (warning)
-  ((data-size :initarg :data-size
-	      :reader   data-size))
-  (:report (lambda (condition stream)
-	     (format stream
-		     "You are attempting to embed a large number of data points (~D); the recommended maximum is ~D."
-		     (data-size condition) *large-data*)))
-  (:documentation "Warn user about potentially large data sets"))
-
-(deftype data-type () '(member :string :double-float :single-float :categorical :temporal :integer :bit))
+(deftype data-type ()
+  "A statistical type for a data variable.  All data columns must be one of these types if they are to be intepreted properly by Lisp-Stat"
+  '(member :string :double-float :single-float :categorical :temporal :integer :bit))
 
 
 ;;; Ordered keys provide a mapping from column keys (symbols) to nonnegative
@@ -33,25 +25,13 @@ E.g. (let ((df:*large-data* 50000))
 ;;; NOT EXPORTED.
 
 (defstruct (ordered-keys (:copier nil))
-  "Representation of ordered keys.
+  "Representation of ordered keys
+Ordered keys provide a mapping from column keys (symbols) to nonnegative
+integers.  They are used internally and the corresponding interface is
+NOT EXPORTED.
 
 TABLE maps keys to indexes, starting from zero."
   (table (make-hash-table :test #'eq) :type hash-table :read-only t))
-
-(define-condition duplicate-key (error)
-  ((key :initarg :key))
-  (:documentation "Duplicate key.")
-  (:report (lambda (condition stream)
-             (format stream "Duplicate key ~A." (slot-value condition 'key)))))
-
-(define-condition key-not-found (error)
-  ((key :initarg :key)
-   (keys :initarg :keys))
-  (:documentation "Key not found.")
-  (:report (lambda (condition stream)
-             (format stream "Key ~A not found, valid keys are ~A."
-                     (slot-value condition 'key)
-                     (slot-value condition 'keys)))))
 
 (defun keys-count (ordered-keys)
   "Number of keys."
@@ -66,8 +46,7 @@ TABLE maps keys to indexes, starting from zero."
 
 (defun key-index (ordered-keys key)
   "Return the index for KEY."
-  (let+ (((&values index present?)
-          (gethash key (ordered-keys-table ordered-keys))))
+  (let+ (((&values index present?) (gethash key (ordered-keys-table ordered-keys))))
     (unless present?
       (error 'key-not-found :key key :keys (keys-vector ordered-keys)))
     index))
@@ -88,13 +67,30 @@ TABLE maps keys to indexes, starting from zero."
     (map nil (curry #'add-key! it) keys)))
 
 (defun copy-ordered-keys (ordered-keys)
+  "Return a copy of ORDERED-KEYS"
   (let+ (((&structure ordered-keys- table) ordered-keys))
     (make-ordered-keys :table (copy-hash-table table))))
 
 (defun add-keys (ordered-keys &rest keys)
+  "Add KEYS to ORDERED-KEYS"
   (aprog1 (copy-ordered-keys ordered-keys)
     (mapc (curry #'add-key! it) keys)))
 
+(defun remove-key! (ordered-keys key)
+  "Modify ORDERED-KEYS by removing KEY."
+  (check-type key symbol)
+  (let+ (((&structure ordered-keys- table) ordered-keys)
+         ((&values &ign present?) (gethash key table))
+	 (kv))
+    (unless present?
+      (error 'key-not-found :key key))
+
+    (remhash key table)
+    (setf kv (remove key (keys-vector ordered-keys)))
+    (loop for key across kv
+	  for i = 0 then (1+ i)
+	  do (setf (gethash key table) i)))
+  ordered-keys)
 
 ;;;
 ;;; Implementation of SELECT for ORDERED-KEYS
@@ -120,19 +116,18 @@ TABLE maps keys to indexes, starting from zero."
   ((name				;same as the symbol-name
     :initarg nil
     :type string
-    :accessor name)
+    :accessor name
+    :documentation "The name of the data frame.  MUST be the same as the symbol whose value cell points to this data frame.  This slot essentially allows us to go 'backwards' and get the symbol that names the data frame.")
    (ordered-keys
     :initarg :ordered-keys
     :type ordered-keys)
    (columns
     :initarg :columns
     :type vector)
-   (source
-    :initarg :source
-    :accessor source
-    :documentation "The source of this data set.  This should be a STRING that we can use to create a URL or FILESPEC.")
+   #+nil
    (doc-string			;I'd like this to be 'documentation', but that conflicts with the CL version
-    :initarg :nil
+    :initarg :doc-string
+    :initform ""
     :type string
     :accessor doc-string))
   (:documentation "This class is used for implementing both data-vector and data-frame, and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported."))
@@ -186,7 +181,7 @@ TABLE maps keys to indexes, starting from zero."
             (t (error%)))))))
 
 
-;;; These two functions, alist-data & plist data can be used to create
+;;; These two functions, alist-data & plist-data can be used to create
 ;;; DATA-VECTOR classes, that is a class works just like DATA-FRAME,
 ;;; but permits unequal length variables.  To date, I haven't found
 ;;; much (any) need for a DATA-VECTOR and haven't done any
@@ -201,7 +196,7 @@ TABLE maps keys to indexes, starting from zero."
   (alist-data class (plist-alist plist)))
 
 (defun keys (data)
-  "Vector of keys."
+  "Return a vector of keys."
   (check-type data data)
   (copy-seq (keys-vector (slot-value data 'ordered-keys))))
 
@@ -210,12 +205,13 @@ TABLE maps keys to indexes, starting from zero."
   (map 'list #'cons (keys data) (columns data)))
 
 (defun copy (data &key (key #'identity))
-  "Copy data frame or vector.  Keys are copied (and thus can be modified), columns or elements are copyied using KEY, making the default give a shallow copy."
+  "Copy data frame or vector.  Keys are copied (and thus can be modified), columns or elements are copied using KEY, making the default give a shallow copy."
   (check-type data data)
-  (let+ (((&slots-r/o ordered-keys columns) data))
-    (make-data (class-of data)
-               (copy-ordered-keys ordered-keys)
-               (map 'vector key columns))))
+  (let+ (((&slots-r/o ordered-keys columns) data)
+	 (new-data (make-data (class-of data)
+			      (copy-ordered-keys ordered-keys)
+			      (map 'vector key columns))))
+    new-data))
 
 (defun column (data key)
   "Return column corresponding to key."
@@ -249,31 +245,86 @@ TABLE maps keys to indexes, starting from zero."
   "Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys."
   (make-data result-class (keys data) (map 'vector function (columns data))))
 
-(defun add-column! (data key column)
+
+(defun df-env-p (df)
+  "Returns T if there is environment set-up for the data frame, or NIL if there isn't one."
+  (if (and (slot-boundp df 'name)
+	   (find-package (string-upcase (slot-value df 'name))))
+      t
+      nil))
+
+
+(defun add-column! (data key column &optional update-env)
   "Modify DATA (a data-frame or data-vector) by adding COLUMN with KEY.  Return DATA."
   (check-column-compatibility data column)
   (let+ (((&slots ordered-keys columns) data))
     (add-key! ordered-keys key)
     (vector-push-extend column columns))
+  (when (and (df-env-p data)
+	     update-env)
+    (defdf-env (find-symbol (string-upcase (name data))) nil))
   data)
 
 (defun add-columns! (data &rest keys-and-columns)
-  "Modify DATA (a data-frame or data-vector) by adding columns with keys (see README about accepted argument formats)."
+  "Modify DATA (a data-frame or data-vector) by adding columns with keys.
+If a data-frame environment exists, add columns to it as well."
   (mapc (lambda+ ((key . column))
-          (add-column! data key column))
+          (add-column! data key column t))
         (ensure-arguments-alist keys-and-columns))
   data)
 
 (defun add-columns (data &rest keys-and-columns)
-  "Return a new data-frame or data-vector with keys and columns added.  Does not modify DATA (see README about accepted argument formats)."
+  "Return a new data-frame or data-vector with keys and columns added.  Does not modify DATA."
   (aprog1 (copy data)
     (apply #'add-columns! it keys-and-columns)))
 
+
 (defun remove-columns (data keys)
-  "ARGS: DATA data frame
-         KEYS list of keys (variables) to be removed
-Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA."
+  "Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA.
+ARGS: DATA data frame
+      KEYS list of keys (variables) to be removed"
   (select data t (reverse (set-difference (coerce (keys data) 'list) keys))))
+
+(defun remove-column! (data key)
+  "Modify DATA (a data-frame or data-vector) by removing COLUMN with KEY.  Return DATA."
+  (check-type key symbol)
+  (let+ (((&slots ordered-keys columns) data)
+	 (index (key-index ordered-keys key)))
+    (remove-key! ordered-keys key)
+    (delete-nth* columns index))
+  (when (df-env-p data)
+    (defdf-env (find-symbol (string-upcase (name data))) '(key)))
+  data)
+
+;;; TODO document me!
+(defun remove-columns! (data &rest keys)
+  "Modify DATA (a data-frame or data-vector) by removing columns with keys.
+If a data-frame environment exists, add columns to it as well."
+  (mapc (lambda (key)
+          (remove-column! data key))
+	(car keys))
+  data)
+
+
+
+;;; TODO take a plist for new & old and process it so we can rename
+;;; multiple variables in one function call.  See ensure-arguments-alist.
+(defmethod rename-column! (data new old) ;generic so will work on data-frame subclasses
+  "Substitute NEW, a SYMBOL, for OLD in DF
+
+Useful when reading data files that have an empty or generated column name.
+
+Example: (rename-column! cars 'name :||) will replace an empty symbol with 'name"
+  (let+ ((old-keys (coerce (keys data) 'list))
+         (present? (member old old-keys)))
+    (unless present?
+      (error 'key-not-found :key old))
+    (setf (slot-value data 'ordered-keys) (ordered-keys (substitute new old (keys data))))
+    (when (df-env-p data)
+      (defdf-env (find-symbol (string-upcase (name data))) old-keys))
+    data))
+
+
 
 (defmacro define-data-subclass (class abbreviation)
   (check-type class symbol)
@@ -345,6 +396,7 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   (let+ ((columns (aops:split (nu:transpose matrix) 1)))
     (assert (length= columns keys))
     (alist-df (map 'list #'cons keys columns))))
+
 
 ;;; implementation of SELECT for DATA-FRAME
 
@@ -365,6 +417,7 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
               (make-df keys columns))))))
 
 ;;; TODO: (setf selection)
+
 
 ;;; mapping rows and adding columns
 
@@ -480,33 +533,52 @@ Return a new data-frame or data-vector with keys and columns removed.  Does not 
   "Print DATA-FRAME dimensions and type
 After defining this method it is permanently associated with data-frame objects"
   (print-unreadable-object (df stream :type t)
-    (when (slot-boundp df 'name) (format stream "~A " (name df)))
-    (format stream "(~d observations of ~d variables)"
+    (let ((description (and (slot-boundp df 'name)
+			    (documentation (find-symbol (name df)) 'variable))))
+    (format stream
+	    "(~d observations of ~d variables)"
 	    (aops:nrow df)
 	    (aops:ncol df))
-    (when (slot-boundp df 'doc-string)
-      (fresh-line stream)
-      (format stream "~A" (subseq (doc-string df)
-				  0
-				  (position #\newline (doc-string df))))))) ;print a 'short' doc-string, up to the first newline
-;;      (format stream "~A" (doc-string df))))) ;print entire doc-string
+    (when description
+      (format stream "~&~A" (short-string description))))))
 
 (defmethod describe-object ((df data-frame) stream)
-  (let+ (((&slots-r/o name (doc doc-string) source) df))
-    (format stream "~A~%  A data-frame with ~D observations of ~D variables~%"
-	    (if name
-		name
-		(symbol-name df))
-	    (aops:nrow df)
-	    (aops:ncol df))
-    (when source (format t "  Source: ~A~%" source))
-    (when doc (format t "  Documentation: ~A~2%" doc)))
-  (let ((rows (loop for key across (keys df)
-		    for sym = (find-symbol (symbol-name key) (find-package (name df)))
-		    collect (list (symbol-name key)
-				  (get sym :type)
-				  (get sym :unit)
-				  (get sym :label)))))
-    (push '("--------" "----" "----" "-----------") rows)
-    (push '("Variable" "Type" "Unit" "Label") rows)
-    (print-table rows)))
+  (let ((name (when (slot-boundp df 'name) (name df))))
+    (format stream "~A~%" name)
+    (format t "  A data-frame with ~D observations of ~D variables~2%" (aops:nrow df) (aops:ncol df))
+    (when name
+      (let ((rows (loop for key across (keys df)
+			for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
+			collect (list (symbol-name key)
+				      (get sym :type)
+				      (get sym :unit)
+				      (get sym :label)))))
+      (push '("--------" "----" "----" "-----------") rows)
+      (push '("Variable" "Type" "Unit" "Label") rows)
+      (print-table rows)))))
+
+
+;;; KLUDGE ALERT
+;;; This violates the spec...
+(defmethod describe-object :after ((s symbol) stream)
+  (unless (boundp s) (return-from describe-object))
+  (unless (eq (SB-CLTL2:variable-information s) :symbol-macro)
+    (let ((*print-pretty* t)
+	  (df (symbol-value s))
+	  (name (symbol-name s)))
+
+      (pprint-logical-block (stream nil)
+	(pprint-logical-block (stream nil)
+          (pprint-indent :block 2 stream)
+	  (when-let ((pkg (find-package name)))
+	    (format stream "~@:_Variables: ~@:_")
+	    (pprint-logical-block (stream nil :per-line-prefix "  ")
+	      (let ((rows (loop for key across (keys df)
+				for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
+				collect (list (symbol-name key)
+					      (get sym :type)
+					      (get sym :unit)
+					      (get sym :label)))))
+		(push '("--------" "----" "----" "-----------") rows)
+		(push '("Variable" "Type" "Unit" "Label") rows)
+		(print-table rows stream)))))))))

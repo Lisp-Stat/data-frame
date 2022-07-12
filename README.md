@@ -22,7 +22,7 @@
   <p align="center">
   Data frames for Common Lisp. A two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column
 	<br />
-    <a href="https://lisp-stat.dev/docs/tasks/data-frame/"><strong>Explore the docs »</strong></a>
+    <a href="https://lisp-stat.dev/docs/manuals/data-frame/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/lisp-stat/data-frame/issues">Report Bug</a>
@@ -147,7 +147,7 @@ Create a data frame:
 
 ```
 
-For more examples, please refer to the [Documentation](https://lisp-stat.dev/docs/tasks/data-frame).
+For more examples, please refer to the [Documentation](https://lisp-stat.dev/docs/manuals/data-frame).
 
 
 <!-- ROADMAP -->

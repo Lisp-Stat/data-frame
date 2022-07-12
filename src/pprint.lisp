@@ -1,8 +1,14 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 #+genera (eval-when (eval load compile) (xp::install))
+
+;;; NOTE: If using emacs/slime, set slime-repl-auto-right-margin to T
+;;; so that the printing system will be able to figure out the right
+;;; margins and format printing properly.  This is done via an emacs
+;;; customization.
+
 
 
 ;;; Pretty print data-frames and 2D arrays
@@ -150,11 +156,11 @@ The method returns a set of default formatting strings using heuristics."
 ;;; Pretty printers
 ;;;
 
-(defun pprint-data-frame (data-frame
-			  &optional
-			    (stream *standard-output*)
-			    (row-numbers-p *row-numbers-p*)
-			    (max-digits *max-digits*))
+(defun print-data (data-frame
+		    &optional
+		      (stream *standard-output*)
+		      (row-numbers-p *row-numbers-p*)
+		      (max-digits *max-digits*))
   "Print DATA-FRAME to STREAM using the pretty printer"
   (check-type data-frame data)
   (let* ((col-names '())
@@ -162,7 +168,7 @@ The method returns a set of default formatting strings using heuristics."
 	 (*print-pretty* t))
     (when row-numbers-p
       (setf df (reverse-df
-		(add-columns (reverse-df df)
+		(add-columns (reverse-df df) ;add to end of DF
 			     '||
 			     (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))))))
     (flet ((format-column (c)
@@ -207,7 +213,7 @@ The method returns a set of default formatting strings using heuristics."
 ;;; TODO: refactor this using the pattern in pprint-data-frame,
 ;;; incorporating the code in default-column-formats and adding an
 ;;; optional max-digits parameter
-(defun pprint-array (arr &optional (stream *standard-output*) (row-numbers-p *row-numbers-p*))
+(defun print-array (arr &optional (stream *standard-output*) (row-numbers-p *row-numbers-p*))
   "Print an array to STREAM, defaulting to *standard-output*, in a tabular format.  If ROW-NUMBERS-P, print row numbers."
   (let* ((array (cond (row-numbers-p (aops:stack-cols (aops:linspace 0 (1- (aops:nrow arr)) (aops:nrow arr)) arr))
 		      (t arr)))
@@ -232,28 +238,52 @@ The method returns a set of default formatting strings using heuristics."
   "Return the first N rows of DF; N defaults to 6"
   (let ((*print-pretty* t))
     (if (< (aops:nrow df) 6) (setf n (aops:nrow df)))
-    (pprint-data-frame (select df (select:range 0 n) t))))
+    (print-data (select df (select:range 0 n) t))))
 
 (defmethod tail ((df data-frame) &optional (n 6))
   "Return the last N rows of DF; N defaults to 6"
   (let ((*print-pretty* t))
     (if (< (aops:nrow df) 6) (setf n (aops:nrow df)))
-    (pprint-data-frame (select df (select:range (- n) nil) t))))
+    (print-data (select df (select:range (- n) nil) t))))
+
+(defun short-string (str)
+  "Return up to the first newline
+This is useful when docstrings are multi-line.  By convention, the first line is the title."
+  (subseq str
+	  0
+	  (position #\newline str)))
+
 
 ;;;
 ;;; Pretty printer system configuration
 ;;;
 
-;; After setting this, with *print-pretty* nil, we get the following behaviour:
+;; After setting the dispatch tables below and *print-pretty* nil, we
+;; get the following behaviour:
 ;; (print df)  => one line summary of number of rows and columns
 ;; (pprint df) => print full table, subject to *print-lines* and *print-length*
 ;; print-object is equal to 'print'
+;; Unfortunately, it also means that any CL function that sets
+;; *print-pretty* to T, like 'describe' will print the entire
+;; data-frame.
+
+;; we can't use this and still have nice 'describe' for data frames
+#+nil
 (set-pprint-dispatch 'df:data-frame
-		     #'(lambda (s df) (pprint-data-frame df s)))
+		     #'(lambda (s df) (print-data df s)))
 
 (set-pprint-dispatch '(array * 2)
-		     #'(lambda (s array) (pprint-array array s)))
+		     #'(lambda (s array) (print-array array s)))
 
+;;; These only work when *print-pretty* is T
+#+nil
+(set-pprint-dispatch 'float
+                     #'(lambda (s obj)
+                         (format s "~,4F" obj)))
+#+nil
+(set-pprint-dispatch 'double-float
+                     #'(lambda (s obj)
+                         (format s "~,4F" obj)))
 
 ;;;
 ;;; Reference
@@ -265,5 +295,5 @@ The method returns a set of default formatting strings using heuristics."
   "Print the first six rows of DATA-FRAME"
   (let* ((*print-lines* 6)
 	 (*print-pretty* t))
-    (df:pprint-data-frame df stream nil)))
+    (df:pprint-data df stream nil)))
 

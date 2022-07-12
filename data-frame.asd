@@ -2,13 +2,17 @@
 ;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "data-frame"
-  :version      (:read-file-form "version.sexp")
-  :description "Data frames for Common Lisp"
-  :long-description "A data manipulation library, conceptually similar to R's data.frame"
-  :author      "Steve Nunez <steve@symbolics.tech>"
+  :version     "1.0.0"
   :licence     :MS-PL
+  :author      "Steve Nunez <steve@symbolics.tech>"
+  :long-name   "Data frames for Common Lisp"
+  :description "A data manipulation library for statistical computing"
+  :long-description  #.(uiop:read-file-string
+			(uiop:subpathname *load-pathname* "description.text"))
+  :homepage    "https://lisp-stat.dev/docs/manuals/data-frame"
   :source-control (:git "https://github.com/Lisp-Stat/data-frame.git")
   :bug-tracker "https://github.com/Lisp-Stat/data-frame/issues"
+
   :depends-on ("alexandria"
 	       "alexandria+"
                "anaphora"
@@ -21,6 +25,7 @@
   :pathname "src/"
   :components ((:file "pkgdcl")
 	       (:file "utils")
+	       (:file "conditions")
 	       (:file "data-frame")
 	       (:file "pprint")
 	       (:file "formatted-output")
@@ -32,7 +37,7 @@
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"
-  :version "0"
+  :version "1.0.0"
   :description "Unit tests for DATA-FRAME."
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -45,4 +50,5 @@
 		    (let ((*print-pretty* t)) ;work around clunit issue #9
 		      (symbol-call :clunit :run-suite
 				   (find-symbol* :data-frame
-						 :data-frame-tests)))))
+						 :data-frame-tests)
+				   :use-debugger nil))))

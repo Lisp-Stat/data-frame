@@ -1,0 +1,3 @@
+A data frame is a common way of storing data for statistical analysis.  Under the hood, a data frame is a vector of equal-length vectors.  Each element of the vector can be thought of as a column and the length of each element of the vector is the number of rows.  As a result, data frames can store different classes of objects in each column (i.e. numeric, character, factor).  In essence, the easiest way to think of a data frame is as an Excel worksheet that contains columns of different types of data but are all of equal length rows.
+
+From a design perspective, Lisp-Stat's data frame is conceptually most similar to the 'tibble' from the tidyverse, but using Common Lisp idioms, style and syntax.
