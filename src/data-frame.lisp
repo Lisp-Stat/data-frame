@@ -545,7 +545,7 @@ After defining this method it is permanently associated with data-frame objects"
 (defmethod describe-object ((df data-frame) stream)
   (let ((name (when (slot-boundp df 'name) (name df))))
     (format stream "~A~%" name)
-    (format t "  A data-frame with ~D observations of ~D variables~2%" (aops:nrow df) (aops:ncol df))
+    (format stream "  A data-frame with ~D observations of ~D variables~2%" (aops:nrow df) (aops:ncol df))
     (when name
       (let ((rows (loop for key across (keys df)
 			for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
