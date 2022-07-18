@@ -51,6 +51,7 @@ Can also be used to remove and update the environment as the DATA-FRAME changes 
       (setf (name df) df-name))
     (when add-keys
       (maphash #'(lambda (key index)
+		   (declare (ignore index))
 		   (when (member key add-keys)
 		     (let ((col (intern (symbol-name key) pkg)))
 		       (export col pkg)

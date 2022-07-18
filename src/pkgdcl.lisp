@@ -61,6 +61,7 @@
     #:do-rows
     #:mask-rows
     #:count-rows
+    #:filter-rows
     #:map-df
     #:replace-column!
     #:replace-column

@@ -7,7 +7,7 @@
   (:documentation "Duplicate key.")
   (:report (lambda (condition stream)
              (format stream "Duplicate key ~A." (slot-value condition 'key))))
-  (:documentation "An operation attempted to use a key that already exists in ORDERED-KEYS")
+  (:documentation "An operation attempted to use a key that already exists in ORDERED-KEYS"))
 
 (define-condition key-not-found (error)
   ((key :initarg :key)
@@ -17,7 +17,7 @@
              (format stream "Key ~A not found, valid keys are ~A."
                      (slot-value condition 'key)
                      (slot-value condition 'keys))))
-  (:documentation "An operation was attempted on a non-existant key.")
+  (:documentation "An operation was attempted on a non-existant key."))
 
 (define-condition missing-data (error)
   ((name :initarg :name)

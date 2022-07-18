@@ -33,7 +33,7 @@
 	       (:file "defdf")
 	       (:file "properties")
 	       (:file "missing")
-	       (:file "plist-aops"))
+	       (:file "filter"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"

@@ -95,6 +95,15 @@
     (assert-equalp (count 1 mask)
         (count-rows df '(:a :b) #'predicate))))
 
+#|
+;This test is a bit of a challenge because the operation that determines the symbols for columns compares symbols in the DF package, but here 'a is created in the data-frame-tests package.  Frequent using of filter-rows is enough to convince me that it's working properly, but if someone were to make this test work I'd be grateful.
+(deftest filter-rows (data-frame-operations)
+  (let+ ((df (df :a #(2 3 5)
+                 :b #(7 11 13)))
+	 (plst '(:a #(2 3)
+		 :b #(7 11))))
+    (assert-equal plst (as-plist (filter-rows df (< a 4))))))
+|#
 (deftest rename! (data-frame-operations)
   (let+ ((df (df :a #(2 3 5)
                  :b #(7 11 13))))
