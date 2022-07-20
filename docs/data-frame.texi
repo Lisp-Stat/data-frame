@@ -4,7 +4,7 @@
 
 @c Copyright (C) 2019-2022 Steve Nunez
 
-@c This file is part of DATA-FRAME.
+@c This file is part of Data Frame.
 
 @c This program is distributed under the terms of the Microsoft Public
 @c License.
@@ -13,7 +13,7 @@
 @c Commentary:
 
 @c Generated automatically by Declt version 4.0 beta 2 "William Riker"
-@c on Tue Jul 05 12:49:36 2022 GMT+8.
+@c on Wed Jul 20 10:54:46 2022 GMT+8.
 
 
 @c ====================================================================
@@ -21,7 +21,7 @@
 @c ====================================================================
 @c %**start of header
 @setfilename data-frame.info
-@settitle The DATA-FRAME Reference Manual
+@settitle The Data Frame Reference Manual
 @afourpaper
 @documentencoding UTF-8
 @c %**end of header
@@ -93,7 +93,7 @@
 @c ====================================================================
 @setchapternewpage odd
 @documentdescription
-The DATA-FRAME Reference Manual, version 1.0.0.
+The Data Frame Reference Manual, version 1.0.0.
 @end documentdescription
 
 
@@ -215,7 +215,7 @@ The DATA-FRAME Reference Manual, version 1.0.0.
 @c ====================================================================
 @dircategory Lisp-Stat
 @direntry
-* DATA-FRAME Reference Manual: (data-frame). The DATA-FRAME Reference Manual.
+* Data Frame Reference Manual: (data-frame). The Data Frame Reference Manual.
 @end direntry
 
 
@@ -254,7 +254,7 @@ except that this permission notice may be translated as well.
 @c Title Page
 @c ====================================================================
 @titlepage
-@title The DATA-FRAME Reference Manual
+@title The Data Frame Reference Manual
 @subtitle Data frames for Common Lisp, version 1.0.0
 
 @author Steve Nunez <@email{steve@atchar{}symbolics.tech}>
@@ -281,8 +281,8 @@ This manual was generated automatically by Declt 4.0b2.
 @c ====================================================================
 @ifnottex
 @node Top, Copying, (dir), (dir)
-@top The DATA-FRAME Reference Manual
-This is the DATA-FRAME Reference Manual, version 1.0.0,
+@top The Data Frame Reference Manual
+This is the Data Frame Reference Manual, version 1.0.0,
 generated automatically by Declt version 4.0b2.
 
 @menu
@@ -336,6 +336,8 @@ A data manipulation library for statistical computing
 Data frames for Common Lisp
 @item Author
 Steve Nunez <@email{steve@atchar{}symbolics.tech}>
+@item Home Page
+@uref{https://lisp-stat.dev/docs/manuals/data-frame}
 @item Source Control
 @t{(GIT https://github.com/Lisp-Stat/data-frame.git)}
 @item Bug Tracker
@@ -343,7 +345,9 @@ Steve Nunez <@email{steve@atchar{}symbolics.tech}>
 @item License
 MS-PL
 @item Long Description
-A data manipulation library@comma{} conceptually similar to R's data.frame
+A data frame is a common way of storing data for statistical analysis.  Under the hood@comma{} a data frame is a vector of equal-length vectors.  Each element of the vector can be thought of as a column and the length of each element of the vector is the number of rows.  As a result@comma{} data frames can store different classes of objects in each column (i.e. numeric@comma{} character@comma{} factor).  In essence@comma{} the easiest way to think of a data frame is as an Excel worksheet that contains columns of different types of data but are all of equal length rows.
+
+From a design perspective@comma{} Lisp-Stat's data frame is conceptually most similar to the 'tibble' from the tidyverse@comma{} but using Common Lisp idioms@comma{} style and syntax.
 @item Version
 1.0.0
 @item Dependencies
@@ -390,7 +394,7 @@ A data manipulation library@comma{} conceptually similar to R's data.frame
 @item
 @ref{❨12❩, , @t{missing.lisp}}@: (file).
 @item
-@ref{❨13❩, , @t{plist-aops.lisp}}@: (file).
+@ref{❨13❩, , @t{filter.lisp}}@: (file).
 @end itemize
 @end table
 
@@ -426,7 +430,7 @@ components trees.
 * The data-frame/defdf․lisp file::
 * The data-frame/properties․lisp file::
 * The data-frame/missing․lisp file::
-* The data-frame/plist-aops․lisp file::
+* The data-frame/filter․lisp file::
 @end menu
 
 @node The data-frame/data-frame․asd file, The data-frame/pkgdcl․lisp file, Lisp files, Lisp files
@@ -467,13 +471,20 @@ components trees.
 @item Parent Component
 @ref{❨1❩, , @t{data-frame}}@: (system).
 @item Public Interface
-@ref{❨36❩, , @t{column-type}}@: (function).
+@itemize @bullet
+@item
+@ref{❨41❩, , @t{column-type}}@: (function).
+@item
+@ref{❨50❩, , @t{delete-nth}}@: (function).
+@item
+@ref{❨118❩, , @t{delete-nth*}}@: (macro).
+@end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨155❩, , @t{get-type}}@: (function).
+@ref{❨166❩, , @t{get-type}}@: (function).
 @item
-@ref{❨173❩, , @t{types-in-column}}@: (function).
+@ref{❨157❩, , @t{types-in-column}}@: (function).
 @end itemize
 @end table
 
@@ -491,18 +502,26 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨100❩, , @t{duplicate-key}}@: (condition).
+@ref{❨46❩, , @t{data-frame}}@: (reader method).
 @item
-@ref{❨48❩, , @t{key-not-found}}@: (condition).
+@ref{❨112❩, , @t{duplicate-key}}@: (condition).
 @item
-@ref{❨30❩, , @t{large-data}}@: (condition).
+@ref{❨54❩, , @t{key-not-found}}@: (condition).
+@item
+@ref{❨35❩, , @t{large-data}}@: (condition).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨141❩, , @t{data-size}}@: (reader method).
+@ref{❨160❩, , @t{data-frame-exists}}@: (condition).
 @item
-@ref{❨219❩, , @t{missing-data}}@: (condition).
+@ref{❨171❩, , @t{data-size}}@: (reader method).
+@item
+@ref{❨140❩, , @t{df-exists-p}}@: (function).
+@item
+@ref{❨178❩, , @t{invalid-df-name}}@: (function).
+@item
+@ref{❨131❩, , @t{missing-data}}@: (condition).
 @end itemize
 @end table
 
@@ -520,150 +539,160 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨35❩, , @t{*large-data*}}@: (special variable).
+@ref{❨40❩, , @t{*large-data*}}@: (special variable).
 @item
-@ref{❨29❩, , @t{add-column!}}@: (function).
+@ref{❨34❩, , @t{add-column!}}@: (function).
 @item
 @ref{❨17❩, , @t{add-columns}}@: (function).
 @item
-@ref{❨105❩, , @t{add-columns!}}@: (function).
+@ref{❨117❩, , @t{add-columns!}}@: (function).
 @item
-@ref{❨58❩, , @t{alist-df}}@: (function).
+@ref{❨67❩, , @t{alist-df}}@: (function).
 @item
-@ref{❨55❩, , @t{alist-dv}}@: (function).
+@ref{❨62❩, , @t{alist-dv}}@: (function).
 @item
-@ref{❨272❩, , @t{as-alist}}@: (method).
+@ref{❨278❩, , @t{as-alist}}@: (method).
 @item
-@ref{❨248❩, , @t{as-array}}@: (method).
+@ref{❨258❩, , @t{as-array}}@: (method).
 @item
-@ref{❨252❩, , @t{as-array}}@: (method).
+@ref{❨263❩, , @t{as-array}}@: (method).
 @item
-@ref{❨270❩, , @t{axis-dimension}}@: (method).
+@ref{❨285❩, , @t{axis-dimension}}@: (method).
 @item
-@ref{❨269❩, , @t{canonical-representation}}@: (method).
+@ref{❨284❩, , @t{canonical-representation}}@: (method).
 @item
-@ref{❨43❩, , @t{column}}@: (function).
+@ref{❨48❩, , @t{column}}@: (function).
 @item
-@ref{❨44❩, , @t{(setf column)}}@: (function).
+@ref{❨49❩, , @t{(setf column)}}@: (function).
 @item
-@ref{❨32❩, , @t{column-names}}@: (function).
+@ref{❨37❩, , @t{column-names}}@: (function).
 @item
-@ref{❨62❩, , @t{columns}}@: (function).
+@ref{❨71❩, , @t{columns}}@: (function).
 @item
-@ref{❨57❩, , @t{copy}}@: (function).
+@ref{❨66❩, , @t{copy}}@: (function).
 @item
-@ref{❨47❩, , @t{count-rows}}@: (function).
+@ref{❨53❩, , @t{count-rows}}@: (function).
 @item
-@ref{❨42❩, , @t{data-frame}}@: (class).
+@ref{❨47❩, , @t{data-frame}}@: (class).
 @item
-@ref{❨104❩, , @t{data-type}}@: (type).
+@ref{❨116❩, , @t{data-type}}@: (type).
 @item
-@ref{❨38❩, , @t{data-vector}}@: (class).
+@ref{❨43❩, , @t{data-vector}}@: (class).
+@item
+@ref{❨260❩, , @t{describe-object}}@: (method).
 @item
 @ref{❨25❩, , @t{df}}@: (function).
 @item
-@ref{❨54❩, , @t{df-remove-duplicates}}@: (function).
+@ref{❨60❩, , @t{df-remove-duplicates}}@: (function).
 @item
-@ref{❨249❩, , @t{dims}}@: (method).
+@ref{❨259❩, , @t{dims}}@: (method).
 @item
-@ref{❨253❩, , @t{dims}}@: (method).
+@ref{❨264❩, , @t{dims}}@: (method).
 @item
-@ref{❨77❩, , @t{do-rows}}@: (function).
+@ref{❨86❩, , @t{do-rows}}@: (function).
 @item
 @ref{❨28❩, , @t{dv}}@: (function).
 @item
-@ref{❨273❩, , @t{element-type}}@: (method).
+@ref{❨279❩, , @t{element-type}}@: (method).
 @item
-@ref{❨256❩, , @t{initialize-instance}}@: (method).
+@ref{❨267❩, , @t{initialize-instance}}@: (method).
 @item
-@ref{❨61❩, , @t{keys}}@: (function).
+@ref{❨70❩, , @t{keys}}@: (function).
 @item
-@ref{❨74❩, , @t{make-df}}@: (function).
+@ref{❨84❩, , @t{make-df}}@: (function).
 @item
-@ref{❨79❩, , @t{make-dv}}@: (function).
+@ref{❨89❩, , @t{make-dv}}@: (function).
 @item
-@ref{❨76❩, , @t{map-columns}}@: (function).
+@ref{❨85❩, , @t{map-columns}}@: (function).
 @item
 @ref{❨19❩, , @t{map-df}}@: (function).
 @item
-@ref{❨65❩, , @t{map-rows}}@: (function).
+@ref{❨74❩, , @t{map-rows}}@: (function).
 @item
 @ref{❨15❩, , @t{mask-rows}}@: (function).
 @item
 @ref{❨21❩, , @t{matrix-df}}@: (function).
 @item
-@ref{❨254❩, , @t{ncol}}@: (method).
+@ref{❨30❩, , @t{name}}@: (reader method).
 @item
-@ref{❨255❩, , @t{nrow}}@: (method).
+@ref{❨32❩, , @t{(setf name)}}@: (writer method).
 @item
-@ref{❨88❩, , @t{plist-df}}@: (function).
+@ref{❨265❩, , @t{ncol}}@: (method).
 @item
-@ref{❨87❩, , @t{plist-dv}}@: (function).
+@ref{❨266❩, , @t{nrow}}@: (method).
 @item
-@ref{❨246❩, , @t{print-object}}@: (method).
+@ref{❨100❩, , @t{plist-df}}@: (function).
 @item
-@ref{❨250❩, , @t{print-object}}@: (method).
+@ref{❨99❩, , @t{plist-dv}}@: (function).
 @item
-@ref{❨267❩, , @t{print-object}}@: (method).
+@ref{❨256❩, , @t{print-object}}@: (method).
 @item
-@ref{❨80❩, , @t{remove-columns}}@: (function).
+@ref{❨261❩, , @t{print-object}}@: (method).
 @item
-@ref{❨75❩, , @t{rename!}}@: (macro).
+@ref{❨282❩, , @t{print-object}}@: (method).
+@item
+@ref{❨61❩, , @t{remove-column!}}@: (function).
+@item
+@ref{❨91❩, , @t{remove-columns}}@: (function).
+@item
+@ref{❨94❩, , @t{rename-column!}}@: (method).
 @item
 @ref{❨22❩, , @t{replace-column}}@: (function).
 @item
 @ref{❨24❩, , @t{replace-column!}}@: (function).
 @item
-@ref{❨85❩, , @t{rows}}@: (function).
+@ref{❨96❩, , @t{rows}}@: (function).
 @item
-@ref{❨247❩, , @t{select}}@: (method).
+@ref{❨257❩, , @t{select}}@: (method).
 @item
-@ref{❨251❩, , @t{select}}@: (method).
+@ref{❨262❩, , @t{select}}@: (method).
 @item
-@ref{❨268❩, , @t{select}}@: (method).
+@ref{❨283❩, , @t{select}}@: (method).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨152❩, , @t{%rename!}}@: (method).
+@ref{❨194❩, , @t{add-key!}}@: (function).
 @item
-@ref{❨167❩, , @t{add-key!}}@: (function).
+@ref{❨214❩, , @t{add-keys}}@: (function).
 @item
-@ref{❨210❩, , @t{add-keys}}@: (function).
+@ref{❨208❩, , @t{alist-data}}@: (function).
 @item
-@ref{❨222❩, , @t{alist-data}}@: (function).
+@ref{❨135❩, , @t{check-column-compatibility}}@: (generic function).
 @item
-@ref{❨206❩, , @t{check-column-compatibility}}@: (generic function).
+@ref{❨163❩, , @t{copy-ordered-keys}}@: (function).
 @item
-@ref{❨193❩, , @t{copy-ordered-keys}}@: (function).
+@ref{❨127❩, , @t{data}}@: (class).
 @item
-@ref{❨132❩, , @t{data}}@: (class).
+@ref{❨205❩, , @t{define-data-subclass}}@: (macro).
 @item
-@ref{❨160❩, , @t{define-data-subclass}}@: (macro).
+@ref{❨122❩, , @t{df-env-p}}@: (function).
 @item
-@ref{❨161❩, , @t{df-env-p}}@: (function).
+@ref{❨217❩, , @t{ensure-arguments-alist}}@: (function).
 @item
-@ref{❨190❩, , @t{ensure-arguments-alist}}@: (function).
+@ref{❨215❩, , @t{key-index}}@: (function).
 @item
-@ref{❨119❩, , @t{key-index}}@: (function).
+@ref{❨144❩, , @t{keys-count}}@: (function).
 @item
-@ref{❨209❩, , @t{keys-count}}@: (function).
+@ref{❨124❩, , @t{keys-vector}}@: (function).
 @item
-@ref{❨194❩, , @t{keys-vector}}@: (function).
+@ref{❨138❩, , @t{make-data}}@: (function).
 @item
-@ref{❨149❩, , @t{make-data}}@: (function).
+@ref{❨229❩, , @t{make-ordered-keys}}@: (function).
 @item
-@ref{❨176❩, , @t{make-ordered-keys}}@: (function).
+@ref{❨226❩, , @t{ordered-keys}}@: (function).
 @item
-@ref{❨110❩, , @t{ordered-keys}}@: (function).
+@ref{❨227❩, , @t{ordered-keys}}@: (structure).
 @item
-@ref{❨111❩, , @t{ordered-keys}}@: (structure).
+@ref{❨186❩, , @t{ordered-keys-p}}@: (function).
 @item
-@ref{❨204❩, , @t{ordered-keys-p}}@: (function).
+@ref{❨169❩, , @t{ordered-keys-table}}@: (reader).
 @item
-@ref{❨205❩, , @t{ordered-keys-table}}@: (reader).
+@ref{❨158❩, , @t{plist-data}}@: (function).
 @item
-@ref{❨124❩, , @t{plist-data}}@: (function).
+@ref{❨141❩, , @t{remove-columns!}}@: (function).
+@item
+@ref{❨203❩, , @t{remove-key!}}@: (function).
 @end itemize
 @end table
 
@@ -681,36 +710,36 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨64❩, , @t{head}}@: (method).
+@ref{❨73❩, , @t{head}}@: (method).
 @item
-@ref{❨45❩, , @t{print-array}}@: (function).
+@ref{❨51❩, , @t{print-array}}@: (function).
 @item
 @ref{❨20❩, , @t{print-data}}@: (function).
 @item
-@ref{❨86❩, , @t{short-string}}@: (function).
+@ref{❨97❩, , @t{short-string}}@: (function).
 @item
-@ref{❨103❩, , @t{tail}}@: (method).
+@ref{❨115❩, , @t{tail}}@: (method).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨200❩, , @t{*max-digits*}}@: (special variable).
+@ref{❨201❩, , @t{*max-digits*}}@: (special variable).
 @item
-@ref{❨218❩, , @t{*row-numbers-p*}}@: (special variable).
+@ref{❨174❩, , @t{*row-numbers-p*}}@: (special variable).
 @item
-@ref{❨216❩, , @t{2d-array-to-list}}@: (function).
+@ref{❨176❩, , @t{2d-array-to-list}}@: (function).
 @item
-@ref{❨171❩, , @t{column-type-format}}@: (function).
+@ref{❨154❩, , @t{column-type-format}}@: (function).
 @item
-@ref{❨147❩, , @t{default-column-formats}}@: (method).
+@ref{❨213❩, , @t{default-column-formats}}@: (method).
 @item
-@ref{❨169❩, , @t{max-decimal}}@: (function).
+@ref{❨181❩, , @t{max-decimal}}@: (function).
 @item
-@ref{❨154❩, , @t{max-width}}@: (function).
+@ref{❨199❩, , @t{max-width}}@: (function).
 @item
-@ref{❨162❩, , @t{printer-status}}@: (function).
+@ref{❨183❩, , @t{printer-status}}@: (function).
 @item
-@ref{❨223❩, , @t{reverse-df}}@: (function).
+@ref{❨206❩, , @t{reverse-df}}@: (function).
 @end itemize
 @end table
 
@@ -730,16 +759,16 @@ components trees.
 @item
 @ref{❨23❩, , @t{df-print}}@: (function).
 @item
-@ref{❨81❩, , @t{print-markdown}}@: (function).
+@ref{❨92❩, , @t{print-markdown}}@: (function).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨186❩, , @t{aesthetic-string}}@: (function).
+@ref{❨152❩, , @t{aesthetic-string}}@: (function).
 @item
-@ref{❨184❩, , @t{print-table}}@: (function).
+@ref{❨185❩, , @t{print-table}}@: (function).
 @item
-@ref{❨148❩, , @t{weave}}@: (function).
+@ref{❨177❩, , @t{weave}}@: (function).
 @end itemize
 @end table
 
@@ -757,148 +786,146 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨56❩, , @t{*distinct-maximum*}}@: (special variable).
+@ref{❨65❩, , @t{*distinct-maximum*}}@: (special variable).
 @item
-@ref{❨46❩, , @t{*distinct-threshold*}}@: (special variable).
+@ref{❨52❩, , @t{*distinct-threshold*}}@: (special variable).
 @item
 @ref{❨16❩, , @t{*quantile-threshold*}}@: (special variable).
 @item
-@ref{❨27❩, , @t{*summary-minimum-length*}}@: (special variable).
+@ref{❨75❩, , @t{*summary-minimum-length*}}@: (special variable).
 @item
-@ref{❨59❩, , @t{bit-variable-summary}}@: (structure).
+@ref{❨68❩, , @t{bit-variable-summary}}@: (structure).
 @item
-@ref{❨83❩, , @t{factor-variable-summary}}@: (structure).
+@ref{❨63❩, , @t{factor-variable-summary}}@: (structure).
 @item
-@ref{❨51❩, , @t{generic-variable-summary}}@: (structure).
+@ref{❨57❩, , @t{generic-variable-summary}}@: (structure).
 @item
-@ref{❨107❩, , @t{get-summaries}}@: (function).
+@ref{❨120❩, , @t{get-summaries}}@: (function).
 @item
-@ref{❨258❩, , @t{print-object}}@: (method).
+@ref{❨269❩, , @t{print-object}}@: (method).
 @item
-@ref{❨259❩, , @t{print-object}}@: (method).
+@ref{❨270❩, , @t{print-object}}@: (method).
 @item
-@ref{❨260❩, , @t{print-object}}@: (method).
+@ref{❨271❩, , @t{print-object}}@: (method).
 @item
-@ref{❨261❩, , @t{print-object}}@: (method).
+@ref{❨272❩, , @t{print-object}}@: (method).
 @item
-@ref{❨66❩, , @t{real-variable-summary}}@: (structure).
+@ref{❨76❩, , @t{real-variable-summary}}@: (structure).
 @item
-@ref{❨37❩, , @t{summarize-column}}@: (function).
+@ref{❨42❩, , @t{summarize-column}}@: (function).
 @item
-@ref{❨73❩, , @t{summary}}@: (macro).
+@ref{❨83❩, , @t{summary}}@: (function).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨118❩, , @t{bit-variable-summary-count}}@: (reader).
+@ref{❨173❩, , @t{bit-variable-summary-count}}@: (reader).
 @item
-@ref{❨214❩, , @t{bit-variable-summary-desc}}@: (function).
+@ref{❨165❩, , @t{bit-variable-summary-desc}}@: (function).
 @item
-@ref{❨164❩, , @t{bit-variable-summary-length}}@: (function).
+@ref{❨223❩, , @t{bit-variable-summary-length}}@: (function).
 @item
-@ref{❨178❩, , @t{bit-variable-summary-missing}}@: (function).
+@ref{❨134❩, , @t{bit-variable-summary-missing}}@: (function).
 @item
-@ref{❨224❩, , @t{bit-variable-summary-name}}@: (function).
+@ref{❨162❩, , @t{bit-variable-summary-name}}@: (function).
 @item
-@ref{❨159❩, , @t{bit-variable-summary-p}}@: (function).
+@ref{❨225❩, , @t{bit-variable-summary-p}}@: (function).
 @item
-@ref{❨211❩, , @t{column-length}}@: (generic function).
+@ref{❨190❩, , @t{column-length}}@: (generic function).
 @item
-@ref{❨196❩, , @t{copy-bit-variable-summary}}@: (function).
+@ref{❨153❩, , @t{copy-bit-variable-summary}}@: (function).
 @item
-@ref{❨201❩, , @t{copy-factor-variable-summary}}@: (function).
+@ref{❨230❩, , @t{copy-factor-variable-summary}}@: (function).
 @item
-@ref{❨122❩, , @t{copy-generic-variable-summary}}@: (function).
+@ref{❨209❩, , @t{copy-generic-variable-summary}}@: (function).
 @item
-@ref{❨145❩, , @t{copy-real-variable-summary}}@: (function).
+@ref{❨156❩, , @t{copy-real-variable-summary}}@: (function).
 @item
-@ref{❨165❩, , @t{copy-variable-summary%}}@: (function).
+@ref{❨221❩, , @t{copy-variable-summary%}}@: (function).
 @item
-@ref{❨156❩, , @t{distinct}}@: (function).
+@ref{❨233❩, , @t{distinct}}@: (function).
 @item
-@ref{❨180❩, , @t{ensure-not-ratio}}@: (function).
+@ref{❨196❩, , @t{ensure-not-ratio}}@: (function).
 @item
-@ref{❨188❩, , @t{factor-variable-summary-desc}}@: (function).
+@ref{❨143❩, , @t{factor-variable-summary-desc}}@: (function).
 @item
-@ref{❨168❩, , @t{factor-variable-summary-element-count-alist}}@: (reader).
+@ref{❨172❩, , @t{factor-variable-summary-element-count-alist}}@: (reader).
 @item
-@ref{❨174❩, , @t{factor-variable-summary-length}}@: (function).
+@ref{❨195❩, , @t{factor-variable-summary-length}}@: (function).
 @item
-@ref{❨198❩, , @t{factor-variable-summary-missing}}@: (function).
+@ref{❨145❩, , @t{factor-variable-summary-missing}}@: (function).
 @item
-@ref{❨109❩, , @t{factor-variable-summary-name}}@: (function).
+@ref{❨219❩, , @t{factor-variable-summary-name}}@: (function).
 @item
-@ref{❨114❩, , @t{factor-variable-summary-p}}@: (function).
+@ref{❨197❩, , @t{factor-variable-summary-p}}@: (function).
 @item
-@ref{❨225❩, , @t{generic-variable-summary-desc}}@: (function).
+@ref{❨224❩, , @t{generic-variable-summary-desc}}@: (function).
 @item
-@ref{❨139❩, , @t{generic-variable-summary-element-count-alist}}@: (reader).
+@ref{❨193❩, , @t{generic-variable-summary-element-count-alist}}@: (reader).
 @item
-@ref{❨179❩, , @t{generic-variable-summary-length}}@: (function).
+@ref{❨211❩, , @t{generic-variable-summary-length}}@: (function).
 @item
-@ref{❨170❩, , @t{generic-variable-summary-missing}}@: (function).
+@ref{❨234❩, , @t{generic-variable-summary-missing}}@: (function).
 @item
-@ref{❨213❩, , @t{generic-variable-summary-name}}@: (function).
+@ref{❨139❩, , @t{generic-variable-summary-name}}@: (function).
 @item
-@ref{❨113❩, , @t{generic-variable-summary-p}}@: (function).
+@ref{❨220❩, , @t{generic-variable-summary-p}}@: (function).
 @item
-@ref{❨115❩, , @t{generic-variable-summary-quantiles}}@: (reader).
+@ref{❨202❩, , @t{generic-variable-summary-quantiles}}@: (reader).
 @item
-@ref{❨172❩, , @t{make-bit-variable-summary}}@: (function).
+@ref{❨167❩, , @t{make-bit-variable-summary}}@: (function).
 @item
-@ref{❨108❩, , @t{make-factor-variable-summary}}@: (function).
+@ref{❨204❩, , @t{make-factor-variable-summary}}@: (function).
 @item
-@ref{❨158❩, , @t{make-generic-variable-summary}}@: (function).
+@ref{❨207❩, , @t{make-generic-variable-summary}}@: (function).
 @item
-@ref{❨202❩, , @t{make-real-variable-summary}}@: (function).
+@ref{❨159❩, , @t{make-real-variable-summary}}@: (function).
 @item
-@ref{❨185❩, , @t{make-variable-summary%}}@: (function).
+@ref{❨168❩, , @t{make-variable-summary%}}@: (function).
 @item
-@ref{❨203❩, , @t{monotonicp}}@: (function).
+@ref{❨180❩, , @t{monotonicp}}@: (function).
 @item
-@ref{❨197❩, , @t{print-count-and-percentage}}@: (function).
+@ref{❨235❩, , @t{print-count-and-percentage}}@: (function).
 @item
-@ref{❨135❩, , @t{real-variable-summary-desc}}@: (function).
+@ref{❨126❩, , @t{real-variable-summary-desc}}@: (function).
 @item
-@ref{❨191❩, , @t{real-variable-summary-length}}@: (function).
+@ref{❨184❩, , @t{real-variable-summary-length}}@: (function).
 @item
-@ref{❨150❩, , @t{real-variable-summary-max}}@: (reader).
+@ref{❨151❩, , @t{real-variable-summary-max}}@: (reader).
 @item
-@ref{❨143❩, , @t{real-variable-summary-mean}}@: (reader).
+@ref{❨188❩, , @t{real-variable-summary-mean}}@: (reader).
 @item
 @ref{❨192❩, , @t{real-variable-summary-min}}@: (reader).
 @item
-@ref{❨199❩, , @t{real-variable-summary-missing}}@: (function).
+@ref{❨125❩, , @t{real-variable-summary-missing}}@: (function).
 @item
-@ref{❨137❩, , @t{real-variable-summary-name}}@: (function).
+@ref{❨210❩, , @t{real-variable-summary-name}}@: (function).
 @item
-@ref{❨136❩, , @t{real-variable-summary-p}}@: (function).
+@ref{❨231❩, , @t{real-variable-summary-p}}@: (function).
 @item
-@ref{❨166❩, , @t{real-variable-summary-q25}}@: (reader).
+@ref{❨218❩, , @t{real-variable-summary-q25}}@: (reader).
 @item
-@ref{❨175❩, , @t{real-variable-summary-q50}}@: (reader).
+@ref{❨182❩, , @t{real-variable-summary-q50}}@: (reader).
 @item
-@ref{❨116❩, , @t{real-variable-summary-q75}}@: (reader).
+@ref{❨198❩, , @t{real-variable-summary-q75}}@: (reader).
 @item
-@ref{❨177❩, , @t{summarize-dataframe}}@: (function).
+@ref{❨121❩, , @t{summarize-factor-variable}}@: (function).
 @item
-@ref{❨163❩, , @t{summarize-factor-variable}}@: (function).
+@ref{❨142❩, , @t{summarize-generic-variable}}@: (function).
 @item
-@ref{❨138❩, , @t{summarize-generic-variable}}@: (function).
+@ref{❨222❩, , @t{summarize-real-variable}}@: (function).
 @item
-@ref{❨123❩, , @t{summarize-real-variable}}@: (function).
+@ref{❨146❩, , @t{variable-summary%}}@: (structure).
 @item
-@ref{❨126❩, , @t{variable-summary%}}@: (structure).
+@ref{❨187❩, , @t{variable-summary%-desc}}@: (reader).
 @item
-@ref{❨157❩, , @t{variable-summary%-desc}}@: (reader).
+@ref{❨189❩, , @t{variable-summary%-length}}@: (reader).
 @item
-@ref{❨215❩, , @t{variable-summary%-length}}@: (reader).
+@ref{❨232❩, , @t{variable-summary%-missing}}@: (reader).
 @item
-@ref{❨195❩, , @t{variable-summary%-missing}}@: (reader).
+@ref{❨175❩, , @t{variable-summary%-name}}@: (reader).
 @item
-@ref{❨142❩, , @t{variable-summary%-name}}@: (reader).
-@item
-@ref{❨131❩, , @t{variable-summary%-p}}@: (function).
+@ref{❨200❩, , @t{variable-summary%-p}}@: (function).
 @end itemize
 @end table
 
@@ -916,30 +943,22 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨78❩, , @t{*ask-on-redefine*}}@: (special variable).
-@item
-@ref{❨41❩, , @t{data-frame}}@: (reader method).
+@ref{❨88❩, , @t{*ask-on-redefine*}}@: (special variable).
 @item
 @ref{❨26❩, , @t{defdf}}@: (macro).
 @item
 @ref{❨18❩, , @t{defdf-env}}@: (function).
 @item
-@ref{❨39❩, , @t{show-data-frames}}@: (function).
+@ref{❨44❩, , @t{show-data-frames}}@: (function).
+@item
+@ref{❨33❩, , @t{undef}}@: (function).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨183❩, , @t{*data-frames*}}@: (special variable).
+@ref{❨123❩, , @t{*data-frames*}}@: (special variable).
 @item
-@ref{❨181❩, , @t{data-frame-exists}}@: (condition).
-@item
-@ref{❨189❩, , @t{df-exists-p}}@: (function).
-@item
-@ref{❨217❩, , @t{invalid-df-name}}@: (function).
-@item
-@ref{❨121❩, , @t{show-symbols}}@: (function).
-@item
-@ref{❨120❩, , @t{undef-env}}@: (function).
+@ref{❨164❩, , @t{show-symbols}}@: (function).
 @end itemize
 @end table
 
@@ -957,22 +976,19 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨82❩, , @t{heuristicate-types}}@: (function).
+@ref{❨98❩, , @t{get-property}}@: (function).
 @item
-@ref{❨106❩, , @t{set-properties}}@: (function).
+@ref{❨27❩, , @t{heuristicate-types}}@: (function).
+@item
+@ref{❨119❩, , @t{set-properties}}@: (function).
+@item
+@ref{❨90❩, , @t{set-property}}@: (function).
 @end itemize
 @item Internals
-@itemize @bullet
-@item
-@ref{❨117❩, , @t{get-property}}@: (function).
-@item
-@ref{❨144❩, , @t{set-property}}@: (function).
-@item
-@ref{❨125❩, , @t{show-properties}}@: (function).
-@end itemize
+@ref{❨216❩, , @t{show-properties}}@: (function).
 @end table
 
-@node The data-frame/missing․lisp file, The data-frame/plist-aops․lisp file, The data-frame/properties․lisp file, Lisp files
+@node The data-frame/missing․lisp file, The data-frame/filter․lisp file, The data-frame/properties․lisp file, Lisp files
 @subsection @t{data-frame/missing.lisp}
 @anchor{❨12❩}@c
 @fileindex{missing.lisp}@c
@@ -986,22 +1002,24 @@ components trees.
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨98❩, , @t{drop-missing}}@: (method).
+@ref{❨110❩, , @t{drop-missing}}@: (method).
 @item
-@ref{❨99❩, , @t{drop-missing}}@: (method).
+@ref{❨111❩, , @t{drop-missing}}@: (method).
 @item
-@ref{❨89❩, , @t{missingp}}@: (generic function).
+@ref{❨95❩, , @t{ignore-missing}}@: (function).
 @item
-@ref{❨34❩, , @t{replace-missing}}@: (method).
+@ref{❨101❩, , @t{missingp}}@: (generic function).
+@item
+@ref{❨39❩, , @t{replace-missing}}@: (method).
 @end itemize
 @item Internals
-@ref{❨187❩, , @t{drop-na}}@: (function).
+@ref{❨179❩, , @t{drop-na}}@: (function).
 @end table
 
-@node The data-frame/plist-aops․lisp file, , The data-frame/missing․lisp file, Lisp files
-@subsection @t{data-frame/plist-aops.lisp}
+@node The data-frame/filter․lisp file, , The data-frame/missing․lisp file, Lisp files
+@subsection @t{data-frame/filter.lisp}
 @anchor{❨13❩}@c
-@fileindex{plist-aops.lisp}@c
+@fileindex{filter.lisp}@c
 @table @strong
 @item Dependency
 @ref{❨12❩, , @t{missing.lisp}}@: (file).
@@ -1009,8 +1027,10 @@ components trees.
 @ref{❨2❩, , @t{data-frame.asd}}.
 @item Parent Component
 @ref{❨1❩, , @t{data-frame}}@: (system).
+@item Public Interface
+@ref{❨87❩, , @t{filter-rows}}@: (function).
 @item Internals
-@ref{❨153❩, , @t{ensure-plist}}@: (macro).
+@ref{❨155❩, , @t{key-list}}@: (function).
 @end table
 
 
@@ -1034,7 +1054,6 @@ Packages are listed by definition order.
 @section @t{data-frame}
 @anchor{❨14❩}@c
 @packageindex{data-frame}@c
-I really need to write this
 @table @strong
 @item Source
 @ref{❨3❩, , @t{pkgdcl.lisp}}.
@@ -1067,344 +1086,358 @@ I really need to write this
 @item Public Interface
 @itemize @bullet
 @item
-@ref{❨78❩, , @t{*ask-on-redefine*}}@: (special variable).
+@ref{❨88❩, , @t{*ask-on-redefine*}}@: (special variable).
 @item
-@ref{❨56❩, , @t{*distinct-maximum*}}@: (special variable).
+@ref{❨65❩, , @t{*distinct-maximum*}}@: (special variable).
 @item
-@ref{❨46❩, , @t{*distinct-threshold*}}@: (special variable).
+@ref{❨52❩, , @t{*distinct-threshold*}}@: (special variable).
 @item
-@ref{❨35❩, , @t{*large-data*}}@: (special variable).
+@ref{❨40❩, , @t{*large-data*}}@: (special variable).
 @item
 @ref{❨16❩, , @t{*quantile-threshold*}}@: (special variable).
 @item
-@ref{❨27❩, , @t{*summary-minimum-length*}}@: (special variable).
+@ref{❨75❩, , @t{*summary-minimum-length*}}@: (special variable).
 @item
-@ref{❨29❩, , @t{add-column!}}@: (function).
+@ref{❨34❩, , @t{add-column!}}@: (function).
 @item
 @ref{❨17❩, , @t{add-columns}}@: (function).
 @item
-@ref{❨105❩, , @t{add-columns!}}@: (function).
+@ref{❨117❩, , @t{add-columns!}}@: (function).
 @item
-@ref{❨58❩, , @t{alist-df}}@: (function).
+@ref{❨67❩, , @t{alist-df}}@: (function).
 @item
-@ref{❨55❩, , @t{alist-dv}}@: (function).
+@ref{❨62❩, , @t{alist-dv}}@: (function).
 @item
-@ref{❨59❩, , @t{bit-variable-summary}}@: (structure).
+@ref{❨68❩, , @t{bit-variable-summary}}@: (structure).
 @item
-@ref{❨43❩, , @t{column}}@: (function).
+@ref{❨48❩, , @t{column}}@: (function).
 @item
-@ref{❨44❩, , @t{(setf column)}}@: (function).
+@ref{❨49❩, , @t{(setf column)}}@: (function).
 @item
-@ref{❨32❩, , @t{column-names}}@: (function).
+@ref{❨37❩, , @t{column-names}}@: (function).
 @item
-@ref{❨36❩, , @t{column-type}}@: (function).
+@ref{❨41❩, , @t{column-type}}@: (function).
 @item
-@ref{❨62❩, , @t{columns}}@: (function).
+@ref{❨71❩, , @t{columns}}@: (function).
 @item
-@ref{❨57❩, , @t{copy}}@: (function).
+@ref{❨66❩, , @t{copy}}@: (function).
 @item
-@ref{❨47❩, , @t{count-rows}}@: (function).
+@ref{❨53❩, , @t{count-rows}}@: (function).
 @item
-@ref{❨40❩, , @t{data-frame}}@: (generic reader).
+@ref{❨45❩, , @t{data-frame}}@: (generic reader).
 @item
-@ref{❨42❩, , @t{data-frame}}@: (class).
+@ref{❨47❩, , @t{data-frame}}@: (class).
 @item
-@ref{❨104❩, , @t{data-type}}@: (type).
+@ref{❨116❩, , @t{data-type}}@: (type).
 @item
-@ref{❨38❩, , @t{data-vector}}@: (class).
+@ref{❨43❩, , @t{data-vector}}@: (class).
 @item
 @ref{❨26❩, , @t{defdf}}@: (macro).
 @item
 @ref{❨18❩, , @t{defdf-env}}@: (function).
 @item
+@ref{❨50❩, , @t{delete-nth}}@: (function).
+@item
+@ref{❨118❩, , @t{delete-nth*}}@: (macro).
+@item
 @ref{❨25❩, , @t{df}}@: (function).
 @item
 @ref{❨23❩, , @t{df-print}}@: (function).
 @item
-@ref{❨54❩, , @t{df-remove-duplicates}}@: (function).
+@ref{❨60❩, , @t{df-remove-duplicates}}@: (function).
 @item
-@ref{❨77❩, , @t{do-rows}}@: (function).
+@ref{❨86❩, , @t{do-rows}}@: (function).
 @item
-@ref{❨97❩, , @t{drop-missing}}@: (generic function).
+@ref{❨109❩, , @t{drop-missing}}@: (generic function).
 @item
-@ref{❨100❩, , @t{duplicate-key}}@: (condition).
+@ref{❨112❩, , @t{duplicate-key}}@: (condition).
 @item
 @ref{❨28❩, , @t{dv}}@: (function).
 @item
-@ref{❨83❩, , @t{factor-variable-summary}}@: (structure).
+@ref{❨63❩, , @t{factor-variable-summary}}@: (structure).
 @item
-@ref{❨51❩, , @t{generic-variable-summary}}@: (structure).
+@ref{❨87❩, , @t{filter-rows}}@: (function).
 @item
-@ref{❨107❩, , @t{get-summaries}}@: (function).
+@ref{❨57❩, , @t{generic-variable-summary}}@: (structure).
 @item
-@ref{❨63❩, , @t{head}}@: (generic function).
+@ref{❨98❩, , @t{get-property}}@: (function).
 @item
-@ref{❨82❩, , @t{heuristicate-types}}@: (function).
+@ref{❨120❩, , @t{get-summaries}}@: (function).
 @item
-@ref{❨48❩, , @t{key-not-found}}@: (condition).
+@ref{❨72❩, , @t{head}}@: (generic function).
 @item
-@ref{❨61❩, , @t{keys}}@: (function).
+@ref{❨27❩, , @t{heuristicate-types}}@: (function).
 @item
-@ref{❨30❩, , @t{large-data}}@: (condition).
+@ref{❨95❩, , @t{ignore-missing}}@: (function).
 @item
-@ref{❨74❩, , @t{make-df}}@: (function).
+@ref{❨54❩, , @t{key-not-found}}@: (condition).
 @item
-@ref{❨79❩, , @t{make-dv}}@: (function).
+@ref{❨70❩, , @t{keys}}@: (function).
 @item
-@ref{❨76❩, , @t{map-columns}}@: (function).
+@ref{❨35❩, , @t{large-data}}@: (condition).
+@item
+@ref{❨84❩, , @t{make-df}}@: (function).
+@item
+@ref{❨89❩, , @t{make-dv}}@: (function).
+@item
+@ref{❨85❩, , @t{map-columns}}@: (function).
 @item
 @ref{❨19❩, , @t{map-df}}@: (function).
 @item
-@ref{❨65❩, , @t{map-rows}}@: (function).
+@ref{❨74❩, , @t{map-rows}}@: (function).
 @item
 @ref{❨15❩, , @t{mask-rows}}@: (function).
 @item
 @ref{❨21❩, , @t{matrix-df}}@: (function).
 @item
-@ref{❨89❩, , @t{missingp}}@: (generic function).
+@ref{❨101❩, , @t{missingp}}@: (generic function).
 @item
-@ref{❨88❩, , @t{plist-df}}@: (function).
+@ref{❨29❩, , @t{name}}@: (generic reader).
 @item
-@ref{❨87❩, , @t{plist-dv}}@: (function).
+@ref{❨31❩, , @t{(setf name)}}@: (generic writer).
 @item
-@ref{❨45❩, , @t{print-array}}@: (function).
+@ref{❨100❩, , @t{plist-df}}@: (function).
+@item
+@ref{❨99❩, , @t{plist-dv}}@: (function).
+@item
+@ref{❨51❩, , @t{print-array}}@: (function).
 @item
 @ref{❨20❩, , @t{print-data}}@: (function).
 @item
-@ref{❨81❩, , @t{print-markdown}}@: (function).
+@ref{❨92❩, , @t{print-markdown}}@: (function).
 @item
-@ref{❨66❩, , @t{real-variable-summary}}@: (structure).
+@ref{❨76❩, , @t{real-variable-summary}}@: (structure).
 @item
-@ref{❨80❩, , @t{remove-columns}}@: (function).
+@ref{❨61❩, , @t{remove-column!}}@: (function).
 @item
-@ref{❨75❩, , @t{rename!}}@: (macro).
+@ref{❨91❩, , @t{remove-columns}}@: (function).
+@item
+@ref{❨93❩, , @t{rename-column!}}@: (generic function).
 @item
 @ref{❨22❩, , @t{replace-column}}@: (function).
 @item
 @ref{❨24❩, , @t{replace-column!}}@: (function).
 @item
-@ref{❨33❩, , @t{replace-missing}}@: (generic function).
+@ref{❨38❩, , @t{replace-missing}}@: (generic function).
 @item
-@ref{❨85❩, , @t{rows}}@: (function).
+@ref{❨96❩, , @t{rows}}@: (function).
 @item
-@ref{❨106❩, , @t{set-properties}}@: (function).
+@ref{❨119❩, , @t{set-properties}}@: (function).
 @item
-@ref{❨86❩, , @t{short-string}}@: (function).
+@ref{❨90❩, , @t{set-property}}@: (function).
 @item
-@ref{❨39❩, , @t{show-data-frames}}@: (function).
+@ref{❨97❩, , @t{short-string}}@: (function).
 @item
-@ref{❨37❩, , @t{summarize-column}}@: (function).
+@ref{❨44❩, , @t{show-data-frames}}@: (function).
 @item
-@ref{❨73❩, , @t{summary}}@: (macro).
+@ref{❨42❩, , @t{summarize-column}}@: (function).
 @item
-@ref{❨102❩, , @t{tail}}@: (generic function).
+@ref{❨83❩, , @t{summary}}@: (function).
+@item
+@ref{❨114❩, , @t{tail}}@: (generic function).
+@item
+@ref{❨33❩, , @t{undef}}@: (function).
 @end itemize
 @item Internals
 @itemize @bullet
 @item
-@ref{❨151❩, , @t{%rename!}}@: (generic function).
+@ref{❨123❩, , @t{*data-frames*}}@: (special variable).
 @item
-@ref{❨183❩, , @t{*data-frames*}}@: (special variable).
+@ref{❨201❩, , @t{*max-digits*}}@: (special variable).
 @item
-@ref{❨200❩, , @t{*max-digits*}}@: (special variable).
+@ref{❨174❩, , @t{*row-numbers-p*}}@: (special variable).
 @item
-@ref{❨218❩, , @t{*row-numbers-p*}}@: (special variable).
+@ref{❨176❩, , @t{2d-array-to-list}}@: (function).
 @item
-@ref{❨216❩, , @t{2d-array-to-list}}@: (function).
+@ref{❨194❩, , @t{add-key!}}@: (function).
 @item
-@ref{❨167❩, , @t{add-key!}}@: (function).
+@ref{❨214❩, , @t{add-keys}}@: (function).
 @item
-@ref{❨210❩, , @t{add-keys}}@: (function).
+@ref{❨152❩, , @t{aesthetic-string}}@: (function).
 @item
-@ref{❨186❩, , @t{aesthetic-string}}@: (function).
+@ref{❨208❩, , @t{alist-data}}@: (function).
 @item
-@ref{❨222❩, , @t{alist-data}}@: (function).
+@ref{❨173❩, , @t{bit-variable-summary-count}}@: (reader).
 @item
-@ref{❨118❩, , @t{bit-variable-summary-count}}@: (reader).
+@ref{❨165❩, , @t{bit-variable-summary-desc}}@: (function).
 @item
-@ref{❨214❩, , @t{bit-variable-summary-desc}}@: (function).
+@ref{❨223❩, , @t{bit-variable-summary-length}}@: (function).
 @item
-@ref{❨164❩, , @t{bit-variable-summary-length}}@: (function).
+@ref{❨134❩, , @t{bit-variable-summary-missing}}@: (function).
 @item
-@ref{❨178❩, , @t{bit-variable-summary-missing}}@: (function).
+@ref{❨162❩, , @t{bit-variable-summary-name}}@: (function).
 @item
-@ref{❨224❩, , @t{bit-variable-summary-name}}@: (function).
+@ref{❨225❩, , @t{bit-variable-summary-p}}@: (function).
 @item
-@ref{❨159❩, , @t{bit-variable-summary-p}}@: (function).
+@ref{❨135❩, , @t{check-column-compatibility}}@: (generic function).
 @item
-@ref{❨206❩, , @t{check-column-compatibility}}@: (generic function).
+@ref{❨190❩, , @t{column-length}}@: (generic function).
 @item
-@ref{❨211❩, , @t{column-length}}@: (generic function).
+@ref{❨154❩, , @t{column-type-format}}@: (function).
 @item
-@ref{❨171❩, , @t{column-type-format}}@: (function).
+@ref{❨153❩, , @t{copy-bit-variable-summary}}@: (function).
 @item
-@ref{❨196❩, , @t{copy-bit-variable-summary}}@: (function).
+@ref{❨230❩, , @t{copy-factor-variable-summary}}@: (function).
 @item
-@ref{❨201❩, , @t{copy-factor-variable-summary}}@: (function).
+@ref{❨209❩, , @t{copy-generic-variable-summary}}@: (function).
 @item
-@ref{❨122❩, , @t{copy-generic-variable-summary}}@: (function).
+@ref{❨163❩, , @t{copy-ordered-keys}}@: (function).
 @item
-@ref{❨193❩, , @t{copy-ordered-keys}}@: (function).
+@ref{❨156❩, , @t{copy-real-variable-summary}}@: (function).
 @item
-@ref{❨145❩, , @t{copy-real-variable-summary}}@: (function).
+@ref{❨221❩, , @t{copy-variable-summary%}}@: (function).
 @item
-@ref{❨165❩, , @t{copy-variable-summary%}}@: (function).
+@ref{❨127❩, , @t{data}}@: (class).
 @item
-@ref{❨132❩, , @t{data}}@: (class).
+@ref{❨160❩, , @t{data-frame-exists}}@: (condition).
 @item
-@ref{❨181❩, , @t{data-frame-exists}}@: (condition).
+@ref{❨170❩, , @t{data-size}}@: (generic reader).
 @item
-@ref{❨140❩, , @t{data-size}}@: (generic reader).
+@ref{❨212❩, , @t{default-column-formats}}@: (generic function).
 @item
-@ref{❨146❩, , @t{default-column-formats}}@: (generic function).
+@ref{❨205❩, , @t{define-data-subclass}}@: (macro).
 @item
-@ref{❨160❩, , @t{define-data-subclass}}@: (macro).
+@ref{❨122❩, , @t{df-env-p}}@: (function).
 @item
-@ref{❨161❩, , @t{df-env-p}}@: (function).
+@ref{❨140❩, , @t{df-exists-p}}@: (function).
 @item
-@ref{❨189❩, , @t{df-exists-p}}@: (function).
+@ref{❨233❩, , @t{distinct}}@: (function).
 @item
-@ref{❨156❩, , @t{distinct}}@: (function).
+@ref{❨179❩, , @t{drop-na}}@: (function).
 @item
-@ref{❨187❩, , @t{drop-na}}@: (function).
+@ref{❨217❩, , @t{ensure-arguments-alist}}@: (function).
 @item
-@ref{❨190❩, , @t{ensure-arguments-alist}}@: (function).
+@ref{❨196❩, , @t{ensure-not-ratio}}@: (function).
 @item
-@ref{❨180❩, , @t{ensure-not-ratio}}@: (function).
+@ref{❨143❩, , @t{factor-variable-summary-desc}}@: (function).
 @item
-@ref{❨153❩, , @t{ensure-plist}}@: (macro).
+@ref{❨172❩, , @t{factor-variable-summary-element-count-alist}}@: (reader).
 @item
-@ref{❨188❩, , @t{factor-variable-summary-desc}}@: (function).
+@ref{❨195❩, , @t{factor-variable-summary-length}}@: (function).
 @item
-@ref{❨168❩, , @t{factor-variable-summary-element-count-alist}}@: (reader).
+@ref{❨145❩, , @t{factor-variable-summary-missing}}@: (function).
 @item
-@ref{❨174❩, , @t{factor-variable-summary-length}}@: (function).
+@ref{❨219❩, , @t{factor-variable-summary-name}}@: (function).
 @item
-@ref{❨198❩, , @t{factor-variable-summary-missing}}@: (function).
+@ref{❨197❩, , @t{factor-variable-summary-p}}@: (function).
 @item
-@ref{❨109❩, , @t{factor-variable-summary-name}}@: (function).
+@ref{❨224❩, , @t{generic-variable-summary-desc}}@: (function).
 @item
-@ref{❨114❩, , @t{factor-variable-summary-p}}@: (function).
+@ref{❨193❩, , @t{generic-variable-summary-element-count-alist}}@: (reader).
 @item
-@ref{❨225❩, , @t{generic-variable-summary-desc}}@: (function).
+@ref{❨211❩, , @t{generic-variable-summary-length}}@: (function).
 @item
-@ref{❨139❩, , @t{generic-variable-summary-element-count-alist}}@: (reader).
+@ref{❨234❩, , @t{generic-variable-summary-missing}}@: (function).
 @item
-@ref{❨179❩, , @t{generic-variable-summary-length}}@: (function).
+@ref{❨139❩, , @t{generic-variable-summary-name}}@: (function).
 @item
-@ref{❨170❩, , @t{generic-variable-summary-missing}}@: (function).
+@ref{❨220❩, , @t{generic-variable-summary-p}}@: (function).
 @item
-@ref{❨213❩, , @t{generic-variable-summary-name}}@: (function).
+@ref{❨202❩, , @t{generic-variable-summary-quantiles}}@: (reader).
 @item
-@ref{❨113❩, , @t{generic-variable-summary-p}}@: (function).
+@ref{❨166❩, , @t{get-type}}@: (function).
 @item
-@ref{❨115❩, , @t{generic-variable-summary-quantiles}}@: (reader).
+@ref{❨178❩, , @t{invalid-df-name}}@: (function).
 @item
-@ref{❨117❩, , @t{get-property}}@: (function).
+@ref{❨215❩, , @t{key-index}}@: (function).
 @item
-@ref{❨155❩, , @t{get-type}}@: (function).
+@ref{❨155❩, , @t{key-list}}@: (function).
 @item
-@ref{❨217❩, , @t{invalid-df-name}}@: (function).
+@ref{❨144❩, , @t{keys-count}}@: (function).
 @item
-@ref{❨119❩, , @t{key-index}}@: (function).
+@ref{❨124❩, , @t{keys-vector}}@: (function).
 @item
-@ref{❨209❩, , @t{keys-count}}@: (function).
+@ref{❨167❩, , @t{make-bit-variable-summary}}@: (function).
 @item
-@ref{❨194❩, , @t{keys-vector}}@: (function).
+@ref{❨138❩, , @t{make-data}}@: (function).
 @item
-@ref{❨172❩, , @t{make-bit-variable-summary}}@: (function).
+@ref{❨204❩, , @t{make-factor-variable-summary}}@: (function).
 @item
-@ref{❨149❩, , @t{make-data}}@: (function).
+@ref{❨207❩, , @t{make-generic-variable-summary}}@: (function).
 @item
-@ref{❨108❩, , @t{make-factor-variable-summary}}@: (function).
+@ref{❨229❩, , @t{make-ordered-keys}}@: (function).
 @item
-@ref{❨158❩, , @t{make-generic-variable-summary}}@: (function).
+@ref{❨159❩, , @t{make-real-variable-summary}}@: (function).
 @item
-@ref{❨176❩, , @t{make-ordered-keys}}@: (function).
+@ref{❨168❩, , @t{make-variable-summary%}}@: (function).
 @item
-@ref{❨202❩, , @t{make-real-variable-summary}}@: (function).
+@ref{❨181❩, , @t{max-decimal}}@: (function).
 @item
-@ref{❨185❩, , @t{make-variable-summary%}}@: (function).
+@ref{❨199❩, , @t{max-width}}@: (function).
 @item
-@ref{❨169❩, , @t{max-decimal}}@: (function).
+@ref{❨131❩, , @t{missing-data}}@: (condition).
 @item
-@ref{❨154❩, , @t{max-width}}@: (function).
+@ref{❨180❩, , @t{monotonicp}}@: (function).
 @item
-@ref{❨219❩, , @t{missing-data}}@: (condition).
+@ref{❨226❩, , @t{ordered-keys}}@: (function).
 @item
-@ref{❨203❩, , @t{monotonicp}}@: (function).
+@ref{❨227❩, , @t{ordered-keys}}@: (structure).
 @item
-@ref{❨110❩, , @t{ordered-keys}}@: (function).
+@ref{❨186❩, , @t{ordered-keys-p}}@: (function).
 @item
-@ref{❨111❩, , @t{ordered-keys}}@: (structure).
+@ref{❨169❩, , @t{ordered-keys-table}}@: (reader).
 @item
-@ref{❨204❩, , @t{ordered-keys-p}}@: (function).
+@ref{❨158❩, , @t{plist-data}}@: (function).
 @item
-@ref{❨205❩, , @t{ordered-keys-table}}@: (reader).
+@ref{❨235❩, , @t{print-count-and-percentage}}@: (function).
 @item
-@ref{❨124❩, , @t{plist-data}}@: (function).
+@ref{❨185❩, , @t{print-table}}@: (function).
 @item
-@ref{❨197❩, , @t{print-count-and-percentage}}@: (function).
+@ref{❨183❩, , @t{printer-status}}@: (function).
 @item
-@ref{❨184❩, , @t{print-table}}@: (function).
+@ref{❨126❩, , @t{real-variable-summary-desc}}@: (function).
 @item
-@ref{❨162❩, , @t{printer-status}}@: (function).
+@ref{❨184❩, , @t{real-variable-summary-length}}@: (function).
 @item
-@ref{❨135❩, , @t{real-variable-summary-desc}}@: (function).
+@ref{❨151❩, , @t{real-variable-summary-max}}@: (reader).
 @item
-@ref{❨191❩, , @t{real-variable-summary-length}}@: (function).
-@item
-@ref{❨150❩, , @t{real-variable-summary-max}}@: (reader).
-@item
-@ref{❨143❩, , @t{real-variable-summary-mean}}@: (reader).
+@ref{❨188❩, , @t{real-variable-summary-mean}}@: (reader).
 @item
 @ref{❨192❩, , @t{real-variable-summary-min}}@: (reader).
 @item
-@ref{❨199❩, , @t{real-variable-summary-missing}}@: (function).
+@ref{❨125❩, , @t{real-variable-summary-missing}}@: (function).
 @item
-@ref{❨137❩, , @t{real-variable-summary-name}}@: (function).
+@ref{❨210❩, , @t{real-variable-summary-name}}@: (function).
 @item
-@ref{❨136❩, , @t{real-variable-summary-p}}@: (function).
+@ref{❨231❩, , @t{real-variable-summary-p}}@: (function).
 @item
-@ref{❨166❩, , @t{real-variable-summary-q25}}@: (reader).
+@ref{❨218❩, , @t{real-variable-summary-q25}}@: (reader).
 @item
-@ref{❨175❩, , @t{real-variable-summary-q50}}@: (reader).
+@ref{❨182❩, , @t{real-variable-summary-q50}}@: (reader).
 @item
-@ref{❨116❩, , @t{real-variable-summary-q75}}@: (reader).
+@ref{❨198❩, , @t{real-variable-summary-q75}}@: (reader).
 @item
-@ref{❨223❩, , @t{reverse-df}}@: (function).
+@ref{❨141❩, , @t{remove-columns!}}@: (function).
 @item
-@ref{❨144❩, , @t{set-property}}@: (function).
+@ref{❨203❩, , @t{remove-key!}}@: (function).
 @item
-@ref{❨125❩, , @t{show-properties}}@: (function).
+@ref{❨206❩, , @t{reverse-df}}@: (function).
 @item
-@ref{❨121❩, , @t{show-symbols}}@: (function).
+@ref{❨216❩, , @t{show-properties}}@: (function).
 @item
-@ref{❨177❩, , @t{summarize-dataframe}}@: (function).
+@ref{❨164❩, , @t{show-symbols}}@: (function).
 @item
-@ref{❨163❩, , @t{summarize-factor-variable}}@: (function).
+@ref{❨121❩, , @t{summarize-factor-variable}}@: (function).
 @item
-@ref{❨138❩, , @t{summarize-generic-variable}}@: (function).
+@ref{❨142❩, , @t{summarize-generic-variable}}@: (function).
 @item
-@ref{❨123❩, , @t{summarize-real-variable}}@: (function).
+@ref{❨222❩, , @t{summarize-real-variable}}@: (function).
 @item
-@ref{❨173❩, , @t{types-in-column}}@: (function).
+@ref{❨157❩, , @t{types-in-column}}@: (function).
 @item
-@ref{❨120❩, , @t{undef-env}}@: (function).
+@ref{❨146❩, , @t{variable-summary%}}@: (structure).
 @item
-@ref{❨126❩, , @t{variable-summary%}}@: (structure).
+@ref{❨187❩, , @t{variable-summary%-desc}}@: (reader).
 @item
-@ref{❨157❩, , @t{variable-summary%-desc}}@: (reader).
+@ref{❨189❩, , @t{variable-summary%-length}}@: (reader).
 @item
-@ref{❨215❩, , @t{variable-summary%-length}}@: (reader).
+@ref{❨232❩, , @t{variable-summary%-missing}}@: (reader).
 @item
-@ref{❨195❩, , @t{variable-summary%-missing}}@: (reader).
+@ref{❨175❩, , @t{variable-summary%-name}}@: (reader).
 @item
-@ref{❨142❩, , @t{variable-summary%-name}}@: (reader).
+@ref{❨200❩, , @t{variable-summary%-p}}@: (function).
 @item
-@ref{❨131❩, , @t{variable-summary%-p}}@: (function).
-@item
-@ref{❨148❩, , @t{weave}}@: (function).
+@ref{❨177❩, , @t{weave}}@: (function).
 @end itemize
 @end table
 
@@ -1444,7 +1477,7 @@ lexicographic order.
 @node Public special variables, Public macros, Public Interface, Public Interface
 @subsection Special variables
 @defvr {Special Variable} {*ask-on-redefine*}
-@anchor{❨78❩}@c
+@anchor{❨88❩}@c
 @specialsubindex{*ask-on-redefine*}@c
 If non-nil@comma{} the system will ask the user for confirmation before redefining a data frame
 @table @strong
@@ -1455,7 +1488,7 @@ If non-nil@comma{} the system will ask the user for confirmation before redefini
 @end table
 @end defvr
 @defvr {Special Variable} {*distinct-maximum*}
-@anchor{❨56❩}@c
+@anchor{❨65❩}@c
 @specialsubindex{*distinct-maximum*}@c
 If a string/factor variable has > *distinct-maximum* values@comma{} exclude it
 @table @strong
@@ -1466,7 +1499,7 @@ If a string/factor variable has > *distinct-maximum* values@comma{} exclude it
 @end table
 @end defvr
 @defvr {Special Variable} {*distinct-threshold*}
-@anchor{❨46❩}@c
+@anchor{❨52❩}@c
 @specialsubindex{*distinct-threshold*}@c
 If an integer variable has <= discrete values@comma{} consider it a factor
 @table @strong
@@ -1477,7 +1510,7 @@ If an integer variable has <= discrete values@comma{} consider it a factor
 @end table
 @end defvr
 @defvr {Special Variable} {*large-data*}
-@anchor{❨35❩}@c
+@anchor{❨40❩}@c
 @specialsubindex{*large-data*}@c
 An indication that the data set is large for a particular use case.@*
 This should be bound by a user to the maximum number of data points they consider to be 'normal'. The function can then signal a large-data warning if it is exceeded.
@@ -1505,7 +1538,7 @@ If the number of unique reals exceeds this threshold@comma{} they will be summar
 @end table
 @end defvr
 @defvr {Special Variable} {*summary-minimum-length*}
-@anchor{❨27❩}@c
+@anchor{❨75❩}@c
 @specialsubindex{*summary-minimum-length*}@c
 Columns are only summarised when longer than this@comma{} otherwise they are returned as is.
 @table @strong
@@ -1521,7 +1554,8 @@ Columns are only summarised when longer than this@comma{} otherwise they are ret
 @deffn {Macro} {defdf} (name data &optional documentation)
 @anchor{❨26❩}@c
 @macrosubindex{defdf}@c
-Define a data-frame
+Define a data-frame and package by the same name.@*
+Also defines symbol-macros for variable access@comma{} e.g. mtcars:mpg
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -1529,31 +1563,29 @@ Define a data-frame
 @ref{❨10❩, , @t{defdf.lisp}}.
 @end table
 @end deffn
-@deffn {Macro} {rename!} (data-frame new old)
-@anchor{❨75❩}@c
-@macrosubindex{rename!}@c
+@deffn {Macro} {delete-nth*} (place n)
+@anchor{❨118❩}@c
+@macrosubindex{delete-nth*}@c
+Destructively modifies N@comma{} a SEQUENCE by removing the Nth item.
+Example:@*
+    LS-USER> (defparameter *v* @hashchar{}(a b c d))@*
+    *V*@*
+    LS-USER> (delete-nth* *v* 1)@*
+    @hashchar{}(A C D)@*
+    LS-USER> *v*@*
+    @hashchar{}(A C D)
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Source
-@ref{❨6❩, , @t{data-frame.lisp}}.
-@end table
-@end deffn
-@deffn {Macro} {summary} (df &optional stream)
-@anchor{❨73❩}@c
-@macrosubindex{summary}@c
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨9❩, , @t{summary.lisp}}.
+@ref{❨4❩, , @t{utils.lisp}}.
 @end table
 @end deffn
 
 @node Public ordinary functions, Public generic functions, Public macros, Public Interface
 @subsection Ordinary functions
-@deffn {Function} {add-column!} (data key column)
-@anchor{❨29❩}@c
+@deffn {Function} {add-column!} (data key column &optional update-env)
+@anchor{❨34❩}@c
 @functionsubindex{add-column!}@c
 Modify DATA (a data-frame or data-vector) by adding COLUMN with KEY.  Return DATA.
 @table @strong
@@ -1575,9 +1607,10 @@ Return a new data-frame or data-vector with keys and columns added.  Does not mo
 @end table
 @end deffn
 @deffn {Function} {add-columns!} (data &rest keys-and-columns)
-@anchor{❨105❩}@c
+@anchor{❨117❩}@c
 @functionsubindex{add-columns!}@c
 Modify DATA (a data-frame or data-vector) by adding columns with keys.
+If a data-frame environment exists@comma{} add columns to it as well.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -1586,7 +1619,7 @@ Modify DATA (a data-frame or data-vector) by adding columns with keys.
 @end table
 @end deffn
 @deffn {Function} {alist-df} (alist)
-@anchor{❨58❩}@c
+@anchor{❨67❩}@c
 @functionsubindex{alist-df}@c
 @table @strong
 @item Package
@@ -1596,7 +1629,7 @@ Modify DATA (a data-frame or data-vector) by adding columns with keys.
 @end table
 @end deffn
 @deffn {Function} {alist-dv} (alist)
-@anchor{❨55❩}@c
+@anchor{❨62❩}@c
 @functionsubindex{alist-dv}@c
 @table @strong
 @item Package
@@ -1606,7 +1639,7 @@ Modify DATA (a data-frame or data-vector) by adding columns with keys.
 @end table
 @end deffn
 @deffn {Function} {column} (data key)
-@anchor{❨43❩}@c
+@anchor{❨48❩}@c
 @functionsubindex{column}@c
 Return column corresponding to key.
 @table @strong
@@ -1617,7 +1650,7 @@ Return column corresponding to key.
 @end table
 @end deffn
 @deffn {Function} {(setf column)} (data key)
-@anchor{❨44❩}@c
+@anchor{❨49❩}@c
 @functionsubindex{(setf column)}@c
 Set column corresponding to key.
 @table @strong
@@ -1628,7 +1661,7 @@ Set column corresponding to key.
 @end table
 @end deffn
 @deffn {Function} {column-names} (df)
-@anchor{❨32❩}@c
+@anchor{❨37❩}@c
 @functionsubindex{column-names}@c
 Return a list of column names in DF@comma{} as strings
 @table @strong
@@ -1639,7 +1672,7 @@ Return a list of column names in DF@comma{} as strings
 @end table
 @end deffn
 @deffn {Function} {column-type} (col)
-@anchor{❨36❩}@c
+@anchor{❨41❩}@c
 @functionsubindex{column-type}@c
 Return the most specific type found in COL
 @table @strong
@@ -1650,7 +1683,7 @@ Return the most specific type found in COL
 @end table
 @end deffn
 @deffn {Function} {columns} (data &optional slice)
-@anchor{❨62❩}@c
+@anchor{❨71❩}@c
 @functionsubindex{columns}@c
 Return the columns of DATA as a vector@comma{} or a selection if given (keys are resolved).
 @table @strong
@@ -1661,9 +1694,9 @@ Return the columns of DATA as a vector@comma{} or a selection if given (keys are
 @end table
 @end deffn
 @deffn {Function} {copy} (data &key key)
-@anchor{❨57❩}@c
+@anchor{❨66❩}@c
 @functionsubindex{copy}@c
-Copy data frame or vector.  Keys are copied (and thus can be modified)@comma{} columns or elements are copyied using KEY@comma{} making the default give a shallow copy.
+Copy data frame or vector.  Keys are copied (and thus can be modified)@comma{} columns or elements are copied using KEY@comma{} making the default give a shallow copy.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -1672,7 +1705,7 @@ Copy data frame or vector.  Keys are copied (and thus can be modified)@comma{} c
 @end table
 @end deffn
 @deffn {Function} {count-rows} (data-frame keys predicate)
-@anchor{❨47❩}@c
+@anchor{❨53❩}@c
 @functionsubindex{count-rows}@c
 Count the number of rows for which PREDICATE called on the columns corresponding to KEYS returns non-NIL.
 @table @strong
@@ -1685,11 +1718,25 @@ Count the number of rows for which PREDICATE called on the columns corresponding
 @deffn {Function} {defdf-env} (data-frame old-keys)
 @anchor{❨18❩}@c
 @functionsubindex{defdf-env}@c
+Create a package with the same name as DATA-FRAME.  Within it@comma{} create a symbol-macro for each column that will return the columns value.
+Can also be used to remove and update the environment as the DATA-FRAME changes in destructive operations
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Source
 @ref{❨10❩, , @t{defdf.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {delete-nth} (sequence n)
+@anchor{❨50❩}@c
+@functionsubindex{delete-nth}@c
+Return SEQUENCE with the Nth item removed.@*
+Note: DELETE-IF makes no guarantee of being destructive@comma{} so you cannot rely on this side-effect.  You must SETF the original sequence to the values returned from this function@comma{} or use the modify-macro DELETE-NTH*
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨4❩, , @t{utils.lisp}}.
 @end table
 @end deffn
 @deffn {Function} {df} (&rest plist-or-alist)
@@ -1714,7 +1761,7 @@ Print DF to *standard-output* in table format
 @end table
 @end deffn
 @deffn {Function} {df-remove-duplicates} (data)
-@anchor{❨54❩}@c
+@anchor{❨60❩}@c
 @functionsubindex{df-remove-duplicates}@c
 Return a modified copy of DATA from which any element (row@comma{} if a DATA-FRAME) that matches another element has been removed
 @table @strong
@@ -1725,7 +1772,7 @@ Return a modified copy of DATA from which any element (row@comma{} if a DATA-FRA
 @end table
 @end deffn
 @deffn {Function} {do-rows} (data-frame keys function)
-@anchor{❨77❩}@c
+@anchor{❨86❩}@c
 @functionsubindex{do-rows}@c
 Traverse rows from first to last@comma{} calling FUNCTION on the columns corresponding to KEYS.  Return no values.
 @table @strong
@@ -1745,8 +1792,55 @@ Traverse rows from first to last@comma{} calling FUNCTION on the columns corresp
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {filter-rows} (data body)
+@anchor{❨87❩}@c
+@functionsubindex{filter-rows}@c
+Filter DATA by a predicate given in BODY@*
+
+Example@*
+   (data :mtcars) ; load a data set@*
+   (head mtcars)  ; view first 6 rows@*
+
+;;   MODEL              MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
+;; 0 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+;; 1 Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+;; 2 Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+;; 3 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+;; 4 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+;; 5 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+
+   (filter-rows mtcars '(< mpg 17))@*
+   @hashchar{}<DATA-FRAME (11 observations of 12 variables)>@*
+
+   (head *) ; view first 6 rows of filtered data frame@*
+
+;;   MODEL                MPG CYL  DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
+;; 0 Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+;; 1 Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+;; 2 Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+;; 3 Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+;; 4 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+;; 5 Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨13❩, , @t{filter.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {get-property} (variable property)
+@anchor{❨98❩}@c
+@functionsubindex{get-property}@c
+Return the PROPERTY of data VARIABLE
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨11❩, , @t{properties.lisp}}.
+@end table
+@end deffn
 @deffn {Function} {get-summaries} (df)
-@anchor{❨107❩}@c
+@anchor{❨120❩}@c
 @functionsubindex{get-summaries}@c
 Return a list of summaries of the variables in DF
 @table @strong
@@ -1757,7 +1851,7 @@ Return a list of summaries of the variables in DF
 @end table
 @end deffn
 @deffn {Function} {heuristicate-types} (df)
-@anchor{❨82❩}@c
+@anchor{❨27❩}@c
 @functionsubindex{heuristicate-types}@c
 Coerce each element of the column vectors to the most specific type in the column@*
 Often when reading in a data set@comma{} the types will be inconsistent in a variable.  For example one observation might be 5.1@comma{} and another 5.  Whilst mathmatically equivalent@comma{} we want our variable vectors to have identical types.  The COLUMN-TYPE function returns the most specific numeric type in the column@comma{} then coerces all the vector elements to this type
@@ -1768,10 +1862,21 @@ Often when reading in a data set@comma{} the types will be inconsistent in a var
 @ref{❨11❩, , @t{properties.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {ignore-missing} (function &key warn-user provide-restart)
+@anchor{❨95❩}@c
+@functionsubindex{ignore-missing}@c
+Wrap FUNCTION in a closure that removes missing values and applys FUNCTION in case any of the arguments are :MISSING@comma{} :NA or NIL to arguments.  Intended for functions accepting vectors.
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨12❩, , @t{missing.lisp}}.
+@end table
+@end deffn
 @deffn {Function} {keys} (data)
-@anchor{❨61❩}@c
+@anchor{❨70❩}@c
 @functionsubindex{keys}@c
-Vector of keys.
+Return a vector of keys.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -1780,7 +1885,7 @@ Vector of keys.
 @end table
 @end deffn
 @deffn {Function} {make-df} (keys columns)
-@anchor{❨74❩}@c
+@anchor{❨84❩}@c
 @functionsubindex{make-df}@c
 @table @strong
 @item Package
@@ -1790,7 +1895,7 @@ Vector of keys.
 @end table
 @end deffn
 @deffn {Function} {make-dv} (keys columns)
-@anchor{❨79❩}@c
+@anchor{❨89❩}@c
 @functionsubindex{make-dv}@c
 @table @strong
 @item Package
@@ -1800,7 +1905,7 @@ Vector of keys.
 @end table
 @end deffn
 @deffn {Function} {map-columns} (data function &optional result-class)
-@anchor{❨76❩}@c
+@anchor{❨85❩}@c
 @functionsubindex{map-columns}@c
 Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys.
 @table @strong
@@ -1822,7 +1927,7 @@ Map DATA-FRAME to another one by rows.  Function is called on the columns corres
 @end table
 @end deffn
 @deffn {Function} {map-rows} (data-frame keys function &key element-type)
-@anchor{❨65❩}@c
+@anchor{❨74❩}@c
 @functionsubindex{map-rows}@c
 Map rows using FUNCTION@comma{} on the columns corresponding to KEYS.  Return the result with the given ELEMENT-TYPE.
 @table @strong
@@ -1855,7 +1960,7 @@ Convert a matrix to a data-frame with the given keys.
 @end table
 @end deffn
 @deffn {Function} {plist-df} (plist)
-@anchor{❨88❩}@c
+@anchor{❨100❩}@c
 @functionsubindex{plist-df}@c
 @table @strong
 @item Package
@@ -1865,7 +1970,7 @@ Convert a matrix to a data-frame with the given keys.
 @end table
 @end deffn
 @deffn {Function} {plist-dv} (plist)
-@anchor{❨87❩}@c
+@anchor{❨99❩}@c
 @functionsubindex{plist-dv}@c
 @table @strong
 @item Package
@@ -1875,7 +1980,7 @@ Convert a matrix to a data-frame with the given keys.
 @end table
 @end deffn
 @deffn {Function} {print-array} (arr &optional stream row-numbers-p)
-@anchor{❨45❩}@c
+@anchor{❨51❩}@c
 @functionsubindex{print-array}@c
 Print an array to STREAM@comma{} defaulting to *standard-output*@comma{} in a tabular format.  If ROW-NUMBERS-P@comma{} print row numbers.
 @table @strong
@@ -1897,7 +2002,7 @@ Print DATA-FRAME to STREAM using the pretty printer
 @end table
 @end deffn
 @deffn {Function} {print-markdown} (df &key stream row-numbers)
-@anchor{❨81❩}@c
+@anchor{❨92❩}@c
 @functionsubindex{print-markdown}@c
 Print data frame DF@comma{} in markdown format@comma{} to STREAM@*
 If ROW-NUMBERS is true@comma{} also print row numbers as the first column
@@ -1908,12 +2013,23 @@ If ROW-NUMBERS is true@comma{} also print row numbers as the first column
 @ref{❨8❩, , @t{formatted-output.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {remove-column!} (data key)
+@anchor{❨61❩}@c
+@functionsubindex{remove-column!}@c
+Modify DATA (a data-frame or data-vector) by removing COLUMN with KEY.  Return DATA.
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
+@end table
+@end deffn
 @deffn {Function} {remove-columns} (data keys)
-@anchor{❨80❩}@c
+@anchor{❨91❩}@c
 @functionsubindex{remove-columns}@c
-ARGS: DATA data frame@*
-         KEYS list of keys (variables) to be removed@*
 Return a new data-frame or data-vector with keys and columns removed.  Does not modify DATA.
+ARGS: DATA data frame@*
+      KEYS list of keys (variables) to be removed
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -1944,7 +2060,7 @@ Modify column KEY of data-frame DATA by replacing it either with the given colum
 @end table
 @end deffn
 @deffn {Function} {rows} (data)
-@anchor{❨85❩}@c
+@anchor{❨96❩}@c
 @functionsubindex{rows}@c
 Return the rows of DATA as a vector
 @table @strong
@@ -1955,7 +2071,7 @@ Return the rows of DATA as a vector
 @end table
 @end deffn
 @deffn {Function} {set-properties} (df property prop-values)
-@anchor{❨106❩}@c
+@anchor{❨119❩}@c
 @functionsubindex{set-properties}@c
 Set the PROPERTY of each variable in DF to a value.  The value is specified in the plist PROP-VALUES.
 Example:@*
@@ -1978,8 +2094,19 @@ Example:@*
 @ref{❨11❩, , @t{properties.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {set-property} (symbol value property)
+@anchor{❨90❩}@c
+@functionsubindex{set-property}@c
+Set the PROPERTY of SYMBOL to VALUE
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨11❩, , @t{properties.lisp}}.
+@end table
+@end deffn
 @deffn {Function} {short-string} (str)
-@anchor{❨86❩}@c
+@anchor{❨97❩}@c
 @functionsubindex{short-string}@c
 Return up to the first newline@*
 This is useful when docstrings are multi-line.  By convention@comma{} the first line is the title.
@@ -1991,10 +2118,10 @@ This is useful when docstrings are multi-line.  By convention@comma{} the first 
 @end table
 @end deffn
 @deffn {Function} {show-data-frames} (&key head stream)
-@anchor{❨39❩}@c
+@anchor{❨44❩}@c
 @functionsubindex{show-data-frames}@c
 Print all data frames in the current environment in reverse order of creation@comma{} i.e. most recently created first.
-if HEAD is not NIL@comma{} print the first six rows@comma{} similar to the (head) function
+If HEAD is not NIL@comma{} print the first six rows@comma{} similar to the (head) function
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2002,8 +2129,8 @@ if HEAD is not NIL@comma{} print the first six rows@comma{} similar to the (head
 @ref{❨10❩, , @t{defdf.lisp}}.
 @end table
 @end deffn
-@deffn {Function} {summarize-column} (column)
-@anchor{❨37❩}@c
+@deffn {Function} {summarize-column} (column &optional name)
+@anchor{❨42❩}@c
 @functionsubindex{summarize-column}@c
 Return a summary struct for COLUMN
 @table @strong
@@ -2013,46 +2140,76 @@ Return a summary struct for COLUMN
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {summary} (df &optional stream)
+@anchor{❨83❩}@c
+@functionsubindex{summary}@c
+Print a summary of DF to STREAM@comma{} using heuristics for better formatting
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨9❩, , @t{summary.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {undef} (&rest params)
+@anchor{❨33❩}@c
+@functionsubindex{undef}@c
+Remove one or more data frames from the environment@*
+PARAMS: a list of DATA-FRAMEs@*
+
+Essentially reverses what DEFDF does.  Returns the data frames that were removed.  Don't use this if you have a data frame bound via DEFPARAMETER.
+Examples:@*
+    (undef mtcars vlcars)
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨10❩, , @t{defdf.lisp}}.
+@end table
+@end deffn
 
 @node Public generic functions, Public standalone methods, Public ordinary functions, Public Interface
 @subsection Generic functions
 @deffn {Generic Reader} {data-frame} (condition)
-@anchor{❨40❩}@c
+@anchor{❨45❩}@c
 @genericsubindex{data-frame}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
-@deffn {Reader Method} {data-frame} ((condition @ref{❨181❩, , @t{data-frame-exists}}))
-@anchor{❨41❩}@c
+@deffn {Reader Method} {data-frame} ((condition @ref{❨160❩, , @t{data-frame-exists}}))
+@anchor{❨46❩}@c
 @methodsubindex{data-frame}@c
 @table @strong
 @item Source
-@ref{❨10❩, , @t{defdf.lisp}}.
+@ref{❨5❩, , @t{conditions.lisp}}.
 @item Target Slot
-@ref{❨182❩, , @t{data-frame}}.
+@ref{❨161❩, , @t{data-frame}}.
 @end table
 @end deffn
 @end table
 @end deffn
 @deffn {Generic Function} {drop-missing} (df &optional predicate)
-@anchor{❨97❩}@c
+@anchor{❨109❩}@c
 @genericsubindex{drop-missing}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
 @deffn {Method} {drop-missing} ((var @t{vector}) &optional predicate)
-@anchor{❨98❩}@c
+@anchor{❨110❩}@c
 @methodsubindex{drop-missing}@c
-Remove all values from VAR that are missing according to PREDICATE
+Remove all values from VAR that are missing according to PREDICATE.
+Returns values:@*
+   1. the vector with missing values removed@*
+   2. the number of elements removed
 @table @strong
 @item Source
 @ref{❨12❩, , @t{missing.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {drop-missing} ((df @ref{❨42❩, , @t{data-frame}}) &optional predicate)
-@anchor{❨99❩}@c
+@deffn {Method} {drop-missing} ((df @ref{❨47❩, , @t{data-frame}}) &optional predicate)
+@anchor{❨111❩}@c
 @methodsubindex{drop-missing}@c
 Remove all rows from DF that are missing values according to PREDICATE
 @table @strong
@@ -2063,14 +2220,14 @@ Remove all rows from DF that are missing values according to PREDICATE
 @end table
 @end deffn
 @deffn {Generic Function} {head} (df &optional n)
-@anchor{❨63❩}@c
+@anchor{❨72❩}@c
 @genericsubindex{head}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
-@deffn {Method} {head} ((df @ref{❨42❩, , @t{data-frame}}) &optional n)
-@anchor{❨64❩}@c
+@deffn {Method} {head} ((df @ref{❨47❩, , @t{data-frame}}) &optional n)
+@anchor{❨73❩}@c
 @methodsubindex{head}@c
 Return the first N rows of DF; N defaults to 6
 @table @strong
@@ -2081,7 +2238,7 @@ Return the first N rows of DF; N defaults to 6
 @end table
 @end deffn
 @deffn {Generic Function} {missingp} (data)
-@anchor{❨89❩}@c
+@anchor{❨101❩}@c
 @genericsubindex{missingp}@c
 Return a vector indicating the position of any missing value indicators.  They currently are :na and :missing
 @table @strong
@@ -2091,58 +2248,106 @@ Return a vector indicating the position of any missing value indicators.  They c
 @ref{❨12❩, , @t{missing.lisp}}.
 @item Methods
 @deffn {Method} {missingp} (data)
-@anchor{❨90❩}@c
+@anchor{❨102❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
 @deffn {Method} {missingp} ((data @t{(eql :na)}))
-@anchor{❨91❩}@c
+@anchor{❨103❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
 @deffn {Method} {missingp} ((data @t{(eql :missing)}))
-@anchor{❨92❩}@c
+@anchor{❨104❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
 @deffn {Method} {missingp} ((data @t{string}))
-@anchor{❨93❩}@c
+@anchor{❨105❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
 @deffn {Method} {missingp} ((data @t{sequence}))
-@anchor{❨94❩}@c
+@anchor{❨106❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
 @deffn {Method} {missingp} ((data @t{array}))
-@anchor{❨95❩}@c
+@anchor{❨107❩}@c
 @methodsubindex{missingp}@c
 @table @strong
 @end table
 @end deffn
-@deffn {Method} {missingp} ((data @ref{❨42❩, , @t{data-frame}}))
-@anchor{❨96❩}@c
+@deffn {Method} {missingp} ((data @ref{❨47❩, , @t{data-frame}}))
+@anchor{❨108❩}@c
 @methodsubindex{missingp}@c
 @table @strong
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Reader} {name} (object)
+@anchor{❨29❩}@c
+@genericsubindex{name}@c
+@deffnx {Generic Writer} {(setf name)} (object)
+@anchor{❨31❩}@c
+@genericsubindex{(setf name)}@c
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Methods
+@deffn {Reader Method} {name} ((data @ref{❨127❩, , @t{data}}))
+@anchor{❨30❩}@c
+@methodsubindex{name}@c
+@deffnx {Writer Method} {(setf name)} ((data @ref{❨127❩, , @t{data}}))
+@anchor{❨32❩}@c
+@methodsubindex{(setf name)}@c
+The name of the data frame.  MUST be the same as the symbol whose value cell points to this data frame.  This slot essentially allows us to go 'backwards' and get the symbol that names the data frame.
+@table @strong
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
+@item Target Slot
+@ref{❨128❩, , @t{name}}.
+@end table
+@end deffn
+@end table
+@end deffn
+@deffn {Generic Function} {rename-column!} (data new old)
+@anchor{❨93❩}@c
+@genericsubindex{rename-column!}@c
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Methods
+@deffn {Method} {rename-column!} (data new old)
+@anchor{❨94❩}@c
+@methodsubindex{rename-column!}@c
+Substitute NEW@comma{} a SYMBOL@comma{} for OLD in DF@*
+
+Useful when reading data files that have an empty or generated column name.@*
+
+Example: (rename-column! cars 'name :||) will replace an empty symbol with 'name
+@table @strong
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
 @end table
 @end deffn
 @deffn {Generic Function} {replace-missing} (df map-alist)
-@anchor{❨33❩}@c
+@anchor{❨38❩}@c
 @genericsubindex{replace-missing}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
-@deffn {Method} {replace-missing} ((df @ref{❨42❩, , @t{data-frame}}) map-alist)
-@anchor{❨34❩}@c
+@deffn {Method} {replace-missing} ((df @ref{❨47❩, , @t{data-frame}}) map-alist)
+@anchor{❨39❩}@c
 @methodsubindex{replace-missing}@c
 Replace missing values with the values specified@*
 The alist consists of a column name in the CAR and the replacement value in the CDR
@@ -2155,14 +2360,14 @@ Example: (replace-missing mtcarsm '((mpg . foo)))
 @end table
 @end deffn
 @deffn {Generic Function} {tail} (df &optional n)
-@anchor{❨102❩}@c
+@anchor{❨114❩}@c
 @genericsubindex{tail}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
-@deffn {Method} {tail} ((df @ref{❨42❩, , @t{data-frame}}) &optional n)
-@anchor{❨103❩}@c
+@deffn {Method} {tail} ((df @ref{❨47❩, , @t{data-frame}}) &optional n)
+@anchor{❨115❩}@c
 @methodsubindex{tail}@c
 Return the last N rows of DF; N defaults to 6
 @table @strong
@@ -2175,8 +2380,8 @@ Return the last N rows of DF; N defaults to 6
 
 @node Public standalone methods, Public conditions, Public generic functions, Public Interface
 @subsection Standalone methods
-@deffn {Method} {as-alist} ((data @ref{❨132❩, , @t{data}}))
-@anchor{❨272❩}@c
+@deffn {Method} {as-alist} ((data @ref{❨127❩, , @t{data}}))
+@anchor{❨278❩}@c
 @methodsubindex{as-alist}@c
 Key-column pairs as an alist.
 @table @strong
@@ -2186,8 +2391,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {as-array} ((data-vector @ref{❨38❩, , @t{data-vector}}))
-@anchor{❨248❩}@c
+@deffn {Method} {as-array} ((data-vector @ref{❨43❩, , @t{data-vector}}))
+@anchor{❨258❩}@c
 @methodsubindex{as-array}@c
 @table @strong
 @item Package
@@ -2196,8 +2401,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {as-array} ((data-frame @ref{❨42❩, , @t{data-frame}}))
-@anchor{❨252❩}@c
+@deffn {Method} {as-array} ((data-frame @ref{❨47❩, , @t{data-frame}}))
+@anchor{❨263❩}@c
 @methodsubindex{as-array}@c
 @table @strong
 @item Package
@@ -2206,8 +2411,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {axis-dimension} ((axis @ref{❨111❩, , @t{ordered-keys}}))
-@anchor{❨270❩}@c
+@deffn {Method} {axis-dimension} ((axis @ref{❨227❩, , @t{ordered-keys}}))
+@anchor{❨285❩}@c
 @methodsubindex{axis-dimension}@c
 @table @strong
 @item Package
@@ -2216,8 +2421,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {canonical-representation} ((axis @ref{❨111❩, , @t{ordered-keys}}) (slice @t{symbol}))
-@anchor{❨269❩}@c
+@deffn {Method} {canonical-representation} ((axis @ref{❨227❩, , @t{ordered-keys}}) (slice @t{symbol}))
+@anchor{❨284❩}@c
 @methodsubindex{canonical-representation}@c
 @table @strong
 @item Package
@@ -2226,8 +2431,16 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {dims} ((data-vector @ref{❨38❩, , @t{data-vector}}))
-@anchor{❨249❩}@c
+@deffn {Method} {describe-object} ((df @ref{❨47❩, , @t{data-frame}}) stream)
+@anchor{❨260❩}@c
+@methodsubindex{describe-object}@c
+@table @strong
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
+@end table
+@end deffn
+@deffn {Method} {dims} ((data-vector @ref{❨43❩, , @t{data-vector}}))
+@anchor{❨259❩}@c
 @methodsubindex{dims}@c
 @table @strong
 @item Package
@@ -2236,8 +2449,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {dims} ((data-frame @ref{❨42❩, , @t{data-frame}}))
-@anchor{❨253❩}@c
+@deffn {Method} {dims} ((data-frame @ref{❨47❩, , @t{data-frame}}))
+@anchor{❨264❩}@c
 @methodsubindex{dims}@c
 @table @strong
 @item Package
@@ -2246,8 +2459,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {element-type} ((data @ref{❨132❩, , @t{data}}))
-@anchor{❨273❩}@c
+@deffn {Method} {element-type} ((data @ref{❨127❩, , @t{data}}))
+@anchor{❨279❩}@c
 @methodsubindex{element-type}@c
 @table @strong
 @item Package
@@ -2256,16 +2469,16 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {initialize-instance} :after ((data-frame @ref{❨42❩, , @t{data-frame}}) &rest initargs)
-@anchor{❨256❩}@c
+@deffn {Method} {initialize-instance} :after ((data-frame @ref{❨47❩, , @t{data-frame}}) &rest initargs)
+@anchor{❨267❩}@c
 @methodsubindex{initialize-instance}@c
 @table @strong
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {ncol} ((data-frame @ref{❨42❩, , @t{data-frame}}))
-@anchor{❨254❩}@c
+@deffn {Method} {ncol} ((data-frame @ref{❨47❩, , @t{data-frame}}))
+@anchor{❨265❩}@c
 @methodsubindex{ncol}@c
 @table @strong
 @item Package
@@ -2274,8 +2487,8 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {nrow} ((data-frame @ref{❨42❩, , @t{data-frame}}))
-@anchor{❨255❩}@c
+@deffn {Method} {nrow} ((data-frame @ref{❨47❩, , @t{data-frame}}))
+@anchor{❨266❩}@c
 @methodsubindex{nrow}@c
 @table @strong
 @item Package
@@ -2284,16 +2497,16 @@ Key-column pairs as an alist.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((data-vector @ref{❨38❩, , @t{data-vector}}) stream)
-@anchor{❨246❩}@c
+@deffn {Method} {print-object} ((data-vector @ref{❨43❩, , @t{data-vector}}) stream)
+@anchor{❨256❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((df @ref{❨42❩, , @t{data-frame}}) stream)
-@anchor{❨250❩}@c
+@deffn {Method} {print-object} ((df @ref{❨47❩, , @t{data-frame}}) stream)
+@anchor{❨261❩}@c
 @methodsubindex{print-object}@c
 Print DATA-FRAME dimensions and type@*
 After defining this method it is permanently associated with data-frame objects
@@ -2302,48 +2515,48 @@ After defining this method it is permanently associated with data-frame objects
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((object @ref{❨51❩, , @t{generic-variable-summary}}) stream)
-@anchor{❨258❩}@c
+@deffn {Method} {print-object} ((object @ref{❨57❩, , @t{generic-variable-summary}}) stream)
+@anchor{❨269❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((object @ref{❨59❩, , @t{bit-variable-summary}}) stream)
-@anchor{❨259❩}@c
+@deffn {Method} {print-object} ((object @ref{❨63❩, , @t{factor-variable-summary}}) stream)
+@anchor{❨270❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((object @ref{❨66❩, , @t{real-variable-summary}}) stream)
-@anchor{❨260❩}@c
+@deffn {Method} {print-object} ((object @ref{❨68❩, , @t{bit-variable-summary}}) stream)
+@anchor{❨271❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((object @ref{❨83❩, , @t{factor-variable-summary}}) stream)
-@anchor{❨261❩}@c
+@deffn {Method} {print-object} ((object @ref{❨76❩, , @t{real-variable-summary}}) stream)
+@anchor{❨272❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {print-object} ((ordered-keys @ref{❨111❩, , @t{ordered-keys}}) stream)
-@anchor{❨267❩}@c
+@deffn {Method} {print-object} ((ordered-keys @ref{❨227❩, , @t{ordered-keys}}) stream)
+@anchor{❨282❩}@c
 @methodsubindex{print-object}@c
 @table @strong
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {select} ((data-vector @ref{❨38❩, , @t{data-vector}}) &rest slices)
-@anchor{❨247❩}@c
+@deffn {Method} {select} ((data-vector @ref{❨43❩, , @t{data-vector}}) &rest slices)
+@anchor{❨257❩}@c
 @methodsubindex{select}@c
 @table @strong
 @item Package
@@ -2352,8 +2565,8 @@ After defining this method it is permanently associated with data-frame objects
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {select} ((data-frame @ref{❨42❩, , @t{data-frame}}) &rest slices)
-@anchor{❨251❩}@c
+@deffn {Method} {select} ((data-frame @ref{❨47❩, , @t{data-frame}}) &rest slices)
+@anchor{❨262❩}@c
 @methodsubindex{select}@c
 @table @strong
 @item Package
@@ -2362,8 +2575,8 @@ After defining this method it is permanently associated with data-frame objects
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Method} {select} ((ordered-keys @ref{❨111❩, , @t{ordered-keys}}) &rest selections)
-@anchor{❨268❩}@c
+@deffn {Method} {select} ((ordered-keys @ref{❨227❩, , @t{ordered-keys}}) &rest selections)
+@anchor{❨283❩}@c
 @methodsubindex{select}@c
 @table @strong
 @item Package
@@ -2376,9 +2589,9 @@ After defining this method it is permanently associated with data-frame objects
 @node Public conditions, Public structures, Public standalone methods, Public Interface
 @subsection Conditions
 @deftp {Condition} {duplicate-key}
-@anchor{❨100❩}@c
+@anchor{❨112❩}@c
 @conditionsubindex{duplicate-key}@c
-Duplicate key.
+An operation attempted to use a key that already exists in ORDERED-KEYS
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2388,7 +2601,7 @@ Duplicate key.
 @t{error}.
 @item Direct slots
 @defvr {Slot} {key}
-@anchor{❨101❩}@c
+@anchor{❨113❩}@c
 @slotsubindex{key}@c
 @table @strong
 @item Initargs
@@ -2398,9 +2611,9 @@ Duplicate key.
 @end table
 @end deftp
 @deftp {Condition} {key-not-found}
-@anchor{❨48❩}@c
+@anchor{❨54❩}@c
 @conditionsubindex{key-not-found}@c
-Key not found.
+An operation was attempted on a non-existant key.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2410,7 +2623,7 @@ Key not found.
 @t{error}.
 @item Direct slots
 @defvr {Slot} {key}
-@anchor{❨49❩}@c
+@anchor{❨55❩}@c
 @slotsubindex{key}@c
 @table @strong
 @item Initargs
@@ -2418,7 +2631,7 @@ Key not found.
 @end table
 @end defvr
 @defvr {Slot} {keys}
-@anchor{❨50❩}@c
+@anchor{❨56❩}@c
 @slotsubindex{keys}@c
 @table @strong
 @item Initargs
@@ -2428,9 +2641,9 @@ Key not found.
 @end table
 @end deftp
 @deftp {Condition} {large-data}
-@anchor{❨30❩}@c
+@anchor{❨35❩}@c
 @conditionsubindex{large-data}@c
-Warn user about potentially large data sets
+A operation was requested on a data set large enough to potentially cause problems.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2439,16 +2652,16 @@ Warn user about potentially large data sets
 @item Direct superclasses
 @t{warning}.
 @item Direct methods
-@ref{❨141❩, , @t{data-size}}.
+@ref{❨171❩, , @t{data-size}}.
 @item Direct slots
 @defvr {Slot} {data-size}
-@anchor{❨31❩}@c
+@anchor{❨36❩}@c
 @slotsubindex{data-size}@c
 @table @strong
 @item Initargs
 @t{:data-size}
 @item Readers
-@ref{❨141❩, , @t{data-size}}.
+@ref{❨171❩, , @t{data-size}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -2459,7 +2672,7 @@ Warn user about potentially large data sets
 @node Public structures, Public classes, Public conditions, Public Interface
 @subsection Structures
 @deftp {Structure} {bit-variable-summary}
-@anchor{❨59❩}@c
+@anchor{❨68❩}@c
 @structuresubindex{bit-variable-summary}@c
 Summary of a bit vector.
 @table @strong
@@ -2468,12 +2681,12 @@ Summary of a bit vector.
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Direct superclasses
-@ref{❨126❩, , @t{variable-summary%}}.
+@ref{❨146❩, , @t{variable-summary%}}.
 @item Direct methods
-@ref{❨259❩, , @t{print-object}}.
+@ref{❨271❩, , @t{print-object}}.
 @item Direct slots
 @defvr {Slot} {count}
-@anchor{❨60❩}@c
+@anchor{❨69❩}@c
 @slotsubindex{count}@c
 @table @strong
 @item Package
@@ -2483,7 +2696,7 @@ Summary of a bit vector.
 @item Initform
 @t{0}
 @item Readers
-@ref{❨118❩, , @t{bit-variable-summary-count}}.
+@ref{❨173❩, , @t{bit-variable-summary-count}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -2491,7 +2704,7 @@ Summary of a bit vector.
 @end table
 @end deftp
 @deftp {Structure} {factor-variable-summary}
-@anchor{❨83❩}@c
+@anchor{❨63❩}@c
 @structuresubindex{factor-variable-summary}@c
 Summary for factor variables
 @table @strong
@@ -2500,18 +2713,18 @@ Summary for factor variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Direct superclasses
-@ref{❨126❩, , @t{variable-summary%}}.
+@ref{❨146❩, , @t{variable-summary%}}.
 @item Direct methods
-@ref{❨261❩, , @t{print-object}}.
+@ref{❨270❩, , @t{print-object}}.
 @item Direct slots
 @defvr {Slot} {element-count-alist}
-@anchor{❨84❩}@c
+@anchor{❨64❩}@c
 @slotsubindex{element-count-alist}@c
 @table @strong
 @item Type
 @t{list}
 @item Readers
-@ref{❨168❩, , @t{factor-variable-summary-element-count-alist}}.
+@ref{❨172❩, , @t{factor-variable-summary-element-count-alist}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -2519,7 +2732,7 @@ Summary for factor variables
 @end table
 @end deftp
 @deftp {Structure} {generic-variable-summary}
-@anchor{❨51❩}@c
+@anchor{❨57❩}@c
 @structuresubindex{generic-variable-summary}@c
 Summary for generic variables@comma{} i.e. those with mixed types.
 @table @strong
@@ -2528,30 +2741,30 @@ Summary for generic variables@comma{} i.e. those with mixed types.
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Direct superclasses
-@ref{❨126❩, , @t{variable-summary%}}.
+@ref{❨146❩, , @t{variable-summary%}}.
 @item Direct methods
-@ref{❨258❩, , @t{print-object}}.
+@ref{❨269❩, , @t{print-object}}.
 @item Direct slots
 @defvr {Slot} {quantiles}
-@anchor{❨52❩}@c
+@anchor{❨58❩}@c
 @slotsubindex{quantiles}@c
 @table @strong
 @item Type
 @t{(or null data-frame:real-variable-summary)}
 @item Readers
-@ref{❨115❩, , @t{generic-variable-summary-quantiles}}.
+@ref{❨202❩, , @t{generic-variable-summary-quantiles}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {element-count-alist}
-@anchor{❨53❩}@c
+@anchor{❨59❩}@c
 @slotsubindex{element-count-alist}@c
 @table @strong
 @item Type
 @t{list}
 @item Readers
-@ref{❨139❩, , @t{generic-variable-summary-element-count-alist}}.
+@ref{❨193❩, , @t{generic-variable-summary-element-count-alist}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -2559,7 +2772,7 @@ Summary for generic variables@comma{} i.e. those with mixed types.
 @end table
 @end deftp
 @deftp {Structure} {real-variable-summary}
-@anchor{❨66❩}@c
+@anchor{❨76❩}@c
 @structuresubindex{real-variable-summary}@c
 Summary of a real elements (using quantiles).
 @table @strong
@@ -2568,12 +2781,12 @@ Summary of a real elements (using quantiles).
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Direct superclasses
-@ref{❨126❩, , @t{variable-summary%}}.
+@ref{❨146❩, , @t{variable-summary%}}.
 @item Direct methods
-@ref{❨260❩, , @t{print-object}}.
+@ref{❨272❩, , @t{print-object}}.
 @item Direct slots
 @defvr {Slot} {min}
-@anchor{❨67❩}@c
+@anchor{❨77❩}@c
 @slotsubindex{min}@c
 @table @strong
 @item Package
@@ -2589,7 +2802,7 @@ Summary of a real elements (using quantiles).
 @end table
 @end defvr
 @defvr {Slot} {q25}
-@anchor{❨68❩}@c
+@anchor{❨78❩}@c
 @slotsubindex{q25}@c
 @table @strong
 @item Type
@@ -2597,13 +2810,13 @@ Summary of a real elements (using quantiles).
 @item Initform
 @t{0}
 @item Readers
-@ref{❨166❩, , @t{real-variable-summary-q25}}.
+@ref{❨218❩, , @t{real-variable-summary-q25}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {q50}
-@anchor{❨69❩}@c
+@anchor{❨79❩}@c
 @slotsubindex{q50}@c
 @table @strong
 @item Type
@@ -2611,13 +2824,13 @@ Summary of a real elements (using quantiles).
 @item Initform
 @t{0}
 @item Readers
-@ref{❨175❩, , @t{real-variable-summary-q50}}.
+@ref{❨182❩, , @t{real-variable-summary-q50}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {mean}
-@anchor{❨70❩}@c
+@anchor{❨80❩}@c
 @slotsubindex{mean}@c
 @table @strong
 @item Package
@@ -2627,13 +2840,13 @@ Summary of a real elements (using quantiles).
 @item Initform
 @t{0}
 @item Readers
-@ref{❨143❩, , @t{real-variable-summary-mean}}.
+@ref{❨188❩, , @t{real-variable-summary-mean}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {q75}
-@anchor{❨71❩}@c
+@anchor{❨81❩}@c
 @slotsubindex{q75}@c
 @table @strong
 @item Type
@@ -2641,13 +2854,13 @@ Summary of a real elements (using quantiles).
 @item Initform
 @t{0}
 @item Readers
-@ref{❨116❩, , @t{real-variable-summary-q75}}.
+@ref{❨198❩, , @t{real-variable-summary-q75}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {max}
-@anchor{❨72❩}@c
+@anchor{❨82❩}@c
 @slotsubindex{max}@c
 @table @strong
 @item Package
@@ -2657,7 +2870,7 @@ Summary of a real elements (using quantiles).
 @item Initform
 @t{0}
 @item Readers
-@ref{❨150❩, , @t{real-variable-summary-max}}.
+@ref{❨151❩, , @t{real-variable-summary-max}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -2668,7 +2881,7 @@ Summary of a real elements (using quantiles).
 @node Public classes, Public types, Public structures, Public Interface
 @subsection Classes
 @deftp {Class} {data-frame}
-@anchor{❨42❩}@c
+@anchor{❨47❩}@c
 @classsubindex{data-frame}@c
 @table @strong
 @item Package
@@ -2676,40 +2889,42 @@ Summary of a real elements (using quantiles).
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @item Direct superclasses
-@ref{❨132❩, , @t{data}}.
+@ref{❨127❩, , @t{data}}.
 @item Direct methods
 @itemize @bullet
 @item
-@ref{❨252❩, , @t{as-array}}.
+@ref{❨263❩, , @t{as-array}}.
 @item
-@ref{❨207❩, , @t{check-column-compatibility}}.
+@ref{❨136❩, , @t{check-column-compatibility}}.
 @item
-@ref{❨253❩, , @t{dims}}.
+@ref{❨260❩, , @t{describe-object}}.
 @item
-@ref{❨99❩, , @t{drop-missing}}.
+@ref{❨264❩, , @t{dims}}.
 @item
-@ref{❨64❩, , @t{head}}.
+@ref{❨111❩, , @t{drop-missing}}.
 @item
-@ref{❨256❩, , @t{initialize-instance}}.
+@ref{❨73❩, , @t{head}}.
 @item
-@ref{❨96❩, , @t{missingp}}.
+@ref{❨267❩, , @t{initialize-instance}}.
 @item
-@ref{❨254❩, , @t{ncol}}.
+@ref{❨108❩, , @t{missingp}}.
 @item
-@ref{❨255❩, , @t{nrow}}.
+@ref{❨265❩, , @t{ncol}}.
 @item
-@ref{❨250❩, , @t{print-object}}.
+@ref{❨266❩, , @t{nrow}}.
 @item
-@ref{❨34❩, , @t{replace-missing}}.
+@ref{❨261❩, , @t{print-object}}.
 @item
-@ref{❨251❩, , @t{select}}.
+@ref{❨39❩, , @t{replace-missing}}.
 @item
-@ref{❨103❩, , @t{tail}}.
+@ref{❨262❩, , @t{select}}.
+@item
+@ref{❨115❩, , @t{tail}}.
 @end itemize
 @end table
 @end deftp
 @deftp {Class} {data-vector}
-@anchor{❨38❩}@c
+@anchor{❨43❩}@c
 @classsubindex{data-vector}@c
 @table @strong
 @item Package
@@ -2717,17 +2932,17 @@ Summary of a real elements (using quantiles).
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @item Direct superclasses
-@ref{❨132❩, , @t{data}}.
+@ref{❨127❩, , @t{data}}.
 @item Direct methods
 @itemize @bullet
 @item
-@ref{❨248❩, , @t{as-array}}.
+@ref{❨258❩, , @t{as-array}}.
 @item
-@ref{❨249❩, , @t{dims}}.
+@ref{❨259❩, , @t{dims}}.
 @item
-@ref{❨246❩, , @t{print-object}}.
+@ref{❨256❩, , @t{print-object}}.
 @item
-@ref{❨247❩, , @t{select}}.
+@ref{❨257❩, , @t{select}}.
 @end itemize
 @end table
 @end deftp
@@ -2735,8 +2950,9 @@ Summary of a real elements (using quantiles).
 @node Public types, , Public classes, Public Interface
 @subsection Types
 @deftp {Type} {data-type} ()
-@anchor{❨104❩}@c
+@anchor{❨116❩}@c
 @typesubindex{data-type}@c
+A statistical type for a data variable.  All data columns must be one of these types if they are to be intepreted properly by Lisp-Stat
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2764,7 +2980,7 @@ Summary of a real elements (using quantiles).
 @node Private special variables, Private macros, Internals, Internals
 @subsection Special variables
 @defvr {Special Variable} {*data-frames*}
-@anchor{❨183❩}@c
+@anchor{❨123❩}@c
 @specialsubindex{*data-frames*}@c
 Global list of all data frames
 @table @strong
@@ -2775,7 +2991,7 @@ Global list of all data frames
 @end table
 @end defvr
 @defvr {Special Variable} {*max-digits*}
-@anchor{❨200❩}@c
+@anchor{❨201❩}@c
 @specialsubindex{*max-digits*}@c
 @table @strong
 @item Package
@@ -2785,7 +3001,7 @@ Global list of all data frames
 @end table
 @end defvr
 @defvr {Special Variable} {*row-numbers-p*}
-@anchor{❨218❩}@c
+@anchor{❨174❩}@c
 @specialsubindex{*row-numbers-p*}@c
 @table @strong
 @item Package
@@ -2798,7 +3014,7 @@ Global list of all data frames
 @node Private macros, Private ordinary functions, Private special variables, Internals
 @subsection Macros
 @deffn {Macro} {define-data-subclass} (class abbreviation)
-@anchor{❨160❩}@c
+@anchor{❨205❩}@c
 @macrosubindex{define-data-subclass}@c
 @table @strong
 @item Package
@@ -2807,21 +3023,11 @@ Global list of all data frames
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
-@deffn {Macro} {ensure-plist} (pl)
-@anchor{❨153❩}@c
-@macrosubindex{ensure-plist}@c
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨13❩, , @t{plist-aops.lisp}}.
-@end table
-@end deffn
 
 @node Private ordinary functions, Private generic functions, Private macros, Internals
 @subsection Ordinary functions
 @deffn {Function} {2d-array-to-list} (array)
-@anchor{❨216❩}@c
+@anchor{❨176❩}@c
 @functionsubindex{2d-array-to-list}@c
 Convert an array to a list of lists
 @table @strong
@@ -2832,7 +3038,7 @@ Convert an array to a list of lists
 @end table
 @end deffn
 @deffn {Function} {add-key!} (ordered-keys key)
-@anchor{❨167❩}@c
+@anchor{❨194❩}@c
 @functionsubindex{add-key!}@c
 Modify ORDERED-KEYS by adding KEY.
 @table @strong
@@ -2843,8 +3049,9 @@ Modify ORDERED-KEYS by adding KEY.
 @end table
 @end deffn
 @deffn {Function} {add-keys} (ordered-keys &rest keys)
-@anchor{❨210❩}@c
+@anchor{❨214❩}@c
 @functionsubindex{add-keys}@c
+Add KEYS to ORDERED-KEYS
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2853,7 +3060,7 @@ Modify ORDERED-KEYS by adding KEY.
 @end table
 @end deffn
 @deffn {Function} {aesthetic-string} (thing)
-@anchor{❨186❩}@c
+@anchor{❨152❩}@c
 @functionsubindex{aesthetic-string}@c
 Return the string used to represent `thing` when printing aesthetically.
 @table @strong
@@ -2864,7 +3071,7 @@ Return the string used to represent `thing` when printing aesthetically.
 @end table
 @end deffn
 @deffn {Function} {alist-data} (class alist)
-@anchor{❨222❩}@c
+@anchor{❨208❩}@c
 @functionsubindex{alist-data}@c
 Create an object of CLASS (subclass of DATA) from ALIST which contains key-column pairs.
 @table @strong
@@ -2875,7 +3082,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Reader} {bit-variable-summary-count} (instance)
-@anchor{❨118❩}@c
+@anchor{❨173❩}@c
 @functionsubindex{bit-variable-summary-count}@c
 @table @strong
 @item Package
@@ -2883,11 +3090,11 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨60❩, , @t{count}}.
+@ref{❨69❩, , @t{count}}.
 @end table
 @end deffn
 @deffn {Function} {bit-variable-summary-desc} (instance)
-@anchor{❨214❩}@c
+@anchor{❨165❩}@c
 @functionsubindex{bit-variable-summary-desc}@c
 @table @strong
 @item Package
@@ -2897,7 +3104,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Function} {bit-variable-summary-length} (instance)
-@anchor{❨164❩}@c
+@anchor{❨223❩}@c
 @functionsubindex{bit-variable-summary-length}@c
 @table @strong
 @item Package
@@ -2907,7 +3114,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Function} {bit-variable-summary-missing} (instance)
-@anchor{❨178❩}@c
+@anchor{❨134❩}@c
 @functionsubindex{bit-variable-summary-missing}@c
 @table @strong
 @item Package
@@ -2917,7 +3124,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Function} {bit-variable-summary-name} (instance)
-@anchor{❨224❩}@c
+@anchor{❨162❩}@c
 @functionsubindex{bit-variable-summary-name}@c
 @table @strong
 @item Package
@@ -2927,7 +3134,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Function} {bit-variable-summary-p} (object)
-@anchor{❨159❩}@c
+@anchor{❨225❩}@c
 @functionsubindex{bit-variable-summary-p}@c
 @table @strong
 @item Package
@@ -2937,7 +3144,7 @@ Create an object of CLASS (subclass of DATA) from ALIST which contains key-colum
 @end table
 @end deffn
 @deffn {Function} {column-type-format} (sequence)
-@anchor{❨171❩}@c
+@anchor{❨154❩}@c
 @functionsubindex{column-type-format}@c
 Return a format string for the most specific type found in sequence
 Use this for sequences of type T to determine how to format the column.
@@ -2949,7 +3156,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-bit-variable-summary} (instance)
-@anchor{❨196❩}@c
+@anchor{❨153❩}@c
 @functionsubindex{copy-bit-variable-summary}@c
 @table @strong
 @item Package
@@ -2959,7 +3166,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-factor-variable-summary} (instance)
-@anchor{❨201❩}@c
+@anchor{❨230❩}@c
 @functionsubindex{copy-factor-variable-summary}@c
 @table @strong
 @item Package
@@ -2969,7 +3176,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-generic-variable-summary} (instance)
-@anchor{❨122❩}@c
+@anchor{❨209❩}@c
 @functionsubindex{copy-generic-variable-summary}@c
 @table @strong
 @item Package
@@ -2979,8 +3186,9 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-ordered-keys} (ordered-keys)
-@anchor{❨193❩}@c
+@anchor{❨163❩}@c
 @functionsubindex{copy-ordered-keys}@c
+Return a copy of ORDERED-KEYS
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -2989,7 +3197,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-real-variable-summary} (instance)
-@anchor{❨145❩}@c
+@anchor{❨156❩}@c
 @functionsubindex{copy-real-variable-summary}@c
 @table @strong
 @item Package
@@ -2999,7 +3207,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {copy-variable-summary%} (instance)
-@anchor{❨165❩}@c
+@anchor{❨221❩}@c
 @functionsubindex{copy-variable-summary%}@c
 @table @strong
 @item Package
@@ -3009,7 +3217,7 @@ Use this for sequences of type T to determine how to format the column.
 @end table
 @end deffn
 @deffn {Function} {df-env-p} (df)
-@anchor{❨161❩}@c
+@anchor{❨122❩}@c
 @functionsubindex{df-env-p}@c
 Returns T if there is environment set-up for the data frame@comma{} or NIL if there isn't one.
 @table @strong
@@ -3020,19 +3228,19 @@ Returns T if there is environment set-up for the data frame@comma{} or NIL if th
 @end table
 @end deffn
 @deffn {Function} {df-exists-p} (s)
-@anchor{❨189❩}@c
+@anchor{❨140❩}@c
 @functionsubindex{df-exists-p}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Source
-@ref{❨10❩, , @t{defdf.lisp}}.
+@ref{❨5❩, , @t{conditions.lisp}}.
 @end table
 @end deffn
 @deffn {Function} {distinct} (column)
-@anchor{❨156❩}@c
+@anchor{❨233❩}@c
 @functionsubindex{distinct}@c
-Returns the number of distinct elements in COLUMN
+Returns the number of distinct elements in COLUMN@comma{} a symbol naming a variable.
 Useful for formatting columns for human output
 @table @strong
 @item Package
@@ -3042,7 +3250,7 @@ Useful for formatting columns for human output
 @end table
 @end deffn
 @deffn {Function} {drop-na} (df)
-@anchor{❨187❩}@c
+@anchor{❨179❩}@c
 @functionsubindex{drop-na}@c
 Remove all rows from DF that are missing values.  Convenience R-like function.
 @table @strong
@@ -3053,7 +3261,7 @@ Remove all rows from DF that are missing values.  Convenience R-like function.
 @end table
 @end deffn
 @deffn {Function} {ensure-arguments-alist} (rest)
-@anchor{❨190❩}@c
+@anchor{❨217❩}@c
 @functionsubindex{ensure-arguments-alist}@c
 Recognizes the following and converts them to an alist:
 
@@ -3070,7 +3278,7 @@ Recognizes the following and converts them to an alist:
 @end table
 @end deffn
 @deffn {Function} {ensure-not-ratio} (real)
-@anchor{❨180❩}@c
+@anchor{❨196❩}@c
 @functionsubindex{ensure-not-ratio}@c
 When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as is.  Used for printing.
 @table @strong
@@ -3081,7 +3289,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {factor-variable-summary-desc} (instance)
-@anchor{❨188❩}@c
+@anchor{❨143❩}@c
 @functionsubindex{factor-variable-summary-desc}@c
 @table @strong
 @item Package
@@ -3091,7 +3299,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Reader} {factor-variable-summary-element-count-alist} (instance)
-@anchor{❨168❩}@c
+@anchor{❨172❩}@c
 @functionsubindex{factor-variable-summary-element-count-alist}@c
 @table @strong
 @item Package
@@ -3099,11 +3307,11 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨84❩, , @t{element-count-alist}}.
+@ref{❨64❩, , @t{element-count-alist}}.
 @end table
 @end deffn
 @deffn {Function} {factor-variable-summary-length} (instance)
-@anchor{❨174❩}@c
+@anchor{❨195❩}@c
 @functionsubindex{factor-variable-summary-length}@c
 @table @strong
 @item Package
@@ -3113,7 +3321,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {factor-variable-summary-missing} (instance)
-@anchor{❨198❩}@c
+@anchor{❨145❩}@c
 @functionsubindex{factor-variable-summary-missing}@c
 @table @strong
 @item Package
@@ -3123,7 +3331,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {factor-variable-summary-name} (instance)
-@anchor{❨109❩}@c
+@anchor{❨219❩}@c
 @functionsubindex{factor-variable-summary-name}@c
 @table @strong
 @item Package
@@ -3133,7 +3341,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {factor-variable-summary-p} (object)
-@anchor{❨114❩}@c
+@anchor{❨197❩}@c
 @functionsubindex{factor-variable-summary-p}@c
 @table @strong
 @item Package
@@ -3143,7 +3351,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {generic-variable-summary-desc} (instance)
-@anchor{❨225❩}@c
+@anchor{❨224❩}@c
 @functionsubindex{generic-variable-summary-desc}@c
 @table @strong
 @item Package
@@ -3153,7 +3361,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Reader} {generic-variable-summary-element-count-alist} (instance)
-@anchor{❨139❩}@c
+@anchor{❨193❩}@c
 @functionsubindex{generic-variable-summary-element-count-alist}@c
 @table @strong
 @item Package
@@ -3161,11 +3369,11 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨53❩, , @t{element-count-alist}}.
+@ref{❨59❩, , @t{element-count-alist}}.
 @end table
 @end deffn
 @deffn {Function} {generic-variable-summary-length} (instance)
-@anchor{❨179❩}@c
+@anchor{❨211❩}@c
 @functionsubindex{generic-variable-summary-length}@c
 @table @strong
 @item Package
@@ -3175,7 +3383,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {generic-variable-summary-missing} (instance)
-@anchor{❨170❩}@c
+@anchor{❨234❩}@c
 @functionsubindex{generic-variable-summary-missing}@c
 @table @strong
 @item Package
@@ -3185,7 +3393,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {generic-variable-summary-name} (instance)
-@anchor{❨213❩}@c
+@anchor{❨139❩}@c
 @functionsubindex{generic-variable-summary-name}@c
 @table @strong
 @item Package
@@ -3195,7 +3403,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Function} {generic-variable-summary-p} (object)
-@anchor{❨113❩}@c
+@anchor{❨220❩}@c
 @functionsubindex{generic-variable-summary-p}@c
 @table @strong
 @item Package
@@ -3205,7 +3413,7 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @end table
 @end deffn
 @deffn {Reader} {generic-variable-summary-quantiles} (instance)
-@anchor{❨115❩}@c
+@anchor{❨202❩}@c
 @functionsubindex{generic-variable-summary-quantiles}@c
 @table @strong
 @item Package
@@ -3213,22 +3421,11 @@ When REAL is a RATIO@comma{} convert it to a float@comma{} otherwise return as i
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨52❩, , @t{quantiles}}.
-@end table
-@end deffn
-@deffn {Function} {get-property} (variable property)
-@anchor{❨117❩}@c
-@functionsubindex{get-property}@c
-Return the PROPERTY of data variable VARIABLE
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨11❩, , @t{properties.lisp}}.
+@ref{❨58❩, , @t{quantiles}}.
 @end table
 @end deffn
 @deffn {Function} {get-type} (x)
-@anchor{❨155❩}@c
+@anchor{❨166❩}@c
 @functionsubindex{get-type}@c
 Return the most specific type symbol for x
 @table @strong
@@ -3239,17 +3436,18 @@ Return the most specific type symbol for x
 @end table
 @end deffn
 @deffn {Function} {invalid-df-name} (s)
-@anchor{❨217❩}@c
+@anchor{❨178❩}@c
 @functionsubindex{invalid-df-name}@c
+A user prompt@comma{} using DUOLOGUE@comma{} to select a valid data frame name.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Source
-@ref{❨10❩, , @t{defdf.lisp}}.
+@ref{❨5❩, , @t{conditions.lisp}}.
 @end table
 @end deffn
 @deffn {Function} {key-index} (ordered-keys key)
-@anchor{❨119❩}@c
+@anchor{❨215❩}@c
 @functionsubindex{key-index}@c
 Return the index for KEY.
 @table @strong
@@ -3259,8 +3457,19 @@ Return the index for KEY.
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
+@deffn {Function} {key-list} (data form)
+@anchor{❨155❩}@c
+@functionsubindex{key-list}@c
+Return a list of keys used in REST@comma{} a form
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨13❩, , @t{filter.lisp}}.
+@end table
+@end deffn
 @deffn {Function} {keys-count} (ordered-keys)
-@anchor{❨209❩}@c
+@anchor{❨144❩}@c
 @functionsubindex{keys-count}@c
 Number of keys.
 @table @strong
@@ -3271,7 +3480,7 @@ Number of keys.
 @end table
 @end deffn
 @deffn {Function} {keys-vector} (ordered-keys)
-@anchor{❨194❩}@c
+@anchor{❨124❩}@c
 @functionsubindex{keys-vector}@c
 Vector of all keys.
 @table @strong
@@ -3282,7 +3491,7 @@ Vector of all keys.
 @end table
 @end deffn
 @deffn {Function} {make-bit-variable-summary} (&key length missing name desc count)
-@anchor{❨172❩}@c
+@anchor{❨167❩}@c
 @functionsubindex{make-bit-variable-summary}@c
 @table @strong
 @item Package
@@ -3292,7 +3501,7 @@ Vector of all keys.
 @end table
 @end deffn
 @deffn {Function} {make-data} (class keys columns)
-@anchor{❨149❩}@c
+@anchor{❨138❩}@c
 @functionsubindex{make-data}@c
 Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a copy of COLUMNS in order to ensure that it is an adjustable array with a fill pointer.  KEYS are converted to ORDERED-KEYS if necessary.
 @table @strong
@@ -3303,7 +3512,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {make-factor-variable-summary} (&key length missing name desc element-count-alist)
-@anchor{❨108❩}@c
+@anchor{❨204❩}@c
 @functionsubindex{make-factor-variable-summary}@c
 @table @strong
 @item Package
@@ -3313,7 +3522,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {make-generic-variable-summary} (&key length missing name desc quantiles element-count-alist)
-@anchor{❨158❩}@c
+@anchor{❨207❩}@c
 @functionsubindex{make-generic-variable-summary}@c
 @table @strong
 @item Package
@@ -3323,7 +3532,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {make-ordered-keys} (&key table)
-@anchor{❨176❩}@c
+@anchor{❨229❩}@c
 @functionsubindex{make-ordered-keys}@c
 @table @strong
 @item Package
@@ -3333,7 +3542,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {make-real-variable-summary} (&key length missing name desc min q25 q50 mean q75 max)
-@anchor{❨202❩}@c
+@anchor{❨159❩}@c
 @functionsubindex{make-real-variable-summary}@c
 @table @strong
 @item Package
@@ -3343,7 +3552,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {make-variable-summary%} (&key length missing name desc)
-@anchor{❨185❩}@c
+@anchor{❨168❩}@c
 @functionsubindex{make-variable-summary%}@c
 @table @strong
 @item Package
@@ -3353,7 +3562,7 @@ Create a DATA object from KEYS and COLUMNS.  FOR INTERNAL USE.  Always creates a
 @end table
 @end deffn
 @deffn {Function} {max-decimal} (sequence &optional max-digits)
-@anchor{❨169❩}@c
+@anchor{❨181❩}@c
 @functionsubindex{max-decimal}@c
 Return the maximum number of digits to the right of the decimal point in the numbers of SEQUENCE@comma{} equal to or less than MAX-DIGITS
 @table @strong
@@ -3364,7 +3573,7 @@ Return the maximum number of digits to the right of the decimal point in the num
 @end table
 @end deffn
 @deffn {Function} {max-width} (sequence &optional max-width)
-@anchor{❨154❩}@c
+@anchor{❨199❩}@c
 @functionsubindex{max-width}@c
 Return the largest printed string size of the elements of SEQUENCE@comma{} equal to or less than MAX-WIDTH
 @table @strong
@@ -3375,9 +3584,9 @@ Return the largest printed string size of the elements of SEQUENCE@comma{} equal
 @end table
 @end deffn
 @deffn {Function} {monotonicp} (column)
-@anchor{❨203❩}@c
+@anchor{❨180❩}@c
 @functionsubindex{monotonicp}@c
-Returns t if all elements of COLUMN are increasing monotonically
+Returns t if all elements of COLUMN@comma{} a SYMBOL@comma{} are increasing monotonically
 Useful for detecting row numbers in imported data
 @table @strong
 @item Package
@@ -3387,7 +3596,7 @@ Useful for detecting row numbers in imported data
 @end table
 @end deffn
 @deffn {Function} {ordered-keys} (keys)
-@anchor{❨110❩}@c
+@anchor{❨226❩}@c
 @functionsubindex{ordered-keys}@c
 Create an ORDERED-KEYS object from KEYS (a sequence).
 @table @strong
@@ -3398,7 +3607,7 @@ Create an ORDERED-KEYS object from KEYS (a sequence).
 @end table
 @end deffn
 @deffn {Function} {ordered-keys-p} (object)
-@anchor{❨204❩}@c
+@anchor{❨186❩}@c
 @functionsubindex{ordered-keys-p}@c
 @table @strong
 @item Package
@@ -3408,7 +3617,7 @@ Create an ORDERED-KEYS object from KEYS (a sequence).
 @end table
 @end deffn
 @deffn {Reader} {ordered-keys-table} (instance)
-@anchor{❨205❩}@c
+@anchor{❨169❩}@c
 @functionsubindex{ordered-keys-table}@c
 @table @strong
 @item Package
@@ -3416,11 +3625,11 @@ Create an ORDERED-KEYS object from KEYS (a sequence).
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @item Target Slot
-@ref{❨112❩, , @t{table}}.
+@ref{❨228❩, , @t{table}}.
 @end table
 @end deffn
 @deffn {Function} {plist-data} (class plist)
-@anchor{❨124❩}@c
+@anchor{❨158❩}@c
 @functionsubindex{plist-data}@c
 Create an object of CLASS (subclass of DATA) from PLIST which contains keys and columns@comma{} interleaved.
 @table @strong
@@ -3431,9 +3640,9 @@ Create an object of CLASS (subclass of DATA) from PLIST which contains keys and 
 @end table
 @end deffn
 @deffn {Function} {print-count-and-percentage} (stream count length)
-@anchor{❨197❩}@c
+@anchor{❨235❩}@c
 @functionsubindex{print-count-and-percentage}@c
-Print COUNT as is and also as a rounded percentage of 
+Print COUNT as is and also as a rounded percentage
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -3442,9 +3651,9 @@ Print COUNT as is and also as a rounded percentage of
 @end table
 @end deffn
 @deffn {Function} {print-table} (rows &optional stream)
-@anchor{❨184❩}@c
+@anchor{❨185❩}@c
 @functionsubindex{print-table}@c
-Print `rows` as a nicely-formatted table.@*
+Print ROWS as a nicely-formatted table.@*
   Each row should have the same number of colums.@*
   Columns will be justified properly to fit the longest item in each one.
   Example:@*
@@ -3462,7 +3671,7 @@ Print `rows` as a nicely-formatted table.@*
 @end table
 @end deffn
 @deffn {Function} {printer-status} ()
-@anchor{❨162❩}@c
+@anchor{❨183❩}@c
 @functionsubindex{printer-status}@c
 Print values of all the printer variables
 @table @strong
@@ -3473,7 +3682,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Function} {real-variable-summary-desc} (instance)
-@anchor{❨135❩}@c
+@anchor{❨126❩}@c
 @functionsubindex{real-variable-summary-desc}@c
 @table @strong
 @item Package
@@ -3483,7 +3692,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Function} {real-variable-summary-length} (instance)
-@anchor{❨191❩}@c
+@anchor{❨184❩}@c
 @functionsubindex{real-variable-summary-length}@c
 @table @strong
 @item Package
@@ -3493,7 +3702,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-max} (instance)
-@anchor{❨150❩}@c
+@anchor{❨151❩}@c
 @functionsubindex{real-variable-summary-max}@c
 @table @strong
 @item Package
@@ -3501,11 +3710,11 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨72❩, , @t{max}}.
+@ref{❨82❩, , @t{max}}.
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-mean} (instance)
-@anchor{❨143❩}@c
+@anchor{❨188❩}@c
 @functionsubindex{real-variable-summary-mean}@c
 @table @strong
 @item Package
@@ -3513,7 +3722,7 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨70❩, , @t{mean}}.
+@ref{❨80❩, , @t{mean}}.
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-min} (instance)
@@ -3525,11 +3734,11 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨67❩, , @t{min}}.
+@ref{❨77❩, , @t{min}}.
 @end table
 @end deffn
 @deffn {Function} {real-variable-summary-missing} (instance)
-@anchor{❨199❩}@c
+@anchor{❨125❩}@c
 @functionsubindex{real-variable-summary-missing}@c
 @table @strong
 @item Package
@@ -3539,7 +3748,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Function} {real-variable-summary-name} (instance)
-@anchor{❨137❩}@c
+@anchor{❨210❩}@c
 @functionsubindex{real-variable-summary-name}@c
 @table @strong
 @item Package
@@ -3549,7 +3758,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Function} {real-variable-summary-p} (object)
-@anchor{❨136❩}@c
+@anchor{❨231❩}@c
 @functionsubindex{real-variable-summary-p}@c
 @table @strong
 @item Package
@@ -3559,7 +3768,7 @@ Print values of all the printer variables
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-q25} (instance)
-@anchor{❨166❩}@c
+@anchor{❨218❩}@c
 @functionsubindex{real-variable-summary-q25}@c
 @table @strong
 @item Package
@@ -3567,11 +3776,11 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨68❩, , @t{q25}}.
+@ref{❨78❩, , @t{q25}}.
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-q50} (instance)
-@anchor{❨175❩}@c
+@anchor{❨182❩}@c
 @functionsubindex{real-variable-summary-q50}@c
 @table @strong
 @item Package
@@ -3579,11 +3788,11 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨69❩, , @t{q50}}.
+@ref{❨79❩, , @t{q50}}.
 @end table
 @end deffn
 @deffn {Reader} {real-variable-summary-q75} (instance)
-@anchor{❨116❩}@c
+@anchor{❨198❩}@c
 @functionsubindex{real-variable-summary-q75}@c
 @table @strong
 @item Package
@@ -3591,11 +3800,34 @@ Print values of all the printer variables
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨71❩, , @t{q75}}.
+@ref{❨81❩, , @t{q75}}.
+@end table
+@end deffn
+@deffn {Function} {remove-columns!} (data &rest keys)
+@anchor{❨141❩}@c
+@functionsubindex{remove-columns!}@c
+Modify DATA (a data-frame or data-vector) by removing columns with keys.
+If a data-frame environment exists@comma{} add columns to it as well.
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
+@end table
+@end deffn
+@deffn {Function} {remove-key!} (ordered-keys key)
+@anchor{❨203❩}@c
+@functionsubindex{remove-key!}@c
+Modify ORDERED-KEYS by removing KEY.
+@table @strong
+@item Package
+@ref{❨14❩, , @t{data-frame}}.
+@item Source
+@ref{❨6❩, , @t{data-frame.lisp}}.
 @end table
 @end deffn
 @deffn {Function} {reverse-df} (df)
-@anchor{❨223❩}@c
+@anchor{❨206❩}@c
 @functionsubindex{reverse-df}@c
 Return DF with columns in reverse order
 @table @strong
@@ -3605,19 +3837,8 @@ Return DF with columns in reverse order
 @ref{❨7❩, , @t{pprint.lisp}}.
 @end table
 @end deffn
-@deffn {Function} {set-property} (symbol value property)
-@anchor{❨144❩}@c
-@functionsubindex{set-property}@c
-Set the PROPERTY of SYMBOL to VALUE
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨11❩, , @t{properties.lisp}}.
-@end table
-@end deffn
 @deffn {Function} {show-properties} (df)
-@anchor{❨125❩}@c
+@anchor{❨216❩}@c
 @functionsubindex{show-properties}@c
 Show the standard properties of the variables of the data frame DF
 Standard properties are 'label'@comma{} 'type' and 'unit'
@@ -3629,7 +3850,7 @@ Standard properties are 'label'@comma{} 'type' and 'unit'
 @end table
 @end deffn
 @deffn {Function} {show-symbols} (pkg)
-@anchor{❨121❩}@c
+@anchor{❨164❩}@c
 @functionsubindex{show-symbols}@c
 Print all symbols in PKG
 Example: (show-symbols 'mtcars)
@@ -3640,19 +3861,8 @@ Example: (show-symbols 'mtcars)
 @ref{❨10❩, , @t{defdf.lisp}}.
 @end table
 @end deffn
-@deffn {Function} {summarize-dataframe} (data-frame &optional stream)
-@anchor{❨177❩}@c
-@functionsubindex{summarize-dataframe}@c
-Print a summary of DF to STREAM@comma{} using heuristics for better formatting
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨9❩, , @t{summary.lisp}}.
-@end table
-@end deffn
 @deffn {Function} {summarize-factor-variable} (column)
-@anchor{❨163❩}@c
+@anchor{❨121❩}@c
 @functionsubindex{summarize-factor-variable}@c
 Return an alist of factor/count pairs
 @table @strong
@@ -3662,8 +3872,8 @@ Return an alist of factor/count pairs
 @ref{❨9❩, , @t{summary.lisp}}.
 @end table
 @end deffn
-@deffn {Function} {summarize-generic-variable} (column)
-@anchor{❨138❩}@c
+@deffn {Function} {summarize-generic-variable} (column &optional name)
+@anchor{❨142❩}@c
 @functionsubindex{summarize-generic-variable}@c
 Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for printing@comma{} not analysis@comma{} returned values should print nicely.  This function can be used on any type of column@comma{} even one with mixed types
 @table @strong
@@ -3674,7 +3884,7 @@ Return an object that summarizes COLUMN of a DATA-FRAME.  Primarily intended for
 @end table
 @end deffn
 @deffn {Function} {summarize-real-variable} (column)
-@anchor{❨123❩}@c
+@anchor{❨222❩}@c
 @functionsubindex{summarize-real-variable}@c
 Return a summary for a float variable
 @table @strong
@@ -3685,7 +3895,7 @@ Return a summary for a float variable
 @end table
 @end deffn
 @deffn {Function} {types-in-column} (seq)
-@anchor{❨173❩}@c
+@anchor{❨157❩}@c
 @functionsubindex{types-in-column}@c
 Return a list of the types found in SEQ
 @table @strong
@@ -3695,24 +3905,8 @@ Return a list of the types found in SEQ
 @ref{❨4❩, , @t{utils.lisp}}.
 @end table
 @end deffn
-@deffn {Function} {undef-env} (&rest params)
-@anchor{❨120❩}@c
-@functionsubindex{undef-env}@c
-Remove one or more data frames from the environment@*
-PARAMS: a list of SYMBOLs@comma{} each bound to an object of type DATA-FRAME.@*
-
-Essentially reverses what DEFDF does.  Returns the data frames that were removed.  Don't use this if you have a data frame bound via DEFPARAMETER.
-Examples:@*
-    (undef 'mtcars 'vlcars)
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Source
-@ref{❨10❩, , @t{defdf.lisp}}.
-@end table
-@end deffn
 @deffn {Reader} {variable-summary%-desc} (instance)
-@anchor{❨157❩}@c
+@anchor{❨187❩}@c
 @functionsubindex{variable-summary%-desc}@c
 @table @strong
 @item Package
@@ -3720,11 +3914,11 @@ Examples:@*
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨130❩, , @t{desc}}.
+@ref{❨150❩, , @t{desc}}.
 @end table
 @end deffn
 @deffn {Reader} {variable-summary%-length} (instance)
-@anchor{❨215❩}@c
+@anchor{❨189❩}@c
 @functionsubindex{variable-summary%-length}@c
 @table @strong
 @item Package
@@ -3732,11 +3926,11 @@ Examples:@*
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨127❩, , @t{length}}.
+@ref{❨147❩, , @t{length}}.
 @end table
 @end deffn
 @deffn {Reader} {variable-summary%-missing} (instance)
-@anchor{❨195❩}@c
+@anchor{❨232❩}@c
 @functionsubindex{variable-summary%-missing}@c
 @table @strong
 @item Package
@@ -3744,11 +3938,11 @@ Examples:@*
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨128❩, , @t{missing}}.
+@ref{❨148❩, , @t{missing}}.
 @end table
 @end deffn
 @deffn {Reader} {variable-summary%-name} (instance)
-@anchor{❨142❩}@c
+@anchor{❨175❩}@c
 @functionsubindex{variable-summary%-name}@c
 @table @strong
 @item Package
@@ -3756,11 +3950,11 @@ Examples:@*
 @item Source
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Target Slot
-@ref{❨129❩, , @t{name}}.
+@ref{❨149❩, , @t{name}}.
 @end table
 @end deffn
 @deffn {Function} {variable-summary%-p} (object)
-@anchor{❨131❩}@c
+@anchor{❨200❩}@c
 @functionsubindex{variable-summary%-p}@c
 @table @strong
 @item Package
@@ -3770,7 +3964,7 @@ Examples:@*
 @end table
 @end deffn
 @deffn {Function} {weave} (&rest lists)
-@anchor{❨148❩}@c
+@anchor{❨177❩}@c
 @functionsubindex{weave}@c
 Return a list whose elements alternate between each of the lists
 `lists`. Weaving stops when any of the lists has been exhausted.
@@ -3784,30 +3978,8 @@ Return a list whose elements alternate between each of the lists
 
 @node Private generic functions, Private conditions, Private ordinary functions, Internals
 @subsection Generic functions
-@deffn {Generic Function} {%rename!} (data new old)
-@anchor{❨151❩}@c
-@genericsubindex{%rename!}@c
-@table @strong
-@item Package
-@ref{❨14❩, , @t{data-frame}}.
-@item Methods
-@deffn {Method} {%rename!} (data new old)
-@anchor{❨152❩}@c
-@methodsubindex{%rename!}@c
-Substitute NEW@comma{} a SYMBOL@comma{} for OLD in DF@*
-
-Useful when reading data files that have an empty or generated column name.
-
-Example: (%substitute-key cars 'name :||) to replace an empty symbol with 'name
-@table @strong
-@item Source
-@ref{❨6❩, , @t{data-frame.lisp}}.
-@end table
-@end deffn
-@end table
-@end deffn
 @deffn {Generic Function} {check-column-compatibility} (data column)
-@anchor{❨206❩}@c
+@anchor{❨135❩}@c
 @genericsubindex{check-column-compatibility}@c
 Check if COLUMN is compatible with DATA.
 @table @strong
@@ -3816,14 +3988,14 @@ Check if COLUMN is compatible with DATA.
 @item Source
 @ref{❨6❩, , @t{data-frame.lisp}}.
 @item Methods
-@deffn {Method} {check-column-compatibility} ((data @ref{❨42❩, , @t{data-frame}}) column)
-@anchor{❨207❩}@c
+@deffn {Method} {check-column-compatibility} ((data @ref{❨47❩, , @t{data-frame}}) column)
+@anchor{❨136❩}@c
 @methodsubindex{check-column-compatibility}@c
 @table @strong
 @end table
 @end deffn
-@deffn {Method} {check-column-compatibility} ((data @ref{❨132❩, , @t{data}}) column)
-@anchor{❨208❩}@c
+@deffn {Method} {check-column-compatibility} ((data @ref{❨127❩, , @t{data}}) column)
+@anchor{❨137❩}@c
 @methodsubindex{check-column-compatibility}@c
 @table @strong
 @end table
@@ -3831,7 +4003,7 @@ Check if COLUMN is compatible with DATA.
 @end table
 @end deffn
 @deffn {Generic Function} {column-length} (column)
-@anchor{❨211❩}@c
+@anchor{❨190❩}@c
 @genericsubindex{column-length}@c
 Return the length of column.
 @table @strong
@@ -3841,7 +4013,7 @@ Return the length of column.
 @ref{❨9❩, , @t{summary.lisp}}.
 @item Methods
 @deffn {Method} {column-length} ((column @t{vector}))
-@anchor{❨212❩}@c
+@anchor{❨191❩}@c
 @methodsubindex{column-length}@c
 @table @strong
 @end table
@@ -3849,33 +4021,33 @@ Return the length of column.
 @end table
 @end deffn
 @deffn {Generic Reader} {data-size} (condition)
-@anchor{❨140❩}@c
+@anchor{❨170❩}@c
 @genericsubindex{data-size}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
-@deffn {Reader Method} {data-size} ((condition @ref{❨30❩, , @t{large-data}}))
-@anchor{❨141❩}@c
+@deffn {Reader Method} {data-size} ((condition @ref{❨35❩, , @t{large-data}}))
+@anchor{❨171❩}@c
 @methodsubindex{data-size}@c
 @table @strong
 @item Source
 @ref{❨5❩, , @t{conditions.lisp}}.
 @item Target Slot
-@ref{❨31❩, , @t{data-size}}.
+@ref{❨36❩, , @t{data-size}}.
 @end table
 @end deffn
 @end table
 @end deffn
 @deffn {Generic Function} {default-column-formats} (array)
-@anchor{❨146❩}@c
+@anchor{❨212❩}@c
 @genericsubindex{default-column-formats}@c
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Methods
 @deffn {Method} {default-column-formats} ((array @t{simple-array}))
-@anchor{❨147❩}@c
+@anchor{❨213❩}@c
 @methodsubindex{default-column-formats}@c
 Return a list of formatting strings for ARRAY@*
 The method returns a set of default formatting strings using heuristics.
@@ -3890,27 +4062,27 @@ The method returns a set of default formatting strings using heuristics.
 @node Private conditions, Private structures, Private generic functions, Internals
 @subsection Conditions
 @deftp {Condition} {data-frame-exists}
-@anchor{❨181❩}@c
+@anchor{❨160❩}@c
 @conditionsubindex{data-frame-exists}@c
 An attempt to redefine an existing data frame.  Triggered if either the symbol is bound or the package exists.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
 @item Source
-@ref{❨10❩, , @t{defdf.lisp}}.
+@ref{❨5❩, , @t{conditions.lisp}}.
 @item Direct superclasses
 @t{error}.
 @item Direct methods
-@ref{❨41❩, , @t{data-frame}}.
+@ref{❨46❩, , @t{data-frame}}.
 @item Direct slots
 @defvr {Slot} {data-frame}
-@anchor{❨182❩}@c
+@anchor{❨161❩}@c
 @slotsubindex{data-frame}@c
 @table @strong
 @item Initargs
 @t{:data-frame}
 @item Readers
-@ref{❨41❩, , @t{data-frame}}.
+@ref{❨46❩, , @t{data-frame}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -3918,7 +4090,7 @@ An attempt to redefine an existing data frame.  Triggered if either the symbol i
 @end table
 @end deftp
 @deftp {Condition} {missing-data}
-@anchor{❨219❩}@c
+@anchor{❨131❩}@c
 @conditionsubindex{missing-data}@c
 A variable has missing data@comma{} e.g. :na@comma{} nil
 @table @strong
@@ -3930,7 +4102,7 @@ A variable has missing data@comma{} e.g. :na@comma{} nil
 @t{error}.
 @item Direct slots
 @defvr {Slot} {name}
-@anchor{❨220❩}@c
+@anchor{❨132❩}@c
 @slotsubindex{name}@c
 @table @strong
 @item Initargs
@@ -3938,7 +4110,7 @@ A variable has missing data@comma{} e.g. :na@comma{} nil
 @end table
 @end defvr
 @defvr {Slot} {data}
-@anchor{❨221❩}@c
+@anchor{❨133❩}@c
 @slotsubindex{data}@c
 @table @strong
 @item Initargs
@@ -3951,9 +4123,12 @@ A variable has missing data@comma{} e.g. :na@comma{} nil
 @node Private structures, Private classes, Private conditions, Internals
 @subsection Structures
 @deftp {Structure} {ordered-keys}
-@anchor{❨111❩}@c
+@anchor{❨227❩}@c
 @structuresubindex{ordered-keys}@c
-Representation of ordered keys.@*
+Representation of ordered keys@*
+Ordered keys provide a mapping from column keys (symbols) to nonnegative
+integers.  They are used internally and the corresponding interface is
+NOT EXPORTED.@*
 
 TABLE maps keys to indexes@comma{} starting from zero.
 @table @strong
@@ -3966,17 +4141,17 @@ TABLE maps keys to indexes@comma{} starting from zero.
 @item Direct methods
 @itemize @bullet
 @item
-@ref{❨270❩, , @t{axis-dimension}}.
+@ref{❨285❩, , @t{axis-dimension}}.
 @item
-@ref{❨269❩, , @t{canonical-representation}}.
+@ref{❨284❩, , @t{canonical-representation}}.
 @item
-@ref{❨267❩, , @t{print-object}}.
+@ref{❨282❩, , @t{print-object}}.
 @item
-@ref{❨268❩, , @t{select}}.
+@ref{❨283❩, , @t{select}}.
 @end itemize
 @item Direct slots
 @defvr {Slot} {table}
-@anchor{❨112❩}@c
+@anchor{❨228❩}@c
 @slotsubindex{table}@c
 @table @strong
 @item Type
@@ -3984,7 +4159,7 @@ TABLE maps keys to indexes@comma{} starting from zero.
 @item Initform
 @t{(make-hash-table :test (function eq))}
 @item Readers
-@ref{❨205❩, , @t{ordered-keys-table}}.
+@ref{❨169❩, , @t{ordered-keys-table}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -3992,9 +4167,9 @@ TABLE maps keys to indexes@comma{} starting from zero.
 @end table
 @end deftp
 @deftp {Structure} {variable-summary%}
-@anchor{❨126❩}@c
+@anchor{❨146❩}@c
 @structuresubindex{variable-summary%}@c
-Base class for summarizing variables.  Not exported.
+Base class for summarizing variables.  Summary functions take SYMBOLs@comma{} rather than values@comma{} because the symbol property lists naming the variables have meta-data@comma{} e.g. type@comma{} label@comma{} that we want to print.  Not exported.
 @table @strong
 @item Package
 @ref{❨14❩, , @t{data-frame}}.
@@ -4005,17 +4180,17 @@ Base class for summarizing variables.  Not exported.
 @item Direct subclasses
 @itemize @bullet
 @item
-@ref{❨59❩, , @t{bit-variable-summary}}.
+@ref{❨68❩, , @t{bit-variable-summary}}.
 @item
-@ref{❨83❩, , @t{factor-variable-summary}}.
+@ref{❨63❩, , @t{factor-variable-summary}}.
 @item
-@ref{❨51❩, , @t{generic-variable-summary}}.
+@ref{❨57❩, , @t{generic-variable-summary}}.
 @item
-@ref{❨66❩, , @t{real-variable-summary}}.
+@ref{❨76❩, , @t{real-variable-summary}}.
 @end itemize
 @item Direct slots
 @defvr {Slot} {length}
-@anchor{❨127❩}@c
+@anchor{❨147❩}@c
 @slotsubindex{length}@c
 @table @strong
 @item Package
@@ -4025,13 +4200,13 @@ Base class for summarizing variables.  Not exported.
 @item Initform
 @t{0}
 @item Readers
-@ref{❨215❩, , @t{variable-summary%-length}}.
+@ref{❨189❩, , @t{variable-summary%-length}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {missing}
-@anchor{❨128❩}@c
+@anchor{❨148❩}@c
 @slotsubindex{missing}@c
 @table @strong
 @item Type
@@ -4039,13 +4214,13 @@ Base class for summarizing variables.  Not exported.
 @item Initform
 @t{0}
 @item Readers
-@ref{❨195❩, , @t{variable-summary%-missing}}.
+@ref{❨232❩, , @t{variable-summary%-missing}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {name}
-@anchor{❨129❩}@c
+@anchor{❨149❩}@c
 @slotsubindex{name}@c
 @table @strong
 @item Type
@@ -4053,13 +4228,13 @@ Base class for summarizing variables.  Not exported.
 @item Initform
 @t{""}
 @item Readers
-@ref{❨142❩, , @t{variable-summary%-name}}.
+@ref{❨175❩, , @t{variable-summary%-name}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
 @end defvr
 @defvr {Slot} {desc}
-@anchor{❨130❩}@c
+@anchor{❨150❩}@c
 @slotsubindex{desc}@c
 @table @strong
 @item Type
@@ -4067,7 +4242,7 @@ Base class for summarizing variables.  Not exported.
 @item Initform
 @t{""}
 @item Readers
-@ref{❨157❩, , @t{variable-summary%-desc}}.
+@ref{❨187❩, , @t{variable-summary%-desc}}.
 @item Writers
 @i{This slot is read-only.}
 @end table
@@ -4078,7 +4253,7 @@ Base class for summarizing variables.  Not exported.
 @node Private classes, , Private structures, Internals
 @subsection Classes
 @deftp {Class} {data}
-@anchor{❨132❩}@c
+@anchor{❨127❩}@c
 @classsubindex{data}@c
 This class is used for implementing both data-vector and data-frame@comma{} and represents an ordered collection of key-column pairs.  Columns are not assumed to have any specific attributes.  This class is not exported.
 @table @strong
@@ -4089,22 +4264,41 @@ This class is used for implementing both data-vector and data-frame@comma{} and 
 @item Direct subclasses
 @itemize @bullet
 @item
-@ref{❨42❩, , @t{data-frame}}.
+@ref{❨47❩, , @t{data-frame}}.
 @item
-@ref{❨38❩, , @t{data-vector}}.
+@ref{❨43❩, , @t{data-vector}}.
 @end itemize
 @item Direct methods
 @itemize @bullet
 @item
-@ref{❨272❩, , @t{as-alist}}.
+@ref{❨278❩, , @t{as-alist}}.
 @item
-@ref{❨208❩, , @t{check-column-compatibility}}.
+@ref{❨137❩, , @t{check-column-compatibility}}.
 @item
-@ref{❨273❩, , @t{element-type}}.
+@ref{❨279❩, , @t{element-type}}.
+@item
+@ref{❨32❩, , @t{(setf name)}}.
+@item
+@ref{❨30❩, , @t{name}}.
 @end itemize
 @item Direct slots
+@defvr {Slot} {name}
+@anchor{❨128❩}@c
+@slotsubindex{name}@c
+The name of the data frame.  MUST be the same as the symbol whose value cell points to this data frame.  This slot essentially allows us to go 'backwards' and get the symbol that names the data frame.
+@table @strong
+@item Type
+@t{string}
+@item Initargs
+@t{nil}
+@item Readers
+@ref{❨30❩, , @t{name}}.
+@item Writers
+@ref{❨32❩, , @t{(setf name)}}.
+@end table
+@end defvr
 @defvr {Slot} {ordered-keys}
-@anchor{❨133❩}@c
+@anchor{❨129❩}@c
 @slotsubindex{ordered-keys}@c
 @table @strong
 @item Type
@@ -4114,7 +4308,7 @@ This class is used for implementing both data-vector and data-frame@comma{} and 
 @end table
 @end defvr
 @defvr {Slot} {columns}
-@anchor{❨134❩}@c
+@anchor{❨130❩}@c
 @slotsubindex{columns}@c
 @table @strong
 @item Type

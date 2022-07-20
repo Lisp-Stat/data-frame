@@ -1,0 +1,3857 @@
+This is data-frame.info, produced by makeinfo version 6.8 from
+data-frame.texi.
+
+     Copyright © 2019-2022 Steve Nunez
+
+     Permission is granted to make and distribute verbatim copies of
+     this manual provided the copyright notice and this permission
+     notice are preserved on all copies.
+
+     Permission is granted to copy and distribute modified versions of
+     this manual under the conditions for verbatim copying, provided
+     also that the section entitled “Copying” is included exactly as in
+     the original.
+
+     Permission is granted to copy and distribute translations of this
+     manual into another language, under the above conditions for
+     modified versions, except that this permission notice may be
+     translated as well.
+INFO-DIR-SECTION Lisp-Stat
+START-INFO-DIR-ENTRY
+* Data Frame Reference Manual: (data-frame). The Data Frame Reference Manual.
+END-INFO-DIR-ENTRY
+
+
+File: data-frame.info,  Node: Top,  Next: Copying,  Prev: (dir),  Up: (dir)
+
+The Data Frame Reference Manual
+*******************************
+
+This is the Data Frame Reference Manual, version 1.0.0, generated
+automatically by Declt version 4.0b2.
+
+* Menu:
+
+* Copying:: The Microsoft Public License
+* Systems:: The systems documentation
+* Files:: The files documentation
+* Packages:: The packages documentation
+* Definitions:: The symbols documentation
+* Indexes:: Concepts, functions, variables and data types
+
+     Copyright © 2019-2022 Steve Nunez
+
+     Permission is granted to make and distribute verbatim copies of
+     this manual provided the copyright notice and this permission
+     notice are preserved on all copies.
+
+     Permission is granted to copy and distribute modified versions of
+     this manual under the conditions for verbatim copying, provided
+     also that the section entitled “Copying” is included exactly as in
+     the original.
+
+     Permission is granted to copy and distribute translations of this
+     manual into another language, under the above conditions for
+     modified versions, except that this permission notice may be
+     translated as well.
+
+
+File: data-frame.info,  Node: Copying,  Next: Systems,  Prev: Top,  Up: Top
+
+Copying
+*******
+
+     This program is distributed under the terms of the Microsoft Public
+     License.
+
+
+File: data-frame.info,  Node: Systems,  Next: Files,  Prev: Copying,  Up: Top
+
+1 Systems
+*********
+
+The main system appears first, followed by any subsystem dependency.
+
+* Menu:
+
+* The data-frame system::
+
+
+File: data-frame.info,  Node: The data-frame system,  Prev: Systems,  Up: Systems
+
+1.1 data-frame
+==============
+
+A data manipulation library for statistical computing
+*Long Name*
+     Data frames for Common Lisp
+*Author*
+     Steve Nunez <<steve@symbolics.tech>>
+*Home Page*
+     <https://lisp-stat.dev/docs/manuals/data-frame>
+*Source Control*
+     (GIT https://github.com/Lisp-Stat/data-frame.git)
+*Bug Tracker*
+     <https://github.com/Lisp-Stat/data-frame/issues>
+*License*
+     MS-PL
+*Long Description*
+     A data frame is a common way of storing data for statistical
+     analysis.  Under the hood, a data frame is a vector of equal-length
+     vectors.  Each element of the vector can be thought of as a column
+     and the length of each element of the vector is the number of rows.
+     As a result, data frames can store different classes of objects in
+     each column (i.e.  numeric, character, factor).  In essence, the
+     easiest way to think of a data frame is as an Excel worksheet that
+     contains columns of different types of data but are all of equal
+     length rows.
+
+     From a design perspective, Lisp-Stat’s data frame is conceptually
+     most similar to the ’tibble’ from the tidyverse, but using Common
+     Lisp idioms, style and syntax.
+*Version*
+     1.0.0
+*Dependencies*
+        • alexandria (system).
+        • alexandria+ (system).
+        • anaphora (system).
+        • array-operations (system).
+        • num-utils (system).
+        • select (system).
+        • let-plus (system).
+        • duologue (system).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Child Components*
+        • *note pkgdcl.lisp: ❨3❩. (file).
+        • *note utils.lisp: ❨4❩. (file).
+        • *note conditions.lisp: ❨5❩. (file).
+        • *note data-frame.lisp: ❨6❩. (file).
+        • *note pprint.lisp: ❨7❩. (file).
+        • *note formatted-output.lisp: ❨8❩. (file).
+        • *note summary.lisp: ❨9❩. (file).
+        • *note defdf.lisp: ❨10❩. (file).
+        • *note properties.lisp: ❨11❩. (file).
+        • *note missing.lisp: ❨12❩. (file).
+        • *note filter.lisp: ❨13❩. (file).
+
+
+File: data-frame.info,  Node: Files,  Next: Packages,  Prev: Systems,  Up: Top
+
+2 Files
+*******
+
+Files are sorted by type and then listed depth-first from the systems
+components trees.
+
+* Menu:
+
+* Lisp files::
+
+
+File: data-frame.info,  Node: Lisp files,  Prev: Files,  Up: Files
+
+2.1 Lisp
+========
+
+* Menu:
+
+* The data-frame/data-frame․asd file::
+* The data-frame/pkgdcl․lisp file::
+* The data-frame/utils․lisp file::
+* The data-frame/conditions․lisp file::
+* The data-frame/data-frame․lisp file::
+* The data-frame/pprint․lisp file::
+* The data-frame/formatted-output․lisp file::
+* The data-frame/summary․lisp file::
+* The data-frame/defdf․lisp file::
+* The data-frame/properties․lisp file::
+* The data-frame/missing․lisp file::
+* The data-frame/filter․lisp file::
+
+
+File: data-frame.info,  Node: The data-frame/data-frame․asd file,  Next: The data-frame/pkgdcl․lisp file,  Prev: Lisp files,  Up: Lisp files
+
+2.1.1 data-frame/data-frame.asd
+-------------------------------
+
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*ASDF Systems*
+     *note data-frame: ❨1❩.
+
+
+File: data-frame.info,  Node: The data-frame/pkgdcl․lisp file,  Next: The data-frame/utils․lisp file,  Prev: The data-frame/data-frame․asd file,  Up: Lisp files
+
+2.1.2 data-frame/pkgdcl.lisp
+----------------------------
+
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Packages*
+     *note data-frame: ❨14❩.
+
+
+File: data-frame.info,  Node: The data-frame/utils․lisp file,  Next: The data-frame/conditions․lisp file,  Prev: The data-frame/pkgdcl․lisp file,  Up: Lisp files
+
+2.1.3 data-frame/utils.lisp
+---------------------------
+
+*Dependency*
+     *note pkgdcl.lisp: ❨3❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note column-type: ❨41❩. (function).
+        • *note delete-nth: ❨50❩. (function).
+        • *note delete-nth*: ❨118❩. (macro).
+*Internals*
+        • *note get-type: ❨166❩. (function).
+        • *note types-in-column: ❨157❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/conditions․lisp file,  Next: The data-frame/data-frame․lisp file,  Prev: The data-frame/utils․lisp file,  Up: Lisp files
+
+2.1.4 data-frame/conditions.lisp
+--------------------------------
+
+*Dependency*
+     *note utils.lisp: ❨4❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note data-frame: ❨46❩. (reader method).
+        • *note duplicate-key: ❨112❩. (condition).
+        • *note key-not-found: ❨54❩. (condition).
+        • *note large-data: ❨35❩. (condition).
+*Internals*
+        • *note data-frame-exists: ❨160❩. (condition).
+        • *note data-size: ❨171❩. (reader method).
+        • *note df-exists-p: ❨140❩. (function).
+        • *note invalid-df-name: ❨178❩. (function).
+        • *note missing-data: ❨131❩. (condition).
+
+
+File: data-frame.info,  Node: The data-frame/data-frame․lisp file,  Next: The data-frame/pprint․lisp file,  Prev: The data-frame/conditions․lisp file,  Up: Lisp files
+
+2.1.5 data-frame/data-frame.lisp
+--------------------------------
+
+*Dependency*
+     *note conditions.lisp: ❨5❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note *large-data*: ❨40❩. (special variable).
+        • *note add-column!: ❨34❩. (function).
+        • *note add-columns: ❨17❩. (function).
+        • *note add-columns!: ❨117❩. (function).
+        • *note alist-df: ❨67❩. (function).
+        • *note alist-dv: ❨62❩. (function).
+        • *note as-alist: ❨278❩. (method).
+        • *note as-array: ❨258❩. (method).
+        • *note as-array: ❨263❩. (method).
+        • *note axis-dimension: ❨285❩. (method).
+        • *note canonical-representation: ❨284❩. (method).
+        • *note column: ❨48❩. (function).
+        • *note (setf column): ❨49❩. (function).
+        • *note column-names: ❨37❩. (function).
+        • *note columns: ❨71❩. (function).
+        • *note copy: ❨66❩. (function).
+        • *note count-rows: ❨53❩. (function).
+        • *note data-frame: ❨47❩. (class).
+        • *note data-type: ❨116❩. (type).
+        • *note data-vector: ❨43❩. (class).
+        • *note describe-object: ❨260❩. (method).
+        • *note df: ❨25❩. (function).
+        • *note df-remove-duplicates: ❨60❩. (function).
+        • *note dims: ❨259❩. (method).
+        • *note dims: ❨264❩. (method).
+        • *note do-rows: ❨86❩. (function).
+        • *note dv: ❨28❩. (function).
+        • *note element-type: ❨279❩. (method).
+        • *note initialize-instance: ❨267❩. (method).
+        • *note keys: ❨70❩. (function).
+        • *note make-df: ❨84❩. (function).
+        • *note make-dv: ❨89❩. (function).
+        • *note map-columns: ❨85❩. (function).
+        • *note map-df: ❨19❩. (function).
+        • *note map-rows: ❨74❩. (function).
+        • *note mask-rows: ❨15❩. (function).
+        • *note matrix-df: ❨21❩. (function).
+        • *note name: ❨30❩. (reader method).
+        • *note (setf name): ❨32❩. (writer method).
+        • *note ncol: ❨265❩. (method).
+        • *note nrow: ❨266❩. (method).
+        • *note plist-df: ❨100❩. (function).
+        • *note plist-dv: ❨99❩. (function).
+        • *note print-object: ❨256❩. (method).
+        • *note print-object: ❨261❩. (method).
+        • *note print-object: ❨282❩. (method).
+        • *note remove-column!: ❨61❩. (function).
+        • *note remove-columns: ❨91❩. (function).
+        • *note rename-column!: ❨94❩. (method).
+        • *note replace-column: ❨22❩. (function).
+        • *note replace-column!: ❨24❩. (function).
+        • *note rows: ❨96❩. (function).
+        • *note select: ❨257❩. (method).
+        • *note select: ❨262❩. (method).
+        • *note select: ❨283❩. (method).
+*Internals*
+        • *note add-key!: ❨194❩. (function).
+        • *note add-keys: ❨214❩. (function).
+        • *note alist-data: ❨208❩. (function).
+        • *note check-column-compatibility: ❨135❩. (generic function).
+        • *note copy-ordered-keys: ❨163❩. (function).
+        • *note data: ❨127❩. (class).
+        • *note define-data-subclass: ❨205❩. (macro).
+        • *note df-env-p: ❨122❩. (function).
+        • *note ensure-arguments-alist: ❨217❩. (function).
+        • *note key-index: ❨215❩. (function).
+        • *note keys-count: ❨144❩. (function).
+        • *note keys-vector: ❨124❩. (function).
+        • *note make-data: ❨138❩. (function).
+        • *note make-ordered-keys: ❨229❩. (function).
+        • *note ordered-keys: ❨226❩. (function).
+        • *note ordered-keys: ❨227❩. (structure).
+        • *note ordered-keys-p: ❨186❩. (function).
+        • *note ordered-keys-table: ❨169❩. (reader).
+        • *note plist-data: ❨158❩. (function).
+        • *note remove-columns!: ❨141❩. (function).
+        • *note remove-key!: ❨203❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/pprint․lisp file,  Next: The data-frame/formatted-output․lisp file,  Prev: The data-frame/data-frame․lisp file,  Up: Lisp files
+
+2.1.6 data-frame/pprint.lisp
+----------------------------
+
+*Dependency*
+     *note data-frame.lisp: ❨6❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note head: ❨73❩. (method).
+        • *note print-array: ❨51❩. (function).
+        • *note print-data: ❨20❩. (function).
+        • *note short-string: ❨97❩. (function).
+        • *note tail: ❨115❩. (method).
+*Internals*
+        • *note *max-digits*: ❨201❩. (special variable).
+        • *note *row-numbers-p*: ❨174❩. (special variable).
+        • *note 2d-array-to-list: ❨176❩. (function).
+        • *note column-type-format: ❨154❩. (function).
+        • *note default-column-formats: ❨213❩. (method).
+        • *note max-decimal: ❨181❩. (function).
+        • *note max-width: ❨199❩. (function).
+        • *note printer-status: ❨183❩. (function).
+        • *note reverse-df: ❨206❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/formatted-output․lisp file,  Next: The data-frame/summary․lisp file,  Prev: The data-frame/pprint․lisp file,  Up: Lisp files
+
+2.1.7 data-frame/formatted-output.lisp
+--------------------------------------
+
+*Dependency*
+     *note pprint.lisp: ❨7❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note df-print: ❨23❩. (function).
+        • *note print-markdown: ❨92❩. (function).
+*Internals*
+        • *note aesthetic-string: ❨152❩. (function).
+        • *note print-table: ❨185❩. (function).
+        • *note weave: ❨177❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/summary․lisp file,  Next: The data-frame/defdf․lisp file,  Prev: The data-frame/formatted-output․lisp file,  Up: Lisp files
+
+2.1.8 data-frame/summary.lisp
+-----------------------------
+
+*Dependency*
+     *note formatted-output.lisp: ❨8❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note *distinct-maximum*: ❨65❩. (special variable).
+        • *note *distinct-threshold*: ❨52❩. (special variable).
+        • *note *quantile-threshold*: ❨16❩. (special variable).
+        • *note *summary-minimum-length*: ❨75❩. (special variable).
+        • *note bit-variable-summary: ❨68❩. (structure).
+        • *note factor-variable-summary: ❨63❩. (structure).
+        • *note generic-variable-summary: ❨57❩. (structure).
+        • *note get-summaries: ❨120❩. (function).
+        • *note print-object: ❨269❩. (method).
+        • *note print-object: ❨270❩. (method).
+        • *note print-object: ❨271❩. (method).
+        • *note print-object: ❨272❩. (method).
+        • *note real-variable-summary: ❨76❩. (structure).
+        • *note summarize-column: ❨42❩. (function).
+        • *note summary: ❨83❩. (function).
+*Internals*
+        • *note bit-variable-summary-count: ❨173❩. (reader).
+        • *note bit-variable-summary-desc: ❨165❩. (function).
+        • *note bit-variable-summary-length: ❨223❩. (function).
+        • *note bit-variable-summary-missing: ❨134❩. (function).
+        • *note bit-variable-summary-name: ❨162❩. (function).
+        • *note bit-variable-summary-p: ❨225❩. (function).
+        • *note column-length: ❨190❩. (generic function).
+        • *note copy-bit-variable-summary: ❨153❩. (function).
+        • *note copy-factor-variable-summary: ❨230❩. (function).
+        • *note copy-generic-variable-summary: ❨209❩. (function).
+        • *note copy-real-variable-summary: ❨156❩. (function).
+        • *note copy-variable-summary%: ❨221❩. (function).
+        • *note distinct: ❨233❩. (function).
+        • *note ensure-not-ratio: ❨196❩. (function).
+        • *note factor-variable-summary-desc: ❨143❩. (function).
+        • *note factor-variable-summary-element-count-alist: ❨172❩.
+          (reader).
+        • *note factor-variable-summary-length: ❨195❩. (function).
+        • *note factor-variable-summary-missing: ❨145❩. (function).
+        • *note factor-variable-summary-name: ❨219❩. (function).
+        • *note factor-variable-summary-p: ❨197❩. (function).
+        • *note generic-variable-summary-desc: ❨224❩. (function).
+        • *note generic-variable-summary-element-count-alist: ❨193❩.
+          (reader).
+        • *note generic-variable-summary-length: ❨211❩. (function).
+        • *note generic-variable-summary-missing: ❨234❩. (function).
+        • *note generic-variable-summary-name: ❨139❩. (function).
+        • *note generic-variable-summary-p: ❨220❩. (function).
+        • *note generic-variable-summary-quantiles: ❨202❩. (reader).
+        • *note make-bit-variable-summary: ❨167❩. (function).
+        • *note make-factor-variable-summary: ❨204❩. (function).
+        • *note make-generic-variable-summary: ❨207❩. (function).
+        • *note make-real-variable-summary: ❨159❩. (function).
+        • *note make-variable-summary%: ❨168❩. (function).
+        • *note monotonicp: ❨180❩. (function).
+        • *note print-count-and-percentage: ❨235❩. (function).
+        • *note real-variable-summary-desc: ❨126❩. (function).
+        • *note real-variable-summary-length: ❨184❩. (function).
+        • *note real-variable-summary-max: ❨151❩. (reader).
+        • *note real-variable-summary-mean: ❨188❩. (reader).
+        • *note real-variable-summary-min: ❨192❩. (reader).
+        • *note real-variable-summary-missing: ❨125❩. (function).
+        • *note real-variable-summary-name: ❨210❩. (function).
+        • *note real-variable-summary-p: ❨231❩. (function).
+        • *note real-variable-summary-q25: ❨218❩. (reader).
+        • *note real-variable-summary-q50: ❨182❩. (reader).
+        • *note real-variable-summary-q75: ❨198❩. (reader).
+        • *note summarize-factor-variable: ❨121❩. (function).
+        • *note summarize-generic-variable: ❨142❩. (function).
+        • *note summarize-real-variable: ❨222❩. (function).
+        • *note variable-summary%: ❨146❩. (structure).
+        • *note variable-summary%-desc: ❨187❩. (reader).
+        • *note variable-summary%-length: ❨189❩. (reader).
+        • *note variable-summary%-missing: ❨232❩. (reader).
+        • *note variable-summary%-name: ❨175❩. (reader).
+        • *note variable-summary%-p: ❨200❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/defdf․lisp file,  Next: The data-frame/properties․lisp file,  Prev: The data-frame/summary․lisp file,  Up: Lisp files
+
+2.1.9 data-frame/defdf.lisp
+---------------------------
+
+*Dependency*
+     *note summary.lisp: ❨9❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note *ask-on-redefine*: ❨88❩. (special variable).
+        • *note defdf: ❨26❩. (macro).
+        • *note defdf-env: ❨18❩. (function).
+        • *note show-data-frames: ❨44❩. (function).
+        • *note undef: ❨33❩. (function).
+*Internals*
+        • *note *data-frames*: ❨123❩. (special variable).
+        • *note show-symbols: ❨164❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/properties․lisp file,  Next: The data-frame/missing․lisp file,  Prev: The data-frame/defdf․lisp file,  Up: Lisp files
+
+2.1.10 data-frame/properties.lisp
+---------------------------------
+
+*Dependency*
+     *note defdf.lisp: ❨10❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note get-property: ❨98❩. (function).
+        • *note heuristicate-types: ❨27❩. (function).
+        • *note set-properties: ❨119❩. (function).
+        • *note set-property: ❨90❩. (function).
+*Internals*
+     *note show-properties: ❨216❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/missing․lisp file,  Next: The data-frame/filter․lisp file,  Prev: The data-frame/properties․lisp file,  Up: Lisp files
+
+2.1.11 data-frame/missing.lisp
+------------------------------
+
+*Dependency*
+     *note properties.lisp: ❨11❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+        • *note drop-missing: ❨110❩. (method).
+        • *note drop-missing: ❨111❩. (method).
+        • *note ignore-missing: ❨95❩. (function).
+        • *note missingp: ❨101❩. (generic function).
+        • *note replace-missing: ❨39❩. (method).
+*Internals*
+     *note drop-na: ❨179❩. (function).
+
+
+File: data-frame.info,  Node: The data-frame/filter․lisp file,  Prev: The data-frame/missing․lisp file,  Up: Lisp files
+
+2.1.12 data-frame/filter.lisp
+-----------------------------
+
+*Dependency*
+     *note missing.lisp: ❨12❩. (file).
+*Source*
+     *note data-frame.asd: ❨2❩.
+*Parent Component*
+     *note data-frame: ❨1❩. (system).
+*Public Interface*
+     *note filter-rows: ❨87❩. (function).
+*Internals*
+     *note key-list: ❨155❩. (function).
+
+
+File: data-frame.info,  Node: Packages,  Next: Definitions,  Prev: Files,  Up: Top
+
+3 Packages
+**********
+
+Packages are listed by definition order.
+
+* Menu:
+
+* The data-frame package::
+
+
+File: data-frame.info,  Node: The data-frame package,  Prev: Packages,  Up: Packages
+
+3.1 data-frame
+==============
+
+*Source*
+     *note pkgdcl.lisp: ❨3❩.
+*Nickname*
+     df
+*Use List*
+        • alexandria.
+        • alexandria+.
+        • anaphora.
+        • common-lisp.
+        • let-plus.
+        • select.
+        • select-dev.
+*Used By List*
+        • dfio.
+        • lisp-stat.
+*Public Interface*
+        • *note *ask-on-redefine*: ❨88❩. (special variable).
+        • *note *distinct-maximum*: ❨65❩. (special variable).
+        • *note *distinct-threshold*: ❨52❩. (special variable).
+        • *note *large-data*: ❨40❩. (special variable).
+        • *note *quantile-threshold*: ❨16❩. (special variable).
+        • *note *summary-minimum-length*: ❨75❩. (special variable).
+        • *note add-column!: ❨34❩. (function).
+        • *note add-columns: ❨17❩. (function).
+        • *note add-columns!: ❨117❩. (function).
+        • *note alist-df: ❨67❩. (function).
+        • *note alist-dv: ❨62❩. (function).
+        • *note bit-variable-summary: ❨68❩. (structure).
+        • *note column: ❨48❩. (function).
+        • *note (setf column): ❨49❩. (function).
+        • *note column-names: ❨37❩. (function).
+        • *note column-type: ❨41❩. (function).
+        • *note columns: ❨71❩. (function).
+        • *note copy: ❨66❩. (function).
+        • *note count-rows: ❨53❩. (function).
+        • *note data-frame: ❨45❩. (generic reader).
+        • *note data-frame: ❨47❩. (class).
+        • *note data-type: ❨116❩. (type).
+        • *note data-vector: ❨43❩. (class).
+        • *note defdf: ❨26❩. (macro).
+        • *note defdf-env: ❨18❩. (function).
+        • *note delete-nth: ❨50❩. (function).
+        • *note delete-nth*: ❨118❩. (macro).
+        • *note df: ❨25❩. (function).
+        • *note df-print: ❨23❩. (function).
+        • *note df-remove-duplicates: ❨60❩. (function).
+        • *note do-rows: ❨86❩. (function).
+        • *note drop-missing: ❨109❩. (generic function).
+        • *note duplicate-key: ❨112❩. (condition).
+        • *note dv: ❨28❩. (function).
+        • *note factor-variable-summary: ❨63❩. (structure).
+        • *note filter-rows: ❨87❩. (function).
+        • *note generic-variable-summary: ❨57❩. (structure).
+        • *note get-property: ❨98❩. (function).
+        • *note get-summaries: ❨120❩. (function).
+        • *note head: ❨72❩. (generic function).
+        • *note heuristicate-types: ❨27❩. (function).
+        • *note ignore-missing: ❨95❩. (function).
+        • *note key-not-found: ❨54❩. (condition).
+        • *note keys: ❨70❩. (function).
+        • *note large-data: ❨35❩. (condition).
+        • *note make-df: ❨84❩. (function).
+        • *note make-dv: ❨89❩. (function).
+        • *note map-columns: ❨85❩. (function).
+        • *note map-df: ❨19❩. (function).
+        • *note map-rows: ❨74❩. (function).
+        • *note mask-rows: ❨15❩. (function).
+        • *note matrix-df: ❨21❩. (function).
+        • *note missingp: ❨101❩. (generic function).
+        • *note name: ❨29❩. (generic reader).
+        • *note (setf name): ❨31❩. (generic writer).
+        • *note plist-df: ❨100❩. (function).
+        • *note plist-dv: ❨99❩. (function).
+        • *note print-array: ❨51❩. (function).
+        • *note print-data: ❨20❩. (function).
+        • *note print-markdown: ❨92❩. (function).
+        • *note real-variable-summary: ❨76❩. (structure).
+        • *note remove-column!: ❨61❩. (function).
+        • *note remove-columns: ❨91❩. (function).
+        • *note rename-column!: ❨93❩. (generic function).
+        • *note replace-column: ❨22❩. (function).
+        • *note replace-column!: ❨24❩. (function).
+        • *note replace-missing: ❨38❩. (generic function).
+        • *note rows: ❨96❩. (function).
+        • *note set-properties: ❨119❩. (function).
+        • *note set-property: ❨90❩. (function).
+        • *note short-string: ❨97❩. (function).
+        • *note show-data-frames: ❨44❩. (function).
+        • *note summarize-column: ❨42❩. (function).
+        • *note summary: ❨83❩. (function).
+        • *note tail: ❨114❩. (generic function).
+        • *note undef: ❨33❩. (function).
+*Internals*
+        • *note *data-frames*: ❨123❩. (special variable).
+        • *note *max-digits*: ❨201❩. (special variable).
+        • *note *row-numbers-p*: ❨174❩. (special variable).
+        • *note 2d-array-to-list: ❨176❩. (function).
+        • *note add-key!: ❨194❩. (function).
+        • *note add-keys: ❨214❩. (function).
+        • *note aesthetic-string: ❨152❩. (function).
+        • *note alist-data: ❨208❩. (function).
+        • *note bit-variable-summary-count: ❨173❩. (reader).
+        • *note bit-variable-summary-desc: ❨165❩. (function).
+        • *note bit-variable-summary-length: ❨223❩. (function).
+        • *note bit-variable-summary-missing: ❨134❩. (function).
+        • *note bit-variable-summary-name: ❨162❩. (function).
+        • *note bit-variable-summary-p: ❨225❩. (function).
+        • *note check-column-compatibility: ❨135❩. (generic function).
+        • *note column-length: ❨190❩. (generic function).
+        • *note column-type-format: ❨154❩. (function).
+        • *note copy-bit-variable-summary: ❨153❩. (function).
+        • *note copy-factor-variable-summary: ❨230❩. (function).
+        • *note copy-generic-variable-summary: ❨209❩. (function).
+        • *note copy-ordered-keys: ❨163❩. (function).
+        • *note copy-real-variable-summary: ❨156❩. (function).
+        • *note copy-variable-summary%: ❨221❩. (function).
+        • *note data: ❨127❩. (class).
+        • *note data-frame-exists: ❨160❩. (condition).
+        • *note data-size: ❨170❩. (generic reader).
+        • *note default-column-formats: ❨212❩. (generic function).
+        • *note define-data-subclass: ❨205❩. (macro).
+        • *note df-env-p: ❨122❩. (function).
+        • *note df-exists-p: ❨140❩. (function).
+        • *note distinct: ❨233❩. (function).
+        • *note drop-na: ❨179❩. (function).
+        • *note ensure-arguments-alist: ❨217❩. (function).
+        • *note ensure-not-ratio: ❨196❩. (function).
+        • *note factor-variable-summary-desc: ❨143❩. (function).
+        • *note factor-variable-summary-element-count-alist: ❨172❩.
+          (reader).
+        • *note factor-variable-summary-length: ❨195❩. (function).
+        • *note factor-variable-summary-missing: ❨145❩. (function).
+        • *note factor-variable-summary-name: ❨219❩. (function).
+        • *note factor-variable-summary-p: ❨197❩. (function).
+        • *note generic-variable-summary-desc: ❨224❩. (function).
+        • *note generic-variable-summary-element-count-alist: ❨193❩.
+          (reader).
+        • *note generic-variable-summary-length: ❨211❩. (function).
+        • *note generic-variable-summary-missing: ❨234❩. (function).
+        • *note generic-variable-summary-name: ❨139❩. (function).
+        • *note generic-variable-summary-p: ❨220❩. (function).
+        • *note generic-variable-summary-quantiles: ❨202❩. (reader).
+        • *note get-type: ❨166❩. (function).
+        • *note invalid-df-name: ❨178❩. (function).
+        • *note key-index: ❨215❩. (function).
+        • *note key-list: ❨155❩. (function).
+        • *note keys-count: ❨144❩. (function).
+        • *note keys-vector: ❨124❩. (function).
+        • *note make-bit-variable-summary: ❨167❩. (function).
+        • *note make-data: ❨138❩. (function).
+        • *note make-factor-variable-summary: ❨204❩. (function).
+        • *note make-generic-variable-summary: ❨207❩. (function).
+        • *note make-ordered-keys: ❨229❩. (function).
+        • *note make-real-variable-summary: ❨159❩. (function).
+        • *note make-variable-summary%: ❨168❩. (function).
+        • *note max-decimal: ❨181❩. (function).
+        • *note max-width: ❨199❩. (function).
+        • *note missing-data: ❨131❩. (condition).
+        • *note monotonicp: ❨180❩. (function).
+        • *note ordered-keys: ❨226❩. (function).
+        • *note ordered-keys: ❨227❩. (structure).
+        • *note ordered-keys-p: ❨186❩. (function).
+        • *note ordered-keys-table: ❨169❩. (reader).
+        • *note plist-data: ❨158❩. (function).
+        • *note print-count-and-percentage: ❨235❩. (function).
+        • *note print-table: ❨185❩. (function).
+        • *note printer-status: ❨183❩. (function).
+        • *note real-variable-summary-desc: ❨126❩. (function).
+        • *note real-variable-summary-length: ❨184❩. (function).
+        • *note real-variable-summary-max: ❨151❩. (reader).
+        • *note real-variable-summary-mean: ❨188❩. (reader).
+        • *note real-variable-summary-min: ❨192❩. (reader).
+        • *note real-variable-summary-missing: ❨125❩. (function).
+        • *note real-variable-summary-name: ❨210❩. (function).
+        • *note real-variable-summary-p: ❨231❩. (function).
+        • *note real-variable-summary-q25: ❨218❩. (reader).
+        • *note real-variable-summary-q50: ❨182❩. (reader).
+        • *note real-variable-summary-q75: ❨198❩. (reader).
+        • *note remove-columns!: ❨141❩. (function).
+        • *note remove-key!: ❨203❩. (function).
+        • *note reverse-df: ❨206❩. (function).
+        • *note show-properties: ❨216❩. (function).
+        • *note show-symbols: ❨164❩. (function).
+        • *note summarize-factor-variable: ❨121❩. (function).
+        • *note summarize-generic-variable: ❨142❩. (function).
+        • *note summarize-real-variable: ❨222❩. (function).
+        • *note types-in-column: ❨157❩. (function).
+        • *note variable-summary%: ❨146❩. (structure).
+        • *note variable-summary%-desc: ❨187❩. (reader).
+        • *note variable-summary%-length: ❨189❩. (reader).
+        • *note variable-summary%-missing: ❨232❩. (reader).
+        • *note variable-summary%-name: ❨175❩. (reader).
+        • *note variable-summary%-p: ❨200❩. (function).
+        • *note weave: ❨177❩. (function).
+
+
+File: data-frame.info,  Node: Definitions,  Next: Indexes,  Prev: Packages,  Up: Top
+
+4 Definitions
+*************
+
+Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+
+* Menu:
+
+* Public Interface::
+* Internals::
+
+
+File: data-frame.info,  Node: Public Interface,  Next: Internals,  Prev: Definitions,  Up: Definitions
+
+4.1 Public Interface
+====================
+
+* Menu:
+
+* Public special variables::
+* Public macros::
+* Public ordinary functions::
+* Public generic functions::
+* Public standalone methods::
+* Public conditions::
+* Public structures::
+* Public classes::
+* Public types::
+
+
+File: data-frame.info,  Node: Public special variables,  Next: Public macros,  Prev: Public Interface,  Up: Public Interface
+
+4.1.1 Special variables
+-----------------------
+
+ -- Special Variable: *ask-on-redefine*
+     If non-nil, the system will ask the user for confirmation before
+     redefining a data frame
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Special Variable: *distinct-maximum*
+     If a string/factor variable has > *distinct-maximum* values,
+     exclude it
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Special Variable: *distinct-threshold*
+     If an integer variable has <= discrete values, consider it a factor
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Special Variable: *large-data*
+     An indication that the data set is large for a particular use case.
+     This should be bound by a user to the maximum number of data points
+     they consider to be ’normal’.  The function can then signal a
+     large-data warning if it is exceeded.
+
+     E.g.  (let ((df:*large-data* 50000))
+     (handler-bind ((large-data ...
+     (some-data-operation ; this will signal if the data is too large
+     (restart-bind ...
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Special Variable: *quantile-threshold*
+     If the number of unique reals exceeds this threshold, they will be
+     summarized with quantiles, otherwise print frequency table
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Special Variable: *summary-minimum-length*
+     Columns are only summarised when longer than this, otherwise they
+     are returned as is.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+
+
+File: data-frame.info,  Node: Public macros,  Next: Public ordinary functions,  Prev: Public special variables,  Up: Public Interface
+
+4.1.2 Macros
+------------
+
+ -- Macro: defdf (name data &optional documentation)
+     Define a data-frame and package by the same name.
+     Also defines symbol-macros for variable access, e.g.  mtcars:mpg
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Macro: delete-nth* (place n)
+     Destructively modifies N, a SEQUENCE by removing the Nth item.
+     Example:
+     LS-USER> (defparameter *v* #(a b c d))
+     *V*
+     LS-USER> (delete-nth* *v* 1)
+     #(A C D)
+     LS-USER> *v*
+     #(A C D)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note utils.lisp: ❨4❩.
+
+
+File: data-frame.info,  Node: Public ordinary functions,  Next: Public generic functions,  Prev: Public macros,  Up: Public Interface
+
+4.1.3 Ordinary functions
+------------------------
+
+ -- Function: add-column! (data key column &optional update-env)
+     Modify DATA (a data-frame or data-vector) by adding COLUMN with
+     KEY. Return DATA.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: add-columns (data &rest keys-and-columns)
+     Return a new data-frame or data-vector with keys and columns added.
+     Does not modify DATA.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: add-columns! (data &rest keys-and-columns)
+     Modify DATA (a data-frame or data-vector) by adding columns with
+     keys.  If a data-frame environment exists, add columns to it as
+     well.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: alist-df (alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: alist-dv (alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: column (data key)
+     Return column corresponding to key.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: (setf column) (data key)
+     Set column corresponding to key.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: column-names (df)
+     Return a list of column names in DF, as strings
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: column-type (col)
+     Return the most specific type found in COL
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note utils.lisp: ❨4❩.
+ -- Function: columns (data &optional slice)
+     Return the columns of DATA as a vector, or a selection if given
+     (keys are resolved).
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: copy (data &key key)
+     Copy data frame or vector.  Keys are copied (and thus can be
+     modified), columns or elements are copied using KEY, making the
+     default give a shallow copy.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: count-rows (data-frame keys predicate)
+     Count the number of rows for which PREDICATE called on the columns
+     corresponding to KEYS returns non-NIL.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: defdf-env (data-frame old-keys)
+     Create a package with the same name as DATA-FRAME. Within it,
+     create a symbol-macro for each column that will return the columns
+     value.  Can also be used to remove and update the environment as
+     the DATA-FRAME changes in destructive operations
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Function: delete-nth (sequence n)
+     Return SEQUENCE with the Nth item removed.
+     Note: DELETE-IF makes no guarantee of being destructive, so you
+     cannot rely on this side-effect.  You must SETF the original
+     sequence to the values returned from this function, or use the
+     modify-macro DELETE-NTH*
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note utils.lisp: ❨4❩.
+ -- Function: df (&rest plist-or-alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: df-print (df)
+     Print DF to *standard-output* in table format
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note formatted-output.lisp: ❨8❩.
+ -- Function: df-remove-duplicates (data)
+     Return a modified copy of DATA from which any element (row, if a
+     DATA-FRAME) that matches another element has been removed
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: do-rows (data-frame keys function)
+     Traverse rows from first to last, calling FUNCTION on the columns
+     corresponding to KEYS. Return no values.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: dv (&rest plist-or-alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: filter-rows (data body)
+     Filter DATA by a predicate given in BODY
+
+     Example
+     (data :mtcars) ; load a data set
+     (head mtcars) ; view first 6 rows
+
+     ;; MODEL MPG CYL DISP HP DRAT WT QSEC VS AM GEAR CARB ;; 0 Mazda
+     RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ;; 1 Mazda RX4 Wag 21.0
+     6 160 110 3.90 2.875 17.02 0 1 4 4 ;; 2 Datsun 710 22.8 4 108 93
+     3.85 2.320 18.61 1 1 4 1 ;; 3 Hornet 4 Drive 21.4 6 258 110 3.08
+     3.215 19.44 1 0 3 1 ;; 4 Hornet Sportabout 18.7 8 360 175 3.15
+     3.440 17.02 0 0 3 2 ;; 5 Valiant 18.1 6 225 105 2.76 3.460 20.22 1
+     0 3 1
+
+     (filter-rows mtcars ’(< mpg 17))
+     #<DATA-FRAME (11 observations of 12 variables)>
+
+     (head *) ; view first 6 rows of filtered data frame
+
+     ;; MODEL MPG CYL DISP HP DRAT WT QSEC VS AM GEAR CARB ;; 0 Duster
+     360 14.3 8 360.0 245 3.21 3.570 15.84 0 0 3 4 ;; 1 Merc 450SE 16.4
+     8 275.8 180 3.07 4.070 17.40 0 0 3 3 ;; 2 Merc 450SLC 15.2 8 275.8
+     180 3.07 3.780 18.00 0 0 3 3 ;; 3 Cadillac Fleetwood 10.4 8 472.0
+     205 2.93 5.250 17.98 0 0 3 4 ;; 4 Lincoln Continental 10.4 8 460.0
+     215 3.00 5.424 17.82 0 0 3 4 ;; 5 Chrysler Imperial 14.7 8 440.0
+     230 3.23 5.345 17.42 0 0 3 4
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note filter.lisp: ❨13❩.
+ -- Function: get-property (variable property)
+     Return the PROPERTY of data VARIABLE
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note properties.lisp: ❨11❩.
+ -- Function: get-summaries (df)
+     Return a list of summaries of the variables in DF
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: heuristicate-types (df)
+     Coerce each element of the column vectors to the most specific type
+     in the column
+     Often when reading in a data set, the types will be inconsistent in
+     a variable.  For example one observation might be 5.1, and another
+     5.  Whilst mathmatically equivalent, we want our variable vectors
+     to have identical types.  The COLUMN-TYPE function returns the most
+     specific numeric type in the column, then coerces all the vector
+     elements to this type
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note properties.lisp: ❨11❩.
+ -- Function: ignore-missing (function &key warn-user provide-restart)
+     Wrap FUNCTION in a closure that removes missing values and applys
+     FUNCTION in case any of the arguments are :MISSING, :NA or NIL to
+     arguments.  Intended for functions accepting vectors.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note missing.lisp: ❨12❩.
+ -- Function: keys (data)
+     Return a vector of keys.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: make-df (keys columns)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: make-dv (keys columns)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: map-columns (data function &optional result-class)
+     Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION. The result
+     is a new DATA-FRAME with the same keys.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: map-df (data-frame keys function result-keys)
+     Map DATA-FRAME to another one by rows.  Function is called on the
+     columns corresponding to KEYS, and should return a sequence with
+     the same length as RESULT-KEYS, which give the keys of the
+     resulting data frame.  RESULT-KETS should be either symbols, or of
+     the format (symbol &optional (element-type t)).
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: map-rows (data-frame keys function &key element-type)
+     Map rows using FUNCTION, on the columns corresponding to KEYS.
+     Return the result with the given ELEMENT-TYPE.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: mask-rows (data-frame keys predicate)
+     Return a bit-vector containing the result of calling PREDICATE on
+     rows of the columns corresponding to KEYS (0 for NIL, 1 otherwise).
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: matrix-df (keys matrix)
+     Convert a matrix to a data-frame with the given keys.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: plist-df (plist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: plist-dv (plist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: print-array (arr &optional stream row-numbers-p)
+     Print an array to STREAM, defaulting to *standard-output*, in a
+     tabular format.  If ROW-NUMBERS-P, print row numbers.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: print-data (data-frame &optional stream row-numbers-p
+          max-digits)
+     Print DATA-FRAME to STREAM using the pretty printer
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: print-markdown (df &key stream row-numbers)
+     Print data frame DF, in markdown format, to STREAM
+     If ROW-NUMBERS is true, also print row numbers as the first column
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note formatted-output.lisp: ❨8❩.
+ -- Function: remove-column! (data key)
+     Modify DATA (a data-frame or data-vector) by removing COLUMN with
+     KEY. Return DATA.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: remove-columns (data keys)
+     Return a new data-frame or data-vector with keys and columns
+     removed.  Does not modify DATA. ARGS: DATA data frame
+     KEYS list of keys (variables) to be removed
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: replace-column (data key function-or-column &key
+          element-type)
+     Create a new data frame with new column KEY from data-frame DATA by
+     replacing it either with the given column, or applying the function
+     to the current values (ELEMENT-TYPE is used.)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: replace-column! (data key function-or-column &key
+          element-type)
+     Modify column KEY of data-frame DATA by replacing it either with
+     the given column, or applying the function to the current values
+     (ELEMENT-TYPE is used.)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: rows (data)
+     Return the rows of DATA as a vector
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: set-properties (df property prop-values)
+     Set the PROPERTY of each variable in DF to a value.  The value is
+     specified in the plist PROP-VALUES. Example:
+     To give the variables in the mtcars dataset a unit, use:
+     (set-properties mtcars :unit ’(:mpg m/g
+     :cyl :NA
+     :disp in³
+     :hp hp
+     :drat :NA
+     :wt lb
+     :qsec s
+     :vs :NA
+     :am :NA
+     :gear :NA
+     :carb :NA))
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note properties.lisp: ❨11❩.
+ -- Function: set-property (symbol value property)
+     Set the PROPERTY of SYMBOL to VALUE
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note properties.lisp: ❨11❩.
+ -- Function: short-string (str)
+     Return up to the first newline
+     This is useful when docstrings are multi-line.  By convention, the
+     first line is the title.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: show-data-frames (&key head stream)
+     Print all data frames in the current environment in reverse order
+     of creation, i.e.  most recently created first.  If HEAD is not
+     NIL, print the first six rows, similar to the (head) function
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Function: summarize-column (column &optional name)
+     Return a summary struct for COLUMN
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: summary (df &optional stream)
+     Print a summary of DF to STREAM, using heuristics for better
+     formatting
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: undef (&rest params)
+     Remove one or more data frames from the environment
+     PARAMS: a list of DATA-FRAMEs
+
+     Essentially reverses what DEFDF does.  Returns the data frames that
+     were removed.  Don’t use this if you have a data frame bound via
+     DEFPARAMETER. Examples:
+     (undef mtcars vlcars)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+
+
+File: data-frame.info,  Node: Public generic functions,  Next: Public standalone methods,  Prev: Public ordinary functions,  Up: Public Interface
+
+4.1.4 Generic functions
+-----------------------
+
+ -- Generic Reader: data-frame (condition)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Reader Method: data-frame ((condition *note
+                    data-frame-exists: ❨160❩.))
+               *Source*
+                    *note conditions.lisp: ❨5❩.
+               *Target Slot*
+                    *note data-frame: ❨161❩.
+ -- Generic Function: drop-missing (df &optional predicate)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: drop-missing ((var vector) &optional predicate)
+               Remove all values from VAR that are missing according to
+               PREDICATE. Returns values:
+               1.  the vector with missing values removed
+               2.  the number of elements removed
+               *Source*
+                    *note missing.lisp: ❨12❩.
+           -- Method: drop-missing ((df *note data-frame: ❨47❩.)
+                    &optional predicate)
+               Remove all rows from DF that are missing values according
+               to PREDICATE
+               *Source*
+                    *note missing.lisp: ❨12❩.
+ -- Generic Function: head (df &optional n)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: head ((df *note data-frame: ❨47❩.) &optional n)
+               Return the first N rows of DF; N defaults to 6
+               *Source*
+                    *note pprint.lisp: ❨7❩.
+ -- Generic Function: missingp (data)
+     Return a vector indicating the position of any missing value
+     indicators.  They currently are :na and :missing
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note missing.lisp: ❨12❩.
+     *Methods*
+           -- Method: missingp (data)
+           -- Method: missingp ((data (eql :na)))
+           -- Method: missingp ((data (eql :missing)))
+           -- Method: missingp ((data string))
+           -- Method: missingp ((data sequence))
+           -- Method: missingp ((data array))
+           -- Method: missingp ((data *note data-frame: ❨47❩.))
+ -- Generic Reader: name (object)
+ -- Generic Writer: (setf name) (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Reader Method: name ((data *note data: ❨127❩.))
+           -- Writer Method: (setf name) ((data *note data: ❨127❩.))
+               The name of the data frame.  MUST be the same as the
+               symbol whose value cell points to this data frame.  This
+               slot essentially allows us to go ’backwards’ and get the
+               symbol that names the data frame.
+               *Source*
+                    *note data-frame.lisp: ❨6❩.
+               *Target Slot*
+                    *note name: ❨128❩.
+ -- Generic Function: rename-column! (data new old)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: rename-column! (data new old)
+               Substitute NEW, a SYMBOL, for OLD in DF
+
+               Useful when reading data files that have an empty or
+               generated column name.
+
+               Example: (rename-column!  cars ’name :||) will replace an
+               empty symbol with ’name
+               *Source*
+                    *note data-frame.lisp: ❨6❩.
+ -- Generic Function: replace-missing (df map-alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: replace-missing ((df *note data-frame: ❨47❩.)
+                    map-alist)
+               Replace missing values with the values specified
+               The alist consists of a column name in the CAR and the
+               replacement value in the CDR Example: (replace-missing
+               mtcarsm ’((mpg .  foo)))
+               *Source*
+                    *note missing.lisp: ❨12❩.
+ -- Generic Function: tail (df &optional n)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: tail ((df *note data-frame: ❨47❩.) &optional n)
+               Return the last N rows of DF; N defaults to 6
+               *Source*
+                    *note pprint.lisp: ❨7❩.
+
+
+File: data-frame.info,  Node: Public standalone methods,  Next: Public conditions,  Prev: Public generic functions,  Up: Public Interface
+
+4.1.5 Standalone methods
+------------------------
+
+ -- Method: as-alist ((data *note data: ❨127❩.))
+     Key-column pairs as an alist.
+     *Package*
+          num-utils.utilities.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: as-array ((data-vector *note data-vector: ❨43❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: as-array ((data-frame *note data-frame: ❨47❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: axis-dimension ((axis *note ordered-keys: ❨227❩.))
+     *Package*
+          select-dev.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: canonical-representation ((axis *note ordered-keys: ❨227❩.)
+          (slice symbol))
+     *Package*
+          select-dev.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: describe-object ((df *note data-frame: ❨47❩.) stream)
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: dims ((data-vector *note data-vector: ❨43❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: dims ((data-frame *note data-frame: ❨47❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: element-type ((data *note data: ❨127❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: initialize-instance :after ((data-frame *note data-frame:
+          ❨47❩.) &rest initargs)
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: ncol ((data-frame *note data-frame: ❨47❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: nrow ((data-frame *note data-frame: ❨47❩.))
+     *Package*
+          array-operations/generic.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: print-object ((data-vector *note data-vector: ❨43❩.) stream)
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: print-object ((df *note data-frame: ❨47❩.) stream)
+     Print DATA-FRAME dimensions and type
+     After defining this method it is permanently associated with
+     data-frame objects
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: print-object ((object *note generic-variable-summary: ❨57❩.)
+          stream)
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Method: print-object ((object *note factor-variable-summary: ❨63❩.)
+          stream)
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Method: print-object ((object *note bit-variable-summary: ❨68❩.)
+          stream)
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Method: print-object ((object *note real-variable-summary: ❨76❩.)
+          stream)
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Method: print-object ((ordered-keys *note ordered-keys: ❨227❩.)
+          stream)
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: select ((data-vector *note data-vector: ❨43❩.) &rest slices)
+     *Package*
+          select.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: select ((data-frame *note data-frame: ❨47❩.) &rest slices)
+     *Package*
+          select.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Method: select ((ordered-keys *note ordered-keys: ❨227❩.) &rest
+          selections)
+     *Package*
+          select.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+
+
+File: data-frame.info,  Node: Public conditions,  Next: Public structures,  Prev: Public standalone methods,  Up: Public Interface
+
+4.1.6 Conditions
+----------------
+
+ -- Condition: duplicate-key
+     An operation attempted to use a key that already exists in
+     ORDERED-KEYS
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+     *Direct superclasses*
+          error.
+     *Direct slots*
+           -- Slot: key
+               *Initargs*
+                    :key
+ -- Condition: key-not-found
+     An operation was attempted on a non-existant key.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+     *Direct superclasses*
+          error.
+     *Direct slots*
+           -- Slot: key
+               *Initargs*
+                    :key
+           -- Slot: keys
+               *Initargs*
+                    :keys
+ -- Condition: large-data
+     A operation was requested on a data set large enough to potentially
+     cause problems.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+     *Direct superclasses*
+          warning.
+     *Direct methods*
+          *note data-size: ❨171❩.
+     *Direct slots*
+           -- Slot: data-size
+               *Initargs*
+                    :data-size
+               *Readers*
+                    *note data-size: ❨171❩.
+               *Writers*
+                    This slot is read-only.
+
+
+File: data-frame.info,  Node: Public structures,  Next: Public classes,  Prev: Public conditions,  Up: Public Interface
+
+4.1.7 Structures
+----------------
+
+ -- Structure: bit-variable-summary
+     Summary of a bit vector.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Direct superclasses*
+          *note variable-summary%: ❨146❩.
+     *Direct methods*
+          *note print-object: ❨271❩.
+     *Direct slots*
+           -- Slot: count
+               *Package*
+                    common-lisp.
+               *Type*
+                    alexandria:array-index
+               *Initform*
+                    0
+               *Readers*
+                    *note bit-variable-summary-count: ❨173❩.
+               *Writers*
+                    This slot is read-only.
+ -- Structure: factor-variable-summary
+     Summary for factor variables
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Direct superclasses*
+          *note variable-summary%: ❨146❩.
+     *Direct methods*
+          *note print-object: ❨270❩.
+     *Direct slots*
+           -- Slot: element-count-alist
+               *Type*
+                    list
+               *Readers*
+                    *note factor-variable-summary-element-count-alist:
+                    ❨172❩.
+               *Writers*
+                    This slot is read-only.
+ -- Structure: generic-variable-summary
+     Summary for generic variables, i.e.  those with mixed types.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Direct superclasses*
+          *note variable-summary%: ❨146❩.
+     *Direct methods*
+          *note print-object: ❨269❩.
+     *Direct slots*
+           -- Slot: quantiles
+               *Type*
+                    (or null data-frame:real-variable-summary)
+               *Readers*
+                    *note generic-variable-summary-quantiles: ❨202❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: element-count-alist
+               *Type*
+                    list
+               *Readers*
+                    *note generic-variable-summary-element-count-alist:
+                    ❨193❩.
+               *Writers*
+                    This slot is read-only.
+ -- Structure: real-variable-summary
+     Summary of a real elements (using quantiles).
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Direct superclasses*
+          *note variable-summary%: ❨146❩.
+     *Direct methods*
+          *note print-object: ❨272❩.
+     *Direct slots*
+           -- Slot: min
+               *Package*
+                    common-lisp.
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-min: ❨192❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: q25
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-q25: ❨218❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: q50
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-q50: ❨182❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: mean
+               *Package*
+                    alexandria.
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-mean: ❨188❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: q75
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-q75: ❨198❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: max
+               *Package*
+                    common-lisp.
+               *Type*
+                    real
+               *Initform*
+                    0
+               *Readers*
+                    *note real-variable-summary-max: ❨151❩.
+               *Writers*
+                    This slot is read-only.
+
+
+File: data-frame.info,  Node: Public classes,  Next: Public types,  Prev: Public structures,  Up: Public Interface
+
+4.1.8 Classes
+-------------
+
+ -- Class: data-frame
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Direct superclasses*
+          *note data: ❨127❩.
+     *Direct methods*
+             • *note as-array: ❨263❩.
+             • *note check-column-compatibility: ❨136❩.
+             • *note describe-object: ❨260❩.
+             • *note dims: ❨264❩.
+             • *note drop-missing: ❨111❩.
+             • *note head: ❨73❩.
+             • *note initialize-instance: ❨267❩.
+             • *note missingp: ❨108❩.
+             • *note ncol: ❨265❩.
+             • *note nrow: ❨266❩.
+             • *note print-object: ❨261❩.
+             • *note replace-missing: ❨39❩.
+             • *note select: ❨262❩.
+             • *note tail: ❨115❩.
+ -- Class: data-vector
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Direct superclasses*
+          *note data: ❨127❩.
+     *Direct methods*
+             • *note as-array: ❨258❩.
+             • *note dims: ❨259❩.
+             • *note print-object: ❨256❩.
+             • *note select: ❨257❩.
+
+
+File: data-frame.info,  Node: Public types,  Prev: Public classes,  Up: Public Interface
+
+4.1.9 Types
+-----------
+
+ -- Type: data-type ()
+     A statistical type for a data variable.  All data columns must be
+     one of these types if they are to be intepreted properly by
+     Lisp-Stat
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+
+
+File: data-frame.info,  Node: Internals,  Prev: Public Interface,  Up: Definitions
+
+4.2 Internals
+=============
+
+* Menu:
+
+* Private special variables::
+* Private macros::
+* Private ordinary functions::
+* Private generic functions::
+* Private conditions::
+* Private structures::
+* Private classes::
+
+
+File: data-frame.info,  Node: Private special variables,  Next: Private macros,  Prev: Internals,  Up: Internals
+
+4.2.1 Special variables
+-----------------------
+
+ -- Special Variable: *data-frames*
+     Global list of all data frames
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Special Variable: *max-digits*
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Special Variable: *row-numbers-p*
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+
+
+File: data-frame.info,  Node: Private macros,  Next: Private ordinary functions,  Prev: Private special variables,  Up: Internals
+
+4.2.2 Macros
+------------
+
+ -- Macro: define-data-subclass (class abbreviation)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+
+
+File: data-frame.info,  Node: Private ordinary functions,  Next: Private generic functions,  Prev: Private macros,  Up: Internals
+
+4.2.3 Ordinary functions
+------------------------
+
+ -- Function: 2d-array-to-list (array)
+     Convert an array to a list of lists
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: add-key! (ordered-keys key)
+     Modify ORDERED-KEYS by adding KEY.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: add-keys (ordered-keys &rest keys)
+     Add KEYS to ORDERED-KEYS
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: aesthetic-string (thing)
+     Return the string used to represent ‘thing‘ when printing
+     aesthetically.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note formatted-output.lisp: ❨8❩.
+ -- Function: alist-data (class alist)
+     Create an object of CLASS (subclass of DATA) from ALIST which
+     contains key-column pairs.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Reader: bit-variable-summary-count (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note count: ❨69❩.
+ -- Function: bit-variable-summary-desc (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: bit-variable-summary-length (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: bit-variable-summary-missing (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: bit-variable-summary-name (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: bit-variable-summary-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: column-type-format (sequence)
+     Return a format string for the most specific type found in sequence
+     Use this for sequences of type T to determine how to format the
+     column.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: copy-bit-variable-summary (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: copy-factor-variable-summary (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: copy-generic-variable-summary (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: copy-ordered-keys (ordered-keys)
+     Return a copy of ORDERED-KEYS
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: copy-real-variable-summary (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: copy-variable-summary% (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: df-env-p (df)
+     Returns T if there is environment set-up for the data frame, or NIL
+     if there isn’t one.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: df-exists-p (s)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+ -- Function: distinct (column)
+     Returns the number of distinct elements in COLUMN, a symbol naming
+     a variable.  Useful for formatting columns for human output
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: drop-na (df)
+     Remove all rows from DF that are missing values.  Convenience
+     R-like function.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note missing.lisp: ❨12❩.
+ -- Function: ensure-arguments-alist (rest)
+     Recognizes the following and converts them to an alist:
+
+     plist
+     alist
+     (plist)
+     (alist)
+     (data-frame)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: ensure-not-ratio (real)
+     When REAL is a RATIO, convert it to a float, otherwise return as
+     is.  Used for printing.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: factor-variable-summary-desc (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Reader: factor-variable-summary-element-count-alist (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note element-count-alist: ❨64❩.
+ -- Function: factor-variable-summary-length (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: factor-variable-summary-missing (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: factor-variable-summary-name (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: factor-variable-summary-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: generic-variable-summary-desc (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Reader: generic-variable-summary-element-count-alist (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note element-count-alist: ❨59❩.
+ -- Function: generic-variable-summary-length (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: generic-variable-summary-missing (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: generic-variable-summary-name (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: generic-variable-summary-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Reader: generic-variable-summary-quantiles (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note quantiles: ❨58❩.
+ -- Function: get-type (x)
+     Return the most specific type symbol for x
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note utils.lisp: ❨4❩.
+ -- Function: invalid-df-name (s)
+     A user prompt, using DUOLOGUE, to select a valid data frame name.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+ -- Function: key-index (ordered-keys key)
+     Return the index for KEY.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: key-list (data form)
+     Return a list of keys used in REST, a form
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note filter.lisp: ❨13❩.
+ -- Function: keys-count (ordered-keys)
+     Number of keys.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: keys-vector (ordered-keys)
+     Vector of all keys.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: make-bit-variable-summary (&key length missing name desc
+          count)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: make-data (class keys columns)
+     Create a DATA object from KEYS and COLUMNS. FOR INTERNAL USE.
+     Always creates a copy of COLUMNS in order to ensure that it is an
+     adjustable array with a fill pointer.  KEYS are converted to
+     ORDERED-KEYS if necessary.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: make-factor-variable-summary (&key length missing name
+          desc element-count-alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: make-generic-variable-summary (&key length missing name
+          desc quantiles element-count-alist)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: make-ordered-keys (&key table)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: make-real-variable-summary (&key length missing name desc
+          min q25 q50 mean q75 max)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: make-variable-summary% (&key length missing name desc)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: max-decimal (sequence &optional max-digits)
+     Return the maximum number of digits to the right of the decimal
+     point in the numbers of SEQUENCE, equal to or less than MAX-DIGITS
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: max-width (sequence &optional max-width)
+     Return the largest printed string size of the elements of SEQUENCE,
+     equal to or less than MAX-WIDTH
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: monotonicp (column)
+     Returns t if all elements of COLUMN, a SYMBOL, are increasing
+     monotonically Useful for detecting row numbers in imported data
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: ordered-keys (keys)
+     Create an ORDERED-KEYS object from KEYS (a sequence).
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: ordered-keys-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Reader: ordered-keys-table (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Target Slot*
+          *note table: ❨228❩.
+ -- Function: plist-data (class plist)
+     Create an object of CLASS (subclass of DATA) from PLIST which
+     contains keys and columns, interleaved.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: print-count-and-percentage (stream count length)
+     Print COUNT as is and also as a rounded percentage
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: print-table (rows &optional stream)
+     Print ROWS as a nicely-formatted table.
+     Each row should have the same number of colums.
+     Columns will be justified properly to fit the longest item in each
+     one.  Example:
+     (print-table ’((1 :red something)
+     (2 :green more)))
+     =>
+     1 | RED | SOMETHING
+     2 | GREEN | MORE
+
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note formatted-output.lisp: ❨8❩.
+ -- Function: printer-status ()
+     Print values of all the printer variables
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: real-variable-summary-desc (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: real-variable-summary-length (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Reader: real-variable-summary-max (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note max: ❨82❩.
+ -- Reader: real-variable-summary-mean (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note mean: ❨80❩.
+ -- Reader: real-variable-summary-min (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note min: ❨77❩.
+ -- Function: real-variable-summary-missing (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: real-variable-summary-name (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: real-variable-summary-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Reader: real-variable-summary-q25 (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note q25: ❨78❩.
+ -- Reader: real-variable-summary-q50 (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note q50: ❨79❩.
+ -- Reader: real-variable-summary-q75 (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note q75: ❨81❩.
+ -- Function: remove-columns! (data &rest keys)
+     Modify DATA (a data-frame or data-vector) by removing columns with
+     keys.  If a data-frame environment exists, add columns to it as
+     well.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: remove-key! (ordered-keys key)
+     Modify ORDERED-KEYS by removing KEY.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+ -- Function: reverse-df (df)
+     Return DF with columns in reverse order
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note pprint.lisp: ❨7❩.
+ -- Function: show-properties (df)
+     Show the standard properties of the variables of the data frame DF
+     Standard properties are ’label’, ’type’ and ’unit’
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note properties.lisp: ❨11❩.
+ -- Function: show-symbols (pkg)
+     Print all symbols in PKG Example: (show-symbols ’mtcars)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note defdf.lisp: ❨10❩.
+ -- Function: summarize-factor-variable (column)
+     Return an alist of factor/count pairs
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: summarize-generic-variable (column &optional name)
+     Return an object that summarizes COLUMN of a DATA-FRAME. Primarily
+     intended for printing, not analysis, returned values should print
+     nicely.  This function can be used on any type of column, even one
+     with mixed types
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: summarize-real-variable (column)
+     Return a summary for a float variable
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: types-in-column (seq)
+     Return a list of the types found in SEQ
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note utils.lisp: ❨4❩.
+ -- Reader: variable-summary%-desc (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note desc: ❨150❩.
+ -- Reader: variable-summary%-length (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note length: ❨147❩.
+ -- Reader: variable-summary%-missing (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note missing: ❨148❩.
+ -- Reader: variable-summary%-name (instance)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Target Slot*
+          *note name: ❨149❩.
+ -- Function: variable-summary%-p (object)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+ -- Function: weave (&rest lists)
+     Return a list whose elements alternate between each of the lists
+     ‘lists‘.  Weaving stops when any of the lists has been exhausted.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note formatted-output.lisp: ❨8❩.
+
+
+File: data-frame.info,  Node: Private generic functions,  Next: Private conditions,  Prev: Private ordinary functions,  Up: Internals
+
+4.2.4 Generic functions
+-----------------------
+
+ -- Generic Function: check-column-compatibility (data column)
+     Check if COLUMN is compatible with DATA.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Methods*
+           -- Method: check-column-compatibility ((data *note
+                    data-frame: ❨47❩.) column)
+           -- Method: check-column-compatibility ((data *note data:
+                    ❨127❩.) column)
+ -- Generic Function: column-length (column)
+     Return the length of column.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Methods*
+           -- Method: column-length ((column vector))
+ -- Generic Reader: data-size (condition)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Reader Method: data-size ((condition *note large-data:
+                    ❨35❩.))
+               *Source*
+                    *note conditions.lisp: ❨5❩.
+               *Target Slot*
+                    *note data-size: ❨36❩.
+ -- Generic Function: default-column-formats (array)
+     *Package*
+          *note data-frame: ❨14❩.
+     *Methods*
+           -- Method: default-column-formats ((array simple-array))
+               Return a list of formatting strings for ARRAY
+               The method returns a set of default formatting strings
+               using heuristics.
+               *Source*
+                    *note pprint.lisp: ❨7❩.
+
+
+File: data-frame.info,  Node: Private conditions,  Next: Private structures,  Prev: Private generic functions,  Up: Internals
+
+4.2.5 Conditions
+----------------
+
+ -- Condition: data-frame-exists
+     An attempt to redefine an existing data frame.  Triggered if either
+     the symbol is bound or the package exists.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+     *Direct superclasses*
+          error.
+     *Direct methods*
+          *note data-frame: ❨46❩.
+     *Direct slots*
+           -- Slot: data-frame
+               *Initargs*
+                    :data-frame
+               *Readers*
+                    *note data-frame: ❨46❩.
+               *Writers*
+                    This slot is read-only.
+ -- Condition: missing-data
+     A variable has missing data, e.g.  :na, nil
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note conditions.lisp: ❨5❩.
+     *Direct superclasses*
+          error.
+     *Direct slots*
+           -- Slot: name
+               *Initargs*
+                    :name
+           -- Slot: data
+               *Initargs*
+                    :data
+
+
+File: data-frame.info,  Node: Private structures,  Next: Private classes,  Prev: Private conditions,  Up: Internals
+
+4.2.6 Structures
+----------------
+
+ -- Structure: ordered-keys
+     Representation of ordered keys
+     Ordered keys provide a mapping from column keys (symbols) to
+     nonnegative integers.  They are used internally and the
+     corresponding interface is NOT EXPORTED.
+
+     TABLE maps keys to indexes, starting from zero.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Direct superclasses*
+          structure-object.
+     *Direct methods*
+             • *note axis-dimension: ❨285❩.
+             • *note canonical-representation: ❨284❩.
+             • *note print-object: ❨282❩.
+             • *note select: ❨283❩.
+     *Direct slots*
+           -- Slot: table
+               *Type*
+                    hash-table
+               *Initform*
+                    (make-hash-table :test (function eq))
+               *Readers*
+                    *note ordered-keys-table: ❨169❩.
+               *Writers*
+                    This slot is read-only.
+ -- Structure: variable-summary%
+     Base class for summarizing variables.  Summary functions take
+     SYMBOLs, rather than values, because the symbol property lists
+     naming the variables have meta-data, e.g.  type, label, that we
+     want to print.  Not exported.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note summary.lisp: ❨9❩.
+     *Direct superclasses*
+          structure-object.
+     *Direct subclasses*
+             • *note bit-variable-summary: ❨68❩.
+             • *note factor-variable-summary: ❨63❩.
+             • *note generic-variable-summary: ❨57❩.
+             • *note real-variable-summary: ❨76❩.
+     *Direct slots*
+           -- Slot: length
+               *Package*
+                    common-lisp.
+               *Type*
+                    alexandria:array-index
+               *Initform*
+                    0
+               *Readers*
+                    *note variable-summary%-length: ❨189❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: missing
+               *Type*
+                    fixnum
+               *Initform*
+                    0
+               *Readers*
+                    *note variable-summary%-missing: ❨232❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: name
+               *Type*
+                    string
+               *Initform*
+                    ""
+               *Readers*
+                    *note variable-summary%-name: ❨175❩.
+               *Writers*
+                    This slot is read-only.
+           -- Slot: desc
+               *Type*
+                    string
+               *Initform*
+                    ""
+               *Readers*
+                    *note variable-summary%-desc: ❨187❩.
+               *Writers*
+                    This slot is read-only.
+
+
+File: data-frame.info,  Node: Private classes,  Prev: Private structures,  Up: Internals
+
+4.2.7 Classes
+-------------
+
+ -- Class: data
+     This class is used for implementing both data-vector and
+     data-frame, and represents an ordered collection of key-column
+     pairs.  Columns are not assumed to have any specific attributes.
+     This class is not exported.
+     *Package*
+          *note data-frame: ❨14❩.
+     *Source*
+          *note data-frame.lisp: ❨6❩.
+     *Direct subclasses*
+             • *note data-frame: ❨47❩.
+             • *note data-vector: ❨43❩.
+     *Direct methods*
+             • *note as-alist: ❨278❩.
+             • *note check-column-compatibility: ❨137❩.
+             • *note element-type: ❨279❩.
+             • *note (setf name): ❨32❩.
+             • *note name: ❨30❩.
+     *Direct slots*
+           -- Slot: name
+               The name of the data frame.  MUST be the same as the
+               symbol whose value cell points to this data frame.  This
+               slot essentially allows us to go ’backwards’ and get the
+               symbol that names the data frame.
+               *Type*
+                    string
+               *Initargs*
+                    nil
+               *Readers*
+                    *note name: ❨30❩.
+               *Writers*
+                    *note (setf name): ❨32❩.
+           -- Slot: ordered-keys
+               *Type*
+                    data-frame::ordered-keys
+               *Initargs*
+                    :ordered-keys
+           -- Slot: columns
+               *Type*
+                    vector
+               *Initargs*
+                    :columns
+
+
+File: data-frame.info,  Node: Indexes,  Prev: Definitions,  Up: Top
+
+Appendix A Indexes
+******************
+
+* Menu:
+
+* Concept index::
+* Function index::
+* Variable index::
+* Data type index::
+
+
+File: data-frame.info,  Node: Concept index,  Next: Function index,  Prev: Indexes,  Up: Indexes
+
+A.1 Concepts
+============
+
+
+File: data-frame.info,  Node: Function index,  Next: Variable index,  Prev: Concept index,  Up: Indexes
+
+A.2 Functions
+=============
+
+ [index ]
+* Menu:
+
+* (setf column):                         Public ordinary functions.
+                                                              (line  44)
+* (setf name):                           Public generic functions.
+                                                              (line  57)
+* (setf name) <1>:                       Public generic functions.
+                                                              (line  62)
+* 2d-array-to-list:                      Private ordinary functions.
+                                                              (line   6)
+* add-column!:                           Public ordinary functions.
+                                                              (line   6)
+* add-columns:                           Public ordinary functions.
+                                                              (line  13)
+* add-columns!:                          Public ordinary functions.
+                                                              (line  20)
+* add-key!:                              Private ordinary functions.
+                                                              (line  12)
+* add-keys:                              Private ordinary functions.
+                                                              (line  18)
+* aesthetic-string:                      Private ordinary functions.
+                                                              (line  24)
+* alist-data:                            Private ordinary functions.
+                                                              (line  31)
+* alist-df:                              Public ordinary functions.
+                                                              (line  28)
+* alist-dv:                              Public ordinary functions.
+                                                              (line  33)
+* as-alist:                              Public standalone methods.
+                                                              (line   6)
+* as-array:                              Public standalone methods.
+                                                              (line  12)
+* as-array <1>:                          Public standalone methods.
+                                                              (line  17)
+* axis-dimension:                        Public standalone methods.
+                                                              (line  22)
+* bit-variable-summary-count:            Private ordinary functions.
+                                                              (line  38)
+* bit-variable-summary-desc:             Private ordinary functions.
+                                                              (line  45)
+* bit-variable-summary-length:           Private ordinary functions.
+                                                              (line  50)
+* bit-variable-summary-missing:          Private ordinary functions.
+                                                              (line  55)
+* bit-variable-summary-name:             Private ordinary functions.
+                                                              (line  60)
+* bit-variable-summary-p:                Private ordinary functions.
+                                                              (line  65)
+* canonical-representation:              Public standalone methods.
+                                                              (line  27)
+* check-column-compatibility:            Private generic functions.
+                                                              (line   6)
+* check-column-compatibility <1>:        Private generic functions.
+                                                              (line  13)
+* check-column-compatibility <2>:        Private generic functions.
+                                                              (line  15)
+* column:                                Public ordinary functions.
+                                                              (line  38)
+* column-length:                         Private generic functions.
+                                                              (line  17)
+* column-length <1>:                     Private generic functions.
+                                                              (line  24)
+* column-names:                          Public ordinary functions.
+                                                              (line  50)
+* column-type:                           Public ordinary functions.
+                                                              (line  56)
+* column-type-format:                    Private ordinary functions.
+                                                              (line  70)
+* columns:                               Public ordinary functions.
+                                                              (line  62)
+* copy:                                  Public ordinary functions.
+                                                              (line  69)
+* copy-bit-variable-summary:             Private ordinary functions.
+                                                              (line  78)
+* copy-factor-variable-summary:          Private ordinary functions.
+                                                              (line  83)
+* copy-generic-variable-summary:         Private ordinary functions.
+                                                              (line  88)
+* copy-ordered-keys:                     Private ordinary functions.
+                                                              (line  93)
+* copy-real-variable-summary:            Private ordinary functions.
+                                                              (line  99)
+* copy-variable-summary%:                Private ordinary functions.
+                                                              (line 104)
+* count-rows:                            Public ordinary functions.
+                                                              (line  77)
+* data-frame:                            Public generic functions.
+                                                              (line   6)
+* data-frame <1>:                        Public generic functions.
+                                                              (line  10)
+* data-size:                             Private generic functions.
+                                                              (line  25)
+* data-size <1>:                         Private generic functions.
+                                                              (line  29)
+* default-column-formats:                Private generic functions.
+                                                              (line  35)
+* default-column-formats <1>:            Private generic functions.
+                                                              (line  39)
+* defdf:                                 Public macros.       (line   6)
+* defdf-env:                             Public ordinary functions.
+                                                              (line  84)
+* define-data-subclass:                  Private macros.      (line   6)
+* delete-nth:                            Public ordinary functions.
+                                                              (line  93)
+* delete-nth*:                           Public macros.       (line  13)
+* describe-object:                       Public standalone methods.
+                                                              (line  33)
+* df:                                    Public ordinary functions.
+                                                              (line 103)
+* df-env-p:                              Private ordinary functions.
+                                                              (line 109)
+* df-exists-p:                           Private ordinary functions.
+                                                              (line 116)
+* df-print:                              Public ordinary functions.
+                                                              (line 108)
+* df-remove-duplicates:                  Public ordinary functions.
+                                                              (line 114)
+* dims:                                  Public standalone methods.
+                                                              (line  36)
+* dims <1>:                              Public standalone methods.
+                                                              (line  41)
+* distinct:                              Private ordinary functions.
+                                                              (line 121)
+* do-rows:                               Public ordinary functions.
+                                                              (line 121)
+* drop-missing:                          Public generic functions.
+                                                              (line  16)
+* drop-missing <1>:                      Public generic functions.
+                                                              (line  20)
+* drop-missing <2>:                      Public generic functions.
+                                                              (line  27)
+* drop-na:                               Private ordinary functions.
+                                                              (line 128)
+* dv:                                    Public ordinary functions.
+                                                              (line 128)
+* element-type:                          Public standalone methods.
+                                                              (line  46)
+* ensure-arguments-alist:                Private ordinary functions.
+                                                              (line 135)
+* ensure-not-ratio:                      Private ordinary functions.
+                                                              (line 147)
+* factor-variable-summary-desc:          Private ordinary functions.
+                                                              (line 154)
+* factor-variable-summary-element-count-alist: Private ordinary functions.
+                                                              (line 159)
+* factor-variable-summary-length:        Private ordinary functions.
+                                                              (line 166)
+* factor-variable-summary-missing:       Private ordinary functions.
+                                                              (line 171)
+* factor-variable-summary-name:          Private ordinary functions.
+                                                              (line 176)
+* factor-variable-summary-p:             Private ordinary functions.
+                                                              (line 181)
+* filter-rows:                           Public ordinary functions.
+                                                              (line 133)
+* Function, (setf column):               Public ordinary functions.
+                                                              (line  45)
+* Function, 2d-array-to-list:            Private ordinary functions.
+                                                              (line   7)
+* Function, add-column!:                 Public ordinary functions.
+                                                              (line   7)
+* Function, add-columns:                 Public ordinary functions.
+                                                              (line  14)
+* Function, add-columns!:                Public ordinary functions.
+                                                              (line  21)
+* Function, add-key!:                    Private ordinary functions.
+                                                              (line  13)
+* Function, add-keys:                    Private ordinary functions.
+                                                              (line  19)
+* Function, aesthetic-string:            Private ordinary functions.
+                                                              (line  25)
+* Function, alist-data:                  Private ordinary functions.
+                                                              (line  32)
+* Function, alist-df:                    Public ordinary functions.
+                                                              (line  29)
+* Function, alist-dv:                    Public ordinary functions.
+                                                              (line  34)
+* Function, bit-variable-summary-count:  Private ordinary functions.
+                                                              (line  39)
+* Function, bit-variable-summary-desc:   Private ordinary functions.
+                                                              (line  46)
+* Function, bit-variable-summary-length: Private ordinary functions.
+                                                              (line  51)
+* Function, bit-variable-summary-missing: Private ordinary functions.
+                                                              (line  56)
+* Function, bit-variable-summary-name:   Private ordinary functions.
+                                                              (line  61)
+* Function, bit-variable-summary-p:      Private ordinary functions.
+                                                              (line  66)
+* Function, column:                      Public ordinary functions.
+                                                              (line  39)
+* Function, column-names:                Public ordinary functions.
+                                                              (line  51)
+* Function, column-type:                 Public ordinary functions.
+                                                              (line  57)
+* Function, column-type-format:          Private ordinary functions.
+                                                              (line  71)
+* Function, columns:                     Public ordinary functions.
+                                                              (line  63)
+* Function, copy:                        Public ordinary functions.
+                                                              (line  70)
+* Function, copy-bit-variable-summary:   Private ordinary functions.
+                                                              (line  79)
+* Function, copy-factor-variable-summary: Private ordinary functions.
+                                                              (line  84)
+* Function, copy-generic-variable-summary: Private ordinary functions.
+                                                              (line  89)
+* Function, copy-ordered-keys:           Private ordinary functions.
+                                                              (line  94)
+* Function, copy-real-variable-summary:  Private ordinary functions.
+                                                              (line 100)
+* Function, copy-variable-summary%:      Private ordinary functions.
+                                                              (line 105)
+* Function, count-rows:                  Public ordinary functions.
+                                                              (line  78)
+* Function, defdf-env:                   Public ordinary functions.
+                                                              (line  85)
+* Function, delete-nth:                  Public ordinary functions.
+                                                              (line  94)
+* Function, df:                          Public ordinary functions.
+                                                              (line 104)
+* Function, df-env-p:                    Private ordinary functions.
+                                                              (line 110)
+* Function, df-exists-p:                 Private ordinary functions.
+                                                              (line 117)
+* Function, df-print:                    Public ordinary functions.
+                                                              (line 109)
+* Function, df-remove-duplicates:        Public ordinary functions.
+                                                              (line 115)
+* Function, distinct:                    Private ordinary functions.
+                                                              (line 122)
+* Function, do-rows:                     Public ordinary functions.
+                                                              (line 122)
+* Function, drop-na:                     Private ordinary functions.
+                                                              (line 129)
+* Function, dv:                          Public ordinary functions.
+                                                              (line 129)
+* Function, ensure-arguments-alist:      Private ordinary functions.
+                                                              (line 136)
+* Function, ensure-not-ratio:            Private ordinary functions.
+                                                              (line 148)
+* Function, factor-variable-summary-desc: Private ordinary functions.
+                                                              (line 155)
+* Function, factor-variable-summary-element-count-alist: Private ordinary functions.
+                                                              (line 160)
+* Function, factor-variable-summary-length: Private ordinary functions.
+                                                              (line 167)
+* Function, factor-variable-summary-missing: Private ordinary functions.
+                                                              (line 172)
+* Function, factor-variable-summary-name: Private ordinary functions.
+                                                              (line 177)
+* Function, factor-variable-summary-p:   Private ordinary functions.
+                                                              (line 182)
+* Function, filter-rows:                 Public ordinary functions.
+                                                              (line 134)
+* Function, generic-variable-summary-desc: Private ordinary functions.
+                                                              (line 187)
+* Function, generic-variable-summary-element-count-alist: Private ordinary functions.
+                                                              (line 192)
+* Function, generic-variable-summary-length: Private ordinary functions.
+                                                              (line 199)
+* Function, generic-variable-summary-missing: Private ordinary functions.
+                                                              (line 204)
+* Function, generic-variable-summary-name: Private ordinary functions.
+                                                              (line 209)
+* Function, generic-variable-summary-p:  Private ordinary functions.
+                                                              (line 214)
+* Function, generic-variable-summary-quantiles: Private ordinary functions.
+                                                              (line 219)
+* Function, get-property:                Public ordinary functions.
+                                                              (line 165)
+* Function, get-summaries:               Public ordinary functions.
+                                                              (line 171)
+* Function, get-type:                    Private ordinary functions.
+                                                              (line 226)
+* Function, heuristicate-types:          Public ordinary functions.
+                                                              (line 177)
+* Function, ignore-missing:              Public ordinary functions.
+                                                              (line 190)
+* Function, invalid-df-name:             Private ordinary functions.
+                                                              (line 232)
+* Function, key-index:                   Private ordinary functions.
+                                                              (line 238)
+* Function, key-list:                    Private ordinary functions.
+                                                              (line 244)
+* Function, keys:                        Public ordinary functions.
+                                                              (line 198)
+* Function, keys-count:                  Private ordinary functions.
+                                                              (line 250)
+* Function, keys-vector:                 Private ordinary functions.
+                                                              (line 256)
+* Function, make-bit-variable-summary:   Private ordinary functions.
+                                                              (line 263)
+* Function, make-data:                   Private ordinary functions.
+                                                              (line 268)
+* Function, make-df:                     Public ordinary functions.
+                                                              (line 204)
+* Function, make-dv:                     Public ordinary functions.
+                                                              (line 209)
+* Function, make-factor-variable-summary: Private ordinary functions.
+                                                              (line 278)
+* Function, make-generic-variable-summary: Private ordinary functions.
+                                                              (line 284)
+* Function, make-ordered-keys:           Private ordinary functions.
+                                                              (line 289)
+* Function, make-real-variable-summary:  Private ordinary functions.
+                                                              (line 295)
+* Function, make-variable-summary%:      Private ordinary functions.
+                                                              (line 300)
+* Function, map-columns:                 Public ordinary functions.
+                                                              (line 214)
+* Function, map-df:                      Public ordinary functions.
+                                                              (line 221)
+* Function, map-rows:                    Public ordinary functions.
+                                                              (line 231)
+* Function, mask-rows:                   Public ordinary functions.
+                                                              (line 238)
+* Function, matrix-df:                   Public ordinary functions.
+                                                              (line 245)
+* Function, max-decimal:                 Private ordinary functions.
+                                                              (line 305)
+* Function, max-width:                   Private ordinary functions.
+                                                              (line 312)
+* Function, monotonicp:                  Private ordinary functions.
+                                                              (line 319)
+* Function, ordered-keys:                Private ordinary functions.
+                                                              (line 326)
+* Function, ordered-keys-p:              Private ordinary functions.
+                                                              (line 332)
+* Function, ordered-keys-table:          Private ordinary functions.
+                                                              (line 337)
+* Function, plist-data:                  Private ordinary functions.
+                                                              (line 344)
+* Function, plist-df:                    Public ordinary functions.
+                                                              (line 251)
+* Function, plist-dv:                    Public ordinary functions.
+                                                              (line 256)
+* Function, print-array:                 Public ordinary functions.
+                                                              (line 261)
+* Function, print-count-and-percentage:  Private ordinary functions.
+                                                              (line 351)
+* Function, print-data:                  Public ordinary functions.
+                                                              (line 269)
+* Function, print-markdown:              Public ordinary functions.
+                                                              (line 275)
+* Function, print-table:                 Private ordinary functions.
+                                                              (line 357)
+* Function, printer-status:              Private ordinary functions.
+                                                              (line 372)
+* Function, real-variable-summary-desc:  Private ordinary functions.
+                                                              (line 378)
+* Function, real-variable-summary-length: Private ordinary functions.
+                                                              (line 383)
+* Function, real-variable-summary-max:   Private ordinary functions.
+                                                              (line 388)
+* Function, real-variable-summary-mean:  Private ordinary functions.
+                                                              (line 395)
+* Function, real-variable-summary-min:   Private ordinary functions.
+                                                              (line 402)
+* Function, real-variable-summary-missing: Private ordinary functions.
+                                                              (line 409)
+* Function, real-variable-summary-name:  Private ordinary functions.
+                                                              (line 414)
+* Function, real-variable-summary-p:     Private ordinary functions.
+                                                              (line 419)
+* Function, real-variable-summary-q25:   Private ordinary functions.
+                                                              (line 424)
+* Function, real-variable-summary-q50:   Private ordinary functions.
+                                                              (line 431)
+* Function, real-variable-summary-q75:   Private ordinary functions.
+                                                              (line 438)
+* Function, remove-column!:              Public ordinary functions.
+                                                              (line 282)
+* Function, remove-columns:              Public ordinary functions.
+                                                              (line 289)
+* Function, remove-columns!:             Private ordinary functions.
+                                                              (line 445)
+* Function, remove-key!:                 Private ordinary functions.
+                                                              (line 453)
+* Function, replace-column:              Public ordinary functions.
+                                                              (line 298)
+* Function, replace-column!:             Public ordinary functions.
+                                                              (line 307)
+* Function, reverse-df:                  Private ordinary functions.
+                                                              (line 459)
+* Function, rows:                        Public ordinary functions.
+                                                              (line 315)
+* Function, set-properties:              Public ordinary functions.
+                                                              (line 321)
+* Function, set-property:                Public ordinary functions.
+                                                              (line 340)
+* Function, short-string:                Public ordinary functions.
+                                                              (line 346)
+* Function, show-data-frames:            Public ordinary functions.
+                                                              (line 354)
+* Function, show-properties:             Private ordinary functions.
+                                                              (line 465)
+* Function, show-symbols:                Private ordinary functions.
+                                                              (line 472)
+* Function, summarize-column:            Public ordinary functions.
+                                                              (line 362)
+* Function, summarize-factor-variable:   Private ordinary functions.
+                                                              (line 478)
+* Function, summarize-generic-variable:  Private ordinary functions.
+                                                              (line 484)
+* Function, summarize-real-variable:     Private ordinary functions.
+                                                              (line 493)
+* Function, summary:                     Public ordinary functions.
+                                                              (line 368)
+* Function, types-in-column:             Private ordinary functions.
+                                                              (line 499)
+* Function, undef:                       Public ordinary functions.
+                                                              (line 375)
+* Function, variable-summary%-desc:      Private ordinary functions.
+                                                              (line 505)
+* Function, variable-summary%-length:    Private ordinary functions.
+                                                              (line 512)
+* Function, variable-summary%-missing:   Private ordinary functions.
+                                                              (line 519)
+* Function, variable-summary%-name:      Private ordinary functions.
+                                                              (line 526)
+* Function, variable-summary%-p:         Private ordinary functions.
+                                                              (line 533)
+* Function, weave:                       Private ordinary functions.
+                                                              (line 538)
+* Generic Function, (setf name):         Public generic functions.
+                                                              (line  58)
+* Generic Function, check-column-compatibility: Private generic functions.
+                                                              (line   7)
+* Generic Function, column-length:       Private generic functions.
+                                                              (line  18)
+* Generic Function, data-frame:          Public generic functions.
+                                                              (line   7)
+* Generic Function, data-size:           Private generic functions.
+                                                              (line  26)
+* Generic Function, default-column-formats: Private generic functions.
+                                                              (line  36)
+* Generic Function, drop-missing:        Public generic functions.
+                                                              (line  17)
+* Generic Function, head:                Public generic functions.
+                                                              (line  34)
+* Generic Function, missingp:            Public generic functions.
+                                                              (line  42)
+* Generic Function, name:                Public generic functions.
+                                                              (line  57)
+* Generic Function, rename-column!:      Public generic functions.
+                                                              (line  72)
+* Generic Function, replace-missing:     Public generic functions.
+                                                              (line  86)
+* Generic Function, tail:                Public generic functions.
+                                                              (line  98)
+* generic-variable-summary-desc:         Private ordinary functions.
+                                                              (line 186)
+* generic-variable-summary-element-count-alist: Private ordinary functions.
+                                                              (line 191)
+* generic-variable-summary-length:       Private ordinary functions.
+                                                              (line 198)
+* generic-variable-summary-missing:      Private ordinary functions.
+                                                              (line 203)
+* generic-variable-summary-name:         Private ordinary functions.
+                                                              (line 208)
+* generic-variable-summary-p:            Private ordinary functions.
+                                                              (line 213)
+* generic-variable-summary-quantiles:    Private ordinary functions.
+                                                              (line 218)
+* get-property:                          Public ordinary functions.
+                                                              (line 164)
+* get-summaries:                         Public ordinary functions.
+                                                              (line 170)
+* get-type:                              Private ordinary functions.
+                                                              (line 225)
+* head:                                  Public generic functions.
+                                                              (line  33)
+* head <1>:                              Public generic functions.
+                                                              (line  37)
+* heuristicate-types:                    Public ordinary functions.
+                                                              (line 176)
+* ignore-missing:                        Public ordinary functions.
+                                                              (line 189)
+* initialize-instance:                   Public standalone methods.
+                                                              (line  51)
+* invalid-df-name:                       Private ordinary functions.
+                                                              (line 231)
+* key-index:                             Private ordinary functions.
+                                                              (line 237)
+* key-list:                              Private ordinary functions.
+                                                              (line 243)
+* keys:                                  Public ordinary functions.
+                                                              (line 197)
+* keys-count:                            Private ordinary functions.
+                                                              (line 249)
+* keys-vector:                           Private ordinary functions.
+                                                              (line 255)
+* Macro, defdf:                          Public macros.       (line   7)
+* Macro, define-data-subclass:           Private macros.      (line   7)
+* Macro, delete-nth*:                    Public macros.       (line  14)
+* make-bit-variable-summary:             Private ordinary functions.
+                                                              (line 261)
+* make-data:                             Private ordinary functions.
+                                                              (line 267)
+* make-df:                               Public ordinary functions.
+                                                              (line 203)
+* make-dv:                               Public ordinary functions.
+                                                              (line 208)
+* make-factor-variable-summary:          Private ordinary functions.
+                                                              (line 276)
+* make-generic-variable-summary:         Private ordinary functions.
+                                                              (line 282)
+* make-ordered-keys:                     Private ordinary functions.
+                                                              (line 288)
+* make-real-variable-summary:            Private ordinary functions.
+                                                              (line 293)
+* make-variable-summary%:                Private ordinary functions.
+                                                              (line 299)
+* map-columns:                           Public ordinary functions.
+                                                              (line 213)
+* map-df:                                Public ordinary functions.
+                                                              (line 220)
+* map-rows:                              Public ordinary functions.
+                                                              (line 230)
+* mask-rows:                             Public ordinary functions.
+                                                              (line 237)
+* matrix-df:                             Public ordinary functions.
+                                                              (line 244)
+* max-decimal:                           Private ordinary functions.
+                                                              (line 304)
+* max-width:                             Private ordinary functions.
+                                                              (line 311)
+* Method, (setf name):                   Public generic functions.
+                                                              (line  63)
+* Method, as-alist:                      Public standalone methods.
+                                                              (line   7)
+* Method, as-array:                      Public standalone methods.
+                                                              (line  13)
+* Method, as-array <1>:                  Public standalone methods.
+                                                              (line  18)
+* Method, axis-dimension:                Public standalone methods.
+                                                              (line  23)
+* Method, canonical-representation:      Public standalone methods.
+                                                              (line  29)
+* Method, check-column-compatibility:    Private generic functions.
+                                                              (line  15)
+* Method, check-column-compatibility <1>: Private generic functions.
+                                                              (line  17)
+* Method, column-length:                 Private generic functions.
+                                                              (line  25)
+* Method, data-frame:                    Public generic functions.
+                                                              (line  12)
+* Method, data-size:                     Private generic functions.
+                                                              (line  31)
+* Method, default-column-formats:        Private generic functions.
+                                                              (line  40)
+* Method, describe-object:               Public standalone methods.
+                                                              (line  34)
+* Method, dims:                          Public standalone methods.
+                                                              (line  37)
+* Method, dims <1>:                      Public standalone methods.
+                                                              (line  42)
+* Method, drop-missing:                  Public generic functions.
+                                                              (line  21)
+* Method, drop-missing <1>:              Public generic functions.
+                                                              (line  29)
+* Method, element-type:                  Public standalone methods.
+                                                              (line  47)
+* Method, head:                          Public generic functions.
+                                                              (line  38)
+* Method, initialize-instance:           Public standalone methods.
+                                                              (line  53)
+* Method, missingp:                      Public generic functions.
+                                                              (line  50)
+* Method, missingp <1>:                  Public generic functions.
+                                                              (line  51)
+* Method, missingp <2>:                  Public generic functions.
+                                                              (line  52)
+* Method, missingp <3>:                  Public generic functions.
+                                                              (line  53)
+* Method, missingp <4>:                  Public generic functions.
+                                                              (line  54)
+* Method, missingp <5>:                  Public generic functions.
+                                                              (line  55)
+* Method, missingp <6>:                  Public generic functions.
+                                                              (line  56)
+* Method, name:                          Public generic functions.
+                                                              (line  62)
+* Method, ncol:                          Public standalone methods.
+                                                              (line  56)
+* Method, nrow:                          Public standalone methods.
+                                                              (line  61)
+* Method, print-object:                  Public standalone methods.
+                                                              (line  66)
+* Method, print-object <1>:              Public standalone methods.
+                                                              (line  69)
+* Method, print-object <2>:              Public standalone methods.
+                                                              (line  76)
+* Method, print-object <3>:              Public standalone methods.
+                                                              (line  80)
+* Method, print-object <4>:              Public standalone methods.
+                                                              (line  84)
+* Method, print-object <5>:              Public standalone methods.
+                                                              (line  88)
+* Method, print-object <6>:              Public standalone methods.
+                                                              (line  92)
+* Method, rename-column!:                Public generic functions.
+                                                              (line  76)
+* Method, replace-missing:               Public generic functions.
+                                                              (line  91)
+* Method, select:                        Public standalone methods.
+                                                              (line  95)
+* Method, select <1>:                    Public standalone methods.
+                                                              (line 100)
+* Method, select <2>:                    Public standalone methods.
+                                                              (line 106)
+* Method, tail:                          Public generic functions.
+                                                              (line 102)
+* missingp:                              Public generic functions.
+                                                              (line  41)
+* missingp <1>:                          Public generic functions.
+                                                              (line  49)
+* missingp <2>:                          Public generic functions.
+                                                              (line  50)
+* missingp <3>:                          Public generic functions.
+                                                              (line  51)
+* missingp <4>:                          Public generic functions.
+                                                              (line  52)
+* missingp <5>:                          Public generic functions.
+                                                              (line  53)
+* missingp <6>:                          Public generic functions.
+                                                              (line  54)
+* missingp <7>:                          Public generic functions.
+                                                              (line  55)
+* monotonicp:                            Private ordinary functions.
+                                                              (line 318)
+* name:                                  Public generic functions.
+                                                              (line  56)
+* name <1>:                              Public generic functions.
+                                                              (line  61)
+* ncol:                                  Public standalone methods.
+                                                              (line  55)
+* nrow:                                  Public standalone methods.
+                                                              (line  60)
+* ordered-keys:                          Private ordinary functions.
+                                                              (line 325)
+* ordered-keys-p:                        Private ordinary functions.
+                                                              (line 331)
+* ordered-keys-table:                    Private ordinary functions.
+                                                              (line 336)
+* plist-data:                            Private ordinary functions.
+                                                              (line 343)
+* plist-df:                              Public ordinary functions.
+                                                              (line 250)
+* plist-dv:                              Public ordinary functions.
+                                                              (line 255)
+* print-array:                           Public ordinary functions.
+                                                              (line 260)
+* print-count-and-percentage:            Private ordinary functions.
+                                                              (line 350)
+* print-data:                            Public ordinary functions.
+                                                              (line 267)
+* print-markdown:                        Public ordinary functions.
+                                                              (line 274)
+* print-object:                          Public standalone methods.
+                                                              (line  65)
+* print-object <1>:                      Public standalone methods.
+                                                              (line  68)
+* print-object <2>:                      Public standalone methods.
+                                                              (line  74)
+* print-object <3>:                      Public standalone methods.
+                                                              (line  78)
+* print-object <4>:                      Public standalone methods.
+                                                              (line  82)
+* print-object <5>:                      Public standalone methods.
+                                                              (line  86)
+* print-object <6>:                      Public standalone methods.
+                                                              (line  90)
+* print-table:                           Private ordinary functions.
+                                                              (line 356)
+* printer-status:                        Private ordinary functions.
+                                                              (line 371)
+* real-variable-summary-desc:            Private ordinary functions.
+                                                              (line 377)
+* real-variable-summary-length:          Private ordinary functions.
+                                                              (line 382)
+* real-variable-summary-max:             Private ordinary functions.
+                                                              (line 387)
+* real-variable-summary-mean:            Private ordinary functions.
+                                                              (line 394)
+* real-variable-summary-min:             Private ordinary functions.
+                                                              (line 401)
+* real-variable-summary-missing:         Private ordinary functions.
+                                                              (line 408)
+* real-variable-summary-name:            Private ordinary functions.
+                                                              (line 413)
+* real-variable-summary-p:               Private ordinary functions.
+                                                              (line 418)
+* real-variable-summary-q25:             Private ordinary functions.
+                                                              (line 423)
+* real-variable-summary-q50:             Private ordinary functions.
+                                                              (line 430)
+* real-variable-summary-q75:             Private ordinary functions.
+                                                              (line 437)
+* remove-column!:                        Public ordinary functions.
+                                                              (line 281)
+* remove-columns:                        Public ordinary functions.
+                                                              (line 288)
+* remove-columns!:                       Private ordinary functions.
+                                                              (line 444)
+* remove-key!:                           Private ordinary functions.
+                                                              (line 452)
+* rename-column!:                        Public generic functions.
+                                                              (line  71)
+* rename-column! <1>:                    Public generic functions.
+                                                              (line  75)
+* replace-column:                        Public ordinary functions.
+                                                              (line 296)
+* replace-column!:                       Public ordinary functions.
+                                                              (line 305)
+* replace-missing:                       Public generic functions.
+                                                              (line  85)
+* replace-missing <1>:                   Public generic functions.
+                                                              (line  89)
+* reverse-df:                            Private ordinary functions.
+                                                              (line 458)
+* rows:                                  Public ordinary functions.
+                                                              (line 314)
+* select:                                Public standalone methods.
+                                                              (line  94)
+* select <1>:                            Public standalone methods.
+                                                              (line  99)
+* select <2>:                            Public standalone methods.
+                                                              (line 104)
+* set-properties:                        Public ordinary functions.
+                                                              (line 320)
+* set-property:                          Public ordinary functions.
+                                                              (line 339)
+* short-string:                          Public ordinary functions.
+                                                              (line 345)
+* show-data-frames:                      Public ordinary functions.
+                                                              (line 353)
+* show-properties:                       Private ordinary functions.
+                                                              (line 464)
+* show-symbols:                          Private ordinary functions.
+                                                              (line 471)
+* summarize-column:                      Public ordinary functions.
+                                                              (line 361)
+* summarize-factor-variable:             Private ordinary functions.
+                                                              (line 477)
+* summarize-generic-variable:            Private ordinary functions.
+                                                              (line 483)
+* summarize-real-variable:               Private ordinary functions.
+                                                              (line 492)
+* summary:                               Public ordinary functions.
+                                                              (line 367)
+* tail:                                  Public generic functions.
+                                                              (line  97)
+* tail <1>:                              Public generic functions.
+                                                              (line 101)
+* types-in-column:                       Private ordinary functions.
+                                                              (line 498)
+* undef:                                 Public ordinary functions.
+                                                              (line 374)
+* variable-summary%-desc:                Private ordinary functions.
+                                                              (line 504)
+* variable-summary%-length:              Private ordinary functions.
+                                                              (line 511)
+* variable-summary%-missing:             Private ordinary functions.
+                                                              (line 518)
+* variable-summary%-name:                Private ordinary functions.
+                                                              (line 525)
+* variable-summary%-p:                   Private ordinary functions.
+                                                              (line 532)
+* weave:                                 Private ordinary functions.
+                                                              (line 537)
+
+
+File: data-frame.info,  Node: Variable index,  Next: Data type index,  Prev: Function index,  Up: Indexes
+
+A.3 Variables
+=============
+
+ [index ]
+* Menu:
+
+* *ask-on-redefine*:                     Public special variables.
+                                                              (line   6)
+* *data-frames*:                         Private special variables.
+                                                              (line   6)
+* *distinct-maximum*:                    Public special variables.
+                                                              (line  13)
+* *distinct-threshold*:                  Public special variables.
+                                                              (line  20)
+* *large-data*:                          Public special variables.
+                                                              (line  26)
+* *max-digits*:                          Private special variables.
+                                                              (line  12)
+* *quantile-threshold*:                  Public special variables.
+                                                              (line  40)
+* *row-numbers-p*:                       Private special variables.
+                                                              (line  17)
+* *summary-minimum-length*:              Public special variables.
+                                                              (line  47)
+* columns:                               Private classes.     (line  43)
+* count:                                 Public structures.   (line  17)
+* data:                                  Private conditions.  (line  37)
+* data-frame:                            Private conditions.  (line  18)
+* data-size:                             Public conditions.   (line  46)
+* desc:                                  Private structures.  (line  80)
+* element-count-alist:                   Public structures.   (line  39)
+* element-count-alist <1>:               Public structures.   (line  65)
+* key:                                   Public conditions.   (line  16)
+* key <1>:                               Public conditions.   (line  28)
+* keys:                                  Public conditions.   (line  31)
+* length:                                Private structures.  (line  51)
+* max:                                   Public structures.   (line 133)
+* mean:                                  Public structures.   (line 113)
+* min:                                   Public structures.   (line  84)
+* missing:                               Private structures.  (line  62)
+* name:                                  Private conditions.  (line  34)
+* name <1>:                              Private structures.  (line  71)
+* name <2>:                              Private classes.     (line  25)
+* ordered-keys:                          Private classes.     (line  38)
+* q25:                                   Public structures.   (line  95)
+* q50:                                   Public structures.   (line 104)
+* q75:                                   Public structures.   (line 124)
+* quantiles:                             Public structures.   (line  58)
+* Slot, columns:                         Private classes.     (line  44)
+* Slot, count:                           Public structures.   (line  18)
+* Slot, data:                            Private conditions.  (line  38)
+* Slot, data-frame:                      Private conditions.  (line  19)
+* Slot, data-size:                       Public conditions.   (line  47)
+* Slot, desc:                            Private structures.  (line  81)
+* Slot, element-count-alist:             Public structures.   (line  40)
+* Slot, element-count-alist <1>:         Public structures.   (line  66)
+* Slot, key:                             Public conditions.   (line  17)
+* Slot, key <1>:                         Public conditions.   (line  29)
+* Slot, keys:                            Public conditions.   (line  32)
+* Slot, length:                          Private structures.  (line  52)
+* Slot, max:                             Public structures.   (line 134)
+* Slot, mean:                            Public structures.   (line 114)
+* Slot, min:                             Public structures.   (line  85)
+* Slot, missing:                         Private structures.  (line  63)
+* Slot, name:                            Private conditions.  (line  35)
+* Slot, name <1>:                        Private structures.  (line  72)
+* Slot, name <2>:                        Private classes.     (line  26)
+* Slot, ordered-keys:                    Private classes.     (line  39)
+* Slot, q25:                             Public structures.   (line  96)
+* Slot, q50:                             Public structures.   (line 105)
+* Slot, q75:                             Public structures.   (line 125)
+* Slot, quantiles:                       Public structures.   (line  59)
+* Slot, table:                           Private structures.  (line  26)
+* Special Variable, *ask-on-redefine*:   Public special variables.
+                                                              (line   7)
+* Special Variable, *data-frames*:       Private special variables.
+                                                              (line   7)
+* Special Variable, *distinct-maximum*:  Public special variables.
+                                                              (line  14)
+* Special Variable, *distinct-threshold*: Public special variables.
+                                                              (line  21)
+* Special Variable, *large-data*:        Public special variables.
+                                                              (line  27)
+* Special Variable, *max-digits*:        Private special variables.
+                                                              (line  13)
+* Special Variable, *quantile-threshold*: Public special variables.
+                                                              (line  41)
+* Special Variable, *row-numbers-p*:     Private special variables.
+                                                              (line  18)
+* Special Variable, *summary-minimum-length*: Public special variables.
+                                                              (line  48)
+* table:                                 Private structures.  (line  25)
+
+
+File: data-frame.info,  Node: Data type index,  Prev: Variable index,  Up: Indexes
+
+A.4 Data types
+==============
+
+ [index ]
+* Menu:
+
+* bit-variable-summary:                  Public structures.    (line  6)
+* Class, data:                           Private classes.      (line  7)
+* Class, data-frame:                     Public classes.       (line  7)
+* Class, data-vector:                    Public classes.       (line 29)
+* Condition, data-frame-exists:          Private conditions.   (line  7)
+* Condition, duplicate-key:              Public conditions.    (line  7)
+* Condition, key-not-found:              Public conditions.    (line 20)
+* Condition, large-data:                 Public conditions.    (line 35)
+* Condition, missing-data:               Private conditions.   (line 26)
+* conditions.lisp:                       The data-frame/conditions․lisp file.
+                                                               (line  6)
+* data:                                  Private classes.      (line  6)
+* data-frame:                            The data-frame system.
+                                                               (line  6)
+* data-frame <1>:                        The data-frame package.
+                                                               (line  6)
+* data-frame <2>:                        Public classes.       (line  6)
+* data-frame-exists:                     Private conditions.   (line  6)
+* data-frame.asd:                        The data-frame/data-frame․asd file.
+                                                               (line  6)
+* data-frame.lisp:                       The data-frame/data-frame․lisp file.
+                                                               (line  6)
+* data-type:                             Public types.         (line  6)
+* data-vector:                           Public classes.       (line 28)
+* defdf.lisp:                            The data-frame/defdf․lisp file.
+                                                               (line  6)
+* duplicate-key:                         Public conditions.    (line  6)
+* factor-variable-summary:               Public structures.    (line 28)
+* File, conditions.lisp:                 The data-frame/conditions․lisp file.
+                                                               (line  6)
+* File, data-frame.asd:                  The data-frame/data-frame․asd file.
+                                                               (line  6)
+* File, data-frame.lisp:                 The data-frame/data-frame․lisp file.
+                                                               (line  6)
+* File, defdf.lisp:                      The data-frame/defdf․lisp file.
+                                                               (line  6)
+* File, filter.lisp:                     The data-frame/filter․lisp file.
+                                                               (line  6)
+* File, formatted-output.lisp:           The data-frame/formatted-output․lisp file.
+                                                               (line  6)
+* File, missing.lisp:                    The data-frame/missing․lisp file.
+                                                               (line  6)
+* File, pkgdcl.lisp:                     The data-frame/pkgdcl․lisp file.
+                                                               (line  6)
+* File, pprint.lisp:                     The data-frame/pprint․lisp file.
+                                                               (line  6)
+* File, properties.lisp:                 The data-frame/properties․lisp file.
+                                                               (line  6)
+* File, summary.lisp:                    The data-frame/summary․lisp file.
+                                                               (line  6)
+* File, utils.lisp:                      The data-frame/utils․lisp file.
+                                                               (line  6)
+* filter.lisp:                           The data-frame/filter․lisp file.
+                                                               (line  6)
+* formatted-output.lisp:                 The data-frame/formatted-output․lisp file.
+                                                               (line  6)
+* generic-variable-summary:              Public structures.    (line 47)
+* key-not-found:                         Public conditions.    (line 19)
+* large-data:                            Public conditions.    (line 34)
+* missing-data:                          Private conditions.   (line 25)
+* missing.lisp:                          The data-frame/missing․lisp file.
+                                                               (line  6)
+* ordered-keys:                          Private structures.   (line  6)
+* Package, data-frame:                   The data-frame package.
+                                                               (line  6)
+* pkgdcl.lisp:                           The data-frame/pkgdcl․lisp file.
+                                                               (line  6)
+* pprint.lisp:                           The data-frame/pprint․lisp file.
+                                                               (line  6)
+* properties.lisp:                       The data-frame/properties․lisp file.
+                                                               (line  6)
+* real-variable-summary:                 Public structures.    (line 73)
+* Structure, bit-variable-summary:       Public structures.    (line  7)
+* Structure, factor-variable-summary:    Public structures.    (line 29)
+* Structure, generic-variable-summary:   Public structures.    (line 48)
+* Structure, ordered-keys:               Private structures.   (line  7)
+* Structure, real-variable-summary:      Public structures.    (line 74)
+* Structure, variable-summary%:          Private structures.   (line 35)
+* summary.lisp:                          The data-frame/summary․lisp file.
+                                                               (line  6)
+* System, data-frame:                    The data-frame system.
+                                                               (line  6)
+* Type, data-type:                       Public types.         (line  7)
+* utils.lisp:                            The data-frame/utils․lisp file.
+                                                               (line  6)
+* variable-summary%:                     Private structures.   (line 34)
+
+
+
+Tag Table:
+Node: Top910
+Node: Copying2106
+Node: Systems2290
+Node: The data-frame system2498
+Ref: ❨1❩2614
+Node: Files4695
+Node: Lisp files4908
+Node: The data-frame/data-frame․asd file5488
+Ref: ❨2❩5701
+Node: The data-frame/pkgdcl․lisp file5855
+Ref: ❨3❩6084
+Node: The data-frame/utils․lisp file6235
+Ref: ❨4❩6463
+Node: The data-frame/conditions․lisp file6920
+Ref: ❨5❩7162
+Node: The data-frame/data-frame․lisp file7862
+Ref: ❨6❩8105
+Node: The data-frame/pprint․lisp file12297
+Ref: ❨7❩12538
+Node: The data-frame/formatted-output․lisp file13510
+Ref: ❨8❩13768
+Node: The data-frame/summary․lisp file14227
+Ref: ❨9❩14466
+Node: The data-frame/defdf․lisp file19290
+Ref: ❨10❩19519
+Node: The data-frame/properties․lisp file20098
+Ref: ❨11❩20339
+Node: The data-frame/missing․lisp file20807
+Ref: ❨12❩21043
+Node: The data-frame/filter․lisp file21559
+Ref: ❨13❩21747
+Node: Packages22031
+Node: The data-frame package22219
+Ref: ❨14❩22338
+Node: Definitions33077
+Node: Public Interface33333
+Node: Public special variables33708
+Ref: ❨88❩33925
+Ref: ❨65❩34170
+Ref: ❨52❩34401
+Ref: ❨40❩34615
+Ref: ❨16❩35199
+Ref: ❨75❩35488
+Node: Public macros35691
+Ref: ❨26❩35908
+Ref: ❨118❩36171
+Node: Public ordinary functions36491
+Ref: ❨34❩36744
+Ref: ❨17❩37001
+Ref: ❨117❩37267
+Ref: ❨67❩37557
+Ref: ❨62❩37697
+Ref: ❨48❩37838
+Ref: ❨49❩38027
+Ref: ❨37❩38206
+Ref: ❨41❩38400
+Ref: ❨71❩38597
+Ref: ❨66❩38836
+Ref: ❨53❩39167
+Ref: ❨18❩39438
+Ref: ❨50❩39844
+Ref: ❨25❩40269
+Ref: ❨23❩40406
+Ref: ❨60❩40614
+Ref: ❨86❩40905
+Ref: ❨28❩41171
+Ref: ❨87❩41318
+Ref: ❨98❩42658
+Ref: ❨120❩42843
+Ref: ❨27❩43042
+Ref: ❨95❩43701
+Ref: ❨70❩44035
+Ref: ❨84❩44211
+Ref: ❨89❩44357
+Ref: ❨85❩44531
+Ref: ❨19❩44818
+Ref: ❨74❩45325
+Ref: ❨15❩45606
+Ref: ❨21❩45897
+Ref: ❨100❩46096
+Ref: ❨99❩46236
+Ref: ❨51❩46408
+Ref: ❨20❩46731
+Ref: ❨92❩46951
+Ref: ❨61❩47234
+Ref: ❨91❩47478
+Ref: ❨22❩47848
+Ref: ❨24❩48242
+Ref: ❨96❩48546
+Ref: ❨119❩48751
+Ref: ❨90❩49282
+Ref: ❨97❩49466
+Ref: ❨44❩49759
+Ref: ❨42❩50126
+Ref: ❨83❩50316
+Ref: ❨33❩50539
+Node: Public generic functions50939
+Ref: ❨45❩51180
+Ref: ❨46❩51358
+Ref: ❨109❩51572
+Ref: ❨110❩51710
+Ref: ❨111❩52116
+Ref: ❨72❩52335
+Ref: ❨73❩52477
+Ref: ❨101❩52649
+Ref: ❨102❩52929
+Ref: ❨103❩52979
+Ref: ❨104❩53034
+Ref: ❨105❩53081
+Ref: ❨106❩53130
+Ref: ❨107❩53176
+Ref: ❨108❩53244
+Ref: ❨29❩53278
+Ref: ❨31❩53319
+Ref: ❨30❩53453
+Ref: ❨32❩53526
+Ref: ❨93❩53991
+Ref: ❨94❩54111
+Ref: ❨38❩54519
+Ref: ❨39❩54690
+Ref: ❨114❩55054
+Ref: ❨115❩55196
+Node: Public standalone methods55330
+Ref: ❨278❩55575
+Ref: ❨258❩55778
+Ref: ❨263❩55949
+Ref: ❨285❩56123
+Ref: ❨284❩56318
+Ref: ❨260❩56481
+Ref: ❨259❩56599
+Ref: ❨264❩56766
+Ref: ❨279❩56930
+Ref: ❨267❩57144
+Ref: ❨265❩57260
+Ref: ❨266❩57427
+Ref: ❨256❩57611
+Ref: ❨261❩57734
+Ref: ❨269❩58017
+Ref: ❨270❩58164
+Ref: ❨271❩58308
+Ref: ❨272❩58453
+Ref: ❨282❩58596
+Ref: ❨257❩58729
+Ref: ❨262❩58893
+Ref: ❨283❩59076
+Node: Public conditions59166
+Ref: ❨112❩59364
+Ref: ❨113❩59643
+Ref: ❨54❩59723
+Ref: ❨55❩59975
+Ref: ❨56❩60051
+Ref: ❨35❩60129
+Ref: ❨36❩60488
+Node: Public structures60688
+Ref: ❨68❩60882
+Ref: ❨69❩61200
+Ref: ❨63❩61569
+Ref: ❨64❩61905
+Ref: ❨57❩62188
+Ref: ❨58❩62546
+Ref: ❨59❩62838
+Ref: ❨76❩63119
+Ref: ❨77❩63456
+Ref: ❨78❩63791
+Ref: ❨79❩64068
+Ref: ❨80❩64346
+Ref: ❨81❩64681
+Ref: ❨82❩64958
+Node: Public classes65270
+Ref: ❨47❩65439
+Ref: ❨43❩66296
+Node: Public types66662
+Ref: ❨116❩66802
+Node: Internals67063
+Node: Private special variables67364
+Ref: ❨123❩67565
+Ref: ❨201❩67741
+Ref: ❨174❩67884
+Node: Private macros67990
+Ref: ❨205❩68203
+Node: Private ordinary functions68313
+Ref: ❨176❩68536
+Ref: ❨194❩68724
+Ref: ❨214❩68922
+Ref: ❨152❩69100
+Ref: ❨208❩69341
+Ref: ❨173❩69599
+Ref: ❨165❩69808
+Ref: ❨223❩69967
+Ref: ❨134❩70127
+Ref: ❨162❩70284
+Ref: ❨225❩70436
+Ref: ❨154❩70586
+Ref: ❨153❩70897
+Ref: ❨230❩71057
+Ref: ❨209❩71218
+Ref: ❨163❩71371
+Ref: ❨156❩71567
+Ref: ❨221❩71721
+Ref: ❨122❩71855
+Ref: ❨140❩72094
+Ref: ❨233❩72235
+Ref: ❨179❩72505
+Ref: ❨217❩72745
+Ref: ❨196❩73020
+Ref: ❨143❩73279
+Ref: ❨172❩73452
+Ref: ❨195❩73680
+Ref: ❨145❩73843
+Ref: ❨219❩74003
+Ref: ❨197❩74158
+Ref: ❨224❩74319
+Ref: ❨193❩74493
+Ref: ❨211❩74722
+Ref: ❨234❩74886
+Ref: ❨139❩75047
+Ref: ❨220❩75203
+Ref: ❨202❩75367
+Ref: ❨166❩75556
+Ref: ❨178❩75742
+Ref: ❨215❩75965
+Ref: ❨155❩76140
+Ref: ❨144❩76334
+Ref: ❨124❩76505
+Ref: ❨167❩76727
+Ref: ❨138❩76878
+Ref: ❨204❩77328
+Ref: ❨207❩77550
+Ref: ❨229❩77701
+Ref: ❨159❩77918
+Ref: ❨168❩78093
+Ref: ❨181❩78257
+Ref: ❨199❩78558
+Ref: ❨180❩78807
+Ref: ❨226❩79083
+Ref: ❨186❩79289
+Ref: ❨169❩79440
+Ref: ❨158❩79641
+Ref: ❨235❩79925
+Ref: ❨185❩80137
+Ref: ❨183❩80594
+Ref: ❨126❩80798
+Ref: ❨184❩80958
+Ref: ❨151❩81113
+Ref: ❨188❩81319
+Ref: ❨192❩81525
+Ref: ❨125❩81736
+Ref: ❨210❩81894
+Ref: ❨231❩82047
+Ref: ❨218❩82202
+Ref: ❨182❩82407
+Ref: ❨198❩82612
+Ref: ❨141❩82816
+Ref: ❨203❩83122
+Ref: ❨206❩83303
+Ref: ❨216❩83488
+Ref: ❨164❩83771
+Ref: ❨121❩83989
+Ref: ❨142❩84203
+Ref: ❨222❩84593
+Ref: ❨157❩84778
+Ref: ❨187❩84973
+Ref: ❨189❩85179
+Ref: ❨232❩85388
+Ref: ❨175❩85595
+Ref: ❨200❩85796
+Ref: ❨177❩85936
+Node: Private generic functions86197
+Ref: ❨135❩86446
+Ref: ❨136❩86729
+Ref: ❨137❩86837
+Ref: ❨190❩86882
+Ref: ❨191❩87091
+Ref: ❨170❩87133
+Ref: ❨171❩87302
+Ref: ❨212❩87507
+Ref: ❨213❩87643
+Node: Private conditions87880
+Ref: ❨160❩88077
+Ref: ❨161❩88462
+Ref: ❨131❩88690
+Ref: ❨132❩88937
+Ref: ❨133❩89014
+Node: Private structures89067
+Ref: ❨227❩89249
+Ref: ❨228❩89944
+Ref: ❨146❩90265
+Ref: ❨147❩90965
+Ref: ❨148❩91321
+Ref: ❨149❩91601
+Ref: ❨150❩91879
+Node: Private classes92133
+Ref: ❨127❩92270
+Ref: ❨128❩93034
+Ref: ❨129❩93572
+Ref: ❨130❩93727
+Node: Indexes93832
+Node: Concept index94028
+Node: Function index94155
+Node: Variable index148831
+Node: Data type index155174
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:
