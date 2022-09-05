@@ -19,18 +19,19 @@
                "array-operations"
                "num-utils"
                "select"
+               "statistics"
                "let-plus"
                "duologue")
   :serial t
   :pathname "src/"
   :components ((:file "pkgdcl")
 	       (:file "utils")
-	       (:file "conditions")
 	       (:file "data-frame")
 	       (:file "pprint")
 	       (:file "formatted-output")
 	       (:file "summary")
 	       (:file "defdf")
+	       (:file "conditions")
 	       (:file "properties")
 	       (:file "missing")
 	       (:file "filter")

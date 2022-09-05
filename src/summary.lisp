@@ -107,19 +107,20 @@
       (float real 1.0)
       real))
 
+
 ;;; TODO figure out where distinct and monotonic should reside. Probably num-utils.
 (defun distinct (column)
   "Returns the number of distinct elements in COLUMN, a symbol naming a variable.
-Useful for formatting columns for human output"
+Useful for formatting columns for human output."
   (let+ ((data (eval column))
-	 (table (aprog1 (nu:make-sparse-counter :test #'equal)
-                  (map nil (curry #'nu:add it) data)))
+	 (table (aprog1 (make-sparse-counter :test #'equal)
+                  (map nil (curry #'add it) data)))
          (alist (as-alist table)))
     (length alist)))
 
 (defun monotonicp (column)
-  "Returns t if all elements of COLUMN, a SYMBOL, are increasing monotonically
-Useful for detecting row numbers in imported data"
+  "Returns T if all elements of COLUMN, a SYMBOL, are increasing monotonically
+Useful for detecting row numbers in imported data."
   (let ((data (eval column)))
     (if (not (every #'numberp data))
 	nil
@@ -132,13 +133,13 @@ Useful for detecting row numbers in imported data"
 (defun summarize-real-variable (column)
   "Return a summary for a float variable"
   (let+ ((data (eval column))
-	 (table (aprog1 (nu:make-sparse-counter :test #'equal)
-                  (map nil (curry #'nu:add it) data)))
+	 (table (aprog1 (make-sparse-counter :test #'equal)
+                  (map nil (curry #'add it) data)))
          (alist (as-alist table))
          ((&flet real? (item) (realp (car item))))
          (reals-alist (remove-if (complement #'real?) alist))
 	 (#(min q25 q50 q75 max)
-	   (nu:weighted-quantiles
+	   (weighted-quantiles
             (mapcar #'car reals-alist)
             (mapcar #'cdr reals-alist)
             #(0 1/4 1/2 3/4 1)))
@@ -156,8 +157,8 @@ Useful for detecting row numbers in imported data"
 (defun summarize-factor-variable (column)
   "Return an alist of factor/count pairs"
   (let+ ((data (eval column))
-	 (table (aprog1 (nu:make-sparse-counter :test #'equal)
-                  (map nil (curry #'nu:add it) data)))
+	 (table (aprog1 (make-sparse-counter :test #'equal)
+                  (map nil (curry #'add it) data)))
          (alist (as-alist table)))
 
     (make-factor-variable-summary
@@ -173,15 +174,15 @@ Useful for detecting row numbers in imported data"
   (let+ ((data (eval column))
 	 ;; (data column)
 	 (length (length data))
-         (table (aprog1 (nu:make-sparse-counter :test #'equal)
-                  (map nil (curry #'nu:add it) data)))
+         (table (aprog1 (make-sparse-counter :test #'equal)
+                  (map nil (curry #'add it) data)))
          (alist (as-alist table))
          ((&flet real? (item) (realp (car item))))
          (reals-alist (remove-if (complement #'real?) alist))
          (quantiles (when (< *quantile-threshold*
                              (length reals-alist))
                       (let+ ((#(min q25 q50 q75 max)
-                               (nu:weighted-quantiles
+                               (weighted-quantiles
                                 (mapcar #'car reals-alist)
                                 (mapcar #'cdr reals-alist)
                                 #(0 1/4 1/2 3/4 1))))

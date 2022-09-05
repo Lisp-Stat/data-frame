@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:data-frame
-  (:nicknames #:df)
+  (:nicknames #:df)			;we should remove this in favour of package local nicknames
   (:use
     #:cl
     #:alexandria
@@ -12,6 +12,7 @@
     #:select
     #:select-dev)
   (:import-from #:nu #:as-alist)
+  (:import-from #:nu.statistics #:add #:make-sparse-counter #:weighted-quantiles)
   (:export
 
     ;; errors & conditions

@@ -331,8 +331,8 @@ destructive or non-destructive."
     (assert-equalp #(a b c d) (eval (find-symbol "SYMBOLS" (find-package "NEW-DF"))))
 
     ;; ;; Remove symbol and package
-    (let ((*package* (find-package "DATA-FRAME-TESTS"))) ;this is normally run from the REPL, and undef assumes (eq *package* REPL package)
-      (df::undef data-frame-tests::new-df))
+    (let ((*package* (find-package "DATA-FRAME-TESTS")))
+      (df::undef new-df))
 
     (assert-false (boundp (find-symbol "NEW-DF" (find-package "DATA-FRAME-TESTS"))) "The data frame was not removed")
     (assert-false (find-package "NEW-DF"))))

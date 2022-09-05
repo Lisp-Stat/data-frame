@@ -88,9 +88,7 @@ To get a local copy up and running follow these steps:
 
 ### Prerequisites
 
-An ANSI Common Lisp implementation. Developed and tested with
-[SBCL](https://www.sbcl.org/) ~~and
-[CCL](https://github.com/Clozure/ccl)~~.
+An ANSI Common Lisp implementation. Developed and tested with [SBCL](https://www.sbcl.org/).
 
 ### Installation
 
@@ -157,7 +155,9 @@ See the [open issues](https://github.com/lisp-stat/data-frame/issues) for a list
 
 ## Resources
 
-This system is part of the [Lisp-Stat](https://lisp-stat.dev/) project; that should be your first stop for information. Also see the <!-- [resources](https://lisp-stat.dev/resources) and -->
+This system is part of the [Lisp-Stat](https://lisp-stat.dev/)
+project; that should be your first stop for information. Also see the
+[resources](https://lisp-stat.dev/resources) and
 [community](https://lisp-stat.dev/community) page for more
 information.
 
