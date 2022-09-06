@@ -46,7 +46,7 @@ Can also be used to remove and update the environment as the DATA-FRAME changes 
     (check-type data-frame symbol     "a symbol")
     (check-type df         data-frame "a data frame")
 
-    (unlessf pkg (make-package df-name :use '()))
+    (alexandria+:unlessf pkg (make-package df-name :use '()))
     (unless (slot-boundp df 'name)
       (setf (name df) df-name))
     (when add-keys
