@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "data-frame"
-  :version     "1.0.0"
+  :version     "1.1.0"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -35,7 +35,9 @@
 	       (:file "properties")
 	       (:file "missing")
 	       (:file "filter")
-	       (:file "plist-aops"))
+	       (:file "plist-aops")
+	       (:file "data")
+	       (:file "rdata"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"
