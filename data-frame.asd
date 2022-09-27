@@ -21,7 +21,8 @@
                "select"
                "statistics"
                "let-plus"
-               "duologue")
+               "duologue"
+	       "sb-cltl2")
   :serial t
   :pathname "src/"
   :components ((:file "pkgdcl")
