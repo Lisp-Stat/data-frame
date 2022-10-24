@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:data-frame
-  (:nicknames #:df)			;we should remove this in favour of package local nicknames
+  (:nicknames #:df)			;we should remove this
   (:use
     #:cl
     #:alexandria
@@ -14,9 +14,6 @@
   (:import-from #:nu #:as-alist)
   (:import-from #:nu.statistics #:add #:make-sparse-counter #:weighted-quantiles)
   (:export
-
-   ;; data loading
-   #:data
 
    ;; errors & conditions
    #:*large-data*			;maximum data size for a particular use case

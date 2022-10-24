@@ -72,7 +72,7 @@ If ROW-NUMBERS is true, also print row numbers as the first column"
 	 (*print-pretty* t))
 
     ;; For notebook printing, we only need four digits of accuracy
-    (set-pprint-dispatch 'float  (lambda (s f) (format s "~,4f" f)))
+    (set-pprint-dispatch 'float  (lambda (s f) (format s "~4f" f)))
 
     ;; Print column names
     (if row-numbers (format stream "| "))
