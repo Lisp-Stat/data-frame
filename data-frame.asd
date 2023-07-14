@@ -1,8 +1,8 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
-;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2023 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "data-frame"
-  :version     "1.1.1"
+  :version     "1.2.1"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"

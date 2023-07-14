@@ -24,7 +24,7 @@
 ;;; It is not easy to line up columns dynamically when printing them.
 ;;; Common lisp does have good control over justification and digits
 ;;; but, unlike, say, markdown, it's up to the programmer to
-;;; explicitly specify the paddings.  If you knew a prori the widths,
+;;; explicitly specify the paddings.  If you knew a priori the widths,
 ;;; this would be easy, but if you want to compute them at run-time
 ;;; things get a bit ugly.
 

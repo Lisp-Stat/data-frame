@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021, 2023 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 ;;; Handle missing data
@@ -25,7 +25,7 @@
   (:method ((data sequence))
     (map 'vector #'missingp data))
   (:method ((data array))
-    (nu:map-array data #'missingp))
+    (aops:map-array data #'missingp))
   (:method ((data data-frame))
     (map-columns data #'missingp))
   (:documentation "Return a vector indicating the position of any missing value indicators.  They currently are :na and :missing"))
