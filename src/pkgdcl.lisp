@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2023 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:data-frame
   (:nicknames #:df)			;we should remove this
@@ -55,6 +55,7 @@
    #:undef
    #:defdf-env				;define package/symbol macros for environment
    #:show-data-frames
+   #:random-sample
    #:*ask-on-redefine*			;if non-nil, ask user if a data frame will be overwritten
 
    ;; transformations for data-frames
@@ -64,6 +65,7 @@
    #:count-rows
    #:filter-rows
    #:map-df
+   ;; #:split ; don't export until we make 'split' generic and merge with aops 'split'
    #:replace-column!
    #:replace-column
    #:remove-column!

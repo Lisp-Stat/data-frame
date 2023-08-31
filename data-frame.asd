@@ -1,8 +1,9 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
 ;;; Copyright (c) 2020-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.2.1"
+  :version     "1.3.0"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -36,7 +37,8 @@
 	       (:file "properties")
 	       (:file "missing")
 	       (:file "filter")
-	       (:file "plist-aops"))
+	       (:file "plist-aops")
+	       (:file "random-sample"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"
