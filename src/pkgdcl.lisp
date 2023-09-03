@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 ;;; Copyright (c) 2020-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:data-frame
   (:nicknames #:df)			;we should remove this
@@ -12,7 +13,7 @@
     #:select
     #:select-dev)
   (:import-from #:nu #:as-alist)
-  (:import-from #:nu.statistics #:add #:make-sparse-counter #:weighted-quantiles)
+  (:import-from #:statistics-1 #:add #:make-sparse-counter #:weighted-quantiles #:random-sample)
   (:export
 
    ;; errors & conditions

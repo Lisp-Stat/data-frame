@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:data-frame)
 
 ;;; Note: tpapp never mentions the difference between a data-vector
@@ -582,3 +583,20 @@ After defining this method it is permanently associated with data-frame objects"
 		(push '("--------" "----" "----" "-----------") rows)
 		(push '("Variable" "Type" "Unit" "Label") rows)
 		(print-table rows stream)))))))))
+
+(defmethod random-sample ((df data-frame) n &key with-replacement)
+    "Return N rows of DF taken at random.
+
+If WITH-REPLACEMENT is true, return a random sample with
+replacement (a \"draw\").
+
+If WITH-REPLACEMENT is false, return a random sample without
+replacement (a \"deal\")."
+  (declare (data-frame df) (array-length n))
+  (let ((len (first (aops:dims df))))
+    (cond ((= n 0) nil)
+          ((= n 1) (select df (random len) t))
+          (t (let+ ((index-array (if with-replacement
+				     (ls.statistics::generate-index-array/replacement n len)
+				     (ls.statistics::generate-index-array n len))))
+	       (select df index-array t))))))

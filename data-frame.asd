@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.3.0"
+  :version     "1.3.1"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -37,8 +37,7 @@
 	       (:file "properties")
 	       (:file "missing")
 	       (:file "filter")
-	       (:file "plist-aops")
-	       (:file "random-sample"))
+	       (:file "plist-aops"))
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"
