@@ -3,7 +3,7 @@
 (in-package #:data-frame)
 
 ;;;
-;;; Insert & remove items from vectors and arrays -- TODO move to array-operations
+;;; Insert & remove items from vectors and arrays -- TODO move to alexandria+
 ;;;
 
 (defun delete-nth (sequence n)

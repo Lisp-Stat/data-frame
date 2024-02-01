@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.3.1"
+  :version     "1.3.2"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -23,7 +23,7 @@
                "statistics"
                "let-plus"
                "duologue"
-	       "sb-cltl2")
+	       #+sbcl "sb-cltl2")
   :serial t
   :pathname "src/"
   :components ((:file "pkgdcl")

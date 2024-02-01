@@ -417,7 +417,7 @@ Example: (rename-column! cars 'name :||) will replace an empty symbol with 'name
               (make-dv keys columns)
               (make-df keys columns))))))
 
-;;; TODO: (setf selection)
+;;; TODO: (setfs election)
 
 
 ;;; mapping rows and adding columns
@@ -560,10 +560,13 @@ After defining this method it is permanently associated with data-frame objects"
 
 
 ;;; KLUDGE ALERT
-;;; This violates the spec...
+;;; This violates the spec.  It's not easy at all to get good
+;;; behaviour from describe.  See code and comments in describe.lisp.
 (defmethod describe-object :after ((s symbol) stream)
   (unless (boundp s) (return-from describe-object))
-  (unless (eq (SB-CLTL2:variable-information s) :symbol-macro)
+  (unless (eq #+sbcl (SB-CLTL2:variable-information s)
+	      #+ccl  (ccl:variable-information s)
+	      :symbol-macro)
     (let ((*print-pretty* t)
 	  (df (symbol-value s))
 	  (name (symbol-name s)))
@@ -584,19 +587,29 @@ After defining this method it is permanently associated with data-frame objects"
 		(push '("Variable" "Type" "Unit" "Label") rows)
 		(print-table rows stream)))))))))
 
-(defmethod random-sample ((df data-frame) n &key with-replacement)
-    "Return N rows of DF taken at random.
+
+(defmethod sample ((df data-frame) n &key
+				       with-replacement
+				       skip-unselected)
+  "Return N rows of DF taken at random.
 
 If WITH-REPLACEMENT is true, return a random sample with
 replacement (a \"draw\").
 
 If WITH-REPLACEMENT is false, return a random sample without
-replacement (a \"deal\")."
-  (declare (data-frame df) (array-length n))
-  (let ((len (first (aops:dims df))))
-    (cond ((= n 0) nil)
-          ((= n 1) (select df (random len) t))
-          (t (let+ ((index-array (if with-replacement
-				     (ls.statistics::generate-index-array/replacement n len)
-				     (ls.statistics::generate-index-array n len))))
-	       (select df index-array t))))))
+replacement (a \"deal\").
+
+If SKIP-UNSELECTED is non-NIL, do not return the elements of DF that we not part of the selection.  Non-NIL by default, as the typical use case is to split a data set into training and test data sets."
+  (declare (data-frame df))
+  (let+ (((&dims nrow &ign) df))
+    (cond ((> n nrow) (error "Requested number of rows N is greater than rows in the data frame."))
+	  ((= n 0) nil)
+          ((= n 1) (select df (random nrow) t)) ;return unselected row?  This seems an edge case.
+	  ((= n nrow) df)
+	  (t (let+ ((indices (linspace 0 (1- nrow) nrow))
+		    (selected (sample indices n :with-replacement with-replacement))
+		    (not-selected (set-difference* indices selected)))
+	       (if skip-unselected
+		   (select df selected t)
+		   (values (select df selected t)
+			   (select df not-selected t))))))))

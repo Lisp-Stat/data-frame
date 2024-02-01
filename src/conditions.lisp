@@ -1,10 +1,9 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2024 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 (define-condition duplicate-key (error)
   ((key :initarg :key))
-  (:documentation "Duplicate key.")
   (:report (lambda (condition stream)
              (format stream "Duplicate key ~A." (slot-value condition 'key))))
   (:documentation "An operation attempted to use a key that already exists in ORDERED-KEYS"))
@@ -12,7 +11,6 @@
 (define-condition key-not-found (error)
   ((key :initarg :key)
    (keys :initarg :keys))
-  (:documentation "Key not found.")
   (:report (lambda (condition stream)
              (format stream "Key ~A not found, valid keys are ~A."
                      (slot-value condition 'key)

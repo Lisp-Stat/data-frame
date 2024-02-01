@@ -1,9 +1,9 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2020-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2024 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:data-frame
-  (:nicknames #:df)			;we should remove this
+  (:nicknames #:df)			;we should remove this in favour of package-local-nicknames
   (:use
     #:cl
     #:alexandria
@@ -13,7 +13,8 @@
     #:select
     #:select-dev)
   (:import-from #:nu #:as-alist)
-  (:import-from #:statistics-1 #:add #:make-sparse-counter #:weighted-quantiles #:random-sample)
+  (:import-from #:statistics-1 #:add #:make-sparse-counter #:weighted-quantiles)
+  (:import-from #:aops #:&dims #:linspace)
   (:export
 
    ;; errors & conditions
@@ -45,7 +46,7 @@
    ;; data-frame
    #:data-frame
    #:doc-string			;same as CL:documentation, but for data-frames
-   #:source				;return the source of the data
+   #:source			;return the source of the data
    #:make-df
    #:alist-df
    #:plist-df
@@ -54,10 +55,10 @@
    #:rows
    #:defdf
    #:undef
-   #:defdf-env				;define package/symbol macros for environment
+   #:defdf-env			;define package/symbol macros for environment
    #:show-data-frames
    #:random-sample
-   #:*ask-on-redefine*			;if non-nil, ask user if a data frame will be overwritten
+   #:*ask-on-redefine*		;if non-nil, ask user if a data frame will be overwritten
 
    ;; transformations for data-frames
    #:map-rows
@@ -103,7 +104,7 @@
 
    ;; Sequence utilities -- these should be in array-operations
    #:delete-nth			;delete the nth item from a sequence
-   #:delete-nth*			;modify macro for delete-nth
+   #:delete-nth*		;modify macro for delete-nth
 
    ;; Subsets of data
    #:filter-rows
