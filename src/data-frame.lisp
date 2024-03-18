@@ -562,10 +562,12 @@ After defining this method it is permanently associated with data-frame objects"
 ;;; KLUDGE ALERT
 ;;; This violates the spec.  It's not easy at all to get good
 ;;; behaviour from describe.  See code and comments in describe.lisp.
+#+allegro (setf excl:*enable-package-locked-errors* nil)
 (defmethod describe-object :after ((s symbol) stream)
   (unless (boundp s) (return-from describe-object))
   (unless (eq #+sbcl (SB-CLTL2:variable-information s)
 	      #+ccl  (ccl:variable-information s)
+	      #+allegro (system:variable-information s)
 	      :symbol-macro)
     (let ((*print-pretty* t)
 	  (df (symbol-value s))
@@ -586,7 +588,7 @@ After defining this method it is permanently associated with data-frame objects"
 		(push '("--------" "----" "----" "-----------") rows)
 		(push '("Variable" "Type" "Unit" "Label") rows)
 		(print-table rows stream)))))))))
-
+#+allegro (setf excl:*enable-package-locked-errors* t)
 
 (defmethod sample ((df data-frame) n &key
 				       with-replacement

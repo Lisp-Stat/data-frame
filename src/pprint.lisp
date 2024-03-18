@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
 ;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:data-frame)
 
 #+genera (eval-when (eval load compile) (xp::install))
@@ -136,8 +137,23 @@ Use this for sequences of type T to determine how to format the column."
 ;;; Formatters
 ;;;
 
+#+nil
 (defmethod default-column-formats (#-genera (array simple-array)
 				   #+genera (array 'simple-array))
+  "Return a list of formatting strings for ARRAY
+The method returns a set of default formatting strings using heuristics."
+  ;; TODO: Delete once ACL is full working.
+  (let ((col-widths (aops:margin #'max-width   array 0))
+	(col-types  (aops:margin #'column-type-format array 0))
+	(col-digits (aops:margin #'max-decimal array 0)))
+    (map 'list #'(lambda (type width digits)
+		   (alexandria:switch (type :test #'string=)
+		     ("F" (format nil "~~~A,~AF" width digits))
+		     ("D" (format nil "~~~AD"    width))
+		     ("A" (format nil "~~~AA"    width))))
+	 col-types col-widths col-digits)))
+
+(defun default-column-formats (array)
   "Return a list of formatting strings for ARRAY
 The method returns a set of default formatting strings using heuristics."
   (let ((col-widths (aops:margin #'max-width   array 0))
