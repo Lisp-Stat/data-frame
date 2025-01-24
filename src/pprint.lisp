@@ -186,7 +186,9 @@ The method returns a set of default formatting strings using heuristics."
       (setf df (reverse-df
 		(add-columns (reverse-df df) ;add to end of DF
 			     '||
-			     (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))))))
+			     (if (> (aops:nrow df) 1)
+				 (aops:linspace 0 (1- (aops:nrow df)) (aops:nrow df))
+				 #(0))))))	;special case of 1 row
     (flet ((format-column (c)
 	     (let* ((width (max (max-width (column df c))
 				(length (symbol-name c))))
