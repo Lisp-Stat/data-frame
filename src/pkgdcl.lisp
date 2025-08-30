@@ -13,7 +13,7 @@
     #:select
     #:select-dev)
   (:import-from #:nu #:as-alist)
-  (:import-from #:statistics-1 #:add #:make-sparse-counter #:weighted-quantiles)
+  (:import-from #:statistics #:add #:make-sparse-counter #:weighted-quantiles)
   (:import-from #:aops #:&dims #:linspace)
   (:export
 
