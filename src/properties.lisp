@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022, 2026 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 (defun heuristicate-types (df)
@@ -66,15 +66,23 @@ Example:
 
 ;; Not exported
 (defun show-properties (df)
-  "Show the standard properties of the variables of the data frame DF
-Standard properties are 'label', 'type' and 'unit'"
-  (let* ((rows (loop for key across (keys df)
-		    collect (list (symbol-name key)
-				  (get key :type)
-				  (get key :unit)
-				  (get key :label)))))
-    (push '("--------" "----" "----" "-----------") rows)
-    (push '("Variable" "Type" "Unit" "Label") rows)
-    (print-table rows)))
+  "Show the standard properties of the variables of the data frame DF. Standard properties are 'label', 'type' and 'unit'"
+  (let* ((name (when (slot-boundp df 'name) (name df)))
+	 (meta-data (make-array `(,(aops:ncol df) 4))))
+    (loop for i below (length (keys df))
+	  for key across (keys df)
+	  for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
+	  do (setf (aref meta-data i 0) (symbol-name key)
+		   (aref meta-data i 1) (get sym :type)
+		   (aref meta-data i 2) (get sym :unit)
+		   (aref meta-data i 3) (get sym :label)))
+
+    ;; Maybe we can get rid of this.
+    (setf meta-data (aops:stack-rows #("--------" "----" "----" "-----------") meta-data))
+
+    (nu:print-matrix (aops:as-array meta-data) *standard-output*
+		     :formatter #'print-data-frame-formatter
+		     :padding " | "
+		     :column-labels #("Variable" "Type" "Unit" "Label"))))
 
 

@@ -1,9 +1,9 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
-;;; Copyright (c) 2020-2024,2025 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.3.4"
+  :version     "1.3.5"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -29,8 +29,7 @@
   :components ((:file "pkgdcl")
 	       (:file "utils")
 	       (:file "data-frame")
-	       (:file "pprint")
-	       (:file "formatted-output")
+	       (:file "print")
 	       (:file "summary")
 	       (:file "defdf")
 	       (:file "conditions")

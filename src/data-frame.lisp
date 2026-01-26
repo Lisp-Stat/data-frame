@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023, 2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:data-frame)
 
@@ -513,84 +513,6 @@ Example: (rename-column! cars 'name :||) will replace an empty symbol with 'name
 						       (length (svref new-rows 0)))
 						 :initial-contents new-rows)))
 			  (matrix-df (keys data) new-array)))))
-
-
-;; TODO
-#+nil
-(defun delete-duplicates (data)
-  "Like REMOVE-DUPLICATES, but may modify DATA"
-...)
-
-(defmethod print-object ((ordered-keys ordered-keys) stream)
-  (print-unreadable-object (ordered-keys stream :type t)
-    (format stream "~{~a~^, ~}" (coerce (keys-vector ordered-keys) 'list))))
-
-(defmethod print-object ((data-vector data-vector) stream)
-  (let ((alist (as-alist data-vector)))
-      (print-unreadable-object (data-vector stream :type t)
-        (format stream "of ~d variables" (length alist)))))
-
-(defmethod print-object ((df data-frame) stream)
-  "Print DATA-FRAME dimensions and type
-After defining this method it is permanently associated with data-frame objects"
-  (print-unreadable-object (df stream :type t)
-    (let ((description (and (slot-boundp df 'name)
-			    (documentation (find-symbol (name df)) 'variable))))
-    (format stream
-	    "(~d observations of ~d variables)"
-	    (aops:nrow df)
-	    (aops:ncol df))
-    (when description
-      (format stream "~&~A" (short-string description))))))
-
-(defmethod describe-object ((df data-frame) stream)
-  (let ((name (when (slot-boundp df 'name) (name df))))
-    (format stream "~A~%" name)
-    (format stream "  A data-frame with ~D observations of ~D variables~2%" (aops:nrow df) (aops:ncol df))
-    (when name
-      (let ((rows (loop for key across (keys df)
-			for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
-			collect (list (symbol-name key)
-				      (get sym :type)
-				      (get sym :unit)
-				      (get sym :label)))))
-      (push '("--------" "----" "----" "-----------") rows)
-      (push '("Variable" "Type" "Unit" "Label") rows)
-      (print-table rows)))))
-
-
-;;; KLUDGE ALERT
-;;; This violates the spec.  It's not easy at all to get good
-;;; behaviour from describe.  See code and comments in describe.lisp.
-#+allegro (setf excl:*enable-package-locked-errors* nil)
-#+lispworks (setf lw:*handle-warn-on-redefinition* :warn)
-(defmethod describe-object :after ((s symbol) stream)
-  (unless (boundp s) (return-from describe-object))
-  (unless (eq #+sbcl (SB-CLTL2:variable-information s)
-	      #+ccl  (ccl:variable-information s)
-	      #+allegro (system:variable-information s)
-          #+lispworks (hcl:variable-information s)
-	      :symbol-macro)
-    (let ((*print-pretty* t)
-	  (df (symbol-value s))
-	  (name (symbol-name s)))
-
-      (pprint-logical-block (stream nil)
-	(pprint-logical-block (stream nil)
-          (pprint-indent :block 2 stream)
-	  (when-let ((pkg (find-package name)))
-	    (format stream "~@:_Variables: ~@:_")
-	    (pprint-logical-block (stream nil :per-line-prefix "  ")
-	      (let ((rows (loop for key across (keys df)
-				for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
-				collect (list (symbol-name key)
-					      (get sym :type)
-					      (get sym :unit)
-					      (get sym :label)))))
-		(push '("--------" "----" "----" "-----------") rows)
-		(push '("Variable" "Type" "Unit" "Label") rows)
-		(print-table rows stream)))))))))
-#+allegro (setf excl:*enable-package-locked-errors* t)
 
 (defmethod sample ((df data-frame) n &key
 				       with-replacement

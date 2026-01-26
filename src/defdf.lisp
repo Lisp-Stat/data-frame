@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022,2026 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:data-frame)
 
 ;;; Functions for defining data frames in the statistical environment.
@@ -98,42 +98,11 @@ Examples:
   params)
 
 
-;;; In order to show data frame consistently with different settings
-;;; for print-object, we need to control printing here.
-;;; TODO move to data-frame.lisp
-(defun show-data-frames (&key (head nil) (stream *standard-output*))
-  "Print all data frames in the current environment in reverse order of creation, i.e. most recently created first.
-If HEAD is not NIL, print the first six rows, similar to the (head) function"
-  (let ((*print-pretty* nil))
-    (if head
-	(loop for df-sym in *data-frames* do
-	  ;; (loop for df in (sort (copy-list *data-frames*) #'string<=) do ;alphabetical order
-	  (let ((df (symbol-value df-sym)))
-	    (let* ((*print-lines* 6)
-		   (*print-pretty* t))
-	      (format stream "~2&~A" (symbol-name df-sym))
-	      (df:print-data df stream nil))))
-	(pprint-logical-block (stream nil)
-	  (pprint-logical-block (stream nil)
-	    (pprint-indent :block 2 stream)
-	    (loop for df-sym in *data-frames*
-		  do (progn
-		       (format stream "~@:_~A:~@:_" (symbol-name df-sym))
-		       (fresh-line stream)
-		       (pprint-logical-block (stream nil :per-line-prefix "  ")
-			 (format stream "~A" (symbol-value df-sym)))
-		       (fresh-line stream)
-		       (terpri stream))))))))
-
-
 ;; Unexported. For debugging
 (defun show-symbols (pkg)
   "Print all symbols in PKG
 Example: (show-symbols 'mtcars)"
   (do-symbols (s (find-package (symbol-name pkg))) (print s)))
-
-
-
 
 #| This works, but we're not using at the moment
 (defun redefinitionp (df)
