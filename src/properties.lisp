@@ -68,10 +68,15 @@ Example:
 (defun show-properties (df)
   "Show the standard properties of the variables of the data frame DF. Standard properties are 'label', 'type' and 'unit'"
   (let* ((name (when (slot-boundp df 'name) (name df)))
+	 (pkg  (when name (find-package name)))
 	 (meta-data (make-array `(,(aops:ncol df) 4))))
     (loop for i below (length (keys df))
 	  for key across (keys df)
-	  for sym = (find-symbol (string-upcase (symbol-name key)) (find-package name))
+	  for key-name = (string-upcase (symbol-name key))
+	  for sym = (or
+		     (when pkg (find-symbol key-name pkg))
+		     (when (symbol-package key) (find-symbol key-name (symbol-package key)))
+		     key)
 	  do (setf (aref meta-data i 0) (symbol-name key)
 		   (aref meta-data i 1) (get sym :type)
 		   (aref meta-data i 2) (get sym :unit)
