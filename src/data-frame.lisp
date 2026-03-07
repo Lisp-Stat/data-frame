@@ -3,10 +3,6 @@
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:data-frame)
 
-;;; Note: tpapp never mentions the difference between a data-vector
-;;; and a data-frame. As near as I can tell, a data-frame must have
-;;; the same number of rows for each variable.
-
 (defparameter *large-data* most-positive-fixnum ;4611686018427387903
   "An indication that the data set is large for a particular use case.
 This should be bound by a user to the maximum number of data points they consider to be 'normal'. The function can then signal a large-data warning if it is exceeded.
@@ -183,10 +179,7 @@ TABLE maps keys to indexes, starting from zero."
 
 
 ;;; These two functions, alist-data & plist-data can be used to create
-;;; DATA-VECTOR classes, that is a class works just like DATA-FRAME,
-;;; but permits unequal length variables.  To date, I haven't found
-;;; much (any) need for a DATA-VECTOR and haven't done any
-;;; improvements to that class.
+;;; DATA-VECTOR classes.
 (defun alist-data (class alist)
   "Create an object of CLASS (subclass of DATA) from ALIST which contains key-column pairs."
   (assert alist () "Can't create an empty data frame.")
@@ -245,7 +238,6 @@ TABLE maps keys to indexes, starting from zero."
 (defun map-columns (data function &optional (result-class (class-of data)))
   "Map columns of DATA-FRAME or DATA-VECTOR using FUNCTION.  The result is a new DATA-FRAME with the same keys."
   (make-data result-class (keys data) (map 'vector function (columns data))))
-
 
 (defun df-env-p (df)
   "Returns T if there is environment set-up for the data frame, or NIL if there isn't one."
@@ -417,7 +409,7 @@ Example: (rename-column! cars 'name :||) will replace an empty symbol with 'name
               (make-dv keys columns)
               (make-df keys columns))))))
 
-;;; TODO: (setfs election)
+;;; TODO: (setf selection)
 
 
 ;;; mapping rows and adding columns
@@ -539,3 +531,37 @@ If SKIP-UNSELECTED is non-NIL, do not return the elements of DF that we not part
 		   (select df selected t)
 		   (values (select df selected t)
 			   (select df not-selected t))))))))
+
+;; TODO: should this return the package qualified symbol?
+(defun list-data-frames (&optional (packages (remove-duplicates
+                                              (list (find-package :ls-user)
+                                                    (find-package :cl-user)
+                                                    *package*)
+                                              :from-end t :test #'eq)))
+  "Return a list of symbol names (strings) for all bound symbols whose values are data frames in the given packages."
+  (let (names)
+    (dolist (pkg packages)
+      (when pkg
+        (do-symbols (sym pkg)
+          (when (and (boundp sym)
+                     (typep (symbol-value sym) 'df:data-frame))
+            (pushnew (symbol-name sym) names :test #'string=)))))
+    (sort names #'string<)))
+
+;; TODO: should this return the data-frame itself?
+;; It's main use is in ls-server, interactively I don't think this is a problem.
+(defun find-data-frame (name &optional (packages (remove-duplicates
+                                                 (list (find-package :ls-user)
+                                                       (find-package :cl-user)
+                                                       *package*)
+                                                 :from-end t :test #'eq)))
+  "Look up NAME (case-insensitive) in the given packages. Returns the symbol if it is bound to a data frame, or NIL."
+  (let ((upcased (string-upcase name)))
+    (dolist (pkg packages)
+      (when pkg
+        (let ((sym (find-symbol upcased pkg)))
+          (when (and sym
+                     (boundp sym)
+                     (typep (symbol-value sym) 'df:data-frame))
+            (return-from find-data-frame sym))))))
+  nil)

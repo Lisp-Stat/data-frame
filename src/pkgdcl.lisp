@@ -59,6 +59,8 @@
    #:show-data-frames
    #:random-sample
    #:*ask-on-redefine*		;if non-nil, ask user if a data frame will be overwritten
+   #:list-data-frames
+   #:find-data-frame
 
    ;; transformations for data-frames
    #:map-rows
