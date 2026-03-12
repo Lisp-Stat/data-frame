@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.4.0"
+  :version     "1.4.1"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -29,9 +29,9 @@
   :components ((:file "pkgdcl")
 	       (:file "utils")
 	       (:file "data-frame")
-	       (:file "print")
 	       (:file "summary")
 	       (:file "defdf")
+	       (:file "print")
 	       (:file "conditions")
 	       (:file "properties")
 	       (:file "missing")
