@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2020-2024 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2024,2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:data-frame
@@ -59,7 +59,7 @@
    #:show-data-frames
    #:random-sample
    #:*ask-on-redefine*		;if non-nil, ask user if a data frame will be overwritten
-   #:list-data-frames
+   #:data-frame-symbols
    #:find-data-frame
 
    ;; transformations for data-frames

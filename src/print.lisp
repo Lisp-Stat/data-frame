@@ -26,30 +26,41 @@ Returns: (values formatted-string alignment)."
                        :right))
       (t (values (princ-to-string x) :left)))))
 
-;;; TODO:SN:20260124 Simplify this now that we have print-matrix as a base
-(defun show-data-frames (&key (head nil) (stream *standard-output*))
-  "Print all data frames in the current environment in reverse order of creation, i.e. most recently created first.
-If HEAD is not NIL, print the first six rows, similar to the (head) function"
-  (let ((*print-pretty* nil))
+;;; TODO:SN:20260312 Kludge until we port Julia's PrettyTable
+(defun show-data-frames (&key (head nil)
+                              (stream *standard-output*)
+                              packages
+                              (defdf-only nil))
+  "Print all data frames visible in PACKAGES to STREAM.
+
+If HEAD is non-NIL, print the first six rows of each frame (like HEAD). If DEFDF-ONLY is non-NIL, restrict output to frames registered via DEFDF   (i.e. those with symbol-macro environments).
+PACKAGES defaults to *default-df-search-packages* plus *package*."
+  (let* ((syms (if defdf-only
+                   *data-frames*
+                   (if packages
+                       (data-frame-symbols packages)
+                       (data-frame-symbols))))
+         (*print-pretty* nil))
+
     (if head
-	(loop for df-sym in *data-frames* do
-	  ;; (loop for df in (sort (copy-list *data-frames*) #'string<=) do ;alphabetical order
-	  (let ((df (symbol-value df-sym)))
-	    (let* ((*print-lines* 6)
-		   (*print-pretty* t))
-	      (format stream "~2&~A" (symbol-name df-sym))
-	      (print df stream))))
-	(pprint-logical-block (stream nil)
-	  (pprint-logical-block (stream nil)
-	    (pprint-indent :block 2 stream)
-	    (loop for df-sym in *data-frames*
-		  do (progn
-		       (format stream "~@:_~A:~@:_" (symbol-name df-sym))
-		       (fresh-line stream)
-		       (pprint-logical-block (stream nil :per-line-prefix "  ")
-			 (format stream "~A" (symbol-value df-sym)))
-		       (fresh-line stream)
-		       (terpri stream))))))))
+	(dolist (df-sym syms)
+	  (let* ((df (symbol-value df-sym))
+		 (n  (min 6 (aops:nrow df)))
+		 (*print-pretty* t))
+            (format stream "~2&~A" (symbol-name df-sym))
+            (pprint (select df (select:range 0 n) t) stream)))
+
+
+        (pprint-logical-block (stream nil)
+          (pprint-logical-block (stream nil)
+            (pprint-indent :block 2 stream)
+            (dolist (df-sym syms)
+              (format stream "~@:_~A:~@:_" (symbol-name df-sym))
+              (fresh-line stream)
+              (pprint-logical-block (stream nil :per-line-prefix "  ")
+                (format stream "~A" (symbol-value df-sym)))
+              (fresh-line stream)
+              (terpri stream)))))))
 
 ;;; Not pretty printing per-se, but related
 

@@ -532,36 +532,3 @@ If SKIP-UNSELECTED is non-NIL, do not return the elements of DF that we not part
 		   (values (select df selected t)
 			   (select df not-selected t))))))))
 
-;; TODO: should this return the package qualified symbol?
-(defun list-data-frames (&optional (packages (remove-duplicates
-                                              (list (find-package :ls-user)
-                                                    (find-package :cl-user)
-                                                    *package*)
-                                              :from-end t :test #'eq)))
-  "Return a list of symbol names (strings) for all bound symbols whose values are data frames in the given packages."
-  (let (names)
-    (dolist (pkg packages)
-      (when pkg
-        (do-symbols (sym pkg)
-          (when (and (boundp sym)
-                     (typep (symbol-value sym) 'df:data-frame))
-            (pushnew (symbol-name sym) names :test #'string=)))))
-    (sort names #'string<)))
-
-;; TODO: should this return the data-frame itself?
-;; It's main use is in ls-server, interactively I don't think this is a problem.
-(defun find-data-frame (name &optional (packages (remove-duplicates
-                                                 (list (find-package :ls-user)
-                                                       (find-package :cl-user)
-                                                       *package*)
-                                                 :from-end t :test #'eq)))
-  "Look up NAME (case-insensitive) in the given packages. Returns the symbol if it is bound to a data frame, or NIL."
-  (let ((upcased (string-upcase name)))
-    (dolist (pkg packages)
-      (when pkg
-        (let ((sym (find-symbol upcased pkg)))
-          (when (and sym
-                     (boundp sym)
-                     (typep (symbol-value sym) 'df:data-frame))
-            (return-from find-data-frame sym))))))
-  nil)

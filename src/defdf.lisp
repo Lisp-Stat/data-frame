@@ -5,12 +5,12 @@
 ;;; Functions for defining data frames in the statistical environment.
 
 (defvar *data-frames* nil
-  "Global list of all data frames")
+  "Global list of all data frames, not exported")
 
 (defvar *ask-on-redefine* t
   "If non-nil, the system will ask the user for confirmation before redefining a data frame")
 
-
+
 (defmacro defdf (name data &optional (documentation nil documentation-p))
   "Define a data-frame and package by the same name.
 Also defines symbol-macros for variable access, e.g. mtcars:mpg"
@@ -30,7 +30,7 @@ Also defines symbol-macros for variable access, e.g. mtcars:mpg"
 	  `(setf (documentation ',name 'variable) ',documentation))
 
        (setf (symbol-value ',name) ,data)
-       (pushnew ',name *data-frames*)
+       (pushnew ',name *data-frames* :test #'eq)
        (defdf-env ',name nil))))
 
 
@@ -70,32 +70,68 @@ Can also be used to remove and update the environment as the DATA-FRAME changes 
 	      rem-keys))
     df))
 
-(defun undef (&rest params)
-  "Remove one or more data frames from the environment
-PARAMS: a list of DATA-FRAMEs
+(defun undef (&rest all-args &key (packages nil packages-supplied-p))
+  "Remove one or more data frames from the environment.
 
-Essentially reverses what DEFDF does.  Returns the data frames that were removed.  Don't use this if you have a data frame bound via DEFPARAMETER.
+Each designator in ALL-ARGS (before any keyword) may be:
+  - a symbol   — used directly
+  - a string   — looked up case-insensitively via FIND-DATA-FRAME
+  - a data-frame object — legacy; the NAME slot is used (defdf only)
+
+:PACKAGES — package list passed to FIND-DATA-FRAME when a string
+  designator is used.  Defaults to *default-df-search-packages* plus
+  *package*.  Has no effect when symbols are passed directly.
+
+Works for frames defined via DEFDF (removes the symbol-macro package)
+and for frames bound via DEFPARAMETER or SETF (just unbinds the symbol).
+
 Examples:
-    (undef mtcars vlcars)"
-  (dolist (df params)
-    (check-type df data-frame "a data-frame")
-    (assert (slot-boundp df 'name) () "name is not bound in the data-frame")
+  (undef 'mtcars)
+  (undef 'mtcars 'cars)
+  (undef \"mtcars\")                          ; string look-up
+  (undef \"mtcars\" :packages '(:my-pkg))    ; explicit search scope"
+  ;; Strip keyword arguments out of the &rest list so we only iterate
+  ;; the actual designators.
+  (let ((designators (loop for arg in all-args
+                           until (keywordp arg)
+                           collect arg))
+        (pkg-list (if packages-supplied-p
+                      packages
+                      (default-search-packages))))
+    (dolist (designator designators)
+      (let ((sym
+              (etypecase designator
+                ;; Preferred: a quoted symbol
+                (symbol designator)
+                ;; Programmatic / server path: a name string
+                (string
+                 (or (find-data-frame designator pkg-list)
+                     (error "No data frame named ~S found in ~S"
+                            designator pkg-list)))
+                ;; Backward compat: the data-frame value itself
+                (data-frame
+                 (assert (slot-boundp designator 'name) ()
+                   "Cannot undef a data frame with no NAME slot; ~
+                    pass the symbol or string instead.")
+                 (find-symbol (name designator))))))
+        (check-type sym symbol)
+        (unless (boundp sym)
+          (error "~A is not bound" sym))
+        (unless (typep (symbol-value sym) 'data-frame)
+          (error "~A is not bound to a data frame" sym))
 
-    (let* ((pkg (find-package (name df))) ;package for symbol-macros
-	   (df-sym (find-symbol (name df))))
-      (assert (member df-sym *data-frames*)
-	      ()
-	      "~A is not known in the environment.  It may have been defined without defdf" (name df))
+        ;; Tear down the defdf environment if one exists
+        (let ((pkg (find-package (symbol-name sym))))
+          (when pkg
+            (do-symbols (var pkg) (unintern var pkg))
+            (delete-package pkg)))
 
-      ;; Remove the symbol macros
-      (loop for var being the symbols in pkg
-	    do (unintern var))
-      (delete-package pkg)
+        ;; Remove from the *data-frames* registry
+        (setf *data-frames* (delete sym *data-frames*))
 
-      ;; Remove the data frame
-      (setf *data-frames* (delete df-sym *data-frames*))
-      (makunbound df-sym)))
-  params)
+        ;; Unbind
+        (makunbound sym)))
+    designators))
 
 
 ;; Unexported. For debugging
