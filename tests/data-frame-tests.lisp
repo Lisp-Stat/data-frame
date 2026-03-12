@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: DATA-FRAME-TESTS -*-
-;;; Copyright (c) 2020-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2020-2022,2026 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:data-frame-tests
   (:use
@@ -338,3 +338,115 @@ It's not worth the time to test for print formatting
     (assert-false (find-package "NEW-DF"))))
 
 
+
+;;; Registry — data-frame-symbols and find-data-frame
+
+;;; Registry — data-frame-symbols and find-data-frame
+
+(defsuite registry (data-frame))
+
+(deffixture registry (@body)
+  "Bind two named data frames in the test package, remove them after.
+*ask-on-redefine* is nil so defdf never blocks on interactive input.
+Pre-cleanup removes leftovers from any previous failed run.
+unwind-protect guarantees cleanup even when a test signals an error."
+  (let ((df::*ask-on-redefine* nil))
+    (when (boundp 'reg-alpha) (df::undef 'reg-alpha))
+    (when (boundp 'reg-beta)  (df::undef 'reg-beta))
+    (df::defdf reg-alpha (df:make-df '(:a :b) (list #(1 2 3) #(4 5 6))))
+    (df::defdf reg-beta  (df:make-df '(:x :y) (list #(7 8)   #(9 10))))
+    (unwind-protect
+        @body
+      (when (boundp 'reg-alpha) (df::undef 'reg-alpha))
+      (when (boundp 'reg-beta)  (df::undef 'reg-beta)))))
+
+;;; data-frame-symbols
+
+(deftest dfs-returns-symbols (registry)
+  "Every element of data-frame-symbols is a symbol, not a string."
+  (let ((syms (df:data-frame-symbols (list (find-package :data-frame-tests)))))
+    (assert-true (every #'symbolp syms))))
+
+(deftest dfs-finds-frames (registry)
+  "data-frame-symbols finds all data frames bound in the search package."
+  (let ((syms (df:data-frame-symbols (list (find-package :data-frame-tests)))))
+    (assert-true (member 'reg-alpha syms))
+    (assert-true (member 'reg-beta  syms))))
+
+(deftest dfs-sorted (registry)
+  "data-frame-symbols returns symbols in ascending alphabetical order."
+  (let* ((syms  (df:data-frame-symbols (list (find-package :data-frame-tests))))
+         (names (mapcar #'symbol-name syms)))
+    (assert-equalp (sort (copy-seq names) #'string<) names)))
+
+(deftest dfs-values-are-data-frames (registry)
+  "Every symbol returned by data-frame-symbols is bound to a data frame."
+  (let ((syms (df:data-frame-symbols (list (find-package :data-frame-tests)))))
+    (assert-true (every (lambda (sym)
+                          (and (boundp sym)
+                               (typep (symbol-value sym) 'data-frame)))
+                        syms))))
+
+(deftest dfs-excludes-non-frames (registry)
+  "data-frame-symbols does not include symbols not bound to data frames."
+  (let ((syms (df:data-frame-symbols (list (find-package :data-frame-tests)))))
+    (assert-false (member '*package* syms))))
+
+(deftest dfs-empty-package (registry)
+  "data-frame-symbols returns nil for a package containing no data frames."
+  (assert-false (df:data-frame-symbols (list (find-package :common-lisp)))))
+
+(deftest dfs-custom-packages (registry)
+  "data-frame-symbols respects an explicit packages argument."
+  (let ((cl-syms   (df:data-frame-symbols (list (find-package :common-lisp))))
+        (test-syms (df:data-frame-symbols (list (find-package :data-frame-tests)))))
+    (assert-false (member 'reg-alpha cl-syms))
+    (assert-true  (member 'reg-alpha test-syms))
+    (assert-true  (member 'reg-beta  test-syms))))
+
+(deftest dfs-no-duplicates (registry)
+  "data-frame-symbols returns no duplicate symbols even if packages overlap."
+  (let* ((pkg  (find-package :data-frame-tests))
+         (syms (df:data-frame-symbols (list pkg pkg))))
+    (assert-equalp (remove-duplicates syms :test #'eq) syms)))
+
+;;; find-data-frame
+
+(deftest fdf-found (registry)
+  "find-data-frame returns the symbol when the name exists."
+  (let ((sym (df:find-data-frame "REG-ALPHA" (list (find-package :data-frame-tests)))))
+    (assert-true sym)
+    (assert-true (typep (symbol-value sym) 'data-frame))))
+
+(deftest fdf-not-found (registry)
+  "find-data-frame returns nil when the name does not exist."
+  (assert-false (df:find-data-frame "NO-SUCH-FRAME"
+                                    (list (find-package :data-frame-tests)))))
+
+(deftest fdf-case-insensitive (registry)
+  "find-data-frame matches regardless of the case of the input string."
+  (let ((pkg (list (find-package :data-frame-tests))))
+    (assert-true (df:find-data-frame "reg-alpha" pkg))
+    (assert-true (df:find-data-frame "REG-ALPHA" pkg))
+    (assert-true (df:find-data-frame "Reg-Alpha" pkg))
+    (assert-true (df:find-data-frame "rEg-aLpHa" pkg))))
+
+(deftest fdf-returns-symbol (registry)
+  "find-data-frame returns the symbol itself, not the data-frame value."
+  (let ((result (df:find-data-frame "REG-ALPHA"
+                                    (list (find-package :data-frame-tests)))))
+    (assert-true  (symbolp result))
+    (assert-equalp 'reg-alpha result)))
+
+(deftest fdf-symbol-value-is-data-frame (registry)
+  "The symbol returned by find-data-frame is bound to the correct data frame."
+  (let* ((sym    (df:find-data-frame "REG-BETA"
+                                     (list (find-package :data-frame-tests))))
+         (result (symbol-value sym)))
+    (assert-true  (typep result 'data-frame))
+    (assert-equalp #(:x :y) (df:keys result))))
+
+(deftest fdf-wrong-package (registry)
+  "find-data-frame returns nil when the frame exists but not in the searched package."
+  (assert-false (df:find-data-frame "REG-ALPHA"
+                                    (list (find-package :common-lisp)))))

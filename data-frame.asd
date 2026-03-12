@@ -41,7 +41,7 @@
   :in-order-to ((test-op (test-op "data-frame/tests"))))
 
 (defsystem "data-frame/tests"
-  :version "1.0.0"
+  :version "1.1.0"
   :description "Unit tests for DATA-FRAME."
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL

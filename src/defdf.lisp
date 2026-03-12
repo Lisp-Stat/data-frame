@@ -70,69 +70,36 @@ Can also be used to remove and update the environment as the DATA-FRAME changes 
 	      rem-keys))
     df))
 
-(defun undef (&rest all-args &key (packages nil packages-supplied-p))
+(defun undef (&rest symbols)
   "Remove one or more data frames from the environment.
-
-Each designator in ALL-ARGS (before any keyword) may be:
-  - a symbol   — used directly
-  - a string   — looked up case-insensitively via FIND-DATA-FRAME
-  - a data-frame object — legacy; the NAME slot is used (defdf only)
-
-:PACKAGES — package list passed to FIND-DATA-FRAME when a string
-  designator is used.  Defaults to *default-df-search-packages* plus
-  *package*.  Has no effect when symbols are passed directly.
-
-Works for frames defined via DEFDF (removes the symbol-macro package)
-and for frames bound via DEFPARAMETER or SETF (just unbinds the symbol).
+Each argument may be a symbol bound to a data frame, or (for backward
+compatibility) a data-frame object.  To remove by name string use:
+  (df:undef (df:find-data-frame name))
 
 Examples:
   (undef 'mtcars)
   (undef 'mtcars 'cars)
-  (undef \"mtcars\")                          ; string look-up
-  (undef \"mtcars\" :packages '(:my-pkg))    ; explicit search scope"
-  ;; Strip keyword arguments out of the &rest list so we only iterate
-  ;; the actual designators.
-  (let ((designators (loop for arg in all-args
-                           until (keywordp arg)
-                           collect arg))
-        (pkg-list (if packages-supplied-p
-                      packages
-                      (default-search-packages))))
-    (dolist (designator designators)
-      (let ((sym
-              (etypecase designator
-                ;; Preferred: a quoted symbol
-                (symbol designator)
-                ;; Programmatic / server path: a name string
-                (string
-                 (or (find-data-frame designator pkg-list)
-                     (error "No data frame named ~S found in ~S"
-                            designator pkg-list)))
-                ;; Backward compat: the data-frame value itself
-                (data-frame
-                 (assert (slot-boundp designator 'name) ()
-                   "Cannot undef a data frame with no NAME slot; ~
-                    pass the symbol or string instead.")
-                 (find-symbol (name designator))))))
-        (check-type sym symbol)
-        (unless (boundp sym)
-          (error "~A is not bound" sym))
-        (unless (typep (symbol-value sym) 'data-frame)
-          (error "~A is not bound to a data frame" sym))
-
-        ;; Tear down the defdf environment if one exists
-        (let ((pkg (find-package (symbol-name sym))))
-          (when pkg
-            (do-symbols (var pkg) (unintern var pkg))
-            (delete-package pkg)))
-
-        ;; Remove from the *data-frames* registry
-        (setf *data-frames* (delete sym *data-frames*))
-
-        ;; Unbind
-        (makunbound sym)))
-    designators))
-
+  (undef mtcars)          ; backward-compatible: passes the df value"
+  (dolist (sym symbols)
+    (let ((sym (etypecase sym
+                 (symbol sym)
+                 (data-frame
+                  (assert (slot-boundp sym 'name) ()
+                    "Cannot undef a data frame with no NAME slot; ~
+                     pass the symbol instead.")
+                  (find-symbol (name sym))))))
+      (check-type sym symbol)
+      (unless (boundp sym)
+        (error "~A is not bound" sym))
+      (unless (typep (symbol-value sym) 'data-frame)
+        (error "~A is not bound to a data frame" sym))
+      (let ((pkg (find-package (symbol-name sym))))
+        (when pkg
+          (do-symbols (var pkg) (unintern var pkg))
+          (delete-package pkg)))
+      (setf *data-frames* (delete sym *data-frames* :test #'eq))
+      (makunbound sym)))
+  symbols)
 
 ;; Unexported. For debugging
 (defun show-symbols (pkg)
