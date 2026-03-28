@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "data-frame"
-  :version     "1.4.2"
+  :version     "1.4.3"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Data frames for Common Lisp"
@@ -20,7 +20,7 @@
                "array-operations"
                "num-utils"
                "select"
-               "statistics"		;TODO: remove this dependency.  All stats functions belong in statistics, like 'summary'
+               "statistics"
                "let-plus"
                "duologue"
 	       #+sbcl "sb-cltl2")
