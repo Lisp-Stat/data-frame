@@ -10,9 +10,13 @@ Often when reading in a data set, the types will be inconsistent in a variable. 
   (let ((name (name df)))
     (map nil #'(lambda (key)
 		 (let* ((data     (column df key))
-			(col-type (column-type data))
-			(sym (find-symbol (symbol-name key) (find-package name))))
-		   (setf (get sym :type) col-type)))
+				(col-type (column-type data))
+				(sym (find-symbol (symbol-name key) (find-package name))))
+		   (setf (get sym :type) col-type)
+		   ;; If a column is :temporal, replace strings in it with timestamps.
+		   ;; If local-time fails to parse a value then signal an error without corrupting the dataframe.
+		   (when (eql col-type :temporal)
+			 (setf (column df key) (map 'vector #'local-time:parse-timestring data)))))
 	 (keys df))))
 
 (defun set-properties (df property prop-values)
